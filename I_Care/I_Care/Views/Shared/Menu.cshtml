@@ -1,0 +1,164 @@
+﻿@using I_Care.Models
+@{
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    string[] SSO_ALLOW = ROLES.GetRolesForUser(User.Identity.Name.ToString());
+    int H_W = Request.Browser.ScreenPixelsHeight + 24;
+
+}
+
+<div id="sidebar" class="sidebar responsive ace-save-state sidebar-fixed sidebar-scroll">
+    <script type="text/javascript">
+				    try { ace.settings.loadState('sidebar') } catch (e) { }
+    </script>
+
+
+
+    <ul class="nav nav-list">
+
+
+        <li @{if (ViewBag.Parent == "Home") { <text> class="active" </text> }}>
+            <a href="@Url.Content("~/Home")" onclick="render_wait()">
+                <i class="menu-icon fa fa-home"></i>
+                <span class="menu-text"> Home </span>
+            </a>
+
+            <b class="arrow"></b>
+        </li>
+
+        @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2018010006", 1) == true)
+        {
+            <text>
+
+                <li @{if (ViewBag.Parent == "IT Equipment") { <text> class="active open" </text> } else { <text> class="" </text> }}>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-desktop"></i>
+                        <span class="menu-text"> IT Equipment</span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+
+
+                        <li @{if (ViewBag.Child == "Create_Request_IT_Equipment") { <text> class="active" </text> }}>
+                            <a href="@Url.Content("~/ItEquipment/Request")" onclick="render_wait()"
+                               >
+                                <i class="menu-icon fa fa-caret-right"></i><i class="fa fa-mouse-pointer" aria-hidden="true"></i> Create Request
+
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+
+                        <li @{if (ViewBag.Child == "Request List") { <text> class="active" </text> }}>
+                            <a href="@Url.Content("~/ItEquipment/RequestList")" onclick="render_wait()">
+                                <i class="menu-icon fa fa-caret-right"></i><i class="fa fa-cart-arrow-down" aria-hidden="true"></i> Request List
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li @{if (ViewBag.Child == "Submissions List") { <text> class="active" </text> }}>
+                            <a href="@Url.Content("~/ItEquipment/SubmissionsList")" onclick="render_wait()">
+                                <i class="menu-icon fa fa-caret-right"></i><i class="fa fa-upload" aria-hidden="true"></i> Submissions List
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+
+                </li>
+            </text>
+        }
+
+
+        @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2018020003", 1) == true)
+        {
+            <text>
+
+                <li @{if (ViewBag.Parent == "Contract") { <text> class="active open" </text> } else { <text> class="" </text> }}>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-pencil-square-o"></i>
+                        <span class="menu-text"> Contract</span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+                        <li @{if (ViewBag.Child == "GeneralAffair") { <text> class="active" </text> }}>
+                            <a href="@Url.Content("~/Contract/GeneralAffair")" onclick="render_wait()">
+                                <i class="menu-icon fa fa-caret-right"></i><i class="fa fa-file" aria-hidden="true"></i> General Affair
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+
+
+                    @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2019090001", 1) == true)
+                    {
+
+                        <ul class="submenu">
+                            <li @{if (ViewBag.Child == "CustomerContract") { <text> class="active" </text> }}>
+                                <a href="@Url.Content("~/View/Contract/CustomerContractList")" onclick="render_wait()">
+                                    <i class="menu-icon fa fa-caret-right"></i><i class="fa fa-file-text-o" aria-hidden="true"></i> Customers
+                                </a>
+
+                                <b class="arrow"></b>
+                            </li>
+                        </ul>
+
+                    }
+
+                </li>
+
+            </text>
+        }
+
+
+        @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2018010005", 1) == true)
+        {
+            <text>
+
+                <li @{if (ViewBag.Parent == "Master Data") { <text> class="active open" </text> } else { <text> class="" </text> }}>
+                    <a href="#" class="dropdown-toggle">
+                        <i class="menu-icon fa fa-database"></i>
+                        <span class="menu-text"> Master Data</span>
+
+                        <b class="arrow fa fa-angle-down"></b>
+                    </a>
+
+                    <b class="arrow"></b>
+
+                    <ul class="submenu">
+                        <li @{if (ViewBag.Child == "Item") { <text> class="active" </text> }}>
+                            <a href="@Url.Content("~/Master/MasterItem")" onclick="render_wait()">
+                                <i class="menu-icon fa fa-caret-right"></i>Item Request
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+
+                        <li @{if (ViewBag.Child == "Roles") { <text> class="active" </text> }}>
+                            <a href="@Url.Content("~/Master/Roles")" onclick="render_wait()">
+                                <i class="menu-icon fa fa-caret-right"></i>Roles
+                            </a>
+
+                            <b class="arrow"></b>
+                        </li>
+                    </ul>
+                </li>
+            </text>
+        }
+
+    </ul><!-- /.nav-list -->
+
+    <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
+        <i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+    </div>
+</div>

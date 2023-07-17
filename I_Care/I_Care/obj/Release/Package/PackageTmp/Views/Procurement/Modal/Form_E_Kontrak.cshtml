@@ -1,0 +1,440 @@
+﻿<style>
+
+	#prepared_page_e_contract {
+		text-align: center;
+		width: 80%;
+		margin: 6% auto;
+		border: 0px solid #dedede;
+		padding: 1%;
+		border-radius: 5px;
+	}
+
+	#page_e_kontrak_pilih_template {
+		margin: 6% auto;
+	}
+
+		#page_e_kontrak_pilih_template .icon_short_cut {
+			height: 120px;
+			width: 100px;
+			padding: 10px;
+		}
+
+
+	#page_e_kontrak_pilih_winner {
+		margin: 6% auto;
+	}
+
+		#page_e_kontrak_pilih_winnert .icon_short_cut {
+			height: 120px;
+			width: 100px;
+			padding: 10px;
+		}
+
+	#prepared_page_e_contract_sub {
+		width: 75%;
+		margin: 10% auto;
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+
+	.richText-editor {
+		height: 400px !important;
+	}
+
+	#ModalCustomPoint .richText-editor {
+		height: 100px !important;
+	}
+
+	#page_proses_load, #page_proses_load_spk_v2, #page_proses_load_spk {
+		text-align: center;
+		padding: 10%;
+	}
+	#gridTemplateEkontrak {
+	
+		width:60%;
+		margin:2% auto;
+		margin-top:0%;
+	}
+
+	/*#gridTemplateEkontrak td {
+		text-align: left;
+		vertical-align: middle;
+	}*/
+	#gridTemplateEkontrak .fa {
+	
+		font-size:18px;
+	}
+
+	#page_e_kontrak_pilih_template .w2ui-grid {
+		position: relative;
+		border: 0px solid silver !important;
+		border-top: 2px solid silver !important;
+		border-bottom: 2px solid silver !important;
+		border-radius: 0px !important;
+	}
+		#page_e_kontrak_pilih_template .w2ui-grid td {
+			border-left: none !important;
+			border-right: none !important;
+			text-align: left;
+		}
+
+		#page_e_kontrak_pilih_template .w2ui-grid td:hover {
+			
+			cursor: pointer;
+		}
+
+		#page_e_kontrak_pilih_template .w2ui-grid tr:hover > .w2ui-grid-frecords td {
+			background-color: whitesmoke;
+		
+		}
+
+
+	#page_e_kontrak_pilih_winner .w2ui-grid {
+		position: relative;
+		border: 0px solid silver !important;
+		border-top: 2px solid silver !important;
+		border-bottom: 2px solid silver !important;
+		border-radius: 0px !important;
+	}
+
+		#page_e_kontrak_pilih_winner .w2ui-grid td {
+			border-left: none !important;
+			border-right: none !important;
+			text-align: left;
+		}
+
+			#page_e_kontrak_pilih_winner .w2ui-grid td:hover {
+				cursor: pointer;
+			}
+
+		#page_e_kontrak_pilih_winner .w2ui-grid tr:hover > .w2ui-grid-frecords td {
+			background-color: whitesmoke;
+		}
+
+</style>
+
+
+
+<div id="page_e_kontrak_pilih_template" hidden style="padding-top:0px;">
+
+	<div class="row box_info" style="padding-top:0px !important;">
+		<h2><i class="fa fa-check-square-o" aria-hidden="true"></i> Pilih Salah Satu Template Atau Metode E-Kontrak Berikut</h2>
+		<br />
+		<div id="gridTemplateEkontrak"></div>
+
+		<hr />
+
+		<button type="button" class="btn btn-gray btn-sm" onclick="batal_template()" ondblclick="batal_template()"><i class="ace-icon fa fa-arrow-left" aria-hidden="true"></i> Cancel</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="select_template()" ondblclick="batal_template()"><i class="ace-icon  fa fa-arrow-right" aria-hidden="true"></i> Next</button>
+
+	</div>
+
+</div>
+
+
+<div id="page_e_kontrak_pilih_winner" hidden style="padding-top:0px;">
+
+	<div class="row box_info" style="padding-top:0px !important;">
+		<h2><i class="fa fa-check-square-o" aria-hidden="true"></i> Pilih salah satu Winner yang akan dibuatkan E-Kontrak</h2>
+		<br />
+		<div id="gridWinner"></div>
+
+		<hr />
+
+		<button type="button" class="btn btn-gray btn-sm" onclick="batal_winner()" ondblclick="batal_winner()"><i class="ace-icon fa fa-arrow-left" aria-hidden="true"></i> Cancel</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="select_winner()" ondblclick="select_winner()"><i class="ace-icon  fa fa-arrow-right" aria-hidden="true"></i> Next</button>
+
+	</div>
+
+</div>
+
+
+<div id="prepared_page_e_contract" hidden>
+
+	<div id="prepared_page_e_contract_sub">
+		<i class="fa fa-pencil-square-o" aria-hidden="true" style="color: #ff6a00;font-size:60px;"></i>
+		<div id="prep_title" style="font-size:18px;">Pembuatan E-Kontrak untuk proses pengadaan dengan Id.#</div>
+		<span style="font-size:15px;">Perhatikan dengan seksama draft kontrak yang akan kami ditampilkan berikut, isi pada bagian yang harus Anda isi dan ikuti tahap demi tahap hingga selesai!</span>
+		<br />
+		<br />
+		<button type="button" class="btn btn-default" onclick="back_to_template_choice()" ondblclick="back_to_template_choice()"><i class="fa fa-arrow-left aria-hidden="true"></i> Kembali</button>
+		<button type="button" class="btn btn-primary" onclick="start_e_contract()" ondblclick="start_e_contract()">Lanjut <i class="fa fa-arrow-right aria-hidden="true"></i> </button>
+	</div>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade modal_ex" id="ModalRichText" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Customize Your Text Here</h4>
+				<span style="font-size:11px;">(Powered by CKeditor)</span>
+
+			</div>
+
+
+			<div class="modal-body" style="padding:0px;">
+				<div class="box-body">
+					@*<textarea class="form-control" id="text_editor_draft" placeholder="Anda dapat menambahkan custom text/draft disini" style="height:400px !important;" autocomplete="off"></textarea>*@
+				
+					<div id="editor">
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+
+			<button type="button" class="btn btn-primary btn-sm" onclick="add_custom_text()">Add to Draft</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal_ex" id="ModalCustomPoint" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Add Custom Point</h4>
+				<span style="font-size:11px;">(Powered by CKeditor)</span>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Number of Point <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input class="form-control " id="number_point" type="text" placeholder="enter number of point" autocomplete="off">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Enter Text of Point <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<div id="text_point">
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+
+
+
+		</div>
+		<div class="modal-footer">
+
+			<button type="button" class="btn btn-primary btn-sm" onclick="add_custom_point()">Add to Draft</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+		</div>
+	</div>
+</div>
+
+
+@Html.Partial("Modal/Form_Drafting_EContract_For_Proc")
+@*@Html.Partial("Modal/EkontrakForm/spk")
+@Html.Partial("Modal/EkontrakForm/spk_v2")*@
+
+
+
+<script>
+
+	curr_contract_template = 0;
+	curr_div_custom_text = "";
+	curr_table_point = "";
+	curr_winner = [];
+	
+
+	$('#gridTemplateEkontrak,#gridWinner').css('height', (Number(window.innerHeight) - 500));
+
+	$(window).resize(function () {
+
+		$('#gridTemplateEkontrak,#gridWinner').css('height', (Number(window.innerHeight) - 500));
+	});
+
+
+
+	function form_e_kontrak() {
+
+		$("#ModalContract").modal("hide");
+		$("#page_panel").hide();
+
+		if (curr_count_winner > 1) {
+
+			$("#page_result").hide("fade", function () {
+				$("#page_e_kontrak_pilih_winner").show(function () {
+					render_grid_winner();
+				});
+			});
+
+		}
+		else {
+
+		
+			var Data_Winner = $.ajax({
+				url: URL_PTPR + '/Procurement/GetWinner?Id=' + current_proc.Id ,
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			//responseJSON
+			curr_winner = Data_Winner.responseJSON[0];
+			$("#page_result").hide("fade", function () {
+				select_winner();
+			});
+		}
+
+	}
+
+
+	function render_grid_winner() {
+
+		if (w2ui['gridWinner'] != null) w2ui['gridWinner'].destroy();
+		$('#gridWinner').w2grid({
+			name: 'gridWinner',
+			recordHeight: 50,
+			url: URL_PTPR + '/Procurement/GetWinner?Id=' + current_proc.Id,
+			show: {
+				footer: false,
+				lineNumbers: false,
+				toolbarAdd: false,
+				toolbarDelete: true,
+				toolbarInput: false,
+				toolbarReload: false,
+				toolbarColumns: false,
+				toolbar: toolModif,
+				selectColumn: true,
+			},
+			multiSelect: false,
+			columns: [
+
+				{ field: 'InvToName', caption: 'Winner Name', size: '200px' },
+				{ field: 'UsulanPemenangName', caption: 'Status', size: '100%' },
+			],
+		});
+
+	}
+
+	function render_grid_e_kontrak_template() {
+
+		if (w2ui['gridTemplateEkontrak'] != null) w2ui['gridTemplateEkontrak'].destroy();
+		$('#gridTemplateEkontrak').w2grid({
+			name: 'gridTemplateEkontrak',
+			recordHeight: 50,
+			url: URL_PTPR + '/EContract/GetEContractTemplate',
+			show: {
+				footer: false,
+				lineNumbers: false,
+				toolbarAdd: false,
+				toolbarDelete: true,
+				toolbarInput: false,
+				toolbarReload: false,
+				toolbarColumns: false,
+				toolbar: toolModif,
+				selectColumn: true,
+			},
+			multiSelect: false,
+			columns: [
+				{ field: 'TitleTag', caption: 'Select Method Below ', size: '100%' },
+			],
+		});
+
+	}
+
+	function batal_template() {
+
+		//arif
+		$("#page_e_kontrak_pilih_template").hide("fade", function () {
+
+			$("#page_result").show();
+			if (w2ui['gridProc'] != null) { refresh_procurementt_list(); }
+			$("#ModalContract").modal("show");
+
+		});
+	}
+
+
+
+	function select_winner() {
+
+		if (curr_count_winner > 1) {
+
+			var sel = w2ui['gridWinner'].getSelection();
+			if (sel.length == 1) curr_winner = w2ui.gridWinner.get(sel[0]);
+			$("#page_e_kontrak_pilih_winner").hide();
+			
+		}
+
+		current_process = "ADD";
+		
+		$('#add_new_draft_panel #ENeedCorrection,#add_new_draft_panel #EUpdateDraft').prop('checked', false); // Checks it
+		$("#add_new_draft_panel #pre_reject_wording,#add_new_draft_panel #pre_process_wording").hide();
+		$("#add_new_draft_panel .cek_box").show();
+
+		$("#add_new_draft_panel #form_mandatory_prep .wajib").val("");
+		$("#add_new_draft_panel #Remark").val("");
+		$("#add_new_draft_panel #form_mandatory_prep .select2").val("").trigger('change');
+		$("#add_new_draft_panel #EFungsi").val(current_proc.Function).trigger('change');
+		
+
+		$("#pre_process_wording").show();
+		$("#add_new_draft_panel .file_sign_upload_group").show();
+		var file_input = $('#add_new_draft_panel #file_draft');
+		file_input.ace_file_input('reset_input');
+		clear_attach_file();
+		$("#proc_curr_contract").html(" for procurement process :  #" + current_proc.Id + " and winner #" + curr_winner.InvToName);
+
+		if (curr_count_winner > 1) {
+
+			$("#page_e_kontrak_pilih_winner").hide("fade", function () {
+				$("#add_new_draft_panel").show();
+				$("#add_new_draft_panel #EContractTitle").val(current_proc.Title + " oleh " + curr_winner.InvToName);
+				$("#EContractTitle").focus();
+				render_gridMail_add();
+			})
+		}
+		else {
+
+			$("#page_panel").hide("fade", function () {
+				$("#add_new_draft_panel").show();
+				$("#add_new_draft_panel #EContractTitle").val(current_proc.Title + " oleh " + curr_winner.InvToName);
+				$("#add_new_draft_panel #EContractValue").val(current_proc.Value);
+				format_currency('EContractValue', 'Etemp_ContractValue')
+				$("#EContractTitle").focus();
+				render_gridMail_add();
+			})
+		}
+
+		
+
+
+		
+	}
+
+	function batal_winner() {
+
+		//arif
+		$("#page_e_kontrak_pilih_winner").hide("fade", function () {
+
+			$("#page_result").show();
+			
+		});
+	}
+
+
+</script>

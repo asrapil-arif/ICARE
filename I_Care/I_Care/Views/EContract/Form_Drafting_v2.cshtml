@@ -1,0 +1,63 @@
+@using DevExpress.Web.Mvc.UI;
+@using DevExpress.Web.Mvc;
+@using DevExpress.Web;
+
+@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Title = "E-Contract";
+	ViewBag.Parent = "E-Contract";
+	ViewBag.Child = "E-Contract";
+	ViewBag.Child_Caption = "Procurement";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-list\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+	Layout = null;
+
+}
+
+@Html.DevExpress().GetStyleSheets(
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.RichEdit },
+
+    // Default theme for some demos
+    new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout, Theme = "Office365" },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.NavigationAndLayout, Theme = "Metropolis" },
+    new StyleSheet { ExtensionSuite = ExtensionSuite.Editors , Theme = "MaterialCompactOrange" }
+) 
+
+@Html.DevExpress().GetScripts( 
+    new Script { ExtensionSuite = ExtensionSuite.Editors }, 
+	new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+    new Script { ExtensionSuite = ExtensionSuite.RichEdit }
+) 
+
+
+
+@Html.DevExpress().RichEdit(settings => {
+	settings.Name = "RichEdit";
+	settings.Width = System.Web.UI.WebControls.Unit.Percentage(99.9);
+	settings.Height = System.Web.UI.WebControls.Unit.Pixel(563);
+	settings.CallbackRouteValues = new { Controller = "EContract", Action = "RichEditPartial" };
+	settings.ShowConfirmOnLosingChanges = false;
+	settings.ActiveTabIndex = 0;
+	settings.Theme = "Office365";
+
+
+	settings.PreRender = (s, e) => {
+
+		MVCxRichEdit richEdit = (MVCxRichEdit)s;
+		richEdit.CreateDefaultRibbonTabs(true);
+		richEdit.RibbonContextTabCategories.CreateDefaultRibbonContextTabCategories();
+		RibbonTab rt = new RibbonTab();
+		rt = richEdit.RibbonTabs[0];
+		richEdit.RibbonTabs.Remove(rt);
+		rt = richEdit.RibbonTabs[4];
+		richEdit.RibbonTabs.Remove(rt);
+		richEdit.Focus();
+
+	};
+
+
+
+}).GetHtml()

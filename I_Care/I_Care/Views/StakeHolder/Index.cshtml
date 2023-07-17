@@ -1,0 +1,600 @@
+﻿@using I_Care.Models
+@{
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    ViewBag.Title = "StakeHolder";
+    ViewBag.Parent = "StakeHolder";
+    ViewBag.Child = "StakeHolder";
+    //ViewBag.Child_Caption = "StakeHolder";
+    ViewBag.Icon = "<i class=\"ace-icon fa fa-list\"></i>";
+    ViewBag.TopMenuAce = "Yes";
+
+
+
+}
+
+
+<script>
+
+    var TempDelete = [];
+    var curent_kontrak = [];
+    var CurrentCustomer;
+
+</script>
+
+
+<style>
+
+    .page-content {
+        padding: 0px;
+    }
+
+
+    .box_info {
+        text-align: center;
+        padding-top: 4%;
+        border: 0px dashed #dedede;
+        margin: 0px auto;
+        margin-top: 0%;
+        width: 80%;
+        border-radius: 5px;
+    }
+
+
+    #box_info_icon_top {
+        text-align: right;
+        padding: 3px;
+        border: 0px solid #dedede;
+        margin-top: 0px;
+    }
+
+
+        #box_info_icon_top .icon_short_cut {
+            border: 1px solid #dedede;
+            padding: 4px;
+            width: 65px;
+            height: 50px;
+            border-radius: 2%;
+            display: inline-table;
+            font-size: 9px;
+            cursor: pointer;
+            transition: 0.3s;
+            background-color: none;
+            text-align: center;
+            margin: 0px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+            #box_info_icon_top .icon_short_cut i {
+                font-size: 19px;
+                margin-bottom: 10px;
+            }
+
+
+
+            #box_info_icon_top .icon_short_cut:hover {
+                opacity: 0.50;
+                border: 1px dashed #1a8cff;
+            }
+
+    #box_info_icon {
+        text-align: center;
+        padding-top: 10px;
+        border-top: 2px dashed #dedede;
+        margin-top: 10px;
+        /*white-space: nowrap;*/
+        max-width: auto;
+    }
+
+
+
+        #box_info_icon .icon_short_cut {
+            border: 1px solid #dedede;
+            padding: 9px;
+            width: 90px;
+            height: 90px;
+            border-radius: 2%;
+            /*display: inline-table;
+            margin-left: 2px;*/
+            display: inline-table;
+            margin-left: 2px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 2%;
+            background-color: none;
+            cursor: pointer;
+        }
+
+            #box_info_icon .icon_short_cut:hover {
+                border-color: yellowgreen;
+                opacity: 0.50;
+                border: 1px solid #dedede;
+            }
+
+            #box_info_icon .icon_short_cut i {
+                font-size: 25px;
+                margin-bottom: 10px;
+            }
+
+    .logo_menu_head {
+        width: 150px;
+    }
+
+    .logo_menu {
+        width: 35px;
+    }
+
+    .list_title {
+        font-weight: normal;
+        font-size: 13px;
+        color: #3279a8;
+    }
+
+    .list_title_2 {
+        font-weight: normal;
+        font-size: 11px;
+        color: #3279a8;
+    }
+
+    .icon_short_cut {
+        min-height: 120px;
+    }
+</style>
+
+
+<div id="page_panel">
+
+
+    <div class="row box_info" style="background-color:White;">
+
+        <div class="col-sm-3">
+            <img src="../../../Content/img/stakeholdericon3.png" class="logo_menu_head" style="width:30%;">
+        </div>
+
+        <div class="col-sm-7">
+
+            <div style="text-align:left;font-size:12px;">
+                <span style="font-size:40px;color:orange;font-weight:bold;">Stake Holder</span><span style="font-size:20px;"></span><br />
+                Kelola data Stake Holder
+                <br />
+
+                <br />
+
+            </div>
+
+            <div style="width:100%;">
+
+                <select class="form-control select2 wajib3" id="param_field" data-placeholder="Cari Berdasarkan">
+                    <option value="All">All</option>
+                    <option value="NamaIndividualSH">Individual Stake Holder Name</option>
+                    <option value="StakeHolderName">Stake Holder Name</option>
+                    <option value="Jabatan">Jabatan</option>
+                    <option value="NamaInstitusi">Nama Institusi</option>
+                </select>
+
+                <input class="form-control wajib" id="key_word" placeholder="Enter Keyword" type="text" autocomplete="off" style="text-align:center;margin-top:5px;margin-bottom:10px;" onkeypress="if (event.keyCode == 13){find_sh('NO');}">
+                <button type="button" class="btn btn-default" onclick="clear_searchsh()" ondblclick="clear_searchsh()"><i class="fa fa-undo" aria-hidden="true"></i> Clear</button>
+                <button type="button" class="btn btn-info" onclick="find_sh('NO')" ondblclick="find_sh('NO')"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <div id="box_info_icon" class="width-auto">
+
+
+        <div class="icon_short_cut" onclick="AddNew();">
+
+            <i class="fa fa-plus-square-o" aria-hidden="true" style="color:#4d4d00;"></i>
+            <br />
+            <span class="lbl bigger-100"> Add New StakeHolder</span>
+
+        </div>
+        <div class="icon_short_cut" onclick="find_sh('3');">
+            <i class="fa fa-birthday-cake" aria-hidden="true" style="color: yellowgreen;"></i>
+            <br />
+            <span class="lbl bigger-100">Berulang Tahun Bulan ini</span> <br />
+            <span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_ultah_this_month">0</span>
+        </div>
+        <div class="icon_short_cut" onclick="find_sh('1');">
+            <i class="fa fa-birthday-cake" aria-hidden="true" style="color: dodgerblue;"></i>
+            <br />
+            <span class="lbl bigger-100">Berulang Tahun Hari ini</span> <br /><br />
+            <span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_ultah_today">0</span>
+        </div>
+        <div id="3" class="icon_short_cut" onclick="find_sh('2');">
+            <i class="fa fa-save" aria-hidden="true" style="color:red;"></i>
+            <br />
+            <span class="lbl bigger-100">Semua Data</span> <br /><br /><br />
+            <span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_all">0</span>
+        </div>
+
+
+    </div>
+
+</div>
+
+
+
+<div id="page_result" hidden>
+    <div id="gridStakeHolder" style="border-radius:0px;border:none;border-top:1px solid #ccc;" class="responsive"></div>
+</div>
+
+
+@Html.Partial("Modal/form_stakeholder_detail")
+<script>
+
+	var from_add = "1";
+	var global_status = "0";
+	var StatusRef = "";
+	var lsting_stat = "";
+	var selected_contract_id = 0;
+
+	var height = Number(window.innerHeight) - 133;
+    $('#gridStakeHolder').height(height);
+
+	function find_sh(status) {
+
+		global_status = status;
+
+		if (status.toUpperCase() == 'NO') {
+
+			if ($("#param_field").val() != "All") {
+
+
+				if ($("#param_field").val() == "") {
+
+					w2alert("Harap pilih percarian berdasarkan apa ... !");
+					$("#param_field").focus();
+					return;
+
+				}
+				if ($("#key_word").val() == "") {
+
+					w2alert("Ops... please enter your keyword before !", '<div style="text-align:left;">ImPas ::.</div>');
+					$("#key_word").focus();
+					return;
+
+				}
+
+			}
+
+			StatusRef = "searching";
+			//$("#result_wording").html('<span class="list_title">This result of your search .... </span>');
+		}
+
+
+		$("#page_panel").hide();
+
+		$("#page_result").show(function () {
+
+            if (w2ui['gridStakeHolder'] != null) { w2ui['gridStakeHolder'].destroy(); }
+            render_grid_stakeholder();
+			refresh_sh_list();
+		});
+
+	}
+
+    function AddNew() {
+        debugger
+        stakeholder_detail_form('ADD');
+    }
+	function back_searchsh() {
+		StatusRef = "";
+		$("#page_result").hide(function () { $("#page_panel").show("fade"); });
+	}
+
+	function clear_searchsh() {
+
+		$("#param_field").val("All").trigger('change');
+		$("#key_word").val("");
+	}
+
+	function render_grid_stakeholder()
+	{
+
+        $('#gridStakeHolder').w2grid({
+            name: 'gridStakeHolder',
+			textSearch: 'contains',
+			show: {
+
+				header: false,
+				toolbar: true,
+				footer: true,
+				lineNumbers: false,
+				selectColumn: true,
+				toolbarSearch: false,
+			},
+			toolbar: {
+				items: [
+					{ type: 'break' },
+					{ type: 'button', id: 'vw_button', caption: '<i class="fa fa-external-link" aria-hidden="true"></i> View Detail', disabled: 'true' },
+
+                    { type: 'break' },
+                    { type: 'button', id: 'del_btn', disabled: 'true', caption: '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> Delete' },
+                    { type: 'break' },
+                    { type: 'button', id: 'report', caption: '<i class="fa fa-download"></i> Save To Excel', disabled: false },
+                    { type: 'break' },
+                    @*@if (ROLES.CheckAllowExtendAccess(User.Identity.Name.ToString(), 95) == true)
+					{	<text>
+					{ type: 'button', id: 'del_btn', disabled: 'true',caption: '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> Force Delete' },
+						{ type: 'break' },
+						</text>
+					}*@
+					{ type: 'spacer' },
+					{ type: 'button', id: 'close_button', caption: '<i class="fa fa-times" aria-hidden="true" style="color:red;"></i> Close' },
+
+				],
+                onClick: function (target, data) {
+                    debugger
+                    if (target == 'vw_button') {
+                        var sel = w2ui.gridStakeHolder.getSelection();
+                        var record = w2ui.gridStakeHolder.get(sel[0]);
+                        stakeholder_detail_form('EDIT', record);
+					}
+
+
+					if (target == 'del_btn') {
+                        var sel = w2ui.gridStakeHolder.getSelection();
+                        var record = w2ui.gridStakeHolder.get(sel[0]);
+                      
+                        DeleteStakeHolder(record);
+					}
+
+					if (target == 'close_button') {
+						back_searchsh();
+					}
+                    if (target == 'report') {
+                        debugger
+                        download_report();
+                       
+                    }
+
+				}
+
+			},
+			columns: [
+
+				{ field: 'Id', caption: 'Id.', size: '150px', sortable: true, searchable: 'text', resizable: true, info: true },
+                { field: 'NamaInstitusi', caption: 'Nama Institusi', size: '200px', sortable: true, searchable: 'text', resizable: true},
+
+                { field: 'NamaIndividualSH', caption: 'Nama Individual StakeHolder', size: '300px', resizable: true, sortable: true, searchable: 'text', style: 'word-wrap:break-word;' },
+				{ field: 'Jabatan', caption: 'Jabatan', size: '150px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'StakeholderName', caption: 'Tipe Stakeholder', size: '150px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'KedudukanName', caption: 'Kedudukan', size: '150px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'Alamat', caption: 'Alamat', size: '250px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'TanggalLahir', caption: 'Tanggal Lahir', size: '150px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'UpdateDate', caption: 'UpdateDate', size: '150px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'CreateUser', caption: 'CreateUser', size: '150px', resizable: true, sortable: true, searchable: 'text', max: '400px' },
+				{ field: 'UpdateUser', caption: 'UpdateUser', size: '150px', resizable: true, sortable: true, searchable: 'text', max: '400px' },
+
+            ],
+            onDblClick: function (event) {
+                debugger
+                var record = this.get(event.recid);
+                var status = record.statusid;
+                if (status == 1) {
+                    stakeholder_detail_form('EDIT', record);
+                }
+                else if (status == 2) {
+                    stakeholder_detail_form('EDIT', record);
+                }
+                else if (status == 3) {
+                    stakeholder_detail_form('EDIT', record);
+                }
+
+			},
+			onReload: function (event) {
+                refresh_sh_list();
+			},
+			onSelect: function (event) {
+                debugger
+				event.onComplete = function () {
+
+					disable_button();
+
+                    var count_ = w2ui.gridStakeHolder.getSelection();
+					if (count_.length == 1) {
+                        w2ui['gridStakeHolder'].toolbar.enable('vw_button');
+                        w2ui['gridStakeHolder'].toolbar.enable('del_btn');
+
+					}
+
+				}
+			},
+			onUnselect: function (event) {
+
+				event.onComplete = function () {
+
+					disable_button();
+                    var count_ = w2ui.gridStakeHolder.getSelection();
+
+					if (count_.length == 1) {
+
+                        w2ui['gridStakeHolder'].toolbar.enable('vw_button');
+                        w2ui['gridStakeHolder'].toolbar.enable('del_btn');
+
+					}
+				}
+
+			}
+		});
+
+	}
+
+	function disable_button() {
+
+        w2ui['gridStakeHolder'].toolbar.disable('vw_button');
+        w2ui['gridStakeHolder'].toolbar.disable('del_btn');
+
+	}
+    function DeleteStakeHolder(record) {
+        var Delete = $.ajax({
+            type: "GET",
+            url: URL_PTR + '/StakeHolder/DeleteStakeHolder?SHId=' + record.Id,
+            dataType: 'json',
+            cache: false,
+            async: false,
+            "autoWidth": false
+        });
+        w2alert("Data Berhasil Didelete"); 
+        clear_wait();
+        refresh_sh_list();
+    }
+    function refresh_sh_list() {
+
+		if (global_status.toUpperCase() == "NO") {
+
+			key_word = $("#key_word").val();
+			field_ = $("#param_field").val();
+            w2ui['gridStakeHolder'].load(URL_PTPR + '/StakeHolder/FindStakeHolder?Type=1&KeyWords=' + key_word + '&Field=' + field_);
+		}
+        else {
+
+            w2ui['gridStakeHolder'].load(URL_PTPR + '/StakeHolder/FindStakeHolderByStatus?Status=' + global_status);
+		}
+
+	}
+
+	function download_report() {
+
+		if (w2ui['gridStakeHolder'].records.length == 0) {
+
+			alert('Tidak ada data yang akan didownload !');
+			return;
+		}
+		data_get = w2ui['gridStakeHolder'].getSelection();
+		var TransSelected = "";
+
+
+		data_get.forEach(function (item) {
+			TransSelected = "" + item + "," + TransSelected;
+		});
+
+		if (TransSelected.length > 0) {
+
+			TransSelected = TransSelected.substring(0, TransSelected.length - 1);
+		}
+
+		if (data_get.length == w2ui['gridStakeHolder'].records.length) {
+
+			TransSelected = "";
+		}
+
+
+
+
+
+
+		if (data_get.length == 0) {
+
+			var desc_confirm = "";
+			desc_confirm = '<span style="font-size:11px;">Apakah Anda yakin akan mendownload semua record dibawah ini  ? </span>';
+
+			w2confirm(desc_confirm, function btn(answer) {
+
+				if (answer == 'Yes') {
+
+					data_send = w2ui['gridStakeHolder'].records;
+					data_send_fix = JSON.stringify(data_send);
+					var param = { 'ExportedData': data_send_fix };
+					OpenWindowWithPost(URL_PTPR + '/Reporting/ReportStakeHolderClosedClient',
+						"width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+						"Reporting Reimbursement", param);
+
+				}
+			});
+
+		}
+		else {
+
+
+			var desc_confirm2 = "";
+			desc_confirm2 = '<span style="font-size:11px;">Apakah Anda yakin hanya akan mendownload reocord yang Anda selection ? </span>';
+
+			w2confirm(desc_confirm2, function btn(answer) {
+
+				if (answer == 'Yes') {
+
+
+					data_select = w2ui['gridStakeHolder'].getSelection();
+					data_send = [];
+					data_select.forEach(function (entry) {
+						var record = w2ui.gridStakeHolder.get(entry);
+						data_send.push(record);
+					});
+
+					data_send_fix = JSON.stringify(data_send);
+					var param = { 'ExportedData': data_send_fix };
+					OpenWindowWithPost(URL_PTPR + '/Reporting/ReportStakeHolderClosedClient',
+						"width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+						"Reporting Reimbursement", param);
+
+
+				}
+			});
+
+		}
+
+
+
+	}
+
+
+
+	function OpenWindowWithPost(url, windowoption, name, params) {
+		var form = document.createElement("form");
+
+		form.setAttribute("method", "post");
+		form.setAttribute("action", url);
+		form.setAttribute("target", name);
+
+		for (var i in params) {
+			if (params.hasOwnProperty(i)) {
+				var input = document.createElement('input');
+				input.type = 'hidden';
+				input.name = i;
+				input.value = params[i];
+				form.appendChild(input);
+			}
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
+
+
+	}
+
+
+	function UpdateCountProgress() {
+
+		var CountProgress = $.ajax({
+			type: "GET",
+			url: URL_PTPR + '/StakeHolder/GetCountSHStatus',
+			dataType: 'json',
+			cache: false,
+			async: false,
+		});
+
+		DataProgress = CountProgress.responseJSON[0];
+		if (DataProgress.TotalUlangTahun != 0) { $("#count_ultah_today").html(DataProgress.TotalUlangTahun); } else { $("#count_ultah_today").html("0"); }
+		if (DataProgress.TotalUlangTahunBulan != 0) { $("#count_ultah_this_month").html(DataProgress.TotalUlangTahunBulan); } else { $("#count_ultah_this_month").html("0"); }
+		if (DataProgress.TotalActive != 0) { $("#count_all").html(DataProgress.TotalActive); } else { $("#count_all").html("0"); }
+
+
+	}
+
+	UpdateCountProgress();
+
+	window.addEventListener("focus", function (event) {
+		UpdateCountProgress();
+	}, false);
+
+
+
+</script>

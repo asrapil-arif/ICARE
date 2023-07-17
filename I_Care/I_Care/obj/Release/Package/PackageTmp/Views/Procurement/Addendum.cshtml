@@ -1,0 +1,584 @@
+﻿
+@{
+
+	Layout = null;
+}
+
+<style>
+
+	#form_addendum_procurement {
+
+		padding: 5%;
+		padding-top:3%;
+		padding-bottom:0%;
+	}
+
+	
+
+		#form_addendum_procurement .control-label {
+			font-size: 12px;
+		}
+
+
+		#form_addendum_procurement .wording_header_form {
+			padding: 10px;
+			width: 90%;
+			margin: 1% auto;
+			border-bottom:1px dashed #dedede;
+			text-align: center;
+			line-height: 25px;
+			font-size: 13px !important;
+		}
+
+		#form_addendum_procurement .wording_header_form .box-body {
+			text-align: center;
+		}
+
+		#form_addendum_procurement .footer_form {
+			text-align: center;
+			margin-top: 15px;
+			border-top: 1px dashed #dedede;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+
+
+	.header_form_custom {
+		padding-top: 15px;
+		text-align: center;
+	}
+
+	.form_custom_title {
+		font-size: 25px;
+	}
+
+	#addendum_attachment .btn-draft-tools {
+		padding: 5px !important;
+		width: 80px !important;
+	}
+
+
+	#ModalContractListForAddendum .modal-dialog, #ModalProcurementListForAddendum .modal-dialog {
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	.ace-file-input .ace-file-container {
+			text-align:left !important;
+	}
+
+	@@media screen and (max-width: 900px) {
+
+		.text-left {
+			text-align: center !important;
+		}
+	}
+
+	@@media screen and (max-width: 600px) {
+
+		.text-left {
+			text-align:center !important ;
+		}
+	}
+
+</style>
+
+<div id="form_addendum_procurement" hidden>
+
+
+	<div class="wording_header_form row">
+
+		<div class="box-body">
+			<div class="col-sm-1 icon_pre">
+				<img src="../../../Content/img/contract_icon.png" style="width:60px;">
+			</div>
+			<div class="col-sm-8 text-left">
+				<span style="font-size:25px;">
+					Addendum Procurement
+				</span><br />
+				<span style="font-size:17px;">Lengkapi data-data berikut !</span>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row form_mandatory" id="form_mandatory_prep">
+
+		<form class="form-horizontal">
+			<div class="box-body">
+				<div class="form-group" id="group_procId">
+					<label for="inputName" class="col-sm-3 control-label mandatory">Pilih procurement yang akan diaddendum <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<table width="100%" border="0">
+							<tr>
+								<td><input class="form-control wajib" caption="Procurement Addendum" readonly id="Addendum_Procurement" placeholder="Digunakan Sebagai Referensi" type="text" onkeypress="if (event.keyCode == 13){$('#Addendum_Contract').focus();}" autocomplete="off"></td>
+								<td width="5%" style="padding:4px;"><button type="button" class="btn-finder" onclick="find_proc_list()">...</button></td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+
+				<div class="form-group" id="group_procId">
+					<label for="inputName" class="col-sm-3 control-label mandatory">Pilih kontrak <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<table width="100%" border="0">
+							<tr>
+								<td><input class="form-control wajib" caption="Contract Addendum" readonly id="Addendum_Contract" placeholder="Digunakan Sebagai Referensi" type="text" onkeypress="if (event.keyCode == 13){$('#Addendum_Contract').focus();}" autocomplete="off"></td>
+								<td width="5%" style="padding:4px;"><button type="button" class="btn-finder" onclick="find_contract_list()">...</button></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+
+			</div>
+		</form>
+
+	</div>
+
+
+	<div class="footer_form">
+		<button type="button" class="btn btn-gray btn-sm" onclick="back_main_page()" ondblclick="back_main_page()"><i class="ace-icon  fa fa-arrow-left" aria-hidden="true"></i>Cancel</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="create_addendum()" ondblclick="create_addendum()"><i class="ace-icon  fa fa-arrow-right" aria-hidden="true"></i> Next</button>
+	</div>
+
+
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalProcurementListForAddendum" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Procurement List</h4>
+				<span style="font-size:11px;">Double click on item or select an item and click select button  !</span>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="grid_Addendum_List_Proc" style="height:390px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-info btn-sm" " onclick="select_addendum_proc()">Select</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalContractListForAddendum" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Contract List</h4>
+				<span style="font-size:11px;">Double click on item or select an item and click select button  !</span>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="grid_Addendum_List_Contract" style="height:390px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-info btn-sm" " onclick="select_addendum_contract()">Select</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+
+	var file_bak = [];
+	var file_memo_pengajuan_addendum = [];
+	var file_memo_justifikasi_addendum = [];
+	var file_pr_addendum = [];
+
+
+</script>
+
+<script>
+	
+
+	function addendum_procurement() {
+
+		render_attchment_control("addendum_attachment");
+		active_form = "form_addendum_procurement";
+		reset_form("form_addendum_procurement", "form-control");
+		$("#form_addendum_procurement").show("fade");
+	}
+
+
+	function cancel_addendum() {
+
+		$("#form_addendum_procurement").hide("fade", function () {
+			$("#page_panel").show();
+			render_attchment_control();
+		})
+	}
+
+	function render_attchment_control(selector) {
+
+		Upload_File = [];
+		$("#" + selector + " .btn-draft-tools").hide();
+		$("#" + selector + " .btn_add_attachment").show();
+
+	}
+
+	function find_proc_list() {
+
+		$('#ModalProcurementListForAddendum').on('shown.bs.modal', function (e) {
+
+				if (w2ui['grid_Addendum_List_Proc'] != null) {
+					w2ui['grid_Addendum_List_Proc'].destroy();
+				}
+
+
+			$('#grid_Addendum_List_Proc').w2grid({
+
+					name: 'grid_Addendum_List_Proc',
+					multiSelect: false,
+					textSearch: 'contains',
+					show: {
+
+						header: false,
+						toolbar: true,
+						footer: true,
+						lineNumbers: false,
+						selectColumn: true,
+						toolbarSearch: false,
+					},
+					columns: [
+
+						{ field: 'Id', caption: 'Id.', size: '70px', sortable: true,  resizable: true, info: true },
+						{ field: 'StatusName', caption: 'Progress', size: lengt_progress_field, sortable: true,  resizable: true },
+						{ field: 'Title', caption: 'Title', size: '150px', sortable: true,  resizable: true },
+						{ field: 'Descriptions', caption: 'Descriptions', size: '300px', resizable: true, sortable: true,  style: 'word-wrap:break-word;' },
+						{ field: 'FunctionName', caption: 'Fungsi', size: '100px', sortable: true,  resizable: true },
+						{ field: 'Value', caption: '<div style="text-align:right;">Nilai Pengadaan (Rp.)</div>', size: '150px', sortable: true,  resizable: true, render: 'number', },
+						{ field: 'NoPR', caption: 'PR. No.', size: '100px', sortable: true,  resizable: true },
+						{ field: 'CountWinner', caption: '<div style="text-align:right;">Winner</div>', size: '60px', sortable: true,  resizable: true, render: 'number', },
+						{ field: 'ExpectedDate', caption: 'Expected Date', size: '150px', sortable: true,  resizable: true },
+						{ field: 'CreateUser', caption: 'CreateUser', size: '150px', resizable: true, sortable: true,  max: '400px' },
+						{ field: 'CreateDate', caption: 'CreateUser', size: '150px', resizable: true, sortable: true,  max: '400px' },
+					],
+					onDblClick: function (event) {
+						select_addendum_proc();
+
+					},
+					onReload: function (event) {
+						refres_grid_Addendum_List_Proc()
+					},
+
+			});
+
+			refres_grid_Addendum_List_Proc();
+
+		})
+
+		$('#ModalProcurementListForAddendum').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+	}
+
+
+	function refres_grid_Addendum_List_Proc() {
+
+		w2ui['grid_Addendum_List_Proc'].load(URL_PTPR + '/Procurement/FindProcurementByStatus?Status=11');
+	}
+
+
+	function select_addendum_proc() {
+
+		var sel = w2ui.grid_Addendum_List_Proc.getSelection();
+		var record = w2ui.grid_Addendum_List_Proc.get(sel[0]);
+		current_proc = record;
+		$("#Addendum_Contract").val("");
+		$("#Addendum_Procurement").val(record.Id + " - " + record.Title);
+		$('#ModalProcurementListForAddendum').modal("hide");
+	}
+
+	function find_contract_list() {
+
+		if ($("#Addendum_Procurement").val() == "") {
+			w2alert("Harap pilih referensi procurement terlebih dahulu  !");
+			return;
+		}
+
+		$('#ModalContractListForAddendum').on('shown.bs.modal', function (e) {
+
+			if (w2ui['grid_Addendum_List_Contract'] != null) {
+				w2ui['grid_Addendum_List_Contract'].destroy();
+			}
+
+			$('#grid_Addendum_List_Contract').w2grid({
+
+				name: 'grid_Addendum_List_Contract',
+				multiSelect: false,
+				textSearch: 'contains',
+				show: {
+
+					header: false,
+					toolbar: true,
+					footer: true,
+					lineNumbers: false,
+					selectColumn: true,
+					toolbarSearch: false,
+				},
+				columns: [
+					{ field: 'DayAlert', caption: 'Info.', size: '200px', sortable: true,  resizable: true, info: true },
+					{ field: 'ContractId', caption: 'Contract Id.', size: '150px', sortable: true,  resizable: true, },
+					{ field: 'ContractNo', caption: 'Contract No.', size: '150px', sortable: true,  resizable: true },
+					{ field: 'ContractTitle', caption: 'Title', size: '300px', resizable: true, sortable: true,  style: 'word-wrap:break-word;' },
+					{ field: 'BeginDate', caption: 'Start Date', size: '100px', sortable: true,  resizable: true },
+					{ field: 'EndDate', caption: 'End Date', size: '100px', sortable: true,  resizable: true },
+					{ field: 'Files', caption: 'Attachment', size: '100px', sortable: true,  resizable: true },
+					{ field: 'AlertDestination', caption: 'Mail Destination', size: '150px', sortable: true,  resizable: true },
+					{ field: 'ContractValue', caption: '<div style="text-align:right;">Value (Rp.)</div>', size: '100px', resizable: true, sortable: true,  render: 'number' },
+					{ field: 'ContractTypeName', caption: 'Contract Type', size: '100px', resizable: true, sortable: true, searchable: 'text' },
+					{ field: 'DayLeft', caption: '<div style="text-align:right;">Day Left</div>', size: '70px', sortable: true,  resizable: true, render: 'number' },
+					{ field: 'OverDue', caption: '<div style="text-align:right;">Over Due</div>', size: '70px', sortable: true,  resizable: true, render: 'number' },
+					{ field: 'PenanggungJawabPihak1', caption: 'Contract Signing Officer', size: '100px', sortable: true,  resizable: true },
+					{ field: 'FungsiName', caption: 'Fungsi', size: '100px', sortable: true,  resizable: true },
+					{ field: 'Creator', caption: 'Creator', size: '100px', resizable: true, sortable: true,  max: '400px' },
+					{ field: 'Updater', caption: 'Updater', size: '100%', resizable: true, sortable: true,  max: '400px' },
+				],
+				onDblClick: function (event) {
+					select_addendum_contract();
+				},
+				onReload: function (event) {
+					refres_grid_Addendum_List_Contract()
+				},
+				searches: [
+					{ type: 'text', field: 'ContractId', label: 'Contract Id.' },
+					{ type: 'text', field: 'ContractTitle', label: 'Contract Title' },
+
+				],
+
+			});
+
+			refres_grid_Addendum_List_Contract();
+
+		})
+
+		$('#ModalContractListForAddendum').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+		$('#ModalContractListForAddendum').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+	}
+
+	function refres_grid_Addendum_List_Contract() {
+		w2ui['grid_Addendum_List_Contract'].load(URL_PTPR + '/EContract/Get_PAM_E_Contract_For_Addendum?Id=' + current_proc.Id);
+	}
+
+
+	function select_addendum_contract() {
+
+		var sel = w2ui.grid_Addendum_List_Contract.getSelection();
+		var record = w2ui.grid_Addendum_List_Contract.get(sel[0]);
+		current_contract = record;
+	
+		$("#Addendum_Contract").val(record.ContractId + " - " + record.ContractTitle);
+		$('#ModalContractListForAddendum').modal("hide");
+	}
+
+	function create_addendum() {
+
+		if (!form_validation2("form_addendum_procurement", "wajib")) return;
+		localStorage.setItem("AddendumPage", $("#PageContainer").html());
+
+		flagCrudEcontract = "ADDENDUM"
+		load_page("#PageContainer", URL_PTPR + "/Procurement/pluginEcontractDetail", function () { $('.select2').css('width', '100%').select2() });
+
+		//if (localStorage.getItem("ContractDetailPage") != null) {
+
+		//	$("#PageContainer").hide("fade", function () {
+		//		$("#PageContainer").html(localStorage.getItem("ContractDetailPage"));
+		//		$("#PageContainer").show("fade");
+		//	});
+
+		//} else {
+
+		//	flagCrudEcontract = "ADDENDUM"
+		//	load_page("#PageContainer", URL_PTPR + "/Procurement/pluginEcontractDetail", function () { $('.select2').css('width', '100%').select2() });
+
+
+		//}
+
+	}
+
+
+
+
+	$('#file_bak').ace_file_input({
+		btn_choose: 'Upload File',
+		btn_change: null,
+		no_icon: 'ace-icon fa fa-cloud-upload',
+		droppable: true,
+		thumbnail: 'small',
+		before_remove: function () {
+
+			Id = file_bak[0].ID;
+			Delete_File = [];
+			var row_delete = { ID: Id };
+			Delete_File.push(row_delete);
+
+			var DataSave = new FormData();
+			DataSave.append('FileCategory', "BAK");
+			DataSave.append('FileUploadList', JSON.stringify(Delete_File));
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/Procurement/DeleteFilePre',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+
+					w2alert("Hapus File Gagal !");
+				}
+
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				w2alert("Hapus File Gagal !");
+				return false;
+			}
+			else {
+				w2alert("File Berhasil Dihapus!");
+				file_izin_prinsip = [];
+				return true;
+
+			}
+		},
+		preview_error: function (filename, error_code) {
+		}
+
+	}).on('change', function () {
+
+		$("#form_addendum_procurement").hide();
+		var file = this.files[0];
+		var file_name = file.name;
+		var DataSave = new FormData();
+		DataSave.append('FileCategory', "BAK");
+		DataSave.append('UPLOAD_FILE', file);
+		DataSave.append('Key1', 'PROCUREMENT_FILE');
+		DataSave.append('Key2', '11');
+
+		
+		$("#Uploading_Load").show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/Procurement/UploadFilePre',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+					w2alert("Upload File Gagal !");
+					var file_input = $('#draft_contract_file');
+					file_input.ace_file_input('reset_input');
+					$("#Uploading_Load").hide();
+					$("#tab_uploadProc .form-horizontal").show();
+				}
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+			
+				w2alert("Upload File Gagal !");
+				$("#Uploading_Load").hide();
+				$("#tab_uploadProc .form-horizontal").show();
+
+
+			}
+			else {
+
+				var row_upload = { ID: Simpan.responseJSON["Result"] };
+				file_memo_permohonan.push(row_upload);
+				w2alert("Upload File Berhasil !");
+				$("#Uploading_Load").hide();
+				$("#tab_uploadProc .form-horizontal").show();
+
+			}
+
+		});
+
+
+	});
+
+
+
+	$('#file_memo_pengajuan_addendum').ace_file_input({
+		btn_choose: 'Upload File',
+		btn_change: null,
+		no_icon: 'ace-icon fa fa-cloud-upload',
+		droppable: true,
+		thumbnail: 'small',
+		preview_error: function (filename, error_code) {
+		}
+
+	}).on('change', function () {
+	});
+
+
+
+	$('#file_memo_justifikasi_addendum').ace_file_input({
+		btn_choose: 'Upload File',
+		btn_change: null,
+		no_icon: 'ace-icon fa fa-cloud-upload',
+		droppable: true,
+		thumbnail: 'small',
+		preview_error: function (filename, error_code) {
+		}
+
+	}).on('change', function () {
+	});
+
+
+
+	$('#file_pr_addendum').ace_file_input({
+		btn_choose: 'Upload File',
+		btn_change: null,
+		no_icon: 'ace-icon fa fa-cloud-upload',
+		droppable: true,
+		thumbnail: 'small',
+		preview_error: function (filename, error_code) {
+		}
+
+	}).on('change', function () {
+	});
+
+
+	addendum_procurement();
+	isMainPage = false;
+
+</script>

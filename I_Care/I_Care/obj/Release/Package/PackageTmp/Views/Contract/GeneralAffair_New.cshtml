@@ -1,0 +1,821 @@
+﻿@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Title = "Contract";
+	ViewBag.Parent = "Contract";
+	ViewBag.Child = "GeneralAffair";
+	ViewBag.Child_Caption = "General Affair";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-list\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+}
+
+<script>
+
+
+	var TempDelete = [];
+	var curent_kontrak = [];
+	var CurrentCustomer;
+
+</script>
+
+
+<style>
+
+	.page-content {
+		padding: 0px;
+	}
+
+
+	.box_info {
+		text-align: center;
+		padding-top: 4%;
+		border: 0px dashed #dedede;
+		margin: 0px auto;
+		margin-top: 0%;
+		width: 80%;
+		border-radius: 5px;
+	}
+
+
+	#box_info_icon_top {
+		text-align: right;
+		padding: 3px;
+		border: 0px solid #dedede;
+		margin-top: 0px;
+	}
+
+
+		#box_info_icon_top .icon_short_cut {
+			border: 1px solid #dedede;
+			padding: 4px;
+			width: 65px;
+			height: 50px;
+			border-radius: 2%;
+			display: inline-table;
+			font-size: 9px;
+			cursor: pointer;
+			transition: 0.3s;
+			background-color: none;
+			text-align: center;
+			margin: 0px;
+			border-radius: 2px;
+			cursor: pointer;
+		}
+
+			#box_info_icon_top .icon_short_cut i {
+				font-size: 19px;
+				margin-bottom: 10px;
+			}
+
+
+
+			#box_info_icon_top .icon_short_cut:hover {
+				opacity: 0.50;
+				border: 1px dashed #1a8cff;
+			}
+
+	#box_info_icon {
+		text-align: center;
+		padding-top: 10px;
+		border-top: 1px dashed #dedede;
+		margin-top: 10px;
+	}
+
+
+
+		#box_info_icon .icon_short_cut {
+			border: 1px solid #dedede;
+			padding: 8px;
+			width: 100px;
+			height: 90px;
+			border-radius: 2%;
+			display: inline-table;
+			margin-left: 2px;
+			font-size: 10px;
+			cursor: pointer;
+			transition: 0.3s;
+			margin-bottom: 1%;
+			background-color: none;
+			cursor: pointer;
+		}
+
+			#box_info_icon .icon_short_cut:hover {
+				border-color: yellowgreen;
+				opacity: 0.50;
+				border: 1px solid #dedede;
+			}
+
+			#box_info_icon .icon_short_cut i {
+				font-size: 25px;
+				margin-bottom: 10px;
+			}
+
+	.logo_menu_head {
+		width: 150px;
+	}
+
+	.logo_menu {
+		width: 35px;
+	}
+
+	.list_title {
+		font-weight: normal;
+		font-size: 13px;
+		color: #3279a8;
+	}
+
+	.list_title_2 {
+		font-weight: normal;
+		font-size: 11px;
+		color: #3279a8;
+	}
+</style>
+
+
+<div id="page_panel">
+
+
+	<div class="row box_info" style="background-color:White;">
+
+		<div class="col-sm-3">
+			<img src="../../../Content/img/contract_icon.png" class="logo_menu_head" style="width:30%;">
+		</div>
+
+		<div class="col-sm-7">
+
+			<div style="text-align:left;font-size:12px;">
+				<span style="font-size:40px;color:orange;font-weight:bold;">Kontrak</span><span style="font-size:20px;"> - General Affair</span><br />
+				Kelola data kontrak pelanggan B2B dengan elektronik kontrak menjadi lebih mudah ...
+				<br />
+
+				<br />
+
+			</div>
+
+			<div style="width:100%;">
+
+				<select class="form-control select2 wajib3" id="param_field" data-placeholder="Cari Berdasarkan">
+					<option value="">All</option>
+					<option value="All">All</option>
+					<option value="Id">Contract Id.</option>
+					<option value="Id">Contract No.</option>
+					<option value="FunctionId">Fungsi</option>
+					<option value="CustomerName">Nama Kontrak</option>
+					<option value="CustomerName">Tipe Kontrak</option>
+					<option value="CustomerName">Penanggung Jawab</option>
+				</select>
+
+				<input class="form-control wajib" id="key_word" placeholder="Enter Keyword" type="text" autocomplete="off" style="text-align:center;margin-top:5px;margin-bottom:10px;" onkeypress="if (event.keyCode == 13){find_contract_search('NO');}">
+				<button type="button" class="btn btn-default" onclick="clear_search()" ondblclick="clear_search()"><i class="fa fa-undo" aria-hidden="true"></i> Clear</button>
+				<button type="button" class="btn btn-info" onclick="find_contract_search('NO')" ondblclick="find_contract_search('NO')"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<div id="box_info_icon">
+
+
+
+		<div class="icon_short_cut" onclick="find_contract_search('1');">
+			<i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:red;"></i>
+			<br />
+			<span class="lbl bigger-100">Over Due</span> <br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_new">45</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_contract_search('9');">
+			<i class="fa fa-bell" aria-hidden="true" style="color:red;"></i>
+			<br />
+			<span class="lbl bigger-100">Critical Left</span> <br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_reject">3</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_contract_search('8');">
+			<i class="fa fa-check" aria-hidden="true" style="color:forestgreen;"></i>
+			<br />
+			<span class="lbl bigger-100">Active</span> <br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_success">1000</span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_contract_search('7');">
+			<i class="fa fa-archive" aria-hidden="true" style="color:orange;"></i>
+			<br />
+			<span class="lbl bigger-100">Archive</span> <br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_review">2000</span>
+		</div>
+
+
+
+	</div>
+
+</div>
+
+
+
+<div id="page_result" hidden>
+	<div id="gridContract" style="border-radius:0px;border:none;border-top:1px solid #ccc;" class="responsive"></div>
+</div>
+
+
+
+<script>
+
+	var global_status = "0";
+	var StatusRef = "";
+	var lsting_stat = "";
+	var selected_contract_id = 0;
+	var height = Number(window.innerHeight) - 133;
+
+	
+	function resizegrid() {
+		$('#gridContract').css('height', height);
+	}
+
+
+	resizegrid();
+	$(window).resize(function () {
+
+		resizegrid();
+
+	});
+
+
+
+	function find_contract_search(status) {
+
+		global_status = status;
+
+		if (status.toUpperCase() == 'NO') {
+
+			if ($("#param_field").val() != "All") {
+
+
+				if ($("#param_field").val() == "") {
+
+					w2alert("Harap pilih percarian berdasarkan apa ... !");
+					$("#param_field").focus();
+					return;
+
+				}
+				if ($("#key_word").val() == "") {
+
+					w2alert("Ops... please enter your keyword before !", '<div style="text-align:left;">ImPas ::.</div>');
+					$("#key_word").focus();
+					return;
+
+				}
+
+			}
+
+			StatusRef = "searching";
+			//$("#result_wording").html('<span class="list_title">This result of your search .... </span>');
+		}
+
+
+		$("#page_panel").hide();
+
+		$("#page_result").show(function () {
+
+			if (w2ui['gridContract'] != null) { w2ui['gridContract'].destroy(); }
+			render_grid_order();
+			refresh_contract_list();
+		});
+
+	}
+
+	function clear_search() {
+
+		$("#param_field").val("").trigger('change');
+		$("#key_word").val("");
+	}
+
+
+
+	function render_grid_order() {
+
+		$('#gridContract').w2grid({
+        name: 'gridContract',
+        textSearch: 'contains',
+        show: {
+
+            header: false,
+            toolbar: true,
+            footer: true,
+            lineNumbers: false,
+            selectColumn: true,
+            toolbarEdit : true,
+            @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2018020002", 2) == true)
+            { 
+            <text>toolbarAdd: true,</text>
+            }
+            @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2018020002", 4) == true)
+            { 
+            <text>toolbarDelete: true,</text>
+            }
+            toolbarSearch : false,
+        },
+         toolbar: {
+                    items: [
+                            { type: 'break' },
+                            { type: 'button', id: 'view_detail', caption: '<i class="fa fa-eye" aria-hidden="true"></i> View',disabled:true },
+                            { type: 'break' },
+                            { type: 'button', id: 'addadendum', caption: '<i class="fa fa-plus" aria-hidden="true"></i> Add Addendum', disabled: true },
+                            { type: 'button', id: 'disable', caption: '<i class="fa fa-ban" aria-hidden="true"></i> Disable',disabled:true },
+                            { type: 'button', id: 'enable', caption: '<i class="fa fa-bell-o" aria-hidden="true"></i> Enable',disabled:true },
+                            { type: 'button', id: 'done', caption: '<i class="fa fa-check" aria-hidden="true"></i> Done',disabled:true },
+                            { type: 'button', id: 'report', caption: '<i class="fa fa-download"></i> Report', disabled: false },
+							{ type: 'break' },
+							{ type: 'spacer' },
+							{ type: 'button', id: 'close_button', caption: '<i class="fa fa-times" aria-hidden="true" style="color:red;"></i> Close' },
+                            //{ type: 'button', id: 'bt_view_setting', caption: '<i class="fa fa-filter" aria-hidden="true"></i> View Filter'},
+                    ],
+                    onClick: function (target,data) {
+
+                          switch (target) {
+                                    case 'view_detail':
+                                            var sel = w2ui.gridContract.getSelection();
+                                            var record = w2ui.gridContract.get(sel[0]); 
+                                            form_contract_detail("EDIT",record);
+                                  break;
+                              case 'addadendum':
+                                  var sel = w2ui.gridContract.getSelection();
+                                  var record = w2ui.gridContract.get(sel[0]);
+                                  form_contract_detail("AddAdendum", record);
+                                  break;
+                                    case 'done':
+                                            var sel = w2ui.gridContract.getSelection();
+                                            var record = w2ui.gridContract.get(sel[0]); 
+
+                                          
+                                            if(record.CreateUser != '@User.Identity.Name.ToString()'){
+                                                
+                                            w2alert("Anda bukan pembuat alert ini sehingga anda tidak mempunyai otoritas untuk mengubahnya !"); 
+                                            return;
+                                            }
+                                               
+                                     
+                                            form_done(record);
+                                           
+                                    break;
+
+                                    case 'enable':
+
+                                         var sel = w2ui.gridContract.getSelection();
+                                         var record = w2ui.gridContract.get(sel[0]);
+
+                                        
+                                               
+                                                if(record.CreateUser != '@User.Identity.Name.ToString()'){
+                                                
+                                                     w2alert("Anda bukan pembuat alert ini sehingga anda tidak mempunyai otoritas untuk mengubahnya !"); 
+                                                     return;
+                                                }
+                                               
+                                      
+
+
+                                        render_wait()
+                                            
+                                            var Simpan =   $.ajax({
+                                            url: URL_PTR + '/Contract/ChangeSnooze?ContractId='+record.ContractId + "&Status=0",
+                                            type: 'POST',
+                                            dataType: "json",
+                                            cache: false,
+                                            async: false,
+                                            contentType: false,
+                                            processData: false, 
+                                            }); 
+
+                                            if (Simpan.responseJSON["Result"] != "Error"){
+                                                  w2alert("Alert has been enabled !"); 
+                                                  clear_wait(); 
+                                            }
+
+                                            //w2ui['gridContract'].reload();
+                                            RefreshContract();
+                                            disable_button()
+                                            w2ui['gridContract'].toolbar.enable('disable');
+
+
+                                    break;
+                                    case 'disable':
+                                            
+                                             
+                                            var sel = w2ui.gridContract.getSelection();
+                                            var record = w2ui.gridContract.get(sel[0]);
+                                            
+                                           
+                                                    if(record.CreateUser != '@User.Identity.Name.ToString()'){
+                                                
+                                                         w2alert("Anda bukan pembuat alert ini sehingga anda tidak mempunyai otoritas untuk mengubahnya !"); 
+                                                         return;
+                                                    }
+                                               
+                                        
+                                            
+                                            render_wait()    
+                                            var Simpan =   $.ajax({
+                                            url: URL_PTR + '/Contract/ChangeSnooze?ContractId='+record.ContractId + "&Status=1",
+                                            type: 'POST',
+                                            dataType: "json",
+                                            cache: false,
+                                            async: false,
+                                            contentType: false,
+                                            processData: false, 
+                                            }); 
+
+                                            if (Simpan.responseJSON["Result"] != "Error"){
+                                                  w2alert("Alert has been disabled !");  
+                                                  clear_wait();
+                                            }
+
+                                            RefreshContract()
+                                            disable_button()
+                                            w2ui['gridContract'].toolbar.enable('enable');
+                                    break;  
+                                    case 'bt_view_setting':
+                                            
+                                            $('#ModalViewSetting').modal(
+                                            {
+                                            backdrop: 'static',
+                                            keyboard: false
+                                            }
+                                            );      
+
+									break;    
+									case 'close_button' :
+										back_search();
+										break;	
+
+                        
+                                        }
+
+ 
+                    }   
+                }, 
+        columns: [
+
+            { field: 'ContractId', caption: 'Id.', size: '100px', sortable: true,searchable: 'text', resizable: true,info:true},
+            { field: 'ContractNo', caption: 'Contract No.', size: '150px', sortable: true,searchable: 'text', resizable: true},
+            { field: 'ContractTitle', caption: 'Title', size: '300px', resizable: true, sortable: true ,searchable: 'text',style:'word-wrap:break-word;'},
+            { field: 'Files', caption: 'Attachment', size: '100px', sortable: true,searchable: 'text', resizable: true },
+            { field: 'AlertDestination', caption: 'Mail Destination', size: '150px', sortable: true,searchable: 'text', resizable: true },
+            { field: 'ContractValue', caption: 'Value (Rp.)', size: '100px', resizable: true, sortable: true,searchable: 'text',render: 'number' },
+            { field: 'ContractTypeName', caption: 'Contract Type', size: '100px', resizable: true, sortable: true,searchable: 'text'},
+            { field: 'DayAlert', caption: 'Alert Status', size: '200px', sortable: true,searchable: 'text', resizable: true },
+            { field: 'PenanggungJawabPihak1', caption: 'Contract Signing Officer', size: '100px', sortable: true, searchable: 'text', resizable: true },
+            { field: 'fungsi', caption: 'fungsi', size: '100px', sortable: true, searchable: 'text', resizable: true },                 
+            { field: 'Creator', caption: 'Creator', size: '100px', resizable: true, sortable: true,searchable: 'text',max:'400px' },  
+            { field: 'Updater', caption: 'Updater', size: '100%', resizable: true, sortable: true,searchable: 'text',max:'400px' },   
+                
+        ],
+        onAdd: function (event) {
+                     form_contract_detail("ADD");
+        },
+        onAddAddendum: function (event) {
+            var record = this.get(event.recid);
+            form_contract_detail("AddAdendum", record); 
+        },
+        onEdit: function (event) {
+
+                     var record = this.get(event.recid);
+                     form_contract_detail("EDIT",record);  
+            },
+        onDelete: function (event) {
+
+                var sel = this.getSelection();
+                
+                if (event.force == true){
+               
+                    render_wait();
+                    sel.forEach(function(entry) {
+
+                        var record = w2ui.gridContract.get(entry);
+     
+                        if(record.CreateUser != '@User.Identity.Name.ToString()'){
+                              
+                                @if ((ROLES.CheckAccGroupIstrue(User.Identity.Name.ToString(), "ACCG2018010003") == true))
+                                { 
+                
+                                    <text>
+
+                                        var Delete = $.ajax({
+                                        type: "GET",
+                                        url: URL_PTR + '/Contract/DeleteContract?ContractId=' + record.ContractId,
+                                        dataType: 'json',
+                                        cache: false,
+                                        async: false,
+                                        "autoWidth": false
+                                        });
+                                        clear_wait();
+
+                                    </text>
+                
+                                } 
+                                else{
+                                
+                                      <text>
+
+                                            w2alert("Anda bukan pembuat alert ini sehingga anda tidak mempunyai otoritas untuk menghapusnya !"); 
+                                            event.preventDefault();
+                                            clear_wait();
+
+                                      </text>
+          
+                                }
+                        }else{
+                    
+                                var Delete = $.ajax({
+                                type: "GET",
+                                url: URL_PTR + '/Contract/DeleteContract?ContractId=' + record.ContractId,
+                                dataType: 'json',
+                                cache: false,
+                                async: false,
+                                "autoWidth": false
+                                });
+                                clear_wait();
+                        }                 
+          
+                    });
+                }
+              
+
+            },
+        onDblClick: function (event) {
+                     var record = this.get(event.recid);
+                     form_contract_detail("EDIT",record);  
+            },
+        onReload: function (event) {
+                     RefreshContract();
+            },
+        onSelect: function(event) {
+
+                event.onComplete = function () {
+                disable_button();
+                var contract = w2ui.gridContract.getSelection();  
+
+                    if (contract.length == 1){
+
+                        var record = this.get(event.recid);
+                        w2ui['gridContract'].toolbar.enable('view_detail');
+                        w2ui['gridContract'].toolbar.enable('addadendum');
+                        if(record.Done == null){
+                            w2ui['gridContract'].toolbar.enable('done');
+                        }
+
+                        switch (record.Snooze) {
+                                case 1:
+                                if (record.Done != 'Y'){
+
+                                    w2ui['gridContract'].toolbar.enable('enable');
+                                }
+                                
+                                break;
+                                case 0:
+                                w2ui['gridContract'].toolbar.enable('disable');
+                                break;
+ 
+                            }
+                         
+                    }
+                }
+
+            },
+           onUnselect: function(event) {
+
+                event.onComplete = function () {
+                disable_button();
+                var contract = w2ui.gridContract.getSelection();  
+
+                    if (contract.length == 1){
+                    var record = this.get(event.recid);
+                    w2ui['gridContract'].toolbar.enable('view_detail');
+
+                        switch (record.Snooze) {
+                                case '1':
+                                w2ui['gridCustomer'].toolbar.enable('enable');
+                                break;
+                                case '0':
+                                w2ui['gridCustomer'].toolbar.enable('disable');
+                                break;
+ 
+                            }
+      
+                    }
+                }
+            }
+    });  
+
+
+	}
+
+
+	function refresh_contract_list() {
+
+		if (global_status.toUpperCase() == "NO") {
+
+			key_word = $("#key_word").val();
+			field_ = $("#param_field").val();
+			w2ui['gridContract'].load(URL_PTPR + '/Customers/FindContractCustomer?Type=1&KeyWords=' + key_word + '&Field=' + field_);
+		}
+		else {
+
+			w2ui['gridContract'].load(URL_PTPR + '/Customers/FindContractCustomerByStatus?Status=' + global_status.toUpperCase());
+		}
+
+	}
+
+	function back_search() {
+		StatusRef = "";
+		$("#page_result").hide(function () { $("#page_panel").show("fade"); });
+	}
+
+
+	function disable_button() {
+
+		w2ui['gridContract'].toolbar.disable('vw_button');
+		w2ui['gridContract'].toolbar.disable('approve_button');
+		w2ui['gridContract'].toolbar.disable('verified_button');
+		w2ui['gridContract'].toolbar.disable('force_ver_vaonline');
+		w2ui['gridContract'].toolbar.disable('del_btn');
+		w2ui['gridContract'].toolbar.disable('vw_draft_button');
+	}
+
+	function UpdateCountProgress() {
+
+		$("#count_pending_verified").html("...");
+		var CountProgress = $.ajax({
+			type: "GET",
+			url: URL_PTPR + '/Customers/GetCountEContractStatus',
+			dataType: 'json',
+			cache: false,
+			async: false,
+		});
+
+		DataProgress = CountProgress.responseJSON[0];
+		if (DataProgress.TotalNew != 0) { $("#count_new").html(DataProgress.TotalNew); } else { $("#count_new").html("0");}
+		if (DataProgress.TotalReview != 0) { $("#count_review").html(DataProgress.TotalReview); } else { $("#count_review").html("0"); }
+		if (DataProgress.TotalReject != 0) { $("#count_reject").html(DataProgress.TotalReject); } else { $("#count_reject").html("0"); }
+		if (DataProgress.TotalSuccess != 0) { $("#count_success").html(DataProgress.TotalSuccess); } else { $("#count_success").html("0"); }
+
+	}
+
+	function PrintPDFKontrak(record) {
+
+		var param = { 'ContractId': record.recid };
+		OpenWindowWithPost(URL_PTPR + '/Report/PrintEKontrakRFID', "width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+			"ContractId", param);
+
+	}
+
+	function OpenWindowWithPost(url, windowoption, name, params) {
+		var form = document.createElement("form");
+
+		form.setAttribute("method", "post");
+		form.setAttribute("action", url);
+		form.setAttribute("target", name);
+
+		for (var i in params) {
+			if (params.hasOwnProperty(i)) {
+				var input = document.createElement('input');
+				input.type = 'hidden';
+				input.name = i;
+				input.value = params[i];
+				form.appendChild(input);
+			}
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
+
+
+	}
+
+	UpdateCountProgress();
+	setInterval(function () { UpdateCountProgress(); }, 3000);
+	setInterval(function () { update_data(); }, 6000);
+
+
+
+	function DeleteContract(record) {
+
+		w2confirm('<div style="text-align:center;font-size:12px;"> Are your sure want to delete this Record : <br> Kontrak : <span style="color:blue;"> ' + record.recid + '</span>')
+			.yes(function () {
+
+				var DataCheck = new FormData();
+				DataCheck.append('ContractId', record.recid);
+
+				var CheckAllow = $.ajax({
+					url: URL_PTPR + '/Customers/CheckAllowDeleteEKontrak',
+					type: 'POST',
+					data: DataCheck,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+				});
+
+				if (CheckAllow.responseJSON.Result == 1) {
+
+					var DataSave = new FormData();
+					DataSave.append('ContractId', record.recid);
+					render_wait()
+
+					var Simpan = $.ajax({
+						url: URL_PTPR + '/Customers/DeleteEContractCustomer',
+						type: 'POST',
+						data: DataSave,
+						dataType: "json",
+						cache: false,
+						async: false,
+						contentType: false,
+						processData: false,
+					});
+
+					if (Simpan.responseJSON.Result == 1) {
+						w2alert('Kontrak berhasil dihapus');
+						refresh_contract_list();
+						clear_wait();
+					}
+					else {
+						clear_wait();
+						w2alert("Delete Kontrak Gagal ");
+					}
+
+				}
+				else {
+					w2alert('Kontrak ini tidak dapat dihapus !');
+				}
+
+
+
+			})
+			.no(function () { });
+
+
+
+	}
+
+
+
+	window.addEventListener("focus", function (event) {
+		update_data();
+	}, false);
+
+
+	function update_data() {
+
+		if (global_status.toUpperCase() == "NO") {
+
+			key_word = $("#key_word").val();
+			field_ = $("#param_field").val();
+			var Get_data = $.ajax({
+				url: URL_PTPR + '/Customers/FindContractCustomer?Type=1&KeyWords=' + key_word + '&Field=' + field_ ,
+				type: 'POST',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+
+			});
+
+
+			source_data = Get_data.responseJSON;
+			w2ui['gridContract'].records = source_data;
+			w2ui['gridContract'].refresh();
+		}
+		else {
+
+			var Get_data = $.ajax({
+				url: URL_PTPR + '/Customers/FindContractCustomerByStatus?Status=' + global_status.toUpperCase(),
+				type: 'POST',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+
+			});
+
+
+			source_data = Get_data.responseJSON;
+			w2ui['gridContract'].records = source_data;
+			w2ui['gridContract'].refresh();
+		}
+
+
+
+	}
+
+
+
+</script>

@@ -1,0 +1,478 @@
+﻿@{
+    Layout = null;
+}
+
+<script>
+
+</script>
+
+<style>
+
+    .page-content {
+        padding: 0px !important;
+    }
+
+    .box_info {
+        text-align: center;
+        padding-top: 4%;
+        border: 0px dashed #dedede;
+        margin: 0px auto;
+        margin-top: 0%;
+        width: 80%;
+        border-radius: 5px;
+    }
+
+    #box_info_icon {
+        text-align: center;
+        padding-top: 25px;
+        padding-bottom: 25px;
+        border-top: 1px dashed #dedede;
+        margin-top: 10px;
+        box-sizing: border-box;
+    }
+
+        #box_info_icon .icon_short_cut {
+            border: 1px dashed #dedede;
+            padding: 8px;
+            width: 85px;
+            height: 120px;
+            border-radius: 2%;
+            display: inline-table;
+            margin-left: 2px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 1%;
+            background-color: none;
+            cursor: pointer;
+        }
+
+            #box_info_icon .icon_short_cut:hover {
+                opacity: 0.50;
+                border: 1px solid #1a8cff;
+            }
+
+            #box_info_icon .icon_short_cut i {
+                font-size: 25px;
+                margin-bottom: 10px;
+            }
+
+    .logo_menu_head {
+        width: 150px;
+    }
+
+    .logo_menu {
+        width: 35px;
+    }
+
+    .list_title {
+        font-weight: normal;
+        font-size: 13px;
+        color: #3279a8;
+    }
+
+    .list_title_2 {
+        font-weight: normal;
+        font-size: 11px;
+        color: #3279a8;
+    }
+
+    .non_aktif {
+        filter: grayscale(90%);
+        border: 1px dashed #dedede !important;
+        background-color: whitesmoke;
+        cursor: not-allowed !important;
+    }
+
+</style>
+
+<div id="page_panel">
+
+    <div class="row box_info" style="background-color:White;">
+
+		<div class="col-sm-3" style="padding-top:2%;">
+			<img src="../../../Content/img/sounding.gif" class="logo_menu_head" style="width:90%;">
+		</div>
+
+        <div class="col-sm-7">
+
+			<div style="text-align:left;font-size:13px;margin-bottom:30px;">
+				<span style="font-size:30px;color:#1a8cff;font-weight:bold;">Broadcast</span><span style="font-size:25px;color:#88a833;"> - Management</span><br />
+				Ajukan broadcast Anda dengan lebih mudah dan termonitoring serta tepat jadwal.
+			</div>
+
+            <select class="form-control select2 wajib3" id="param_field" data-placeholder="Cari Berdasarkan">
+                <option value="All" selected>All</option>
+                <option value="Title">Title</option>
+				<option value="Descriptions">Descriptions</option>
+            </select>
+
+
+            <input class="form-control wajib" id="key_word" placeholder="Enter Keyword" type="text" autocomplete="off" style="text-align:center;margin-top:5px;margin-bottom:10px;" onkeypress="if (event.keyCode == 13){find_broadcast_search(0);}">
+            <button type="button" class="btn btn-sm btn-default" onclick="clear_search()" ondblclick="clear_search()"><i class="fa fa-undo" aria-hidden="true"></i> Clear</button>
+            @*<button type="button" id="goSearch" class="btn btn-sm btn-info"><i class="fa fa-search" aria-hidden="true"></i> Search</button>*@
+            <button type="button" class="btn btn-sm btn-info" onclick="find_broadcast_search()" ondblclick="find_broadcast_search()"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+        </div>
+    </div>
+
+	<div id="box_info_icon" hidden>
+
+		<div class="icon_short_cut" onclick="add_broadcast()" id="shortcut_add">
+			<i class="fa fa-plus-square-o" aria-hidden="true" style="color:dodgerblue;"></i>
+			<br />
+			<span class="lbl bigger-100">Create New</span> <br /><br />
+		</div>
+
+		<div class="icon_short_cut" onclick="find_broadcast_search_by_status('0',this.className)" id="count_reject_">
+			<i class="fa fa-ban" aria-hidden="true" style="color:red;"></i>
+			<br />
+			<span class="lbl bigger-100">Rejected</span> <br /><br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_reject"></span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_broadcast_search_by_status('1',this.className);" id="count_new_">
+			<i class="fa fa-envelope" aria-hidden="true" style="color:orange;"></i>
+			<br />
+			<span class="lbl bigger-100">Wating For Approved</span> <br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_new"></span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_broadcast_search_by_status('2',this.className);" id="count_approve_">
+			<i class="fa fa-check-square-o" aria-hidden="true" style="color:#50aa16;"></i>
+			<br />
+			<span class="lbl bigger-100">Approve</span><br /><br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_approve"></span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_broadcast_search_by_status('3',this.className);" id="count_done_">
+			<i class="fa fa-paper-plane-o" aria-hidden="true" style="color:#1a8cff;"></i>
+			<br />
+			<span class="lbl bigger-100">Done</span><br /><br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_done"></span>
+		</div>
+	</div>
+
+</div>
+
+<div id="page_result" hidden>
+    <div id="gridBroadcast" style="border-radius:0px;border:none;border-top:1px solid #ccc;" class="responsive"></div>
+</div>
+
+<script>
+
+    //var y = $.fn.tooltip.Constructor.VERSION
+    $('#gridBroadcast').css('height', Number(window.innerHeight) - 133);
+    $(window).resize(function () {
+        $('#gridBroadcast').css('height', Number(window.innerHeight) - 133);
+    });
+
+    function find_broadcast_search() {
+
+        global_status = 0;
+
+        if ($("#param_field").val() != "All") {
+
+            if ($("#param_field").val() == "") {
+                w2alert("Harap pilih percarian berdasarkan apa ... !");
+                $("#param_field").focus();
+                return;
+            }
+            if ($("#key_word").val() == "") {
+                $("#key_word").focus();
+                w2alert("Enter your keyword !");
+                return;
+            }   
+		}
+
+		field_search = $("#param_field").val();
+		key_search = $("#key_word").val();
+       
+        is_search = 1;
+        is_grid = 1;
+
+        $("#page_panel").hide(function () {
+
+            $("#page_result").show(function () {
+                render_grid_broadcast();
+                refresh_broadcast_list();
+            });
+        });
+    }
+
+	function find_broadcast_search_by_status(status, class_name) {
+
+		if (class_name.toLocaleLowerCase().indexOf("non_aktif") != -1) { return false; }
+        is_search = 0;
+        is_grid = 1;
+        global_status = status;
+        filter_global = status;
+        $("#page_panel").hide(function () {
+            $("#page_result").show(function () {
+                render_grid_broadcast();
+                refresh_broadcast_list();
+            });
+        });
+    }
+
+	function render_grid_broadcast() {
+
+
+        if (w2ui['gridBroadcast'] != null) { w2ui['gridBroadcast'].destroy(); }
+        call_back = 0;
+        $('#gridBroadcast').w2grid({
+            name: 'gridBroadcast',
+			textSearch: 'contains',
+			show: {
+				header: false,
+				toolbar: true,
+				footer: true,
+				lineNumbers: false,
+				selectColumn: true,
+				toolbarSearch: false,
+				toolbarAdd: true,
+				toolbarReload: false
+			},
+            toolbar: {
+                items: [
+					{ type: 'spacer' },
+					{ type: 'break' },
+					{ type: 'button', id: 'view_detail', text: '<i class="fa fa-eye" aria-hidden="true"></i> View Detail', disabled: true },			
+					{ type: 'break' },
+					{
+						type: 'menu-radio', id: 'filter_broadcast_grid',
+						text: function (item) {
+							let text = item.selected;
+							let el = this.get('filter_broadcast_grid:' + item.selected);
+							if (call_back == 1) {
+								if (el.id == '1000') {
+									global_status = 1000;
+								} else {
+									global_status = el.id;
+									is_search = 0;
+								}
+
+								refresh_broadcast_list();
+							}
+							return 'Filter By Progress : ' + el.text;
+						},
+						selected: global_status,
+						items: [{ id: '1000', text: 'All' },
+						{ id: '1', text: '<i class="fa fa-envelope" aria-hidden="true" style="color:orange;"></i> New' },
+							{ id: '2', text: '<i class="fa fa-check-square-o" aria-hidden="true"  style="color:#50aa16;"></i> Approve' },
+							{ id: '3', text: '<i class="fa fa-paper-plane-o" aria-hidden="true" style="color:#1a8cff;"></i> Done' },
+							{ id: '0', text: '<i class="fa fa-ban" aria-hidden="true" style="color:red;"></i> Rejected' },
+						]
+					},
+					{ type: 'break' },
+					{ type: 'button', id: 'btn_refresh', text: '<i class="fa fa-refresh" aria-hidden="true" style="color:green;"></i> Refresh List' },
+					{ type: 'break' },
+                    { type: 'button', id: 'close_button', text: '<i class="fa fa-times" aria-hidden="true" style="color:red;"></i> Close' },
+                ],
+                onClick: function (target, data) {
+                    call_back = 1;
+                   
+                    switch (target) {
+						case 'view_detail':
+							var sel = w2ui.gridBroadcast.getSelection();
+							var record = w2ui.gridBroadcast.get(sel[0]);
+							current_data = record;
+                            flagCrud = 'VIEW'
+                            form_broadcast_detail();
+                            break;
+                        case 'close_button':
+                            back_search()
+							break;
+							break;
+						case 'btn_refresh':
+							refresh_broadcast_list();
+							break;
+                    }
+                }
+            },
+			columns: [
+				{ field: 'Id', text: 'Id.', size: '50px', sortable: true, searchable: 'text', resizable: true, info: true },
+				{ field: 'ProcTag', text: 'Progress', size: '100px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'Title', text: 'Title', size: '300px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'FungsiName', text: 'Fungsi', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+                { field: 'StartDate', text: 'Start Date', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'EndDate', text: 'End Date', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'CountDay', text: 'Count Day', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'SendStatus', text: 'Send Status', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'Descriptions', text: 'Description', size: '200px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'EmbededLink', text: 'Embeded Link', size: '200px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'Creator', text: 'Creator', size: '300px', resizable: true, sortable: true, searchable: 'text'},
+				{ field: 'Updater', text: 'Updater', size: '100%', resizable: true, sortable: true, searchable: 'text'},
+            ],
+            searches: [
+                { type: 'text', field: 'id', label: 'ID' },
+                { type: 'text', field: 'Title', label: 'Title' },
+                { type: 'text', field: 'FungsiName', label: 'Fungsi' },
+                { type: 'date', field: 'StartDate', label: 'Start Date' },
+                { type: 'date', field: 'EndDate', label: 'End Date' },
+                { type: 'text', field: 'Description', label: 'Description' },
+                { type: 'text', field: 'ProcName', label: 'Proces' },
+                { type: 'text', field: 'CreateUser', label: 'Created by' },
+
+            ],
+            onDblClick: function (event) {
+
+                var record = this.get(event.recid);
+                if (record != null) {
+
+                    current_data = record;
+                    flagCrud = "detail";
+                    form_broadcast_detail();
+                }
+
+            },
+            onAdd: function (event) {
+                add_broadcast();
+            },
+            onSelect: function (event) {
+				event.onComplete = function () {
+					disable_button();
+					var rec_ = w2ui.gridBroadcast.getSelection();
+					if (rec_.length == 1) {
+						var record = this.get(event.recid);
+						w2ui['gridBroadcast'].toolbar.enable('view_detail');
+					}
+                }
+            },
+            onUnselect: function (event) {
+                event.onComplete = function () {
+					disable_button();
+					var rec_ = w2ui.gridBroadcast.getSelection();
+					if (rec_.length == 1) {
+						var record = this.get(event.recid);
+						w2ui['gridBroadcast'].toolbar.enable('view_detail');
+					}
+                }
+            },
+            onReload: function (event) {
+                refresh_broadcast_list();
+            },
+            onRefresh: function (event) {
+                call_back = 0;
+            },
+        });
+    }
+
+	function refresh_broadcast_list() {
+
+		
+		if (is_search == 1) {
+
+			w2ui['gridBroadcast'].load('/Broadcast/getBroadcastList?Field=' + field_search + '&Keyword=' + key_search);
+        }
+		else {
+		
+            w2ui['gridBroadcast'].load('/Broadcast/getBroadcastListByStatus?status=' + global_status);
+        }
+    }
+
+    function form_broadcast_detail() {
+        load_page("#PageContainer", URL_PTPR + "/Broadcast/Detail", function () { $('.select2').css('width', '100%').select2(); });
+    }
+
+    function back_search() {
+        is_grid = 0;
+        is_search = 0;
+        $("#page_result").hide(function () { $("#page_panel").show("fade"); });
+        UpdateCountProgress();
+    }
+
+    function UpdateCountProgress() {
+
+		var CountProgress = $.ajax({
+			type: "GET",
+			url: URL_PTPR + '/Broadcast/getCountBroadcastStatus',
+			dataType: 'json',
+			cache: false,
+			async: true,
+			error: function (request, status, error) {
+				w2alert("Load Data Gagal !");
+				//$("#Deleting_Load").hide("fade");
+			},
+			success: function (data) {
+				//console.log(data[0]);
+				DataProgress = data[0];	
+
+				if (DataProgress.New != 0) {
+					$("#count_new").html(DataProgress.New); $("#count_new_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_new").html(""); $("#count_new_").addClass("non_aktif");
+				}
+
+				if (DataProgress.Rejected != 0) {
+					$("#count_reject").html(DataProgress.Rejected); $("#count_reject_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_reject").html(""); $("#count_reject_").addClass("non_aktif");
+				}
+
+				if (DataProgress.Approve != 0) {
+					$("#count_approve").html(DataProgress.Approve); $("#count_approve_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_approve").html(""); $("#count_approve_").addClass("non_aktif");
+				}
+
+				if (DataProgress.Done != 0) {
+					$("#count_done").html(DataProgress.Done); $("#count_done_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_done").html(""); $("#count_done_").addClass("non_aktif");
+				}
+
+				callback = 1;
+				$("#box_info_icon").show();
+			
+			}
+		});
+
+
+      
+       
+    }
+
+ 
+    function disable_button() {
+        w2ui['gridBroadcast'].toolbar.disable('view_detail');
+        w2ui['gridBroadcast'].toolbar.disable('update');
+        w2ui['gridBroadcast'].toolbar.disable('delete');
+    }
+
+    function add_broadcast() {
+
+        flagCrud = "ADD";
+        form_broadcast_detail();
+    }
+  
+    /*--------------------------------------------------------*/
+	// $("#box_info_icon").show();
+
+    UpdateCountProgress();
+
+    //window.addEventListener("focus", function (event) {
+    //    UpdateCountProgress();
+    //}, false);
+
+    $(window).resize(function () {
+        $('#gridBroadcast').css('height', Number(window.innerHeight) - 133);
+    });
+
+  
+    $('#param_field').on('select2:select', function (e) {
+        $("#key_word").focus();
+    });
+
+    $('#param_field').select2({
+    }).on("change", function (e) {
+        $("#key_word").val("");
+
+    });
+
+</script>
+

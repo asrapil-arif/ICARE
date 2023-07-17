@@ -1,0 +1,60 @@
+@using DevExpress.Web.Mvc.UI;
+@using DevExpress.Web.Mvc;
+@using DevExpress.Web;
+@using I_Care.ServiceDoc;
+@{
+
+	var fileBytes_ = ViewBag.Dokumen;
+	byte[] fileBytes;
+	string docman = string.Empty;
+
+	if (fileBytes_ == null)
+	{
+		fileBytes = File.ReadAllBytes(Server.MapPath("~/File_Contract/TestingRTF.rtf"));
+		docman = "doc1";
+	}
+	else
+	{
+		fileBytes = fileBytes_;
+		string TanggalNow = DateTime.Now.ToString("MMddyyyyHHmmss").ToUpper();
+		docman = "doc2" + TanggalNow;
+	}
+
+
+}
+
+@Html.DevExpress().RichEdit(settings => {
+	settings.Name = "RichEditEKontrak";
+	settings.Width = System.Web.UI.WebControls.Unit.Percentage(99.9);
+	settings.Height = System.Web.UI.WebControls.Unit.Pixel(563);
+	settings.CallbackRouteValues = new { Controller = "EContract", Action = "RichEditPartial" };
+	settings.ShowConfirmOnLosingChanges = false;
+	settings.ActiveTabIndex = 0;
+	settings.Theme = "Office365";
+
+
+	settings.PreRender = (s, e) => {
+
+		MVCxRichEdit richEdit = (MVCxRichEdit)s;
+		richEdit.CreateDefaultRibbonTabs(true);
+		richEdit.RibbonContextTabCategories.CreateDefaultRibbonContextTabCategories();
+		RibbonTab rt = new RibbonTab();
+		rt = richEdit.RibbonTabs[0];
+		richEdit.RibbonTabs.Remove(rt);
+		rt = richEdit.RibbonTabs[4];
+		richEdit.RibbonTabs.Remove(rt);
+		richEdit.Focus();
+
+	};
+
+	settings.Saving = (s, e) =>
+	{
+		byte[] docBytes = RichEditExtension.SaveCopy("RichEditEKontrak", DevExpress.XtraRichEdit.DocumentFormat.Rtf);
+		e.Handled = true;
+
+
+	};
+
+
+
+}).Open(docman, DevExpress.XtraRichEdit.DocumentFormat.Rtf, () => { return fileBytes; }).GetHtml()

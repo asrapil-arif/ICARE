@@ -1,0 +1,359 @@
+﻿@{
+	ViewBag.Child_Caption = "Home Page";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-home\"></i>";
+	ViewBag.Title = "HomePage";
+
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Title = "HomePage";
+	string UserType = ROLES.GetUserType(User.Identity.Name.ToString());
+
+
+	if (Request.Cookies["unauthorize_error"] != null
+		&& !string.IsNullOrEmpty(Request.Cookies["unauthorize_error"].Value))
+	{
+		Response.Cookies.Clear();
+		<text>
+		<script>
+			w2alert("@Request.Cookies["unauthorize_error"].Value");
+		</script>
+
+		</text>
+
+		Response.Cookies["unauthorize_error"].Expires = DateTime.Now.AddDays(-5);
+
+
+	}
+}
+
+<style>
+	#box_info_req_update {
+		text-align: center;
+		border: 0px dashed #dedede;
+		margin: 2% auto;
+		margin-top:0px !important;
+		margin-bottom:5px !important;
+		width: 85%;
+		font-size: 13px;
+		border-radius: 5px;
+	}
+
+
+	#mascot_icare {
+		border: 1px solid #dedede;
+		height: 120px;
+		width: 120px;
+		border-radius: 50%;
+		background-image: url("../../Content/img/icon/conan_3.png");
+		background-repeat: no-repeat;
+		background-size: 100%;
+		margin-top: 5%;
+		margin-left: 12% !important;
+		margin-right: 3%;
+	}
+
+	#box_info_req_update_icon {
+		text-align: center;
+		padding: 10px;
+		border: 0px dashed #dedede;
+		margin: 5px auto;
+		margin-top: 1%;
+	}
+
+	.icon_short_cut {
+		border: 1px dashed #dedede;
+		padding: 18px;
+		width: 100px;
+		height: 140px;
+		border-radius: 2%;
+		display: inline-table;
+		margin-left: 3px;
+		font-size: 11px;
+		cursor: pointer;
+		transition: 0.5s;
+		margin-bottom: 1%;
+		background: none;
+	}
+
+		.icon_short_cut:hover {
+			opacity: 0.50;
+			border: 1px solid yellowgreen;
+			background-color: white;
+		}
+
+	.img_langganan {
+		width: 60px;
+	}
+
+	.icon_short_cut i {
+		font-size: 35px;
+	}
+
+	#ModalCustomerDetail .modal-dialog .modal-header {
+		background-image: url('../../../Content/img/logo_icuzz_modal_9.png');
+		background-size: 120px;
+		background-repeat: no-repeat;
+		background-position: right center;
+	}
+
+	#ModalListCustomer .modal-dialog .modal-header {
+		background-image: url('../../../Content/img/logo_icuzz_modal_9.png');
+		background-size: 100px;
+		background-repeat: no-repeat;
+		background-position: right center;
+	}
+
+	.page-content {
+		padding: 0px;
+	}
+
+
+	.form-group label {
+		font-size: 11px;
+	}
+
+
+	.form-group {
+		margin-bottom: 0px;
+	}
+
+		.form-group .select2 {
+			margin-bottom: 3px;
+			text-align: left;
+		}
+
+		.form-group .form-control:hover {
+			border-bottom: 1px dashed red;
+		}
+
+	.icon_lookup:hover {
+		color: Blue;
+	}
+
+	.icon_lookup {
+		color: yellowgreen;
+	}
+
+	.form-group .form-control {
+		font-size: 12px;
+		border: none;
+		border-bottom: 1px dashed yellowgreen;
+		margin: 0px;
+		margin-bottom: 0px;
+	}
+
+		.form-group .form-control .wajib:hover {
+			border-bottom: 1px dashed blue;
+		}
+
+
+	#ModAddCustomer .modal-body {
+		height: 500px;
+	}
+
+	#ModalCustomerDetail .modal-body {
+		height: 450px;
+	}
+
+	#ModalCustomerDetail .modal-dialog {
+		width: 93.5%;
+		margin: 0 auto;
+		margin-top: 1%;
+	}
+
+	#ModAddCustomer .modal-dialog {
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 2%;
+	}
+
+
+	#ModalListCustomer .modal-dialog {
+		width: 93%;
+		margin: 0 auto;
+		margin-top: 2%;
+	}
+
+	#ModalReject .modal-dialog {
+		width: 70%;
+		margin: 0 auto;
+		margin-top: 8%;
+	}
+
+	#ModalSales .modal-dialog, #ModalProvince .modal-dialog {
+		margin-top: 7%;
+		width: 70%;
+		margin: 0 auto;
+		margin-top: 6.5%;
+	}
+
+
+	.select2-selection__placeholder {
+		font-size: 11px;
+	}
+
+	.icon_langganan {
+		border: 1px dashed #dedede;
+		padding: 20px;
+		width: 150px;
+		height: 150px;
+		border-radius: 50%;
+		display: inline-table;
+		margin: 1%;
+		font-size: 12px;
+		cursor: pointer;
+		transition: 0.3s;
+	}
+
+		.icon_langganan:hover {
+			border-color: yellowgreen;
+			opacity: 0.50;
+		}
+
+	.img_langganan {
+		width: 60px;
+	}
+
+	#bank_type {
+		padding: 10px;
+		font-size: 18px;
+		text-align: center;
+	}
+
+
+	.icon_kendaraan {
+		border: 1px dashed #dedede;
+		padding: 10px;
+		width: 250px;
+		height: 100px;
+		border-radius: 15px;
+		display: inline-table;
+		margin: 1%;
+		font-size: 12px;
+		cursor: pointer;
+		transition: 0.3s;
+	}
+
+		.icon_kendaraan:hover {
+			border-color: yellowgreen;
+			opacity: 0.50;
+		}
+
+	.img_kendaraan {
+		width: 60px;
+	}
+
+	#tbl_customer_detail td {
+		font-size: 12px;
+		padding: 0px;
+		padding-left: 3px;
+		padding-right: 3px;
+		font-family: Arial;
+	}
+
+	@@media screen and (max-width: 1300px) {
+
+		#mascot_icare {
+			margin-left: 0% !important;
+		}
+	}
+
+	@@media screen and (max-width: 700px) {
+		#ModAddCustomer .modal-body, #ModalCustomerDetail .modal-body {
+			height: auto;
+		}
+
+
+
+		#ModAddCustomer .modal-dialog {
+			width: 100%;
+			margin: 0 auto;
+		}
+
+
+		#ModalSales .modal-dialog {
+			margin: 0 auto;
+			margin-top: 0%;
+		}
+
+
+		#mascot_icare {
+			margin-left: 0% !important;
+			
+		}
+	}
+</style>
+
+
+<div class="row" id="box_info_req_update" style="border-bottom:1px dashed #dedede;padding-bottom:20px;">
+
+	<div class="col-sm-3" id="mascot_icare">
+		&nbsp;
+	</div>
+	<div class="col-sm-9">
+		<div style="text-align:left;font-size:12px;padding-top:7%;">
+			<span style="font-size:20px;">
+				Hi,.. @User.Identity.Name.ToString() <br />
+				Selamat datang di I-Care
+			</span><br /><br />
+			Terima kasih telah menggunakan I-Care.<br />
+			Gunakan fitur-fitur yang telah kami sediakan dibawah ini<br />Semoga pengalaman Anda dalam menggunakan ini menjadi lebih menyenangkan. <br />
+			Kami berkomitmen untuk memngembangkan I-Care dari hari kehari agar menjadi lebih baik dan mengerti kebutuhan Anda.<br />
+		</div>
+	</div>
+
+
+
+</div>
+
+
+<div id="box_info_req_update_icon" style="margin-top:30px;">
+
+
+	<div class="icon_short_cut" onclick="open_shortcut('Contract');">
+		<img src="../../../Content/images/contract.png" class="logo_menu" id="logo_database" style="width:40px;">
+		<br /><br />
+		<span class="lbl bigger-100">Contract</span>
+	</div>
+
+
+	<div class="icon_short_cut" onclick="open_shortcut('Procurement');">
+		<img src="../../../Content/img/procurement.png" class="logo_menu" id="logo_database" style="width:40px;">
+		<br /><br />
+		<span class="lbl bigger-100">Procurement</span>
+	</div>
+
+
+
+	<div class="icon_short_cut" onclick="open_shortcut('StakeholderBirthday');">
+		<img src="../../../Content/img/ultah.png" class="logo_menu" id="logo_database" style="width:40px;">
+		<br /><br />
+		<span class="lbl bigger-100">Stakeholder Birthday</span>
+	</div>
+
+
+	<div class="icon_short_cut" onclick="open_shortcut('Broadcast');">
+		<img src="../../../Content/img/broadcast_4.png" class="logo_menu" id="logo_database" style="width:40px;">
+		<br /><br />
+			  <span class="lbl bigger-100">Broadcast</span>
+	</div>
+
+
+	<div class="icon_short_cut" onclick="open_shortcut('MyVoucher');">
+		<img src="../../../Content/img/evoucher.png" class="logo_menu" id="logo_database" style="width:40px;">
+		<br /><br />
+		<span class="lbl bigger-100">My Voucher</span>
+	</div>
+
+
+	<div class="icon_short_cut" onclick="open_shortcut('User/ChangePassword');">
+
+		<img src="../../../Content/img/change_password.png" class="logo_menu" id="logo_database" style="width:40px;">
+		<br /><br />
+		<span class="lbl bigger-100"> Change Password</span>
+
+	</div>
+
+
+
+
+</div>

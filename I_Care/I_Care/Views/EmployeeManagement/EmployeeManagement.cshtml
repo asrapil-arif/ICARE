@@ -1,0 +1,493 @@
+﻿@using I_Care.Models
+@{
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    ViewBag.Title = "EmployeeManagement";
+    ViewBag.Parent = "EmployeeManagement";
+    ViewBag.Child = "EmployeeManagement";
+    //ViewBag.Child_Caption = "EmployeeManagement";
+    ViewBag.Icon = "<i class=\"ace-icon fa fa-list\"></i>";
+    ViewBag.TopMenuAce = "Yes";
+
+
+
+}
+
+
+<script>
+
+    var TempDelete = [];
+    var curent_kontrak = [];
+    var CurrentCustomer;
+
+</script>
+
+
+<style>
+
+    .page-content {
+        padding: 0px;
+    }
+
+
+    .box_info {
+        text-align: center;
+        padding-top: 4%;
+        border: 0px dashed #dedede;
+        margin: 0px auto;
+        margin-top: 0%;
+        width: 80%;
+        border-radius: 5px;
+    }
+
+
+    #box_info_icon_top {
+        text-align: right;
+        padding: 3px;
+        border: 0px solid #dedede;
+        margin-top: 0px;
+    }
+
+
+        #box_info_icon_top .icon_short_cut {
+            border: 1px solid #dedede;
+            padding: 4px;
+            width: 65px;
+            height: 50px;
+            border-radius: 2%;
+            display: inline-table;
+            font-size: 9px;
+            cursor: pointer;
+            transition: 0.3s;
+            background-color: none;
+            text-align: center;
+            margin: 0px;
+            border-radius: 2px;
+            cursor: pointer;
+        }
+
+            #box_info_icon_top .icon_short_cut i {
+                font-size: 19px;
+                margin-bottom: 10px;
+            }
+
+
+
+            #box_info_icon_top .icon_short_cut:hover {
+                opacity: 0.50;
+                border: 1px dashed #1a8cff;
+            }
+
+    #box_info_icon {
+        text-align: center;
+        padding-top: 10px;
+        border-top: 2px dashed #dedede;
+        margin-top: 10px;
+        /*white-space: nowrap;*/
+        max-width: auto;
+    }
+
+
+
+        #box_info_icon .icon_short_cut {
+            border: 1px solid #dedede;
+            padding: 9px;
+            width: 90px;
+            height: 90px;
+            border-radius: 2%;
+            /*display: inline-table;
+            margin-left: 2px;*/
+            display: inline-table;
+            margin-left: 2px;
+            font-size: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            margin-bottom: 2%;
+            background-color: none;
+            cursor: pointer;
+        }
+
+            #box_info_icon .icon_short_cut:hover {
+                border-color: yellowgreen;
+                opacity: 0.50;
+                border: 1px solid #dedede;
+            }
+
+            #box_info_icon .icon_short_cut i {
+                font-size: 25px;
+                margin-bottom: 10px;
+            }
+
+    .logo_menu_head {
+        width: 150px;
+    }
+
+    .logo_menu {
+        width: 35px;
+    }
+
+    .list_title {
+        font-weight: normal;
+        font-size: 13px;
+        color: #3279a8;
+    }
+
+    .list_title_2 {
+        font-weight: normal;
+        font-size: 11px;
+        color: #3279a8;
+    }
+
+    .icon_short_cut {
+        min-height: 120px;
+    }
+</style>
+
+
+<div id="page_panel">
+
+
+    <div class="row box_info" style="background-color:White;">
+
+        <div class="col-sm-3">
+            <img src="../../../Content/img/employee2.png" class="logo_menu_head" style="width:30%;">
+        </div>
+
+        <div class="col-sm-7">
+
+            <div style="text-align:left;font-size:12px;">
+                <span style="font-size:40px;color:orange;font-weight:bold;">Employee Management</span><span style="font-size:20px;"></span><br />
+                Kelola data Employee
+                <br />
+
+                <br />
+
+            </div>
+
+            <div style="width:100%;">
+
+                <select class="form-control select2 wajib3" id="param_field" data-placeholder="Cari Berdasarkan">
+                    <option value="All">All</option>
+                    <option value="Nopek">Nopek</option>
+                    <option value="NamaPekerja">Nama Pekerja</option>
+                    <option value="Jabatan">Jabatan</option>
+                    <option value="Kedudukan">Kedudukan</option>
+                </select>
+
+                <input class="form-control wajib" id="key_word" placeholder="Enter Keyword" type="text" autocomplete="off" style="text-align:center;margin-top:5px;margin-bottom:10px;" onkeypress="if (event.keyCode == 13){find_employee('NO');}">
+                <button type="button" class="btn btn-default" onclick="clear_searchemployee()" ondblclick="clear_searchemployee()"><i class="fa fa-undo" aria-hidden="true"></i> Clear</button>
+                <button type="button" class="btn btn-info" onclick="find_employee('NO')" ondblclick="find_employee('NO')"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div id="box_info_icon" class="width-auto">
+
+        <div class="icon_short_cut" onclick="AddNewEmployee();">
+            <i class="fa fa-plus-square-o" aria-hidden="true" style="color:#4d4d00;"></i>
+            <br />
+            <span class="lbl bigger-100"> Add New Employee</span>
+        </div>
+
+        <div class="icon_short_cut" onclick="find_employee('3');">
+            <i class="fa fa-birthday-cake" aria-hidden="true" style="color: yellowgreen;"></i>
+            <br />
+            <span class="lbl bigger-100">Berulang Tahun Bulan ini</span> <br />
+            <span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_ulangtahunbulan">0</span>
+        </div>
+
+        <div class="icon_short_cut" onclick="find_employee('1');">
+            <i class="fa fa-birthday-cake" aria-hidden="true" style="color: dodgerblue;"></i>
+            <br />
+            <span class="lbl bigger-100">Berulang Tahun Hari ini</span> <br /><br />
+            <span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_ulangtahun">0</span>
+        </div>
+
+        <div id="3" class="icon_short_cut" onclick="find_employee('2');">
+            <i class="fa fa-save" aria-hidden="true" style="color:red;"></i>
+            <br />
+            <span class="lbl bigger-100">Semua Data</span> <br /><br /><br />
+            <span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_active">0</span>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="page_result" hidden>
+    <div id="gridEmployee" style="border-radius:0px;border:none;border-top:1px solid #ccc;" class="responsive"></div>
+</div>
+
+
+@Html.Partial("Modal/form_employeemanagement_detail")
+
+
+<script>
+
+	var from_add = "1";
+	var global_status = "0";
+	var StatusRef = "";
+	var lsting_stat = "";
+	var selected_contract_id = 0;
+
+	var height = Number(window.innerHeight) - 133;
+    $('#gridEmployee').height(height);
+
+	function find_employee(status) {
+
+		global_status = status;
+
+		if (status.toUpperCase() == 'NO') {
+
+			if ($("#param_field").val() != "All") {
+
+
+				if ($("#param_field").val() == "") {
+
+					w2alert("Harap pilih percarian berdasarkan apa ... !");
+					$("#param_field").focus();
+					return;
+
+				}
+				if ($("#key_word").val() == "") {
+
+					w2alert("Ops... please enter your keyword before !", '<div style="text-align:left;">ImPas ::.</div>');
+					$("#key_word").focus();
+					return;
+
+				}
+
+			}
+
+			StatusRef = "searching";
+			//$("#result_wording").html('<span class="list_title">This result of your search .... </span>');
+		}
+
+
+		$("#page_panel").hide();
+
+		$("#page_result").show(function () {
+
+            if (w2ui['gridEmployee'] != null) { w2ui['gridEmployee'].destroy(); }
+            render_grid_employee();
+			refresh_employee_list();
+		});
+
+	}
+
+    function AddNewEmployee() {
+        debugger
+        employeemanagement_detail_form('ADD');
+    }
+	function back_searchsh() {
+		StatusRef = "";
+		$("#page_result").hide(function () { $("#page_panel").show("fade"); });
+	}
+
+	function clear_searchemployee() {
+
+		$("#param_field").val("All").trigger('change');
+		$("#key_word").val("");
+	}
+
+	function render_grid_employee()
+	{
+
+        $('#gridEmployee').w2grid({
+            name: 'gridEmployee',
+			textSearch: 'contains',
+			show: {
+
+				header: false,
+				toolbar: true,
+				footer: true,
+				lineNumbers: false,
+				selectColumn: true,
+				toolbarSearch: false,
+			},
+			toolbar: {
+				items: [
+					{ type: 'break' },
+					{ type: 'button', id: 'vw_button', caption: '<i class="fa fa-external-link" aria-hidden="true"></i> View Detail', disabled: 'true' },
+
+                    { type: 'break' },
+                    { type: 'button', id: 'del_btn', disabled: 'true', caption: '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> Delete' },
+                    { type: 'break' },
+                    { type: 'button', id: 'report', caption: '<i class="fa fa-download"></i> Save To Excel', disabled: false },
+                    { type: 'break' },
+                   
+					{ type: 'spacer' },
+					{ type: 'button', id: 'close_button', caption: '<i class="fa fa-times" aria-hidden="true" style="color:red;"></i> Close' },
+
+				],
+                onClick: function (target, data) {
+                    debugger
+                    if (target == 'vw_button') {
+                        var sel = w2ui.gridEmployee.getSelection();
+                        var record = w2ui.gridEmployee.get(sel[0]);
+                        employeemanagement_detail_form('EDIT', record);
+					}
+
+
+					if (target == 'del_btn') {
+                        var sel = w2ui.gridEmployee.getSelection();
+                        var record = w2ui.gridEmployee.get(sel[0]);
+
+                        DeleteStakeHolder(record);
+					}
+
+					if (target == 'close_button') {
+						back_searchsh();
+					}
+                    if (target == 'report') {
+                        debugger
+                        download_report();
+
+                    }
+
+				}
+
+			},
+			columns: [
+
+				{ field: 'Id', caption: 'Id.', size: '150px', sortable: true, searchable: 'text', resizable: true, info: true },
+
+                { field: 'Nopek', caption: 'Nopek', size: '200px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'NamaPekerja', caption: 'Nama Pekerja', size: '200px', sortable: true, searchable: 'text', resizable: true },
+
+                { field: 'Jabatan', caption: 'Jabatan', size: '150px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'LevelJabatanName', caption: 'Level Jabatan', size: '150px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'KedudukanName', caption: 'Kedudukan', size: '150px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'TanggalLahir', caption: 'Tanggal Lahir', size: '150px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'AlertDay', caption: 'AlertDay', size: '100px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'UpdateDate', caption: 'UpdateDate', size: '150px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'CreateUser', caption: 'CreateUser', size: '150px', resizable: true, sortable: true, searchable: 'text', max: '400px' },
+				{ field: 'UpdateUser', caption: 'UpdateUser', size: '150px', resizable: true, sortable: true, searchable: 'text', max: '400px' },
+
+            ],
+            onDblClick: function (event) {
+                debugger
+                var record = this.get(event.recid);
+                var status = record.statusid;
+                if (status == 1) {
+                    employeemanagement_detail_form('EDIT', record);
+                }
+                else if (status == 2) {
+                    employeemanagement_detail_form('EDIT', record);
+                }
+                else if (status == 3) {
+                    employeemanagement_detail_form('EDIT', record);
+                }
+
+			},
+			onReload: function (event) {
+                refresh_employee_list();
+			},
+			onSelect: function (event) {
+                debugger
+				event.onComplete = function () {
+
+					disable_button();
+
+                    var count_ = w2ui.gridEmployee.getSelection();
+					if (count_.length == 1) {
+                        w2ui['gridEmployee'].toolbar.enable('vw_button');
+                        w2ui['gridEmployee'].toolbar.enable('del_btn');
+
+					}
+
+				}
+			},
+			onUnselect: function (event) {
+
+				event.onComplete = function () {
+
+					disable_button();
+                    var count_ = w2ui.gridEmployee.getSelection();
+
+					if (count_.length == 1) {
+
+                        w2ui['gridEmployee'].toolbar.enable('vw_button');
+                        w2ui['gridEmployee'].toolbar.enable('del_btn');
+
+					}
+				}
+
+			}
+		});
+
+	}
+
+	function disable_button() {
+
+        w2ui['gridEmployee'].toolbar.disable('vw_button');
+        w2ui['gridEmployee'].toolbar.disable('del_btn');
+
+	}
+    function DeleteStakeHolder(record) {
+        var Delete = $.ajax({
+            type: "GET",
+            url: URL_PTR + '/EmployeeManagement/DeleteEmployee?EmployeeId=' + record.Id,
+            dataType: 'json',
+            cache: false,
+            async: false,
+            "autoWidth": false
+        });
+        w2alert("Data Berhasil Didelete");
+        clear_wait();
+        refresh_employee_list();
+    }
+    function refresh_employee_list() {
+
+		if (global_status.toUpperCase() == "NO") {
+
+			key_word = $("#key_word").val();
+			field_ = $("#param_field").val();
+            w2ui['gridEmployee'].load(URL_PTPR + '/EmployeeManagement/FindEmployee?Type=1&KeyWords=' + key_word + '&Field=' + field_);
+		}
+        else {
+
+            w2ui['gridEmployee'].load(URL_PTPR + '/EmployeeManagement/FindEmployeeByStatus?Status=' + global_status);
+		}
+
+	}
+    function download_report() {
+            debugger
+        var url = URL_PTR + '/Reporting/ReportEmployee';
+        var win = window.open(url, '_blank');
+
+
+        }
+
+
+    function UpdateCountProgressEmployee() {
+
+        var CountProgress = $.ajax({
+            type: "GET",
+            url: URL_PTPR + '/EmployeeManagement/GetCountEmployeeStatus',
+            dataType: 'json',
+            cache: false,
+            async: false,
+        });
+
+        DataProgress = CountProgress.responseJSON[0];
+        if (DataProgress.TotalUlangTahun != 0) { $("#count_ulangtahun").html(DataProgress.TotalUlangTahun); } else { $("#count_ulangtahun").html("0"); }
+        if (DataProgress.TotalUlangTahunBulan != 0) { $("#count_ulangtahunbulan").html(DataProgress.TotalUlangTahunBulan); } else { $("#count_ulangtahunbulan").html("0"); }
+        if (DataProgress.TotalActive != 0) { $("#count_active").html(DataProgress.TotalActive); } else { $("#count_active").html("0"); }
+
+
+    }
+    UpdateCountProgressEmployee();
+    ////setInterval(function () { UpdateCountProgressEmployee(); }, 3000);
+    ////setInterval(function () { update_data(); }, 6000);
+
+    //window.addEventListener("focus", function (event) {
+    //    UpdateCountProgressEmployee();
+    //}, false);
+
+
+
+</script>

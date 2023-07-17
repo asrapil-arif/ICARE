@@ -1,0 +1,462 @@
+﻿
+<style>
+
+
+	
+
+	#printby {
+		font-size: 11px;
+		color: #808080;
+		font-family: Arial;
+	}
+
+	.contract_header_bottom {
+		border-top: 1px solid #000000;
+		width: 100%;
+		margin-top: 2px;
+	}
+
+	#aggrement_page {
+		padding: 1%;
+		color: black;
+	}
+
+	.contract_main_fill {
+		text-align: left;
+		font-size: 13px;
+		color: black;
+	}
+
+	.contract_header {
+		width: 100%;
+		text-align: center;
+		font-family: 'Courier New';
+		padding-top: 0%;
+		font-size: 16px;
+		border-bottom: 1px solid #000000;
+		padding-bottom: 10px;
+		font-weight: bold;
+	}
+
+	#content_page_contract {
+		border: 0px solid #b1adad;
+		width: 90%;
+		background-color: white;
+		font-family: 'Courier New';
+		margin: 2% auto;
+	}
+
+	#aggree_nama_pihak_1, #aggree_nama_pihak_2, .footer_wording {
+		font-weight: bold;
+	}
+
+	#tbl_aggree td {
+		vertical-align: top;
+		font-size: 12px;
+		padding: 2px;
+		text-align: justify;
+	}
+
+
+
+
+	#tabel_sub_15 td, #tabel_sub_15 th {
+		border: 1px solid black;
+		border-collapse: collapse;
+	}
+
+	.tabel_sub_15_sub td, .tabel_sub_15_sub th {
+		padding: 4px;
+		border: none !important;
+	}
+
+	.tbl_pihak td {
+		padding: 0px;
+	}
+
+	#stamp {
+		width: 100px;
+	}
+
+	@page {
+		size: F4;
+		margin-left: 30px;
+		margin-right: 20px;
+		margin-top: 0px;
+		margin-bottom: 0px;
+	}
+</style>
+
+
+
+<div id="aggrement_page">
+
+
+	<div id="content_page_contract">
+
+		<div class="contract_header">
+			PERJANJIAN KERJASAMA PENYEDIAAN BAHAN BAKAR KHUSUS (BBK) DEPOSIT<br>
+			ANTARA<br>
+			<span id="head_pihak_1_corp">@pihak1_head</span>
+			<br>
+			DAN
+			<br>
+			<span id="head_pihak_2_corp">@pihak2_head</span>
+			<br>
+			<span id="head_no_kontrak">@no_kontrak</span>
+			<svg id="barcode"></svg>
+
+		</div>
+
+		<div class="contract_header_bottom">
+			&nbsp;
+		</div>
+
+		<div class="contract_main_fill">
+
+			Pada hari <span id="aggre_hari">@hari</span> tanggal <span id="tanggal">@tanggal</span> bulan <span id="bulan">@bulan</span> tahun <span id="tahun">@tahun</span> , yang bertanda tangan di bawah ini :	<br>
+			<br />
+			<table width="100%" class="tbl_pihak">
+				<tr><td width="4px;">1.</td><td width="30%">Nama</td><td width="3px">:</td><td><span id="aggree_nama_pihak_1">@nama_pihak1</span></td></tr>
+				<tr><td>&nbsp;</td><td>Jabatan</td><td>:</td><td><span id="aggree_jabatan_pihak_1">@jabatan_pihak1</span></td></tr>
+				<tr><td>&nbsp;</td><td>Perusahaan</td><td>:</td><td><span id="aggree_perusahaan_pihak_1">@perusahaan_pihak1</span></td></tr>
+				<tr><td>&nbsp;</td><td>Alamat</td><td>:</td><td><span id="aggree_alamat_pihak_1">@alamat_pihak1</span></td></tr>
+				<tr><td>&nbsp;</td><td colspan="3">&nbsp;</td></tr>
+				<tr><td colspan="4">Untuk selanjutnya disebut "PIHAK PERTAMA"</td></tr>
+			</table>
+			<br>
+
+			<table width="100%" class="tbl_pihak">
+				<tr><td width="4px;">2.</td><td width="30%">Nama</td><td width="3px">:</td><td><span id="aggree_nama_pihak_2">@nama_pihak2</span></td></tr>
+				<tr><td>&nbsp;</td><td>Jabatan</td><td>:</td><td><span id="aggree_jabatan_pihak_2">@jabatan_pihak2</span></td></tr>
+				<tr><td>&nbsp;</td><td>Perusahaan / Instansi</td><td>:</td><td><span id="aggree_perusahaan_pihak_2">@perusahaan_pihak2</span></td></tr>
+				<tr><td>&nbsp;</td><td>Alamat Perusahaan / Instansi</td><td>:</td><td><span id="aggree_alamat_pihak_2">@alamat_pihak2</span></td></tr>
+				<tr><td>&nbsp;</td><td colspan="3">&nbsp;</td></tr>
+				<tr><td colspan="4">Untuk selanjutnya disebut "PIHAK KEDUA"</td></tr>
+			</table>
+
+			<br>
+
+
+
+			<table border="0px" id="tbl_aggree" width="100%">
+
+				<tr>
+					<td colspan="3">
+						Dengan ini menerangkan bahwa :
+						PIHAK PERTAMA dan PIHAK KEDUA (selanjutnya disebut PARA PIHAK) sepakat melakukan kerjasama Penyediaan Bahan Bakar Khusus jenis Pertalite,
+						Pertamax, Pertamax Turbo, Dexlite dan Pertamina Dex, (selanjutnya disebut "BBK") untuk kebutuhan bahan bakar kendaraan operasional milik
+						PIHAK KEDUA melalui Stasiun Pengisian Bahan Bakar Umum Company Owned Company Operated sesuai dengan daftar yang tercantum dalam
+						Web Report berikut perubahan-perubahannya dikemudian hari (selanjutnya disebut "SPBU"), yang dikelola oleh PIHAK PERTAMA.
+						Adapun sistem Web Report dapat diakses di <a href="https://webreport.pertaminaretail.com">https://webreport.pertaminaretail.com</a>
+						Ketentuan-ketentuan dalam berlangganan BBK secara deposit sebagaimana dimaksud dalam perjanjian ini adalah sebagai berikut :
+					</td>
+				</tr>
+				<tr>
+
+					<td colspan="3" style="text-align:justify;">
+						&nbsp;
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">1</td>
+					<td width="4px">.</td>
+					<td>
+						PIHAK PERTAMA akan menyediakan BBM bagi kendaraan operasional PIHAK KEDUA di SPBU COCO yang dikelola oleh PIHAK PERTAMA sebagaimana dimaksud pada website <a href="https://webreport.pertaminaretail.com">https://webreport.pertaminaretail.com</a> dengan sistem Deposit
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">2</td>
+					<td width="3px">.</td>
+					<td>
+						PIHAK PERTAMA akan memberikan kartu RFID kepada PIHAK KEDUA yang berlaku untuk setiap mobil kendaraan operasional yang berisi informasi mengenai mobil kendaraan operasional yang akan diisikan BBK, adapun tata cara penggunaan kartu RFID sebagaimana tercantum di  Web Report
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">3</td>
+					<td width="3px">.</td>
+					<td>
+						PIHAK PERTAMA akan memberikan kartu RFID secara cuma-cuma (Free) kepada PIHAK KEDUA untuk maksimal 30 (tiga puluh) kendaraan operasional pertama yang didaftarkan oleh PIHAK KEDUA, dan untuk tambahan kartu RFID berikutnya akan dikenakan biaya sebesar <b> Rp. 50.000,- </b> (lima puluh ribu rupiah) per kartu.
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">4</td>
+					<td width="3px">.</td>
+					<td>
+						PIHAK PERTAMA akan membebankan biaya tambahan kepada PIHAK KEDUA apabila terjadi kehilangan Kartu RFID yang diakibatkan kelalaian/kesalahan pengemudi kendaraan operasional dan/atau PIHAK KEDUA dengan biaya penggantian Kartu RFID dimaksud sebesar <b>Rp. 75.000,- </b> (tujuh puluh lima ribu rupiah) per Kartu RFID.
+
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">5</td>
+					<td width="3px">.</td>
+					<td>
+						PARA PIHAK sepakat bahwa harga dan jenis BBK yang diberlakukan dalam Perjanjian ini adalah resmi sesuai dengan ketentuan yang ditetapkan oleh Pemerintah dan/atau Pertamina dari waktu ke waktu berdasarkan peraturan perundang-undangan yang berlaku.
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">6</td>
+					<td width="3px">.</td>
+					<td>
+						PIHAK KEDUA akan menyetorkan saldo deposit awal untuk penggunaan RFID sebesar <b> Rp.<span id="deposit_awal_view">@contract_value</span> <span id="deposit_awal_view_terbilang">@contract_terbilang</span> </b>ke rekening yang ditunjuk PIHAK PERTAMA sebagaimana disebutkan dalam angka 8 Perjanjian ini dan untuk pengisian saldo deposit berikutnya menyesuaikan kebutuhan PIHAK KEDUA.
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">7</td>
+					<td width="3px">.</td>
+					<td>
+						PIHAK KEDUA wajib melakukan Pengajuan top-up saldo deposit (invoice top-up) pengisian BBK pada saat saldo tidak cukup untuk memenuhi kebutuhan BBK PIHAK KEDUA.
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">8</td>
+					<td width="3px">.</td>
+					<td>
+						Tata cara pengajuan top-up saldo deposit (invoice top-up) dengan melampirkan bukti pembayaran top-up ke rekening virtual account <b><span id="va_no_view">@BankName - @VaNo</span> an. <span id="va_name_view">@VaName</span></b> secara online melalui website PIHAK PERTAMA.
+						Adapun Tutorial Untuk Pengajuan TopUp Pada Akun dan Cetak Invoice dapat diakses melalui Web Report.
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">9</td>
+					<td width="3px">.</td>
+					<td>
+						PIHAK PERTAMA akan menyediakan akses untuk melihat detail transaksi pemakaian BBK yang digunakan oleh PIHAK KEDUA melalui Web Report PIHAK PERTAMA. Adapun Tutorial Cetak Report Pemakaian BBK dan Tutorial Melihat Begin Balance & Ending Balance dapat diakses melalui Web Report
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">10</td>
+					<td width="3px">.</td>
+					<td>
+						PIHAK PERTAMA berhak untuk tidak melayani pengisian BBK kendaraan operasional PIHAK KEDUA apabila nilai deposit sudah mencapai Rp. 0,- sehingga tidak cukup untuk memenuhi kebutuhan bahan bakar PIHAK KEDUA.
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">11</td>
+					<td width="3px">.</td>
+					<td>
+						Penyalahgunaan kartu RFID sepenuhnya akan menjadi tanggung jawab PIHAK KEDUA.
+
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">12</td>
+					<td width="3px">.</td>
+					<td>
+						Kerja sama ini akan berlakusejak tanggal <span id="tgl_awal_pre">@</span> sampai dengan tanggal <span id="tgl_akhir_pre"></span> dan dapat diperpanjang sesuai kesepakatan para pihak yang dituangkan dalam sebuah Berita Acara Kesepakatan.
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">13</td>
+					<td width="3px">.</td>
+					<td>
+						Sebagaimana Klausul 12 Perjanjian ini, PARA PIHAK sepakat bahwa Perjanjian ini berlaku setelah PIHAK KEDUA menyetorkan deposit kepada PIHAK PERTAMA sebagaimana dimaksud pasal 8 (delapan) perjanjian ini
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">14</td>
+					<td width="3px">.</td>
+					<td>
+						PARA PIHAK akan menginformasikan suatu keadaan yang dianggap sebagai Force Majeur untuk menunda hak dan kewajiban dalam perjanjian ini. Pihak Mana akan memberitahukan maksimal  7 (tujuh) hari kerja kepada Pihak Lainnya terkait kondisi Force Majeur yang dialaminya.
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">15</td>
+					<td width="3px">.</td>
+					<td>
+						Hal-hal yang belum diatur dalam Perjanjian ini, akan disepakati kembali oleh Kedua Belah Pihak.
+
+					</td>
+				</tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr>
+					<td width="1%" valign="top">16</td>
+					<td width="3px" valign="top">.</td>
+					<td valign="top">
+						Setiap Pemberitahuan yang diperlukan atau diberikan oleh satu PIHAK kepada PIHAK lainnya, ditujukan ke alamat sebagai berikut:
+						<br><br>
+
+						<table border="0" cellpadding="1" cellspacing="0" width="100%" id="tabel_sub_15">
+							<tr>
+								<td style="font-weight:bold;" width="50%">PIHAK PERTAMA</td>
+								<td style="font-weight:bold;">PIHAK KEDUA</td>
+
+							</tr>
+							<tr>
+								<td>
+
+									<table class="tabel_sub_15_sub">
+										<tr>
+
+											<td colspan="3">
+												<span id="pihak_1_corp_sub">@perusahaan_pihak1</span>
+											</td>
+
+										</tr>
+										<tr>
+											<td>Up</td>
+											<td>:</td>
+											<td>
+												<span id="alamat_1">@alamat_pihak1</span>
+											</td>
+
+										</tr>
+										<tr>
+											<td>Telepon</td>
+											<td>:</td>
+											<td>
+												<span id="phone_1">@phone_pihak1</span>
+											</td>
+
+										</tr>
+										<tr>
+											<td>Faksimili</td>
+											<td>:</td>
+											<td>
+												<!--<span id="fax_1">@fax_pihak1</span>-->
+											</td>
+
+										</tr>
+										<tr>
+											<td>E-mail</td>
+											<td>:</td>
+											<td>
+												<span id="mail_1">@mail_pihak1</span>
+											</td>
+
+										</tr>
+
+
+									</table>
+
+
+								</td>
+								<td>
+
+									<table class="tabel_sub_15_sub">
+										<tr>
+											<td colspan="3">
+												<span id="pihak_2_corp_sub">@perusahaan_pihak2</span>
+											</td>
+										</tr>
+										<tr>
+											<td>Up</td>
+											<td>:</td>
+											<td>
+												<span id="alamat_2">@alamat_pihak2</span>
+											</td>
+
+										</tr>
+										<tr>
+											<td>Telepon</td>
+											<td>:</td>
+											<td>
+												<span id="phone_2">@phone_pihak2</span>
+											</td>
+
+										</tr>
+										<tr>
+											<td>Faksimili</td>
+											<td>:</td>
+											<td>
+												<span id="fax_2">@fax_pihak2</span>
+											</td>
+
+										</tr>
+										<tr>
+											<td>E-mail</td>
+											<td>:</td>
+											<td>
+												<span id="mail_2">@mail_pihak2</span>
+											</td>
+
+										</tr>
+
+
+									</table>
+
+								</td>
+
+							</tr>
+						</table>
+
+						<br />
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">17</td>
+					<td width="3px">.</td>
+					<td>
+						Setiap perubahan atau pengaturan lebih lanjut terhadap hal-hal yang tidak atau belum diatur dalam Perjanjian ini harus disetujui secara tertulis oleh PARA PIHAK serta dituangkan dalam bentuk Addendum yang merupakan bagian tidak terpisahkan dari Perjanjian ini kecuali untuk perubahan Lampiran-Lampiran Perjanjian dapat dilakukan tanpa dibuatkan suatu addendum.
+					</td>
+				</tr>
+				<tr>
+					<td width="1%">18</td>
+					<td width="3px">.</td>
+					<td>
+						PARA PIHAK sepakat mengakui perjanjian ini dibuat secara elektronik yang sah berlaku serta mengikat bagi PARA PIHAK sampai dengan jangak waktu perjanjian ini berakhir
+				</tr>
+				<tr>
+					<td width="1%">19</td>
+					<td width="3px">.</td>
+					<td>
+						PARA PIHAK dengan ini sepakat untuk mengesampingkan ketentuan pasal 1266 Kitab Undang Undang Hukum Perdata
+				</tr>
+				<tr><td colspan="3">&nbsp;</td></tr>
+				<tr>
+					<td colspan="3">
+						<table border="0" width="100%">
+							<tr>
+								<td width="50%" valign="middle">
+									<span style="font-size:13px;font-weight:bold;">* Perjanjian ini telah direview oleh Legal PT Pertamina Retail</span>
+									<br />
+									<br />
+									<div id="qrcode" style="margin-bottom:10px;">
+										<img src="https://icare.pertaminaretail.com/QrStore/@QR_NAME" style="width:150px;border:1px solid #808080;padding:0px;" /><br />
+									</div>
+									<div style="font-size:12px;color:blue;border-top:0px solid #808080;text-align:left;">@status</div>
+									<br />
+									<br />
+									<div id="printby">Print on : @printby</div>
+								</td>
+								<td valign="middle" style="text-align:left;">
+									<br />
+									<br />
+									@stamp
+								</td>
+							</tr>
+
+						</table>
+
+
+					</td>
+
+
+				</tr>
+			</table>
+
+			<br>
+
+
+
+
+		</div>
+
+
+
+
+	</div>
+
+
+</div>
+
+
+
+<script>
+	window.status = "READY";
+</script>

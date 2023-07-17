@@ -1,0 +1,337 @@
+﻿
+@{
+
+	Layout = null;
+}
+
+
+<style>
+
+	#linked_process_contract {
+		padding: 5% !important;
+		text-align: center
+	}
+		#linked_process_contract .judul_proses_kontrak {
+			
+			width:100%;
+			font-size:17px;
+			text-align:center;
+			margin-bottom:15px;
+			padding-bottom:10px;
+			border-bottom:1px dashed #dedede;
+			font-weight:bold;
+
+
+
+		
+		}
+			#linked_process_contract .judul_proses_kontrak i {
+			
+				font-size:55px;
+			
+			}
+
+</style>
+
+<div class="width-auto box_info_icon box_process_kontrak" style="border:none;padding:0px;padding-bottom:0%;" id="linked_process_contract" hidden>
+
+	<div class="judul_proses_kontrak"><i class="fa fa-link" aria-hidden="true" style="color: #40ba1a;"></i><br />Cari Kontrak Yang Akan Ditautkan !</div>
+
+	<div style="width:100%;">
+
+		<div id="page_panel_contract" style="width:50%;margin:0 auto;padding-bottom:2%;">
+
+			<select class="form-control select2" id="param_field_contract" data-placeholder="Cari Berdasarkan">
+				<option value="">All</option>
+				<option value="All">All</option>
+				<option value="ContractId">Contract Id.</option>
+				<option value="ContractNo">Contract No.</option>
+				<option value="FungsiName">Fungsi</option>
+				<option value="ContractTitle">Nama Kontrak</option>
+				<option value="ContractTypeName">Tipe Kontrak</option>
+			</select>
+
+			<input class="form-control" id="key_word_contract" placeholder="Enter Keyword" type="text" autocomplete="off" style="text-align:center;margin-top:5px;margin-bottom:10px;" onkeypress="if (event.keyCode == 13){find_contract_search(0);}">
+
+
+			<button type="button" class="btn btn-default btn-sm" onclick="clear_search_cont_proc()" ondblclick="clear_search_cont_proc()"><i class="fa fa-eraser" aria-hidden="true"></i> Clear</button>
+			<button type="button" class="btn btn-info btn-sm" onclick="find_contract_search(0)" ondblclick="find_contract_search(0)"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+			<button type="button" class="btn btn-default btn-sm" onclick="cancel_linked_contract()" ondblclick="cancel_linked_contract()">Cancel</button>
+
+		</div>
+
+		
+
+	</div>
+
+</div>
+
+
+<div id="page_result_contract" hidden>
+	<div id="gridContract" style="border-radius:0px;border:none;border-top:1px solid #ccc;height:355px" class="responsive"></div>
+</div>
+
+<script>
+
+
+	var global_status_contract = 0;
+	var StatusRefContract = "";
+	var lsting_stat_contract = "";
+	var selected_contract_id = 0;
+	var StatusSearchContract = 0;
+
+	$('#gridContract').css('height', Number(window.innerHeight) - 133);
+	$(window).resize(function () {
+		$('#gridContract').css('height', Number(window.innerHeight) - 133);
+		
+	});
+
+
+	$("#linked_process_contract").show("fade");
+
+
+	function cancel_linked_contract() {
+		load_page("#PageContainer", URL_PTPR + "/Procurement/ProcessContract", function () { $('.select2').css('width', '100%').select2() });
+	}
+
+
+
+	function find_contract_search(status) {
+
+		global_status_contract = status;
+
+		if (status == 0) {
+
+			if ($("#param_field_contract").val() != "All") {
+
+
+				if ($("#param_field_contract").val() == "") {
+
+					w2alert("Harap pilih percarian berdasarkan apa ... !");
+					$("#param_field").focus();
+					return;
+
+				}
+				if ($("#key_word_contract").val() == "") {
+
+					w2alert("Ops... please enter your keyword before !", '<div style="text-align:left;">ImPas ::.</div>');
+					$("#key_word").focus();
+					return;
+
+				}
+
+			}
+
+			StatusRefContract = "searching";
+
+		}
+
+
+		$("#linked_process_contract").hide();
+
+		$("#page_result_contract").show(function () {
+
+			if (w2ui['gridContract'] != null) { w2ui['gridContract'].destroy(); }
+			render_grid_contract_linked();
+			refresh_contract_list();
+		});
+
+	}
+
+
+	function render_grid_contract_linked() {
+
+		$('#gridContract').w2grid({
+			name: 'gridContract',
+			textSearch: 'contains',
+			show: {
+
+				header: false,
+				toolbar: true,
+				footer: true,
+				lineNumbers: false,
+				selectColumn: true,
+				toolbarSearch: false,
+				toolbarAdd: false
+			},
+			toolbar: {
+				items: [
+					{ type: 'break' },
+					{ type: 'button', id: 'btn_linked_contract', caption: '<i class="fa fa-link" aria-hidden="true"></i> Tautkan Kontrak', disabled: true },
+					{ type: 'break' },
+					{ type: 'spacer' },
+					{ type: 'button', id: 'close_button', caption: '<i class="fa fa-times" aria-hidden="true" style="color:red;"></i> Close' },
+
+				],
+				onClick: function (target, data) {
+
+					switch (target) {
+						case 'btn_linked_contract':
+							var sel = w2ui.gridContract.getSelection();
+							var record = w2ui.gridContract.get(sel[0]);
+							save_link_contract(record);
+							break;
+						case 'close_button':
+							$("#page_result_contract").hide("fade", function () { $("#linked_process_contract").show(); });
+							break;
+					}
+
+
+				}
+			},
+			columns: [
+
+				{ field: 'DayAlert', caption: 'Info.', size: '200px', sortable: true, searchable: 'text', resizable: true, info: true },
+				{ field: 'LinkedProc', caption: 'Linked', size: '200px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'ContractId', caption: 'Contract Id.', size: '150px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'ContractNo', caption: 'Contract No.', size: '150px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'ContractTitle', caption: 'Title', size: '300px', resizable: true, sortable: true, searchable: 'text', style: 'word-wrap:break-word;' },
+				{ field: 'BeginDate', caption: 'Start Date', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'EndDate', caption: 'End Date', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'Files', caption: 'Attachment', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'AlertDestination', caption: 'Mail Destination', size: '150px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'ContractValue', caption: '<div style="text-align:right;">Value (Rp.)</div>', size: '100px', resizable: true, sortable: true, searchable: 'text', render: 'number' },
+				{ field: 'ContractTypeName', caption: 'Contract Type', size: '100px', resizable: true, sortable: true, searchable: 'text' },
+				{ field: 'DayLeft', caption: '<div style="text-align:right;">Day Left</div>', size: '70px', sortable: true, searchable: 'text', resizable: true, render: 'number' },
+				{ field: 'OverDue', caption: '<div style="text-align:right;">Over Due</div>', size: '70px', sortable: true, searchable: 'text', resizable: true, render: 'number' },
+				{ field: 'PenanggungJawabPihak1', caption: 'Contract Signing Officer', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'FungsiName', caption: 'Fungsi', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'Creator', caption: 'Creator', size: '100px', resizable: true, sortable: true, searchable: 'text', max: '400px' },
+				{ field: 'Updater', caption: 'Updater', size: '100%', resizable: true, sortable: true, searchable: 'text', max: '400px' },
+
+			],
+
+			onDblClick: function (event) {
+				var record = this.get(event.recid);
+
+			},
+			onReload: function (event) {
+				refresh_contract_list();
+			},
+			onSelect: function (event) {
+
+				event.onComplete = function () {
+					disable_button_contract();
+					var contract = w2ui.gridContract.getSelection();
+
+					if (contract.length == 1) {
+
+						var record = this.get(event.recid);
+						w2ui['gridContract'].toolbar.enable('btn_linked_contract');
+
+					}
+				}
+
+			},
+			onUnselect: function (event) {
+
+				event.onComplete = function () {
+					disable_button_contract();
+					var contract = w2ui.gridContract.getSelection();
+
+					if (contract.length == 1) {
+
+						var record = this.get(event.recid);
+						w2ui['gridContract'].toolbar.enable('btn_linked_contract');
+
+					}
+				}
+			}
+		});
+
+
+	}
+
+
+	function refresh_contract_list() {
+
+		key_word = $("#key_word_contract").val();
+		field_ = $("#param_field_contract").val();
+		w2ui['gridContract'].load(URL_PTPR + '/Contract/FindContractGA_all?Type=1&KeyWords=' + key_word + '&Field=' + field_);
+
+	}
+
+
+	function back_search_contract() {
+
+		StatusRef = "";
+		$("#page_result_contract").hide(function () { $("#page_panel_contract").show("fade"); });
+
+
+	}
+
+
+	function disable_button_contract() {
+		w2ui['gridContract'].toolbar.disable('btn_linked_contract');
+	}
+
+
+	function clear_search_cont_proc() {
+
+		$("#param_field_contract").val("All").trigger('change');
+		$("#key_word_contract").val("");
+	}
+
+
+
+	function save_link_contract(record) {
+
+		if (record.Done == "Y" || record.AlertDay < 1 || record.ProcurementId != null) {
+			w2alert("Kontrak ini tidak memenuhi syarat untuk ditautkan !");
+			return;
+		}
+
+		w2confirm('Apakan Anda yakin akan menautkan kontrak ini dengan procurement : #' + current_proc.Id + '#' + current_proc.Title)
+			.yes(() => {
+
+				console.log('yes');
+
+				var DataSave = new FormData();
+				DataSave.append('ProcId', current_proc.Id);
+				DataSave.append('ContractId', record.recid);
+
+				$('#Modal_load_2').show("fade", function () {
+
+					var Simpan = $.ajax({
+						url: URL_PTR + '/Procurement/SaveLinkedContract',
+						type: 'POST',
+						data: DataSave,
+						dataType: "json",
+						cache: false,
+						async: false,
+						contentType: false,
+						processData: false,
+					});
+
+
+					if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+						$('#Modal_load_2').hide();
+						w2alert(Simpan.responseJSON["Result"]);
+					}
+					else {
+
+						back_main_page();
+
+					}
+
+
+				});
+
+			})
+			.no(() => { console.log('no'); })
+		
+
+	}
+
+
+	$('#param_field_contract').on('select2:select', function (e) {
+
+		$("#key_word_contract").val("");
+		$("#key_word_contract").focus();
+
+	});
+
+	isMainPage = false;
+
+</script>

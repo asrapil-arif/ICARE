@@ -1,0 +1,652 @@
+body
+{
+background-image:url("../img/surevey_back.png");
+background-repeat:no-repeat;
+background-size:100%;
+background-attachment:fixed;
+transition:.5s;
+   
+   
+}
+
+
+.out-wrapper
+{
+padding:0px;
+border:0px solid red;
+margin:12%;
+margin-top:0%;
+margin-bottom:0%;
+transition:.2s;
+-webkit-box-shadow: -1px 1px 9px 1px #dedede; 
+-moz-box-shadow: -1px 1px 9px 1px #dedede; 
+box-shadow: -1px 1px 9px 1px #dedede;
+opacity:.97;
+color:Black;
+
+    
+/*border-top-right-radius:110px;*/
+
+  
+
+}
+.out-wrapper-frame
+{
+ 
+background-color:White;
+padding:px;
+padding-left:0px;
+padding-right:0px;
+padding-top:0%;
+border-radius:0px;
+min-height:700px;
+border:0px solid red;
+
+    
+
+    
+}
+
+
+
+.header-page 
+{
+border:0px solid #dedede;
+padding-bottom:10px;
+padding-top:5px;
+width:100%;
+transition:.5s;     
+height:80px;     
+color:White;
+/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#f8ffe8+0,e3f5ab+33,b7df2d+100;Green+3D+%234 */
+background: rgb(248,255,232); /* Old browsers */
+background: -moz-linear-gradient(-45deg, rgba(248,255,232,1) 0%, rgba(227,245,171,1) 33%, rgba(183,223,45,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(-45deg, rgba(248,255,232,1) 0%,rgba(227,245,171,1) 33%,rgba(183,223,45,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(135deg, rgba(248,255,232,1) 0%,rgba(227,245,171,1) 33%,rgba(183,223,45,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8ffe8', endColorstr='#b7df2d',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+     
+    
+     
+}    
+.sub-header
+{
+border:0px solid #dedede;
+display:inline-table;
+border-bottom:0px solid #dedede;
+margin-left:0px;
+margin-right:0px;
+    
+}
+
+.header-page .img-logo
+{
+    
+ width:27%;
+
+    
+}
+
+.header-page .img-logo-crm
+{
+    
+ position:absolute;
+ right:15%;
+ top:0%;
+ width:12%;
+ opacity:.90;
+    
+}
+.header-page .judul
+{
+height:40px;
+width:83%;    
+text-align:left;
+padding:10px;
+font-size:25px;
+font-weight:normal;
+color:white;
+border:0px solid #dedede;
+     
+}
+.header-page .welcome
+{
+    
+font-size:28px;
+   
+font-weight:normal;
+color: 	yellowgreen;
+text-shadow:1px 1px 1px #333;
+}
+.header-page .tag-line
+{
+    
+font-size:13px;
+font-weight:normal;
+color:#333;
+display:none;
+
+ 
+}
+
+.Middle
+{
+padding-left:15px;
+padding-right:15px;
+}
+
+.Content
+{
+margin-top:10px;  
+margin-bottom: 10px;
+line-height: 25px;
+border:0px dotted #dedede;
+text-align:justify;
+padding:25px;
+font-size:13px;
+margin-left:1px;
+padding-bottom:0px;
+padding-top:0px;
+}
+.content-petunjuk
+{
+padding-left:20px;
+border:0px solid #dedede;
+width:98%;
+    
+}
+    
+    
+.content-ask 
+{
+padding-left:7px;
+padding-right:5px;
+border:0px solid #dedede;
+    
+   
+}
+.content-ask  table th
+{
+text-align:center;
+}
+
+.Choosen
+{
+margin-top: 5px;
+margin-bottom: 25px;
+font-size:12px;
+}
+.content-ask
+{
+font-size:13px;
+}
+.AskGrid
+{
+padding: 5px;
+}
+.infoleft
+{
+width: 35%;
+float: left;
+}
+.inforight
+{
+width: 24%;
+float: right;
+margin-bottom: 20px;
+}
+.Grid
+{
+float: left;
+}
+.Warning
+{
+border-style:none;
+text-align: center;
+padding: 10px;
+margin-bottom: 5px;
+margin-top: 5px;
+border-radius:5px;
+background-color: #FF0000;
+color: #FFFFFF;
+}
+
+#tbl-petunjuk .singkatan
+{
+font-weight:bold;
+}
+
+.thx
+{
+background: #f1e767; /* Old browsers */
+background: -moz-linear-gradient(top, #f1e767 0%, #feb645 100%); /* FF3.6+ */
+background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f1e767), color-stop(100%,#feb645)); /* Chrome,Safari4+ */
+background: -webkit-linear-gradient(top, #f1e767 0%,#feb645 100%); /* Chrome10+,Safari5.1+ */
+background: -o-linear-gradient(top, #f1e767 0%,#feb645 100%); /* Opera 11.10+ */
+background: -ms-linear-gradient(top, #f1e767 0%,#feb645 100%); /* IE10+ */
+background: linear-gradient(to bottom, #f1e767 0%,#feb645 100%); /* W3C */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1e767', endColorstr='#feb645',GradientType=0 ); /* IE6-9 */
+border: 1px;
+margin-top: 20px;
+border-style: solid;
+padding: 20px;
+/*background-color: #F3F3F3;*/
+border-color: #ccc;
+width: 80%;
+margin-left: auto;
+margin-right: auto;
+border-radius: 3px;
+box-shadow: 0 8px 6px -6px rgb(139, 139, 139);
+text-shadow: 1px 1px rgb(235, 255, 2), -1px -1px #CACACA;
+}
+
+
+.btn {
+background: #3498db;
+background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+background-image: -moz-linear-gradient(top, #3498db, #2980b9);
+background-image: -ms-linear-gradient(top, #3498db, #2980b9);
+background-image: -o-linear-gradient(top, #3498db, #2980b9);
+background-image: linear-gradient(to bottom, #3498db, #2980b9);
+-webkit-border-radius: 4;
+-moz-border-radius: 4;
+border-radius: 2px;
+font-family: Arial;
+color: #ffffff;
+font-size: 15px;
+padding: 10px 20px 10px 20px;
+text-decoration: none;
+border:0px solid #cccccc;
+}
+
+.btn:hover {
+background: #3cb0fd;
+background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -moz-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -ms-linear-gradient(top, #3cb0fd, #3498db);
+background-image: -o-linear-gradient(top, #3cb0fd, #3498db);
+background-image: linear-gradient(to bottom, #3cb0fd, #3498db);
+text-decoration: none;
+}
+.msg-box
+{
+background-color:Red;
+width:90%;
+margin:5px auto;
+padding:15px;
+color:White;
+border-radius:3px;
+text-align:center;
+display:none;
+    
+}
+    
+.form-wrapper
+{
+     
+margin:25%;
+margin-top:10%;
+border:1px solid #dedede;
+padding:5px;
+border-radius:3px;
+box-shadow: 0 8px 6px -6px rgb(139, 139, 139);
+background-color:whitesmoke;
+background-image:url("");
+     
+}
+     
+.title-form
+{
+color:#333;
+font-size:18px;
+text-align:center;
+margin-bottom:5px;
+     
+     
+}
+     
+.form-element
+{
+border:1px solid #dedede;
+border-radius:3px;
+margin-bottom:5px;
+width:80%;
+padding:5px;
+}  
+ 
+
+    
+
+.alert-req
+{
+position:fixed;
+    
+}
+    
+#identity-pop
+{
+position:fixed;
+border:0px solid #dedede;
+background-color:#0099FF;
+height:130px;
+width:130px;
+border-radius:50%;
+margin-right:0px;
+padding-top:25px;
+float:right;
+right:1px;
+top:15%;
+text-align:center;
+font-size:11.5px;
+color:white;
+z-index: 100;
+opacity:.70;
+transition:.2s;
+}        
+.main-page
+{
+padding:20px;
+}   
+    
+.img-bunder
+{
+border:0px solid #dedede;
+width:250px;
+height:250px;
+border-radius:50%;
+-webkit-box-shadow: -1px 1px 9px 1px whitesmoke; 
+-moz-box-shadow: -1px 1px 9px 1px whitesmoke; 
+box-shadow: -1px 1px 9px 1px whitesmoke;
+float:right;
+
+    
+    
+}
+    
+.img-welcome
+{
+background-image:url("../img/welcome_women.jpg");
+background-repeat:no-repeat;
+background-position:center;
+
+transition:0.2s;
+
+     
+}   
+
+
+
+.boxing
+{
+
+display:inline-table;    
+}
+    
+.box-welcome
+{
+    
+text-align:right;
+border:0px solid #dedede;
+padding-top:7%;
+padding-right:2%;
+position:absolute;
+right:31%;
+font-size:16px;
+font-family:Calibri;
+font-weight:normal;
+color:gray;
+width:50%;
+transition:.2s;
+
+}
+    
+.welcome
+{
+border:1px solid #dedede;
+    
+    
+} 
+
+.clear {
+clear: both;
+}
+    
+.form-group
+{
+   
+width:100%;
+
+    
+}   
+    
+
+
+.element-form
+{
+display:inline-block;
+padding:5px;
+width:100%;
+border:0px solid #dedede;
+font-size:13px;
+color:#333;
+     
+}   
+ 
+    
+.field-group
+{
+margin-bottom:2px;
+border:0px solid #dedede;
+padding:5px;
+   
+}
+    
+.label-field
+{
+width:200px;
+    
+}  
+.sparator
+{
+width:10px;
+}   
+
+.field-container
+{
+    width:70%;
+    
+    }     
+.element-form .field
+{
+border:1px solid #dedede;
+padding:5px;
+width:100%;
+      
+}  
+
+.combo-box
+{
+    padding:10px;
+    border:1px solid #dedede;
+    width:100%;
+    
+}
+
+
+.element-form .field:hover,.element-form .field:active,.element-form .combo-box:hover,.element-form .combo-box:active
+{
+border:1px solid yellowgreen;
+} 
+   
+
+                       
+@media (max-width: 1150px) 
+{
+
+.header-page .img-logo
+{
+    
+width:30%;
+position:absolute;
+left:3%;
+top:1%;
+
+   
+}
+.header-page .img-logo-crm
+{
+    
+width:20%;
+position:absolute;
+right:3%;
+top:1%;;
+
+
+   
+}
+       
+    
+    
+.out-wrapper    
+{
+margin:2%;
+margin-top:0%;
+margin-bottom:0%;
+}
+        
+.header-page .logo
+{   width:100%;    
+text-align:center;
+background-position:center;
+
+            
+}
+            
+.header-page .judul
+{
+width:100%; 
+text-align:center;
+} 
+            
+.content-petunjuk	
+{
+
+width:80%;
+    
+}
+	
+.logo-thank{
+width: 50px;	
+	
+}
+	
+	
+.form-wrapper
+{
+     
+margin:0%;
+margin-top:20%;
+ 
+     
+}
+    
+}
+@media (max-width: 600px) 
+{
+
+.box-welcome
+{
+
+position:static;
+width:100%;
+border:0px solid #dedede;
+text-align:center;
+padding-top:0%;
+
+
+
+}
+
+.img-welcome
+{
+  width:100%;  
+  height:150px; 
+  left:0%;
+  position:static;
+  border-radius:50%;
+  border:0px solid #dedede;
+  float:left;
+  border:0px solid #dedede;
+
+}
+       
+        
+.header-page .img-logo
+{
+    
+width:50%;
+position:absolute;
+left:3%;
+top:1%;
+
+   
+}
+.header-page .img-logo-crm
+{
+    
+width:25%;
+position:absolute;
+right:3%;
+top:1%;;
+
+
+   
+}
+            
+.header-page .judul
+{
+width:100%; 
+text-align:center;
+}    
+            
+.content-petunjuk
+{
+
+width:80%;
+    
+}
+        
+       
+.out-wrapper-frame
+{
+
+    
+min-height:calc(100vh - 2.5em);
+background-size:100%;
+   
+    
+}
+    
+    
+#identity-pop
+{
+position:fixed;
+border:0px solid #dedede;
+background-color:#0099FF;
+height:55px;
+width:100%;
+border-radius:0%;
+margin-right:0px;
+padding:2px;
+float:right;
+right:1px;
+top:0%;
+text-align:center;
+font-size:11.5px;
+color:white;
+z-index: 100;
+opacity:.90;
+}    
+    
+}
+
+

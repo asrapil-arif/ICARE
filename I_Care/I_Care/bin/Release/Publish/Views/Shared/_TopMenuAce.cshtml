@@ -1,0 +1,50 @@
+﻿@using System.Data.SqlClient;
+@using System.Data;
+@using I_Care.Classes;
+
+
+
+	
+	<div id="sidebar" class="sidebar menu-min responsive">
+
+		<ul class="nav nav-list">
+
+
+
+			<li @{if (ViewBag.Child =="Home" ) { <text> class="active open hover" </text>  } else { <text> class="hover" </text>  }}>
+				<a href="@Url.Content("~/Home")" onclick="render_wait()">
+
+					<img src="../../../Content/img/HomeIcon2.png" class="icon_image_side">
+					<span class="menu-text"> Home </span>
+				</a>
+
+			</li>
+
+			<li @{if (ViewBag.Child =="GeneralAffair" ) { <text> class="active open hover" </text>  } else { <text> class="hover" </text>  }}>
+			<a href="@Url.Content("~/Contract/GeneralAffair")" onclick="render_wait()">
+
+			<img src="../../../Content/img/contract_icon.png" class="icon_image_side">
+			<span class="menu-text"> Kontrak GA </span>
+			</a>
+
+			</li>
+
+			<li @{if (ViewBag.Child =="CustomerContract" ) { <text> class="active open hover" </text>  } else { <text> class="hover" </text>  }}>
+			<a href="@Url.Content("~/Contract/CustomerContractList")" onclick="render_wait()">
+
+			<img src="../../../Content/img/kontrak_customer_2.png" class="icon_image_side">
+			<span class="menu-text"> Kontrak Pelanggan </span>
+			</a>
+
+			</li>
+
+
+
+
+
+		</ul><!-- /.nav-list -->
+
+
+                
+
+    </div>

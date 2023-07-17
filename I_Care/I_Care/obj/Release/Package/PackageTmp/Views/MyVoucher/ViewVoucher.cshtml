@@ -1,0 +1,269 @@
+﻿@{
+	ViewBag.Title = "E-Voucher";
+	Layout = null;
+
+}
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Pertamina Retail | E-Voucher</title>
+	<link rel="icon" href="../../Content/img/logo_ptm.png" type="image/x-icon">
+	<link rel="stylesheet" href="../../Content/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+	<script src="../../Content/assets/js/jquery-2.1.4.min.js"></script>
+	<script src="../../Content/assets/js/bootstrap.min.js"></script>
+	<script src="../../Content/assets/js/JsBarcode.all.min.js"></script>
+	<script src="../../Content/assets/js/qrcode.min.js" integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAUSHSQX0FslNhTDadL4O5SAGapGt4FodqL8My0mA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
+	<style type="text/css">
+		body {
+			background-image: url("../../Content/img/spbu_coco.jpg") !important;
+			background-size: 100% !important;
+			background-repeat: no-repeat !important;
+			background: white;
+			background-attachment: fixed;
+			height: 100%;
+		}
+
+		#doc_info {
+			border: none;
+			box-shadow: 4px 11px 35px -1px rgba(0,0,0,0.5);
+			-webkit-box-shadow: 4px 11px 35px -1px rgba(0,0,0,0.5);
+			-moz-box-shadow: 4px 11px 35px -1px rgba(0,0,0,0.5);
+			height: 100%;
+			background-color: white;
+			opacity:.95;
+			
+		}
+
+			#doc_info td {
+				font-size: 13px;
+				font-family: Arial;
+			}
+
+		#tbl-info-sub {
+			border-bottom: 1px solid #dedede;
+			margin-bottom: 5px !important;
+		}
+
+			#tbl-info-sub td {
+				padding: 5px;
+			}
+
+
+		#QR-code img {
+			border: 4px solid #666666 !important;
+			padding: 10px;
+		}
+
+		#barcode {
+			border: 4px solid #666666;
+			padding: 10px;
+		}
+
+		@@media (max-width: 1300px) {
+			.brhead {
+				display: none;
+			}
+
+			body {
+				background: whitesmoke;
+				margin: 0 auto;
+				padding: 0;
+				background-attachment: fixed;
+				background-size: 100% !important;
+				background-repeat: no-repeat !important;
+			}
+
+			#doc_info {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+			}
+
+
+			#h1 {
+				font-family: arial !important;
+				font-size: 2vmax !important;
+				color: #666666 !important;
+			}
+
+			#h2 {
+				font-family: tahoma !important;
+				font-size: 2vmax !important;
+				color: #666666 !important;
+			}
+
+			#f1 {
+				font-size: 2vmax !important;
+				font-weight: normal !important;
+				color: #666666 !important;
+				font-family: arial !important;
+			}
+
+			#tbl-info td {
+				font-size: 1.5vmax !important;
+				font-family: tahoma !important;
+			}
+		}
+
+
+		@@media (max-width: 768px) {
+			.brhead {
+				display: none;
+			}
+
+			body {
+				background: whitesmoke;
+				margin: 0 auto;
+				padding: 0;
+				background-attachment: fixed;
+				background-size: 150% !important;
+				background-repeat: no-repeat !important;
+			}
+
+			#doc_info {
+				width: 100%;
+				height: 100%;
+				margin: 0;
+			}
+
+
+			#h1 {
+				font-family: arial !important;
+				font-size: 2vmax !important;
+				color: #666666 !important;
+			}
+
+			#h2 {
+				font-family: tahoma !important;
+				font-size: 2vmax !important;
+				color: #666666 !important;
+			}
+
+			#f1 {
+				font-size: 2vmax !important;
+				font-weight: normal !important;
+				color: #666666 !important;
+				font-family: arial !important;
+			}
+
+			#tbl-info td {
+				font-size: 1.5vmax !important;
+				font-family: tahoma !important;
+			}
+		}
+	</style>
+
+</head>
+<body>
+
+	<table border="0px" width="60%" align="center" cellspacing="0" cellpadding="0" id="doc_info">
+		<tr style="">
+			<td style="text-align: center;border-top:8px solid yellowgreen;padding-top:10px;">
+
+				<img src="../../Content/img/logo_ptpr.png" style="width:160px;">
+				<hr />
+			</td>
+		</tr>
+
+		<tr>
+			<td style="padding: 20px;padding-bottom:10px;padding-top:0px;text-align:center;">
+				<span style="font-family: arial;font-size: 18px;color:#666666;font-weight:bold;">
+					Elektronik Voucher Pertamina Retail
+				</span>
+			</td>
+		</tr>
+		<tr>
+			<td style="padding: 20px;padding-top:0px;">
+				<table id="tbl-info-sub" width="100%" cellpadding="0" cellspacing="0" border="0px" style="font-family: tahoma;font-size: 12px;color:#666666;" class="table table-striped">
+
+					<tr><td width="40%">Tipe Dokumen</td><td width="1px">:</td><td> E-Voucher</td></tr>
+					<tr><td>Voucher No.</td><td>:</td><td> @ViewBag.VoucherNo</td></tr>
+					<tr><td>Nominal</td><td>:</td><td><span style="font-weight:bold;" id="nominal"> </span></td></tr>
+					<tr><td>Product</td><td>:</td><td>  @ViewBag.ProductName</td></tr>
+					<tr><td>Expire Date</td><td>:</td><td>  @ViewBag.ExpireDate</td></tr>
+					<tr><td>Status Penggunaan</td><td>:</td><td>  @ViewBag.StatusPenggunaan</td></tr>
+
+				</table>
+				<div style="font-size:13px;font-weight:normal;color:#666666;font-family:arial;padding-top:10px;text-align:center">
+					Scan QR Code atau Barcode ini untuk redeem voucher di unit bisnis kami yang telah mendukung bertransaksi dengan Evoucher
+				</div>
+
+				<br />
+				<br />
+				<center>
+					<div id="QR-code"></div>
+					<br />
+					<br />
+					<br />
+					<svg id="barcode"></svg>
+				</center>
+
+				<div style="border-top:1px dashed #ccc;width:100%;padding:10px;text-align:center;margin-top:30px;font-family:Arial;color:#666666;" id="web_share">
+					<span>Share This Voucher Via</span><br /><br />
+					<a href="https://web.whatsapp.com/send?text=https://icare.pertaminaretail.com/MyVoucher/ViewVoucher?vc=@ViewBag.OriginUrl" data-action="share/whatsapp/share" target="_blank"><img src="~/Content/img/WhatsApp_icon.png" style="width:50px;" /></a>
+				</div>
+
+
+				<div style="border-top:1px dashed #ccc;width:100%;padding:10px;text-align:center;margin-top:30px;font-family:Arial;color:#666666;" id="mobile_share">
+					<span>Share This Voucher Via</span><br /><br />
+					<a href="whatsapp://send?text=https://icare.pertaminaretail.com/MyVoucher/ViewVoucher?vc=@ViewBag.OriginUrl" data-action="share/whatsapp/share" target="_blank"><img src="~/Content/img/WhatsApp_icon.png" style="width:50px;" /></a>
+				</div>
+
+
+
+
+			</td>
+		</tr>
+
+
+
+
+
+	</table>
+
+
+</body>
+
+
+<script type="text/javascript">
+
+
+	$(document).ready(function () {
+
+		$("#nominal").html("Rp." + numberWithCommas('@ViewBag.Nominal'));
+		var code_voucher = '@ViewBag.VoucherNo';
+		//alert(code_voucher);
+		const QRElement = document.getElementById("QR-code");
+		new QRCode(QRElement, code_voucher);
+
+		JsBarcode("#barcode", code_voucher);
+	});
+
+
+	function numberWithCommas(x) {
+		if (x != null) {
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+		else {
+			x = 0;
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+
+	}
+
+
+	if (/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)) {
+		// true for mobile device
+		$("#web_share").hide();
+		$("#mobile_share").show();
+	} else {
+		// false for not mobile device
+		$("#web_share").show();
+		$("#mobile_share").hide();
+	}
+
+</script>

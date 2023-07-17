@@ -1,0 +1,1050 @@
+﻿@using I_Care.Models
+@{
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+
+}
+
+<div id="ModContract" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" style="color:White;">&times;</button>
+                <h4 class="modal-title">...</h4>
+            </div>
+            <div class="modal-body" style="padding:0px;padding-top:10px;">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab">
+
+                        <li class="active">
+                            <a data-toggle="tab" href="#info_contract" aria-expanded="true" style="border-left:none;">
+                                <i class="fa fa-desktop"></i>
+                                Main Info.
+                            </a>
+                        </li>
+
+
+                        <li class="" id="tab_upload_caption">
+                            <a data-toggle="tab" href="#tab_upload" aria-expanded="true">
+                                <i class="fa fa-file"></i>
+                                Upload File
+                            </a>
+                        </li>
+
+                        <li class="" id="tab_upload_list_caption">
+                            <a data-toggle="tab" href="#tab_upload_list" aria-expanded="true">
+                                <i class="fa fa-file"></i>
+                                Upload File List
+                            </a>
+                        </li>
+
+                        <li class="">
+                            <a data-toggle="tab" href="#tab_alert_config" aria-expanded="true">
+                                <i class="fa fa-bell"></i>  Alert Configuration
+                            </a>
+                        </li>
+
+                        <li class="" id="tab_history">
+                            <a data-toggle="tab" href="#list_history" aria-expanded="false">
+                                <i class="fa fa-history"></i>
+                                Log. Process
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content" style="min-height:300px;border-bottom:none;border-left:none;border-right:none;padding:0px;">
+                        <div id="info_contract" class="tab-pane fade active in" style="padding:10px;">
+
+                            <form class="form-horizontal">
+                                <div class="box-body">
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Id</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="ContractId" placeholder="Id. Will be generate by system" type="text" readonly style="background-color:whitesmoke;">
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+
+                                        <label for="inputName" class="col-sm-2 control-label">Customer</label>
+                                        <div class="col-sm-10">
+
+                                            <div class="input-group">
+                                                <input id="CustomerId" readonly hidden />
+                                                <input class="form-control" id="CustomerName" type="text" placeholder="CustomerName" readonly>
+
+                                                <span class="input-group-addon" id="check_card" style="cursor:pointer;" onclick="find_customer();">
+                                                    <i class="fa fa-search bigger-110"></i>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Contract No.</label>
+                                        <div class="col-sm-4">
+                                            <input class="form-control" id="ContractNo" placeholder="Contract No." type="text">
+                                        </div>
+
+                                        <label for="inputName" class="col-sm-2 control-label">Contract Value</label>
+                                        <div class="col-sm-4">
+                                            <input id="ContractValueTemp" type="text" hidden>
+                                            <input class="form-control" id="ContractValue" placeholder="Contract Value" type="text" onkeyup="format_currency('ContractValue','ContractValueTemp')" onmouseup="format_currency('ContractValue','ContractValueTemp')">
+                                        </div>
+
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Document Type</label>
+                                        <div class="col-sm-4">
+
+                                            <select class="form-control select2" id="DocType">
+                                                <option value="" selected>-- Select Document Type --</option>
+                                                @foreach (var item in ViewBag.ContractType)
+                                                {
+
+                                                    <option value="@item.ContractId">@item.ContractName</option>
+                                                }
+
+                                            </select>
+
+                                        </div>
+
+                                        <label for="inputName" class="col-sm-2 control-label">Tipe Berlangganan</label>
+                                        <div class="col-sm-4">
+
+                                            <select class="form-control select2" id="TipeLangganan">
+                                                <option value="" selected>-- Select Tipe Berlangganan --</option>
+                                                @foreach (var item in ViewBag.TipeLangganan)
+                                                {
+
+                                                    <option value="@item.Id">@item.Langganan</option>
+                                                }
+
+
+                                            </select>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="form-group">
+
+                                        <label for="inputName" class="col-sm-2 control-label">Start Date</label>
+                                        <div class="col-sm-4">
+                                            <input class="form-control date-picker" id="StartDate" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" readonly placeholder="Start Date">
+                                        </div>
+
+                                        <label for="inputName" class="col-sm-2 control-label">End Date</label>
+
+                                        <div class="col-sm-4">
+                                            <input id="EndDate" class="form-control date-picker" type="text" style="height:28px;" readonly placeholder="End Date">
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Remark</label>
+                                        <div class="col-sm-10">
+
+                                            <textarea class="form-control" placeholder="Remark" id="Remark" style="resize:none;font-size:12px;padding:3px;"></textarea>
+
+                                            @*      <span style="font-style:normal;text-align:center;font-size:11px;color:blue;">
+                                                    Note : ( Penting ! ) Setiap penambahan data kontrak pada customer yang dipilh, maka jika terdapat kontrak sebelumnnya maka otomatis akan dinonaktifkan
+                                                    dan 1 data kontrak terbaru yang akan aktif.
+                                                </span>*@
+
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                            </form>
+
+                        </div>
+
+
+                        <div id="tab_upload" class="tab-pane fade" style="padding:0px;padding-top:10px;">
+
+
+                            <div class="col-sm-12">
+                                <input multiple="" type="file" id="contract_file" required accept=".jpg,.jpeg,.pdf,.png,.xls" />
+                                <span style="font-style:normal;text-align:center;font-size:12px;color:blue;">
+                                    Note : Anda disarankan untuk mengunggah file pendukung yang diperlukan,
+                                </span>
+                                <span style="font-style:normal;text-align:center;font-size:12px;color:red;">
+                                    Jika file yang anda upload terlalu besar disaran untuk mengupload parsial setelah draft ini tersimpan.
+                                </span>
+                            </div>
+
+
+
+                        </div>
+
+                        <div id="tab_upload_list" class="tab-pane fade" style="padding:0px;padding-top:0px;">
+
+                            <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td width="50%" valign="top" style="padding-top:1px;">
+                                        <div id="gridUpload" style="height:297px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+                                    </td>
+                                    <td valign="middle" style="border-left:1px solid #ccc;">
+                                        <div id="preview_file" style="text-align:center;">
+                                            <iframe src="" scrolling="no" id="frame_prevview" frameborder="0" style="width:100%;height:290px;border:1px;"></iframe>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+
+                        <div id="tab_alert_config" class="tab-pane fade" style="padding:0px;padding-top:0px;">
+
+
+
+                            <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
+
+                                <tr>
+                                    <td width="60%" valign="top" style="padding-top:1px;">
+                                        <div id="gridEmail" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+                                    </td>
+                                    <td valign="top" style="border-left:1px solid #ccc;">
+                                        <div id="setting_box" style="padding:10px;padding-top:30px;">
+
+
+
+                                            <div style="font-size:20px;padding-left:10px;">Alert Setting</div><br />
+
+                                            <div class="form-group">
+                                                <label for="inputName" class="col-sm-4 control-label">Enabled Alert</label>
+                                                <div class="col-sm-6">
+
+
+                                                    <div class="col-xs-2">
+
+                                                        <label>
+                                                            <input name="switch-field-1" class="ace ace-switch" type="checkbox" id="Snooze" />
+                                                            <span class="lbl"></span>
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputName" class="col-sm-4 control-label">Start From</label>
+                                                <div class="col-sm-6">
+
+                                                    <input type="text" id="AlertDay" readonly />
+
+                                                    <span class="lbl" style="font-size:11px;">Day before contract expire</span>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+
+                        <div id="list_history" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+                            <div id="gridHitory" style="height:299px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer" id="fot_form_contract">
+
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalCustomer" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#438EB9;color:White;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Select an Customer</h4>
+                <span style="font-size:11px;">Double click on item or select an item and click select button  !</span>
+            </div>
+            <div class="modal-body" style="padding:0px;">
+
+                <div id="gridCustomer" style="height:350px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-info" onclick="select_customer()">Select</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_upload" role="dialog" style="margin-top:5%;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#438EB9;color:White;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Upload File</h4>
+            </div>
+            <div class="modal-body">
+                <input multiple="" type="file" id="contract_file_other" required accept=".jpg,.jpeg,.pdf,.png,.xls" />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" onclick="upload_file_other()">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+
+
+
+    var TempDelete = [];
+
+    function form_contract_detail(FLAG,record,Roles) {
+
+        $('a[href="#info_contract"]').tab('show');
+        switch (FLAG) {
+
+
+            case "EDIT":
+
+
+
+                button = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
+
+
+                $("#fot_form_contract").html(button);
+
+                $("#ContractId").val(record.Id);
+                $("#ContractNo").val(record.ContractNo);
+                $("#ContractValueTemp").val(record.ContractValue);
+                $("#ContractValue").val(numberWithCommas(record.ContractValue));
+                $("#CustomerId").val(record.CustomerId);
+                $("#CustomerName").val(record.CustomerId + " - " + record.CustomerName);
+                $("#DocType").val(record.DocType).trigger('change');
+                $("#TipeLangganan").val(record.TipeLanggananId).trigger('change');
+                $("#StartDate").val(record.StartDate);
+                $("#EndDate").val(record.EndDate);
+                $("#Remark").val(record.Remark);
+                $("#frame_prevview").attr("src", "");
+
+                $("#tab_upload_caption").hide();
+                $("#tab_upload_list_caption").show();
+
+                $("#DocType").attr("disabled",true);
+
+
+                $("#AlertDay").val(record.AlertDay);
+
+                if (record.Snooze == 1){
+
+                    $('#Snooze').prop('checked', false);
+                }
+                else{
+
+                     $('#Snooze').prop('checked', true);
+                }
+
+
+                render_grid_mail(record.Id);
+                $("#ModContract .modal-title").html('<div style="font-size:12px;color:green;">Detail of Customer Contract : ' +  record.ContractNo  + '<br>Status : ' + record.Status + '<br>Inprocess : '+record.ProcTag + '<br>' + record.Creator + '</div>');
+                $("#tab_history").show();
+                view_history_process();
+                view_upload(Roles,record);
+
+
+                break;
+
+            case "ADD":
+
+                $("#ModContract .modal-title").html("Add New Customer Contract");
+                button = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-info" onclick="save_contract(\'ADD\')">Save</button>'
+                $("#fot_form_contract").html(button);
+                $("#tab_history").hide();
+                $("#DocType").attr("disabled",false);
+                $("#tab_upload_list_caption").hide();
+                $("#tab_upload_caption").show();
+                $("#frame_prevview").attr("src", "");
+
+                form_default();
+                render_grid_mail();
+
+                break;
+
+        }
+
+
+        var file_input = $('#contract_file');
+        file_input.ace_file_input('reset_input');
+
+        $('#ModContract').modal(
+                    {
+                        backdrop: 'static',
+                        keyboard: false
+                    }
+                );
+
+
+    }
+
+    function form_default() {
+
+        $("#ContractId").val("");
+        $("#CustomerId").val("");
+        $("#CustomerName").val("");
+        $("#DocType").val("").trigger('change');
+        $("#TipeLangganan").val("").trigger('change');
+        $("#ContractNo").val("");
+        $("#ContractValue").val("");
+        $("#ContractValueTemp").val("");
+        $("#StartDate").val("");
+        $("#EndDate").val("");
+        $("#Remark").val("");
+        $("#AlertDay").val("0");
+        $("#CustomerId").val("");
+        $('#Snooze').prop('checked', true);
+
+    }
+
+
+    function find_customer() {
+
+
+        if (w2ui['gridCustomer'] != null) {
+            w2ui['gridCustomer'].destroy();
+        }
+
+        $('#ModalCustomer').modal(
+                    {
+                        backdrop: 'static',
+                        keyboard: false
+                    }
+                );
+
+        $('#ModalCustomer').on('shown.bs.modal', function() {
+
+                    render_wait();
+
+                    $('#gridCustomer').w2grid({
+                    name: 'gridCustomer',
+                    url : URL_PTR + '/Customers/ListCustomer_2?status=7',
+                    multiSelect     : false,
+                    header: 'Daftar Customer',
+                    textSearch: 'contains',
+                    show: {
+                    header          : false,
+                    toolbar         : true,
+                    footer          : true,
+                    toolbarSearch    : false,
+                    },
+                    columns: [
+                        { field: 'CustomerId', caption: 'CustomerId', size: '120px',sortable: true,searchable: 'text'  },
+                        { field: 'CustomerName', caption: 'Name', size: '300px',sortable: true,searchable: 'text'  },
+                        { field: 'ShipToNo', caption: 'ShipToNo', size: '100px',sortable: true,searchable: 'text'  },
+                        { field: 'SoldToNo', caption: 'SoldToNo', size: '100px',sortable: true,searchable: 'text'  },
+                        { field: 'PosCustomerID', caption: 'WAAID', size: '100px',sortable: true,searchable: 'text'  },
+                        { field: 'StatusName', caption: 'Status', size: '150px',sortable: true,searchable: 'text'  },
+                    ],
+                     onDblClick: function (event) {
+                        select_customer();
+                    },
+                    onLoad: function (event) {
+                        clear_wait();
+                    }
+                    });
+
+        })
+
+     }
+
+
+     function select_customer(){
+
+        var sel = w2ui.gridCustomer.getSelection() ;
+        var record  = w2ui.gridCustomer.get(sel[0]);
+        $("#CustomerId").val(record.CustomerId);
+        $("#CustomerName").val(record.CustomerId + " - " + record.CustomerName);
+        $('#ModalCustomer').modal("hide");
+
+
+     }
+
+
+
+     function render_grid_mail(contract){
+
+                if (w2ui['gridEmail'] != null) {
+                    w2ui['gridEmail'].destroy();
+                }
+
+
+                TempDelete = [];
+
+                $('#gridEmail').w2grid({
+                    name: 'gridEmail',
+                    header : 'Mail Destination',
+                    show: {
+                    header          : true,
+                    footer          : true,
+                    lineNumbers     : true,
+                    toolbarAdd      : false,
+                    toolbarDelete   : true,
+                    toolbar         : true,
+                    toolbarSearch   : false,
+                    },
+                    columns: [
+                        { field: 'Email', caption: 'Mail Destination', size: '200px',searchable:'text',editable: { type: 'text',inTag: 'onpaste="return true;"'} },
+                        { field: 'Name', caption: 'Name', size: '200px',searchable:'text',editable: { type: 'text',} },
+                    ],
+                    toolbar: {
+                        items: [
+                            { id: 'add', type: 'button', caption: 'Add Record', icon: 'w2ui-icon-plus' }
+                        ],
+                        onClick: function (event) {
+                            if (event.target == 'add') {
+
+                                w2ui.gridEmail.save();
+                                var list_Rec    = w2ui['gridEmail'].records;
+                                var new_rec =  new Array();
+
+                                if (list_Rec.length > 0){
+                                    for(x=0 ;x< list_Rec.length;x++){
+
+                                        new_rec.push(list_Rec[x].recid);
+
+                                    }
+
+                                    var new_recid = Math.max.apply(Math, new_rec);
+                                    w2ui.gridEmail.add({ recid: new_recid + 1});
+                                 }
+                                 else{
+
+                                    w2ui.gridEmail.add({ recid: 1});
+                                 }
+
+                            }
+                        }
+                    },
+                    onDelete: function (event) {
+
+                        var sel = this.getSelection();
+                        if (event.force == true){
+
+
+                            sel.forEach(function(entry) {
+
+                                var record = w2ui.gridEmail.get(entry);
+
+                                if (record.Flag_Exists = 1){
+
+                                    TempDelete.push({Id:record.recid});
+
+                                }
+
+                            });
+
+
+
+                        }
+
+                    }
+
+                });
+
+        refresh_mail_alert(contract);
+
+    }
+
+    function refresh_mail_alert(Contract){
+
+        w2ui['gridEmail'].load(URL_PTR + '/Contract/ContractListMailAlert?Contract='+ Contract);
+
+
+    }
+
+
+     function view_history_process(){
+
+
+                if (w2ui['gridHitory'] != null) {
+                    w2ui['gridHitory'].destroy();
+                }
+
+                var ContractId = $("#ContractId").val();
+
+                $('#gridHitory').w2grid({
+                name: 'gridHitory',
+                url : URL_PTR + '/Contract/ListHistoryContract?ContractId=' +ContractId,
+                show: {
+                header          : false,
+                footer          : true,
+                lineNumbers     : false,
+                toolbarAdd      : true,
+                toolbarDelete   : true,
+                },
+                columns: [
+                    { field: 'FromName', caption: 'From', size: '100px' },
+                    { field: 'ToName', caption: 'To', size: '100px' },
+                    { field: 'Descriptions', caption: 'Note', size: '300px' },
+                    { field: 'Executor', caption: 'Executor', size: '100%' },
+                ]
+                });
+
+
+    }
+
+
+
+    function view_upload(Roles,record){
+
+        var ToolBarE = false;
+        var UserOwner = '@User.Identity.Name.ToString()';
+
+        @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2018030002",3) == true)
+        {
+        <text>
+
+        ToolBarE = true;
+
+        </text>
+        }
+
+        if (w2ui['gridUpload'] != null) {
+
+                w2ui['gridUpload'].destroy();
+
+        }
+
+
+       $('#gridUpload').w2grid({
+                name: 'gridUpload',
+                show: {
+                footer          : true,
+                toolbar         : ToolBarE,
+                lineNumbers     : true,
+                toolbarAdd      : true,
+                toolbarDelete   : false,
+                toolbarInput    : false,
+                toolbarReload   : false,
+                toolbarColumns   : false,
+                },
+                columns: [
+                    { field: 'FileName', caption: 'File Name', size: '300px' },
+                    { field: 'FileName', caption: '', size: '150px' ,
+                        render: function (record) {
+                                   var download = '<a href="'+ 'http://203.77.249.186:8012' +'/File_Contract/' + record.FileName + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> View Full Page</a>';
+                                    return  download;
+                          }
+                    },
+
+                ]
+                ,onAdd: function (event) {
+                       form_upload_file();
+                },
+                onReload: function (event) {
+                        refresh_upload($("#ContractId").val());
+                },
+                onSelect: function(event) {
+
+                  if (event.recid != undefined){
+                                var record = this.get(event.recid);
+                                var file_url = 'http://203.77.249.186:8012' + "/File_Contract/"+ record.FileName;
+                            $("#frame_prevview").attr("src", file_url);
+
+                      }
+
+                },
+                onUnselect: function(event) {
+                         $("#frame_prevview").attr("src", "");
+                },
+                onDelete: function (event) {
+
+                var sel = this.getSelection();
+                if (event.force == true){
+
+                render_wait();
+
+                sel.forEach(function(entry) {
+
+                    var record = w2ui.gridUpload.get(entry);
+
+                        var Delete =   $.ajax({
+                        url: URL_PTR + '/Customers/DeleteAttachmentContract?id='+ record.recid,
+                        type: 'POST',
+                        dataType: "json",
+                        cache: false,
+                        async: false,
+                        contentType: false,
+                        processData: false,
+                        });
+
+
+                });
+
+
+                    clear_wait();
+                    $('#modal_upload').modal("hide");
+
+                    }
+
+                },
+
+         });
+
+        var ID = $("#ContractId").val();
+        refresh_upload(ID);
+    }
+
+
+    function  refresh_upload(ID){
+
+        w2ui['gridUpload'].load(URL_PTR + '/Contract/T_Attachment_Contract_Customer?Pengajuan=' + ID);
+    }
+
+
+    function form_upload_file(){
+
+         var file_input = $('#contract_file_other');
+        file_input.ace_file_input('reset_input');
+
+        $('#modal_upload').modal(
+        {
+        backdrop: 'static',
+        keyboard: false
+        }
+
+        );
+
+    }
+
+    function upload_file_other(){
+
+        var DataSave = new FormData();
+        var file    = $("#contract_file_other").files;
+
+        var fileUploads = $("#contract_file_other").get(0);
+        var files = fileUploads.files;
+
+
+        if (files.length == 0){
+
+            w2alert("Select an file before pelase !");
+            return;
+
+        }
+
+        for (var i = 0; i < files.length; i++) {
+            DataSave.append(files[i].name, files[i]);
+        }
+
+        DataSave.append('ContractId',$("#ContractId").val());
+
+        render_wait();
+
+        var Simpan =   $.ajax({
+        url: URL_PTR + '/Customers/ProcessUploadFileContract',
+        type: 'POST',
+        data: DataSave,
+        dataType: "json",
+        cache: false,
+        async: false,
+        contentType: false,
+        processData: false,
+        });
+
+
+        clear_wait();
+
+        if (Simpan.responseJSON["Result"] != "Error"){
+
+            alert("Upload new file success !");
+            var ID = $("#ContractId").val();
+            refresh_upload(ID);
+            $('#modal_upload').modal("hide");
+
+        }
+        else{
+            alert("Upload file fail try again !");
+        }
+
+
+
+    }
+
+
+
+
+    function save_contract(FLAG,Roles) {
+
+
+         if ($("#CustomerId").val()==""){
+
+                $('a[href="#info_contract"]').tab('show');
+                $("#CustomerName").focus();
+                $("#CustomerName").attr("placeholder", "Customer may not be empty !");
+                return;
+
+         }
+
+         if ($("#ContractNo").val()==""){
+
+                $('a[href="#info_contract"]').tab('show');
+                $("#ContractNo").focus();
+                $("#ContractNo").attr("placeholder", "Contract No may not be empty !");
+                return;
+
+         }
+
+         if ($("#DocType").val()==""){
+
+                $('a[href="#info_contract"]').tab('show');
+                $("#DocType").focus();
+                alert("Select document type bfore save this contract please !");
+                return;
+
+         }
+
+
+         if ($("#TipeLangganan").val()==""){
+
+                $('a[href="#info_contract"]').tab('show');
+                $("#TipeLangganan").focus();
+                alert("Select Tipe Langganan bfore save this contract please !");
+                return;
+
+         }
+
+         if ($("#StartDate").val()==""){
+
+                $('a[href="#info_contract"]').tab('show');
+                $("#StartDate").focus();
+                alert("Start date is empty!");
+                return;
+
+         }
+
+         if ($("#EndDate").val()==""){
+
+                $('a[href="#info_contract"]').tab('show');
+                $("#EndDate").focus();
+                alert("End date is empty!");
+                return;
+
+         }
+
+        var fileUpload = $("#contract_file").get(0);
+        var files = fileUpload.files;
+
+        if (FLAG == "ADD"){
+            if (files.length ==0){
+
+                alert("Harap sertakan file pendukung !");
+                $('a[href="#tab_upload"]').tab('show');
+                return;
+
+            }
+        }
+
+
+        var DataSave = new FormData();
+
+        DataSave.append('Flag_Crud', FLAG);
+        DataSave.append('ContractId', $("#ContractId").val());
+        DataSave.append('CustomerId', $("#CustomerId").val());
+        DataSave.append('ContractNo', $("#ContractNo").val());
+        DataSave.append('ContractValue', $("#ContractValueTemp").val());
+        DataSave.append('DocType', $("#DocType").val());
+        DataSave.append('StartDate', $("#StartDate").val());
+        DataSave.append('EndDate', $("#EndDate").val());
+        DataSave.append('Remark', $("#Remark").val());
+        DataSave.append('AlertDay', $("#AlertDay").val());
+        DataSave.append('TipeLangganan', $("#TipeLangganan").val());
+        //TipeLangganan
+
+        w2ui['gridEmail'].save();
+        var ListDest    = w2ui['gridEmail'].records;
+
+        //data_bridging
+        var Daat_ = JSON.stringify(ListDest);
+        var Daat_del =  JSON.stringify(TempDelete);
+
+        DataSave.append('ListAdd', Daat_);
+        DataSave.append('ListDelete', Daat_del);
+
+
+        if ($('#Snooze').is(":checked")){
+
+            DataSave.append('Snooze', "0");
+        }
+        else{
+
+            DataSave.append('Snooze', "1");
+        }
+
+
+
+        var fileUpload = $("#contract_file").get(0);
+        var files = fileUpload.files;
+
+         if (FLAG == "ADD"){
+
+            if (Roles == undefined){
+
+                for (var i = 0; i < files.length; i++) {
+
+                    DataSave.append(files[i].name, files[i]);
+
+
+                }
+
+            }
+
+        }
+
+
+        render_wait()
+
+        var Simpan =   $.ajax({
+            url: URL_PTR + '/Customers/SaveContractCustomer',
+            type: 'POST',
+            data: DataSave,
+            dataType: "json",
+            cache: false,
+            async: false,
+            contentType: false,
+            processData: false,
+        });
+
+
+        if (  Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error")!=-1 ){
+
+                clear_wait();
+                alert(Simpan.responseJSON["Result"]);
+
+        }
+        else{
+
+                alert('Save Data Success !');
+                $("#ModContract").modal("hide");
+                clear_wait();
+                RefreshContract();
+        }
+
+     }
+
+
+    //not fucntional core business sytem code ..............***
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+    var target = $(e.target).attr("href");
+
+    if ((target == '#tab_alert_config')) {
+        w2ui['gridEmail'].refresh();
+
+    }
+
+    if ((target == '#list_history')) {
+        w2ui['gridHitory'].refresh();
+    }
+
+    if ((target == '#tab_upload_list')) {
+        w2ui['gridUpload'].refresh();
+    }
+
+    });
+
+
+    $('#AlertDay').ace_spinner({value:0,min:0,max:30,step:1, btn_up_class:'btn-info' , btn_down_class:'btn-info'})
+    .closest('.ace-spinner')
+    .on('changed.fu.spinbox', function(){
+    });
+
+
+    function format_currency(Field_ID,temp_field){
+
+    if($("#"+Field_ID).val() != ""){
+
+    var Nominal = $("#"+Field_ID).val();
+    Nominal = Nominal.replace(/,/g , "");
+    $("#"+temp_field).val(Nominal);
+    var fix_num = numberWithCommas(Nominal);
+
+    $("#"+Field_ID).val(fix_num);
+
+    }
+    else{
+
+    $("#"+temp_field).val("");
+
+    }
+
+    }
+
+
+    function send_alert(){
+
+        var DataSave = new FormData();
+        DataSave.append('ContractId',  $("#ContractId").val());
+
+        render_wait();
+
+        var Simpan =   $.ajax({
+            url: URL_PTR + '/Alert/SendAlertCustomerContract',
+            type: 'POST',
+            data: DataSave,
+            dataType: "json",
+            cache: false,
+            async: false,
+            contentType: false,
+            processData: false,
+        });
+
+          if (  Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error")!=-1 ){
+
+                clear_wait();
+                alert(Simpan.responseJSON["Result"]);
+
+        }
+        else{
+
+                alert('Send Alert Success !');
+                clear_wait();
+
+        }
+
+    }
+
+</script>

@@ -1,0 +1,108 @@
+﻿@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Parent = "Contract";
+	ViewBag.Parent_Caption = "<a href='" + @Request.Url.GetLeftPart(UriPartial.Authority) + "/Contract'>Contract</a>";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-file-text-o\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+}
+
+
+
+<style>
+	
+	.page-content {
+		padding: 0px;
+	}
+
+	.box_info {
+
+		text-align: center;
+		padding-top: 0%;
+		border: 0px dashed #dedede;
+		margin: 0px auto;
+		margin-top: 25px;
+		margin-bottom:15px;
+		width: 80%;
+		border-radius: 5px;
+	}
+
+
+	#box_info_icon {
+		text-align: center;
+		padding-top: 25px;
+		padding-bottom:25px;
+		border-top: 2px dashed #dedede;
+		margin-top: 20px;
+	}
+
+
+
+		#box_info_icon .icon_short_cut {
+			border: 1px dashed #dedede;
+			padding: 8px;
+			width: 100px;
+			height: 110px;
+			border-radius: 2%;
+			display: inline-table;
+			margin-left: 2px;
+			font-size: 10px;
+			cursor: pointer;
+			transition: 0.3s;
+			margin-bottom: 1%;
+			background-color: none;
+			cursor: pointer;
+		}
+			
+
+			#box_info_icon .icon_short_cut:hover {
+				border-color: yellowgreen;
+				opacity: 0.50;
+				border: 1px solid #dedede;
+			}
+
+			#box_info_icon .icon_short_cut i {
+				font-size: 25px;
+				margin-bottom: 10px;
+			}
+</style>
+
+
+
+
+<div class="row box_info" >
+
+	<div class="col-sm-3" style="padding-top:0%;">
+		<img src="../../../Content/images/contract.png" class="logo_menu_head" style="width:60%;">
+	</div>
+	<div class="col-sm-9">
+		<div style="text-align:left;font-size:12px;padding-top:25px;">
+			<span style="font-size:20px;">Contract</span><br />
+			<span style="font-size:12px;">( Kelola Proses Kontrak Secara Lebih Termonitor )</span><br />
+			Pilih tipe kontrak yang tersedia dibawah ini.<br />
+			Pilih menu <b>Manual Archive</b> untuk mengelola draft kontrak yang sudah jadi. <br />
+			Atau buat dan routing draft E-kontrak dengan Fitur <b>E-Contract</b>, kemudian lakukan action terhadap draft kontrak anda yang sedang progress sesuai otoritas yang diberikan kepada Anda.<br />
+			Dengan E-Kontrak proses pembuatan kontrak menjadi lebih termonitor progres pengerjaannya.
+			<br />
+
+		</div>
+	</div>
+</div>
+
+
+<div id="box_info_icon">
+
+	<div class="icon_short_cut" onclick="open_shortcut('Contract/Archive')">
+		<img src="../../../Content/images/archive.png" class="logo_menu" id="logo_database" style="width:60px;">
+		<br /><br />
+		<span class="lbl bigger-100">Manual Archive</span>
+	</div>
+
+	<div class="icon_short_cut" onclick="open_shortcut('Contract/EContract')">
+		<img src="../../../Content/images/e_contract_icon.png" class="logo_menu" id="logo_database" style="width:60px;">
+		<br /><br />
+		<span class="lbl bigger-100">E-Contract</span>
+	</div>
+
+</div>
+

@@ -1,0 +1,81 @@
+﻿@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Title = "E-Contract";
+	ViewBag.Parent = "E-Contract";
+	ViewBag.Child = "e_contract_general";
+	ViewBag.Child_Caption = "General";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-list\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+
+}
+
+
+@*variabel & Const*@
+<script>
+
+
+	var TempDelete = [];
+	var current_contract = [];
+	var curent_template = [];
+
+	var current_contract_id = "";
+	var panel_height_ajustment = 170;
+	var panel_height_ajustment_editor = 200;
+	var page_ = 1;
+
+	var current_formid = 0;
+	var FlagSign = 0;
+	var open_preview = 0;
+	var current_reject = 0;
+	var current_process = "";
+	var IdSelect = "";
+
+
+</script>
+
+<style>
+
+	.page-content {
+		padding: 0px;
+	}
+</style>
+
+
+
+
+<div id="PageContainer"></div>
+
+<script>
+
+
+
+	function back_main_page() {
+
+		isMainPage = true;
+		if (global_status == "0") {
+
+			FLAG_VIEW = "";
+			load_page("#PageContainer", URL_PTPR + "/EContract/MainPage", function () { $('.select2').css('width', '100%').select2() });
+
+		}
+		else {
+
+			load_page("#PageContainer", URL_PTPR + "/Procurement/MainPage", function () { $('.select2').css('width', '100%').select2(); find_proc(global_status); });
+		}
+
+	}
+
+	$(document).ready(function () {
+
+		isMainPage = true;
+		load_page("#PageContainer", URL_PTPR + "/EContract/General_MainPage", function () { $('.select2').css('width', '100%').select2(); });
+
+	});
+
+
+
+
+
+
+</script>	

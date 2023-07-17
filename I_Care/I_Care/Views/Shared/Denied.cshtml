@@ -1,0 +1,40 @@
+﻿@{
+	ViewBag.Child_Caption = "Access Denied";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-ban\"></i>";
+	ViewBag.Title = "Access Denied";
+
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Title = "Access Denied";
+	ViewBag.TopMenuAce = "Yes";
+	string UserType = ROLES.GetUserType(User.Identity.Name.ToString());
+
+}
+
+<style>
+
+	#page_denied {
+	margin:2% auto;
+	width:80%;
+	text-align:center;
+	border:0px solid #dedede;
+	
+	}
+		#page_denied img {
+
+			width: 300px;
+		}
+
+</style>
+
+
+<div id="page_denied">
+
+	<h1>Oppss... Your Access Denied</h1>
+	<img src="~/Content/img/access_denied.jpg" />
+	<br />
+
+	<h3>Contact Administrator Please !</h3>
+
+</div>
+
+

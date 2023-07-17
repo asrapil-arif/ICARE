@@ -1,0 +1,1291 @@
+﻿@using I_Care.Models;
+@{
+
+    ViewBag.Title = "ContractList";
+    ViewBag.Parent = "Contract";
+    ViewBag.Child = "ContractList";
+    ViewBag.Child_Caption = "Alert";
+    ViewBag.Icon = "<i class='menu-icon fa fa-pencil-square-o'></i>";
+
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    string[] SSO_ALLOW = ROLES.GetRolesForUser(User.Identity.Name.ToString());
+    
+    FMSEntities db = new FMSEntities();
+    var Item = (from m in db.m_item where m.ItemGroup == 1 select m);
+    int H_W = Request.Browser.ScreenPixelsHeight + 15;
+
+
+}
+
+
+<div id="gridContract" style="height:@{<text>@H_W</text>}px;border-left:none;border-bottom:0x dotted #dedede;border-radius:0px;"></div>
+
+<script type="text/javascript">
+
+    var user_ = '@User.Identity.Name';
+
+    var config = {
+        grid: {
+                name: 'gridContract',
+                //url: URL_PTR + '/Contract/ContractListData',
+                reorderColumns: false,
+                show: {
+                        footer: true,
+                        toolbar: true,
+                        footer        : true,
+                        lineNumbers    : false,
+                        selectColumn: true,
+                        toolbarSearch:false,
+                        toolbarAdd :true,
+                        toolbarDelete :true,
+
+                },
+                toolbar: {
+                    items: [
+                            { type: 'break' },
+                            { type: 'button', id: 'view_detail', caption: '<i class="fa fa-eye" aria-hidden="true"></i> View',disabled:true },
+                            { type: 'break' },
+                            { type: 'button', id: 'disable', caption: '<i class="fa fa-ban" aria-hidden="true"></i> Disable',disabled:true },
+                            { type: 'button', id: 'enable', caption: '<i class="fa fa-bell-o" aria-hidden="true"></i> Enable',disabled:true },
+                            { type: 'button', id: 'done', caption: '<i class="fa fa-check" aria-hidden="true"></i> Done',disabled:true },
+
+                    ],
+                    onClick: function (target,data) {
+
+                          switch (target) {
+                                    case 'view_detail':
+                                            var sel = w2ui.gridContract.getSelection();
+                                            var record = w2ui.gridContract.get(sel[0]);
+                                            contract_detail_form("edit",record);
+                                    break;
+                                    case 'done':
+                                            var sel = w2ui.gridContract.getSelection();
+                                            var record = w2ui.gridContract.get(sel[0]);
+
+                                            @if (!SSO_ALLOW.Contains("SYSADMIN"))
+                                            {
+                                            <text>
+
+                                            if(record.CreateUser != user_){
+
+                                            w2alert("Anda bukan pembuat alert ini sehingga anda tidak mempunyai otoritas untuk mengubahnya !");
+                                            return;
+                                            }
+
+
+                                            </text>
+                                            }
+
+                                            form_done(record);
+
+                                    break;
+
+                                    case 'enable':
+
+                                         var sel = w2ui.gridContract.getSelection();
+                                         var record = w2ui.gridContract.get(sel[0]);
+
+                                         @if (!SSO_ALLOW.Contains("SYSADMIN"))
+                                         {
+                                               <text>
+
+                                                if(record.CreateUser != user_){
+
+                                                     w2alert("Anda bukan pembuat alert ini sehingga anda tidak mempunyai otoritas untuk mengubahnya !");
+                                                     return;
+                                                }
+
+
+                                               </text>
+                                         }
+
+
+                                        render_wait()
+
+                                            var Simpan =   $.ajax({
+                                            url: URL_PTR + '/Contract/ChangeAlert?ContractId='+record.ContractId + "&Status=0",
+                                            type: 'POST',
+                                            dataType: "json",
+                                            cache: false,
+                                            async: false,
+                                            contentType: false,
+                                            processData: false,
+                                            });
+
+                                            if (Simpan.responseJSON["Result"] != "Error"){
+                                                  w2alert("Alert has been enabled !");
+                                                  clear_wait();
+                                            }
+
+                                            //w2ui['gridContract'].reload();
+                                            refresh_list_contract();
+                                            disable_button()
+                                            w2ui['gridContract'].toolbar.enable('disable');
+
+
+                                    break;
+                                    case 'disable':
+
+
+                                            var sel = w2ui.gridContract.getSelection();
+                                            var record = w2ui.gridContract.get(sel[0]);
+
+                                             @if (!SSO_ALLOW.Contains("SYSADMIN"))
+                                             {
+                                                   <text>
+
+                                                    if(record.CreateUser != user_){
+
+                                                         w2alert("Anda bukan pembuat alert ini sehingga anda tidak mempunyai otoritas untuk mengubahnya !");
+                                                         return;
+                                                    }
+
+
+                                                   </text>
+                                             }
+
+                                            render_wait()
+                                            var Simpan =   $.ajax({
+                                            url: URL_PTR + '/Contract/ChangeAlert?ContractId='+record.ContractId + "&Status=1",
+                                            type: 'POST',
+                                            dataType: "json",
+                                            cache: false,
+                                            async: false,
+                                            contentType: false,
+                                            processData: false,
+                                            });
+
+                                            if (Simpan.responseJSON["Result"] != "Error"){
+                                                  w2alert("Alert has been disabled !");
+                                                  clear_wait();
+                                            }
+
+                                            //w2ui['gridContract'].reload();
+                                            refresh_list_contract();
+                                             disable_button()
+                                            w2ui['gridContract'].toolbar.enable('enable');
+
+
+
+                                    break;
+
+                                        }
+
+
+                    }
+                },
+                columns: [
+                { field: 'ContractStatus', caption: 'Status', size: '70px', sortable: true,searchable: 'text', resizable: true},
+                { field: 'DayAlert', caption: 'Reminder', size: '100px', sortable: true,searchable: 'text', resizable: true },
+                { field: 'ContractTitle', info: true , caption: 'Title', size: '200px', resizable: true, sortable: true ,searchable: 'text',style:'word-wrap:break-word;'},
+                { field: 'ContractNo', caption: 'Contract No.', size: '150px', sortable: true,searchable: 'text', resizable: true ,max:'400px'},
+                /*
+                { field: 'ContractDate', caption: 'Contract Date', size: '100px', resizable: true, sortable: true ,searchable: 'text' ,max:'400px'},
+                { field: 'BeginDate', caption: 'Begin Date', size: '100px', resizable: true, sortable: true,searchable: 'text' ,max:'400px'},
+                { field: 'EndDate', caption: 'End Date', size: '100px', resizable: true, sortable: true,searchable: 'text',max:'400px' },
+                { field: 'NoPR', caption: 'PR No.', size: '100px', sortable: true, searchable: 'text', resizable: true,max:'400px' },
+                { field: 'NoPO', caption: 'PO No.', size: '100px', sortable: true, searchable: 'text', resizable: true ,max:'400px'},
+                */
+
+                /*
+                { field: 'ContractValue', caption: 'Value', size: '100px', resizable: true, sortable: true,searchable: 'text',render: 'number',max:'400px' },
+                { field: 'ContractTypeName', caption: 'Contract Type', size: '100px', resizable: true, sortable: true,searchable: 'text' ,max:'400px'},
+                { field: 'VendorName', caption: 'Vendor Name', size: '100px', resizable: true, sortable: true,searchable: 'text',max:'400px' },
+                */
+
+                { field: 'CreateUser', caption: 'Created By.', size: '100px', resizable: true, sortable: true,searchable: 'text',max:'400px' },
+                { field: 'UpdateDate', caption: 'Last Update', size: '100px', resizable: true, sortable: true,max:'400px' },
+                { field: 'UpdateUser', caption: 'Update By.', size: '100px', resizable: true, sortable: true,searchable: 'text',max:'400px' },
+
+
+            ],
+            onAdd: function (event) {
+                contract_detail_form("new");
+            },
+            onDelete: function (event) {
+
+                var sel = this.getSelection();
+
+
+
+                if (event.force == true){
+
+                render_wait();
+                sel.forEach(function(entry) {
+                var record = w2ui.gridContract.get(entry);
+
+
+                @if (!SSO_ALLOW.Contains("SYSADMIN"))
+                                         {
+                                               <text>
+
+                                                if(record.CreateUser != user_){
+
+                                                     w2alert("Anda bukan pembuat alert ini sehingga anda tidak mempunyai otoritas untuk menghapusnya !");
+                                                     return;
+                                                }
+
+
+                                               </text>
+                                         }
+
+                    var Delete = $.ajax({
+                    type: "GET",
+                    url: URL_PTR + '/Contract/DeleteContract?ContractId=' + record.ContractId,
+                    dataType: 'json',
+                    cache: false,
+                    async: false,
+                    "autoWidth": false
+                    });
+
+
+
+                });
+
+                clear_wait();
+
+
+                }
+
+            },
+            onReload: function (event) {
+               refresh_list_contract();
+            },
+            onDblClick:function (event) {
+
+                var record = this.get(event.recid);
+                var PostStatus = record.PostStatus;
+                flag_edit  = 'edit' ;
+                contract_detail_form("edit",record);
+
+             },
+            onSelect: function(event) {
+
+                event.onComplete = function () {
+                disable_button();
+                var contract = w2ui.gridContract.getSelection();
+
+                    if (contract.length == 1){
+                        var record = this.get(event.recid);
+                        w2ui['gridContract'].toolbar.enable('view_detail');
+                        if(record.Done == null){
+                            w2ui['gridContract'].toolbar.enable('done');
+                        }
+
+                        switch (record.Snooze) {
+                                case 1:
+                                if (record.Done != 'Y'){
+
+                                    w2ui['gridContract'].toolbar.enable('enable');
+                                }
+
+                                break;
+                                case 0:
+                                w2ui['gridContract'].toolbar.enable('disable');
+                                break;
+
+                            }
+
+                    }
+                }
+
+            },
+            onUnselect: function(event) {
+
+                event.onComplete = function () {
+                disable_button();
+                var contract = w2ui.gridContract.getSelection();
+
+                    if (contract.length == 1){
+                    var record = this.get(event.recid);
+                    w2ui['gridContract'].toolbar.enable('view_detail');
+
+                        switch (record.Snooze) {
+                                case '1':
+                                w2ui['gridCustomer'].toolbar.enable('enable');
+                                break;
+                                case '0':
+                                w2ui['gridCustomer'].toolbar.enable('disable');
+                                break;
+
+                            }
+
+                    }
+                }
+            }
+
+
+
+        }
+
+    };
+
+
+    $(function () {
+        $('#gridContract').w2grid(config.grid);
+        refresh_list_contract();
+    });
+
+
+
+
+
+function refresh_list_contract(){
+
+    w2ui['gridContract'].load(URL_PTR + '/Contract/ContractListData_Local');
+
+}
+
+
+function contract_detail_form(flag,record){
+
+
+            judul_pop = "Contract Detail";
+
+            var config = {
+            layout: {
+                name: 'layout',
+                padding: 0,
+                panels: [
+                    { type: 'top', size: 32, content: '<div style="padding: 7px;text-align:left">'+judul_pop+'</div>', style: 'border-bottom: 1px solid silver;' },
+                    { type: 'left', size: 200, resizable: true, minSize: 120 },
+                    { type: 'main', minSize: 350, overflow: 'hidden' }
+                ]
+            },
+            sidebar: {
+                name: 'sidebar',
+                nodes: [
+                    { id: 'general', text: 'General Data', group: true, expanded: true, nodes: [
+                        { id: 'contract_data', text: 'Base Information', img: 'icon-page', selected: true },
+                        //{ id: 'contract_value_list', text: 'Detail Contract Value', img: 'icon-page' },
+                        { id: 'mail_alert_grid', text: 'Alert Destination', img: 'icon-page' },
+                        { id: 'upload_grid', text: 'Upload File', img: 'icon-page' },
+                    ]
+                    }
+                ],
+                onClick: function (event) {
+                    switch (event.target) {
+                        case 'contract_data':
+                            swicth_content("contract_data")
+                            break;
+                        case 'mail_alert_grid':
+                            swicth_content("mail_alert_grid");
+                            w2ui['gridMailAlert'].reload();
+                           break;
+                        case 'upload_grid':
+                            swicth_content("upload_grid");
+                            w2ui['gridUpload'].reload();
+
+                    }
+                }
+            },
+
+            };
+
+
+            $().w2layout(config.layout);
+            $().w2sidebar(config.sidebar);
+
+
+    var button_save = '';
+    var button_parent = '';
+
+    //<button class="w2ui-btn" onclick="save_contract_critical(\'UPDATE\') hidden">Critical Update</button> //critical update butuon store;
+
+    switch (flag) {
+        case 'new':
+        button_save = '<button class="w2ui-btn" onclick="save_contract(\'ADD\')">Save</button>';
+        break;
+        case 'edit':
+            @if (!SSO_ALLOW.Contains("SYSADMIN"))
+            {
+            <text>
+
+            if(record.CreateUser == user_){
+                button_save = '<button class="w2ui-btn" onclick="save_contract(\'UPDATE\')">Update</button>';
+            }
+
+            </text>
+            }
+            else{
+               <text>button_save = '<button class="w2ui-btn" onclick="save_contract(\'UPDATE\')">Update</button>' </text>;
+            }
+
+
+        break;
+
+    }
+
+
+
+    w2popup.open({
+        title: 'i-Care',
+        width: 1100,
+        height: 600,
+        modal : true,
+        showMax: true,
+        buttons   : button_parent + button_save +
+                    '<button class="w2ui-btn" onclick="w2popup.close();">Cancel</button>',
+        body: '<div id="main" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px;"></div>',
+        onOpen: function (event) {
+            event.onComplete = function () {
+                $('#w2ui-popup #main').w2render('layout');
+                w2ui.layout.content('left', w2ui.sidebar);
+
+                var resStep = $.ajax({
+                type: "GET",
+                url: URL_PTR + '/template/contract_detail.htm',
+                cache: false,
+                async: false
+                });
+
+                w2ui.layout.content('main', resStep.responseText);
+                $(w2ui.layout.el('main'))
+                .removeClass('w2ui-grid')
+                .css({
+                'border-left': '1px solid silver','background-color': 'white'
+                });
+
+                $('.chosen-select', this).chosen({ allow_single_deselect: true });
+                $("#contract_type").trigger("chosen:updated");
+
+
+                if (flag != 'new'){
+                    render_mail_alert(record);
+                    render_file_upload(record);
+                    refresh_mail_alert(record.ContractId);
+                    fill_content(record,flag);
+                    $("#row_upload").hide();
+                }
+                else{
+                    render_mail_alert();
+                    w2ui['sidebar'].hide('upload_grid');
+
+                }
+
+
+            }
+        },
+        onToggle: function (event) {
+            event.onComplete = function () {
+                w2ui.layout.resize();
+            }
+        },
+        onClose: function (event) {
+            w2ui['layout'].destroy();
+            w2ui['sidebar'].destroy();
+            w2ui['gridMailAlert'].destroy();
+            if (flag != "new"){ w2ui['gridUpload'].destroy();  }
+        }
+
+    });
+
+
+
+    }
+
+
+
+    function   swicth_content(active){
+
+        $("#contract_data").hide();
+        $("#mail_alert_grid").hide();
+        $("#upload_grid").hide();
+        $("#"+active).show();
+    }
+
+   function render_mail_alert(records){
+
+            var set_tool = true;
+           $('#gridMailAlert').w2grid({
+                            name: 'gridMailAlert',
+                            header: 'Alert Destination',
+                            show: {
+                            header          : true,
+                            toolbar         : set_tool,
+                            selectColumn    : true,
+                            multiSelect     : true,
+                            footer          : true,
+                            lineNumbers     : true,
+                            toolbarAdd      : true,
+                            toolbarDelete   : true,
+                            },
+                            columns: [
+                                { field: 'Name', caption: 'Name', size: '200px' },
+                                { field: 'Email', caption: 'Email', size: '200px' },
+                              ],
+                            onAdd: function (event) {
+                                    add_new_mail_alert();
+                            },
+                            onDelete: function (event) {
+                                            var before_temp = "";
+                                            var sel = this.getSelection();
+                                            if (event.force == true){
+
+                                            sel.forEach(function(entry) {
+                                            var record = w2ui.gridMailAlert.get(entry);
+
+                                            if (record.FlagStat != 'New'){
+                                                before_temp =  $("#temp_delete_mail").val() + record.recid + ",";
+                                                $("#temp_delete_mail").val(before_temp);
+                                                }
+
+                                            });
+
+                                            }
+
+                            }
+                            ,onReload: function (event) {
+
+                                refresh_mail_alert(records.ContractId);
+
+                            },
+
+                        });
+
+     }
+
+
+  function render_file_upload(records){
+
+            var set_tool = true;
+
+            @if (!SSO_ALLOW.Contains("SYSADMIN"))
+            {
+            <text>
+
+            if(records.CreateUser == user_){
+                set_tool = true ;
+            }
+            else{
+                set_tool = false ;
+            }
+            </text>
+            }
+
+           $('#gridUpload').w2grid({
+                            name: 'gridUpload',
+                            header: 'Daftar File Pendukung',
+                            show: {
+                            header          : true,
+                            toolbar         : set_tool,
+                            selectColumn    : true,
+                            multiSelect     : true,
+                            footer          : true,
+                            lineNumbers     : true,
+                            toolbarAdd      : true,
+                            toolbarDelete   : true,
+                            },
+                            columns: [
+                                    { field: 'Name', caption: '', size: '250px' },
+                                    { field: 'Name', caption: '', size: '150px' ,
+                                        render: function (record) {
+                                        var download = '<a href="'+URL_PTR+'/upload/' + record.Name + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> ..Download</a>';
+                                        return  download;
+                                        }
+
+                                    },
+
+                              ],
+                            onAdd: function (event) {
+                                    form_upload_file();
+                            },
+                            onDelete: function (event) {
+
+                                var sel = this.getSelection();
+                                if (event.force == true){
+
+                                $("#w2ui-popup").hide();
+                                render_wait();
+
+                                sel.forEach(function(entry) {
+
+                                var record = w2ui.gridUpload.get(entry);
+
+                                var Delete =   $.ajax({
+                                url: URL_PTR + '/Contract/DeletefilesUpload?id='+ record.recid,
+                                type: 'POST',
+                                dataType: "json",
+                                cache: false,
+                                async: false,
+                                contentType: false,
+                                processData: false,
+                                });
+
+
+                                });
+
+                                $("#w2ui-popup").show();
+                                clear_wait();
+
+                                }
+
+                            },
+                            onReload: function (event) {
+
+                                refresh_upload_grid(records.ContractId);
+
+                            },
+                            onSelect: function(event) {
+
+                                if (event.recid != undefined){
+                                var record = this.get(event.recid);
+                                var file_url = URL_PTR + "/upload/"+ record.Name;
+                                $("#frame_prevview").attr("src", file_url);
+
+                            }
+
+                            },
+                            onUnselect: function(event) {
+                            $("#frame_prevview").attr("src", "");
+                            }
+
+                        });
+
+          refresh_upload_grid(records.ContractId);
+
+     }
+
+
+  function save_contract(FlagAdd){
+
+              if ($("#contract_no").val() == ""){
+
+                //w2alert("Nama asset tidak boleh kosong !");
+                w2ui['sidebar'].select('contract_data');
+                swicth_content("contract_data")
+                $("#contract_no").attr("placeholder", "Tidak boleh kosong !");
+                document.getElementById("contract_no").focus();
+                return ;
+
+
+                }
+
+               if ($("#pr_no").val() == ""){
+
+                //w2alert("Nama asset tidak boleh kosong !");
+                w2ui['sidebar'].select('contract_data');
+                swicth_content("contract_data")
+                $("#pr_no").attr("placeholder", "Tidak boleh kosong !");
+                document.getElementById("pr_no").focus();
+                return ;
+
+
+                }
+
+                if ($("#po_no").val() == ""){
+
+                //w2alert("Nama asset tidak boleh kosong !");
+                w2ui['sidebar'].select('contract_data');
+                swicth_content("contract_data")
+                $("#po_no").attr("placeholder", "Tidak boleh kosong !");
+                document.getElementById("po_no").focus();
+                return ;
+
+
+                }
+
+                if ($("#contract_title").val() == ""){
+
+                //w2alert("Nama asset tidak boleh kosong !");
+                w2ui['sidebar'].select('contract_data');
+                swicth_content("contract_data")
+                $("#contract_title").attr("placeholder", "Tidak boleh kosong !");
+                document.getElementById("contract_title").focus();
+                return ;
+
+
+                }
+
+                if ($("#contract_value").val() == ""){
+
+                //w2alert("Nama asset tidak boleh kosong !");
+                w2ui['sidebar'].select('contract_data');
+                swicth_content("contract_data")
+                $("#contract_value").attr("placeholder", "Tidak boleh kosong !");
+                document.getElementById("contract_value").focus();
+                return ;
+
+
+                }
+
+                if ($("#begin_date").val() == ""){
+
+                //w2alert("Nama asset tidak boleh kosong !");
+                w2ui['sidebar'].select('contract_data');
+                swicth_content("contract_data")
+                $("#begin_date").attr("placeholder", "Tidak boleh kosong !");
+                document.getElementById("begin_date").focus();
+                return ;
+
+
+                }
+
+
+                if ($("#end_date").val() == ""){
+
+                //w2alert("Nama asset tidak boleh kosong !");
+                w2ui['sidebar'].select('contract_data');
+                swicth_content("contract_data")
+                $("#end_date").attr("placeholder", "Tidak boleh kosong !");
+                document.getElementById("end_date").focus();
+                return ;
+
+
+                }
+
+
+                if ($("#contract_type").val() == ""){
+
+                //w2alert("Nama asset tidak boleh kosong !");
+                w2ui['sidebar'].select('contract_data');
+                swicth_content("contract_data")
+                $("#contract_type").attr("placeholder", "Tidak boleh kosong !");
+                document.getElementById("contract_type").focus();
+                return ;
+
+
+                }
+
+
+                if ($("#vendor").val() == ""){
+
+                //w2alert("Nama asset tidak boleh kosong !");
+                w2ui['sidebar'].select('contract_data');
+                swicth_content("contract_data")
+                $("#vendor").attr("placeholder", "Tidak boleh kosong !");
+                document.getElementById("vendor").focus();
+                return ;
+
+
+                }
+
+
+                var MailAlert = w2ui['gridMailAlert'].records;
+
+                if (MailAlert.length == 0){
+
+                    w2ui['sidebar'].select('mail_alert_grid');
+                    swicth_content("mail_alert_grid")
+                    w2ui['gridMailAlert'].reload();
+                    w2alert('Anda menginput mail alert tujuan !');
+                    return ;
+
+                }
+
+                var _delMailAlert   = $("#temp_delete_mail").val();
+                _delMailAlert   = _delMailAlert.substring(0,_delMailAlert.length - 1);
+
+                var fileUpload = $("#file_pendukung").get(0);
+                var files = fileUpload.files;
+
+
+
+                var DataContract = new FormData();
+                DataContract.append('ContractId',$("#contract_id").val());
+                DataContract.append('ContractNo',$("#contract_no").val());
+                DataContract.append('NoPR',$("#pr_no").val());
+                DataContract.append('NoPO',  $("#po_no").val());
+                DataContract.append('ContractTitle',$("#contract_title").val());
+                DataContract.append('ContractValue',$("#contract_value").val());
+                DataContract.append('BeginDate',$("#begin_date").val());
+                DataContract.append('EndDate',$("#end_date").val());
+                DataContract.append('ContractDate',$("#contract_date").val());
+                DataContract.append('ContractType',$("#contract_type_id").val());
+                DataContract.append('IdVendor',$("#vendor_id").val());
+                DataContract.append('Description',$("#keterangan").val());
+                DataContract.append('DelMailAlert',_delMailAlert);
+                DataContract.append('Flag',FlagAdd);
+
+                 for (var i = 0; i < files.length; i++) {
+                DataContract.append(files[i].name, files[i]);
+                }
+
+                $("#w2ui-popup").hide();
+
+                render_wait();
+
+                var Simpan =   $.ajax({
+                    url: URL_PTR + '/Contract/SaveNewContract',
+                    type: 'POST',
+                    data: DataContract,
+                    dataType: "json",
+                    cache: false,
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    });
+
+                if (Simpan.responseJSON["Result"] != "Error"){
+
+
+
+                    for(x = 0 ; x <= MailAlert.length -1 ;x++ ){
+
+                        var DataMail = new FormData();
+                        if (FlagAdd != "ADD"){
+
+                             DataMail.append('ContractId', $("#contract_id").val());
+                        }
+                        else{
+
+                          DataMail.append('ContractId', Simpan.responseJSON["Result"]);
+                        }
+
+                        DataMail.append('Name', MailAlert[x].Name);
+                        DataMail.append('Email', MailAlert[x].Email);
+
+                        if (MailAlert[x].FlagStat == 'new'){
+
+                                var SimpanEmail =   $.ajax({
+                                url: URL_PTR + '/Contract/SaveMailAlert',
+                                type: 'POST',
+                                data: DataMail,
+                                dataType: "json",
+                                cache: false,
+                                async: false,
+                                contentType: false,
+                                processData: false,
+                                });
+
+                        }
+
+
+                    }
+
+
+                        w2popup.close();
+                        clear_wait();
+
+                        if (FlagAdd == "ADD"){
+
+                             w2alert("Add new Contract success");
+                        }else{
+
+                             w2alert("Update Contract success");
+                        }
+                        refresh_list_contract();
+                    }
+                    else{
+                        $("#w2ui-popup").show();
+                        w2alert("Add new Contract fail try again !");
+                        clear_wait();
+
+
+                    }
+
+
+  }
+
+
+  function add_new_mail_alert(){
+
+
+    fill_add = '<input type="text" id="name_alert" placeholder="Masukan Nama !" style="width:100%;text-align:center;"/><br><br>';
+    fill_add = fill_add + '<input type="text" id="mail_alert" placeholder="Masukan Alamat Email !" style="width:100%;text-align:center;"/>';
+
+    w2popup.message({
+        width   : 300,
+        height  : 180,
+        body    : '<div style="text-align:center;padding:20px;">'+fill_add+'</div>',
+        buttons : '<button class="w2ui-btn" onclick="push_alert();">Add</button><button class="w2ui-btn" onclick="w2popup.message();">Cancel</button>',
+        onOpen : function (event){
+              $("#no_ser").focus();
+        }
+
+
+    });
+
+
+  }
+
+  function push_alert(){
+
+     if($("#name_alert").val() == ""){
+        $("#name_alert").focus();
+        $("#name_alert").attr("placeholder", "Tidak boleh kosong !");
+        return;
+     }
+
+     if($("#mail_alert").val() == ""){
+        $("#mail_alert").focus();
+        $("#mail_alert").attr("placeholder", "Tidak boleh kosong !");
+        return;
+     }
+     var las_rec = w2ui.gridMailAlert.records.length + 1;
+     w2ui['gridMailAlert'].add({ recid: las_rec
+                                    , ContractId : 'Test'
+                                    , Name : $("#name_alert").val()
+                                    , Email : $("#mail_alert").val()
+                                    , FlagStat: 'new'
+    });
+
+     w2popup.message();
+  }
+
+
+
+function refresh_contract(){
+
+w2ui['gridContract'].load(URL_PTR + '/Contract/ContractListData');
+
+}
+
+
+function refresh_mail_alert(Contract){
+
+w2ui['gridMailAlert'].load(URL_PTR + '/Contract/ContractListMailAlert?Contract='+ Contract);
+
+
+}
+
+function refresh_upload_grid(Contract){
+
+w2ui['gridUpload'].load(URL_PTR + '/Contract/ContractListUpload?Contract='+ Contract);
+
+
+}
+
+function fill_content(record,flag){
+
+        $("#contract_id").val(record.ContractId);
+        $("#contract_no").val(record.ContractNo);
+        $("#pr_no").val(record.NoPR);
+        $("#po_no").val(record.NoPO);
+        $("#contract_title").val(record.ContractTitle);
+        $("#contract_value").val(record.ContractValue);
+        $("#begin_date").val(record.BeginDate);
+        $("#end_date").val(record.EndDate);
+        $("#contract_date").val(record.ContractDate);
+        $("#contract_type").val(record.ContractTypeName);
+        $("#contract_type_id").val(record.ContractType);
+        $("#vendor").val(record.VendorName);
+        $("#vendor_id").val(record.IdVendor);
+        $("#keterangan").val(record.Description);
+
+}
+
+
+ function disable_button(){
+
+    w2ui['gridContract'].toolbar.disable('view_detail');
+    w2ui['gridContract'].toolbar.disable('enable');
+    w2ui['gridContract'].toolbar.disable('disable');
+    w2ui['gridContract'].toolbar.disable('done');
+}
+
+
+function form_upload_file(){
+
+    w2popup.message({
+        width   : 500,
+        height  : 200,
+        body    : '<div class="w2ui-centered"><input multiple="" type="file" id="upload_other_file" required accept=".jpg,.jpeg,.pdf,.png" onchange="checkfile(this);" /></div>',
+        buttons : '<button class="w2ui-btn" onclick="upload_file_other()">Upload</button>'+
+                  '<button class="w2ui-btn" onclick="w2popup.message()">Cancel</button>',
+        onOpen : function (event) {
+
+                        $('#upload_other_file').ace_file_input({
+                        style: 'well',
+                        btn_choose: 'Drop files here or click to choose',
+                        btn_change: null,
+                        no_icon: 'ace-icon fa fa-cloud-upload',
+                        droppable: true,
+                        thumbnail: 'small'//large | fit
+
+                        ,
+                        preview_error: function (filename, error_code) {
+
+                        }
+
+                        }).on('change', function () {
+
+                        });
+
+                }
+    });
+
+}
+
+
+function upload_file_other(){
+
+        var DataContract = new FormData();
+        var file    = $("#upload_other_file").files;
+
+        var fileUpload = $("#upload_other_file").get(0);
+        var files = fileUpload.files;
+
+        for (var i = 0; i < files.length; i++) {
+        DataContract.append(files[i].name, files[i]);
+        }
+
+        DataContract.append('ContractId',$("#contract_id").val());
+
+
+        $("#w2ui-popup").hide();
+        render_wait();
+
+        var Simpan =   $.ajax({
+        url: URL_PTR + '/Contract/ProcessUploadFile',
+        type: 'POST',
+        data: DataContract,
+        dataType: "json",
+        cache: false,
+        async: false,
+        contentType: false,
+        processData: false,
+        });
+
+        $("#w2ui-popup").show();
+        clear_wait();
+
+        if (Simpan.responseJSON["Result"] != "Error"){
+            w2popup.message();
+            alert("Upload new file success !");
+            refresh_upload_grid($("#contract_id").val());
+        }
+        else{
+            alert("Upload file fail try again !");
+        }
+
+
+
+}
+
+
+function form_done(records){
+
+  var bod = ' <div class="input-group" style="width:100%;">'+
+            ' <input class="form-control date-picker" id="realisasi_date" data-date-format="dd-mm-yyyy" readonly="" type="text" style="text-align:center;">' +
+            ' <span class="input-group-addon">'+
+            ' <i class="fa fa-calendar bigger-110"></i>'+
+            ' </span>'+
+            ' </div>'   ;
+
+  w2popup.open({
+        title     : 'i-Care',
+        body      : '<div class="w2ui-centered">Masukan Tanggal Realisasi <br><br>'+bod+'</div>',
+        buttons   : '<button class="w2ui-btn" onclick="w2popup.close();">Cancel</button> '+
+                    '<button class="w2ui-btn" onclick="done_contract(\''+ records.ContractId + '\')" >Done</button>',
+        width     : 280,
+        height    : 200,
+        overflow  : 'hidden',
+        color     : '#333',
+        speed     : '0.3',
+        opacity   : '0.8',
+        modal     : true,
+        showClose : true,
+        showMax   : false,
+        onClose   : function (event) { console.log('close'); },
+        onMax     : function (event) { console.log('max'); },
+        onMin     : function (event) { console.log('min'); },
+        onKeydown : function (event) { console.log('keydown'); }    ,
+        onOpen    : function (event) {
+
+                    event.onComplete = function () {
+
+                    $('.date-picker').datepicker({ format: 'yyyy/mm/dd',
+                    showButtonPanel: true, gotoCurrent: true
+                    }
+                    ).on('changeDate', function (ev) {
+                    $(this).datepicker('hide');
+                    })
+
+                    }
+
+
+
+                }
+    });
+
+
+}
+
+
+
+function done_contract(Contract){
+
+        if ($("#realisasi_date").val() == ""){
+
+            w2alert('Tanggal Realisasi Wajib Disisi !');
+            return;
+        }
+        else{
+
+
+            var DataContract = new FormData();
+            DataContract.append('RealDate',$("#realisasi_date").val());
+            DataContract.append('ContractId',Contract);
+
+            $("#w2ui-popup").hide();
+
+                render_wait();
+
+                var Simpan =   $.ajax({
+                    url: URL_PTR + '/Contract/DoneContract',
+                    type: 'POST',
+                    data: DataContract,
+                    dataType: "json",
+                    cache: false,
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    });
+
+                if (Simpan.responseJSON["Result"] != "Error"){
+
+                    w2popup.close();
+                    refresh_list_contract();
+                    clear_wait();
+
+                }
+
+
+        }
+
+
+}
+
+
+function save_contract(FLAG,Roles) {
+
+
+
+         if ($("#ContractNo").val()==""){
+
+                $('a[href="#info_contract"]').tab('show');
+                $("#ContractNo").focus();
+                $("#ContractNo").attr("placeholder", "Contract No may not be empty !");
+                return;
+
+         }
+
+         if ($("#DocType").val()==""){
+
+                $('a[href="#info_contract"]').tab('show');
+                $("#DocType").focus();
+                alert("Select document type bfore save this contract please !");
+                return;
+
+         }
+
+         if ($("#StartDate").val()==""){
+
+                $('a[href="#info_contract"]').tab('show');
+                $("#StartDate").focus();
+                alert("Start date is empty!");
+                return;
+
+         }
+
+         if ($("#EndDate").val()==""){
+
+                $('a[href="#info_contract"]').tab('show');
+                $("#EndDate").focus();
+                alert("End date is empty!");
+                return;
+
+         }
+
+        var fileUpload = $("#contract_file").get(0);
+        var files = fileUpload.files;
+
+        if (FLAG == "ADD"){
+            if (files.length ==0){
+
+                alert("Harap sertakan file pendukung !");
+                $('a[href="#tab_upload"]').tab('show');
+                return;
+
+            }
+        }
+
+
+        var DataSave = new FormData();
+
+        DataSave.append('Flag_Crud', FLAG);
+        DataSave.append('ContractId', $("#ContractId").val());
+        DataSave.append('CustomerId', $("#CustomerId").val());
+        DataSave.append('ContractNo', $("#ContractNo").val());
+        DataSave.append('DocType', $("#DocType").val());
+        DataSave.append('StartDate', $("#StartDate").val());
+        DataSave.append('EndDate', $("#EndDate").val());
+        DataSave.append('Remark', $("#Remark").val());
+        DataSave.append('AlertDay', $("#AlertDay").val());
+
+        w2ui['gridEmail'].save();
+        var ListDest    = w2ui['gridEmail'].records;
+
+        //data_bridging
+        var Daat_ = JSON.stringify(ListDest);
+        var Daat_del =  JSON.stringify(TempDelete);
+
+        DataSave.append('ListAdd', Daat_);
+        DataSave.append('ListDelete', Daat_del);
+
+
+        if ($('#Snooze').is(":checked")){
+
+            DataSave.append('Snooze', "0");
+        }
+        else{
+
+            DataSave.append('Snooze', "1");
+        }
+
+
+
+        var fileUpload = $("#contract_file").get(0);
+        var files = fileUpload.files;
+
+         if (FLAG == "ADD"){
+
+            if (Roles == undefined){
+
+                for (var i = 0; i < files.length; i++) {
+
+                    DataSave.append(files[i].name, files[i]);
+
+
+                }
+
+            }
+
+        }
+
+
+        render_wait()
+
+        var Simpan =   $.ajax({
+            url: URL_PTPR + '/Customers/SaveContractCustomer',
+            type: 'POST',
+            data: DataSave,
+            dataType: "json",
+            cache: false,
+            async: false,
+            contentType: false,
+            processData: false,
+        });
+
+
+        if (  Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error")!=-1 ){
+
+                clear_wait();
+                alert(Simpan.responseJSON["Result"]);
+
+        }
+        else{
+
+                alert('Save Data Success !');
+                $("#ModContract").modal("hide");
+                clear_wait();
+                RefreshContract();
+        }
+
+     }
+
+
+
+</script>
+

@@ -1,0 +1,529 @@
+<style>
+
+	.header_form_custom {
+		padding-top: 15px;
+		text-align: center;
+	}
+
+	.form_custom_title {
+		font-size: 25px;
+	}
+
+	#addendum_attachment .btn-draft-tools {
+		padding: 5px !important;
+		width: 80px !important;
+	}
+
+
+	#ModalContractListForAddendum .modal-dialog, #ModalProcurementListForAddendum .modal-dialog {
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+	#form_addendum_procurement {
+		padding:15%;
+		padding-top:0%;
+		padding-bottom:5%;
+	}
+
+
+	
+
+</style>
+
+<div id="form_addendum_procurement" hidden >
+
+
+	<div class="pre_submit_wording row">
+
+		<div class="box-body" style="text-align:left;">
+			<div class="col-sm-1 icon_pre">
+				<img src="../../../Content/img/contract_icon.png" style="width:40px;">
+			</div>
+			<div class="col-sm-8 text-left">
+				<span style="font-size:15px;">
+					Addendum Procurement
+				</span><br />
+				<span style="font-size:13px;">Lengkapi data-data berikut !</span>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row form_mandatory" id="form_mandatory_prep">
+
+		<form class="form-horizontal">
+			<div class="box-body">
+
+
+				<div class="form-group" id="group_procId">
+					<label for="inputName" class="col-sm-3 control-label mandatory">Procurement Sebelumnya <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<table width="100%" border="0">
+							<tr>
+								<td><input class="form-control wajib" readonly id="Addendum_Procurement" placeholder="Digunakan Sebagai Referensi" type="text" onkeypress="if (event.keyCode == 13){$('#Addendum_Contract').focus();}" autocomplete="off"></td>
+								<td width="5%" style="padding:4px;"><button type="button" class="btn-finder" onclick="find_proc_list()">...</button></td>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+
+				<div class="form-group" id="group_procId">
+					<label for="inputName" class="col-sm-3 control-label mandatory">Kontrak Sebelumnya <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<table width="100%" border="0">
+							<tr>
+								<td><input class="form-control wajib" readonly id="Addendum_Contract" placeholder="Digunakan Sebagai Referensi" type="text" onkeypress="if (event.keyCode == 13){$('#Addendum_Contract').focus();}" autocomplete="off"></td>
+								<td width="5%" style="padding:4px;"><button type="button" class="btn-finder" onclick="find_contract_list()">...</button></td>
+							</tr>
+						</table>
+					</div>
+				</div>
+
+
+				<div class="form-group upload_wajib" id="group_procId">
+					<label for="inputName" class="col-sm-3 control-label mandatory">Bak <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<input type="file" id="file_bak" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader wajib" />
+					</div>
+				</div>
+
+
+				<div class="form-group upload_wajib" id="group_procId">
+					<label for="inputName" class="col-sm-3 control-label mandatory">Memo Pengajuan <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<input type="file" id="file_memo_pengajuan_addendum" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader wajib" />
+					</div>
+				</div>
+
+
+
+				<div class="form-group upload_wajib" id="group_procId">
+					<label for="inputName" class="col-sm-3 control-label mandatory">Memo Justifikasi <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<input type="file" id="file_memo_justifikasi_addendum" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader wajib" />
+					</div>
+				</div>
+
+
+				<div class="form-group" id="group_procId">
+					<label for="inputName" class="col-sm-3 control-label mandatory">PR (Optional)</label>
+					<div class="col-sm-8">
+						<input type="file" id="file_pr_addendum" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader wajib" />
+					</div>
+				</div>
+
+
+				<div class="form-group" id="idtext">
+					<label for="inputName" class="col-sm-3 control-label">Remark</label>
+					<div class="col-sm-8">
+						<textarea class="form-control input" placeholder="Tinggalkan keterangan jika diperlukan" id="Addendum_Remark" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:50px;" autocomplete="off"></textarea>
+					</div>
+				</div>
+
+
+
+			</div>
+		</form>
+
+	</div>
+
+
+	<div class="pre_submit_wording row button_box_prep">
+		<button type="button" class="btn btn-gray btn-sm" onclick="cancel_addendum()" ondblclick="cancel_addendum()"><i class="ace-icon fa fa-undo" aria-hidden="true"></i> Cancel</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="save_addendum()" ondblclick="save_addendum()"><i class="ace-icon  fa fa-arrow-right" aria-hidden="true"></i> Next</button>
+	</div>
+
+
+
+</div>
+
+
+<div class="page_progress" id="progress_save_addendum" hidden>
+
+	<img src="~/Content/images/loading_images/cricle.gif" style="width:30%;" />
+	<br />
+	<span>Loading ...</span>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalProcurementListForAddendum" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Procurement List</h4>
+				<span style="font-size:11px;">Double click on item or select an item and click select button  !</span>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="grid_Addendum_List_Proc" style="height:390px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-info btn-sm" " onclick="select_addendum_proc()">Select</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalContractListForAddendum" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Contract List</h4>
+				<span style="font-size:11px;">Double click on item or select an item and click select button  !</span>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="grid_Addendum_List_Contract" style="height:390px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-info btn-sm" " onclick="select_addendum_contract()">Select</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+	var cur_proc_addendum = 0;
+	var cur_contract_addendum = "";
+
+	function addendum_procurement() {
+
+		render_attchment_control("addendum_attachment");
+		active_form = "form_addendum_procurement";
+		reset_form("form_addendum_procurement", "form-control");
+
+		$("#page_panel").hide("slide", function () {
+			$("#form_addendum_procurement").show();
+		})
+
+	}
+
+
+	function cancel_addendum() {
+
+		$("#form_addendum_procurement").hide("fade", function () {
+			$("#page_panel").show();
+			render_attchment_control();
+		})
+	}
+
+	function render_attchment_control(selector) {
+
+		Upload_File = [];
+		$("#" + selector + " .btn-draft-tools").hide();
+		$("#" + selector + " .btn_add_attachment").show();
+
+	}
+
+	function find_proc_list() {
+
+		$('#ModalProcurementListForAddendum').on('shown.bs.modal', function (e) {
+
+				if (w2ui['grid_Addendum_List_Proc'] != null) {
+					w2ui['grid_Addendum_List_Proc'].destroy();
+				}
+
+
+			$('#grid_Addendum_List_Proc').w2grid({
+
+					name: 'grid_Addendum_List_Proc',
+					multiSelect: false,
+					textSearch: 'contains',
+					show: {
+
+						header: false,
+						toolbar: true,
+						footer: true,
+						lineNumbers: false,
+						selectColumn: true,
+						toolbarSearch: false,
+					},
+					columns: [
+
+						{ field: 'Id', caption: 'Id.', size: '70px', sortable: true,  resizable: true, info: true },
+						{ field: 'StatusName', caption: 'Progress', size: lengt_progress_field, sortable: true,  resizable: true },
+						{ field: 'Title', caption: 'Title', size: '150px', sortable: true,  resizable: true },
+						{ field: 'Descriptions', caption: 'Descriptions', size: '300px', resizable: true, sortable: true,  style: 'word-wrap:break-word;' },
+						{ field: 'FunctionName', caption: 'Fungsi', size: '100px', sortable: true,  resizable: true },
+						{ field: 'Value', caption: '<div style="text-align:right;">Nilai Pengadaan (Rp.)</div>', size: '150px', sortable: true,  resizable: true, render: 'number', },
+						{ field: 'NoPR', caption: 'PR. No.', size: '100px', sortable: true,  resizable: true },
+						{ field: 'CountWinner', caption: '<div style="text-align:right;">Winner</div>', size: '60px', sortable: true,  resizable: true, render: 'number', },
+						{ field: 'ExpectedDate', caption: 'Expected Date', size: '150px', sortable: true,  resizable: true },
+						{ field: 'CreateUser', caption: 'CreateUser', size: '150px', resizable: true, sortable: true,  max: '400px' },
+						{ field: 'CreateDate', caption: 'CreateUser', size: '150px', resizable: true, sortable: true,  max: '400px' },
+					],
+					onDblClick: function (event) {
+						select_addendum_proc();
+				
+					},
+					onReload: function (event) {
+						refres_grid_Addendum_List_Proc()
+					},
+			
+			});
+
+			refres_grid_Addendum_List_Proc();
+
+		})
+
+		$('#ModalProcurementListForAddendum').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+	}
+
+
+	function refres_grid_Addendum_List_Proc() {
+
+		w2ui['grid_Addendum_List_Proc'].load(URL_PTPR + '/Procurement/FindProcurementByStatus?Status=11');
+	}
+
+
+	function select_addendum_proc() {
+
+		var sel = w2ui.grid_Addendum_List_Proc.getSelection();
+		var record = w2ui.grid_Addendum_List_Proc.get(sel[0]);
+		cur_proc_addendum = record.Id;
+
+		cur_contract_addendum = "";
+		$("#Addendum_Contract").val("");
+
+		$("#Addendum_Procurement").val(record.Id + " - " + record.Title);
+		$('#ModalProcurementListForAddendum').modal("hide");
+	}
+
+	function find_contract_list() {
+
+		if ($("#Addendum_Procurement").val() == "") {
+			w2alert("Harap pilih referensi procurement terlebih dahulu  !");
+			return;
+		}
+
+		$('#ModalContractListForAddendum').on('shown.bs.modal', function (e) {
+
+			if (w2ui['grid_Addendum_List_Contract'] != null) {
+				w2ui['grid_Addendum_List_Contract'].destroy();
+			}
+
+			$('#grid_Addendum_List_Contract').w2grid({
+
+				name: 'grid_Addendum_List_Contract',
+				multiSelect: false,
+				textSearch: 'contains',
+				show: {
+
+					header: false,
+					toolbar: true,
+					footer: true,
+					lineNumbers: false,
+					selectColumn: true,
+					toolbarSearch: false,
+				},
+				columns: [
+					{ field: 'DayAlert', caption: 'Info.', size: '200px', sortable: true,  resizable: true, info: true },
+					{ field: 'ContractId', caption: 'Contract Id.', size: '150px', sortable: true,  resizable: true, },
+					{ field: 'ContractNo', caption: 'Contract No.', size: '150px', sortable: true,  resizable: true },
+					{ field: 'ContractTitle', caption: 'Title', size: '300px', resizable: true, sortable: true,  style: 'word-wrap:break-word;' },
+					{ field: 'BeginDate', caption: 'Start Date', size: '100px', sortable: true,  resizable: true },
+					{ field: 'EndDate', caption: 'End Date', size: '100px', sortable: true,  resizable: true },
+					{ field: 'Files', caption: 'Attachment', size: '100px', sortable: true,  resizable: true },
+					{ field: 'AlertDestination', caption: 'Mail Destination', size: '150px', sortable: true,  resizable: true },
+					{ field: 'ContractValue', caption: '<div style="text-align:right;">Value (Rp.)</div>', size: '100px', resizable: true, sortable: true,  render: 'number' },
+					{ field: 'ContractTypeName', caption: 'Contract Type', size: '100px', resizable: true, sortable: true, searchable: 'text' },
+					{ field: 'DayLeft', caption: '<div style="text-align:right;">Day Left</div>', size: '70px', sortable: true,  resizable: true, render: 'number' },
+					{ field: 'OverDue', caption: '<div style="text-align:right;">Over Due</div>', size: '70px', sortable: true,  resizable: true, render: 'number' },
+					{ field: 'PenanggungJawabPihak1', caption: 'Contract Signing Officer', size: '100px', sortable: true,  resizable: true },
+					{ field: 'FungsiName', caption: 'Fungsi', size: '100px', sortable: true,  resizable: true },
+					{ field: 'Creator', caption: 'Creator', size: '100px', resizable: true, sortable: true,  max: '400px' },
+					{ field: 'Updater', caption: 'Updater', size: '100%', resizable: true, sortable: true,  max: '400px' },
+				],
+				onDblClick: function (event) {
+					select_addendum_contract();
+				},
+				onReload: function (event) {
+					refres_grid_Addendum_List_Contract()
+				},
+				searches: [
+					{ type: 'text', field: 'ContractId', label: 'Contract Id.' },
+					{ type: 'text', field: 'ContractTitle', label: 'Contract Title' },
+				
+				],
+
+			});
+
+			refres_grid_Addendum_List_Contract();
+
+		})
+
+		$('#ModalContractListForAddendum').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+		$('#ModalContractListForAddendum').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+	}
+
+	function refres_grid_Addendum_List_Contract() {
+		w2ui['grid_Addendum_List_Contract'].load(URL_PTPR + '/EContract/Get_PAM_E_Contract_For_Addendum?Id=' + cur_proc_addendum);
+	}
+
+
+	function select_addendum_contract() {
+
+		var sel = w2ui.grid_Addendum_List_Contract.getSelection();
+		var record = w2ui.grid_Addendum_List_Contract.get(sel[0]);
+		cur_contract_addendum = record.ContractId;
+
+		$("#Addendum_Contract").val(record.ContractId + " - " + record.ContractTitle);
+		$('#ModalContractListForAddendum').modal("hide");
+	}
+
+	function save_addendum() {
+
+		if (!form_validation("form_addendum_procurement", "wajib")) return;
+		
+
+		$('#Modal_load').show("fade", function () {
+
+		})
+
+		
+
+
+	}
+
+
+
+	$('#attachment_addendum').change(function () {
+
+		var file = this.files[0];
+		active_form = "form_addendum_procurement";
+	
+		var DataSave = new FormData();
+		DataSave.append('FileCategory', "Addendum-File");
+		DataSave.append('Source', "I-Care");
+		DataSave.append('Key1', "PROCUREMENT_FILE");
+		DataSave.append('UPLOAD_FILE', file);
+
+		$("#" + active_form + " .upload_progress_lampiran").show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/EContract/UploadFilePre',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+					w2alert("Upload File Gagal !");
+				}
+
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+				w2alert("Upload File Gagal !");
+				$("#" + active_form + " .upload_progress_lampiran").hide();
+			}
+			else {
+				oFileCount = oFileCount + 1;
+				var row_upload = { ID: Simpan.responseJSON["Result"] };
+				Upload_File.push(row_upload);
+				$("#" + active_form + " .upload_progress_lampiran").hide();
+				if (oFileCount > 0) {
+					$(".btn-clear-attach").show();
+					$(".btn-attach-info").html('<i class="ace-icon fa fa-list" aria-hidden="true"></i> ' + oFileCount + ' File Attach');
+				}
+				else {
+					$(".btn-clear-attach").hide();
+				}
+			}
+
+
+		})
+
+	});
+
+
+	function global_clear_attach_file() {
+
+		active_form = "form_addendum_procurement";
+
+		$(".btn-clear-attach,.btn_add_attachment").hide();
+		var DataSave = new FormData();
+		DataSave.append('FileCategory', "Addendum-File");
+		DataSave.append('Source', "I-Care");
+		DataSave.append('Key1', "PROCUREMENT_FILE");
+		DataSave.append('FileUploadList', JSON.stringify(Upload_File));
+
+		$("#" + active_form + " .upload_progress_lampiran").show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/EContract/DeleteFilePre',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+
+					w2alert("Attachment Gagal Dihapus !");
+					$("#" + active_form + " .upload_progress_lampiran").hide();
+					$(".btn-clear-attach").show()
+
+				}
+
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				w2alert("Attachment Gagal Dihapus !");
+				$("#" + active_form + " .upload_progress_lampiran").hide();
+				$(".btn-clear-attach").show()
+			}
+			else {
+
+				$("#" + active_form + " .upload_progress_lampiran").hide();
+				oFileTotal = [];
+				Upload_File = [];
+				oFileCount = 0;
+				w2alert("Attachment Berhasil Dihapus!");
+				$(".btn_add_attachment").show();
+			}
+
+
+		})
+
+
+	}
+	
+
+</script>

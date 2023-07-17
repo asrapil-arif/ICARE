@@ -1,0 +1,51 @@
+﻿  <table border="0" width="100%" id="tbl-klas-add" cellpadding="0" cellspacing="0">
+        <tr>
+        <td style="text-align:right;" rowspan="5" valign="top">
+            
+        <div id="image_item"></div>
+
+        </td>
+        <td style="text-align:right;" width="30%">Request Type</td>
+        <td>:</td>
+        <td>
+        <select name="cmb_tipe_permintaan" id="cmb_tipe_permintaan" class="chosen-select form-control" style="width:250px" onchange="check_tipe(this.value)">
+        </select>
+                
+        </td>
+        </tr>
+         
+        <tr>
+        <td style="text-align:right;">Part</td>
+        <td>:</td>
+        <td>
+        <select name="cmb_part" id="cmb_part"  class="chosen-select form-control" style="width:250px"></select></td>
+        </tr>
+         
+        <tr>
+        <td style="text-align:right;">Qty <span style="color:Red;">*</span></td>
+        <td>:</td>
+        <td>
+        <input id="item_qty" placeholder="Qty" class="col-xs-10 col-sm-5" type="text"  style="width:98%"></td>
+        </tr>
+
+      
+         
+        <tr>
+        <td style="text-align:right;">Keterangan</td>
+        <td>:</td>
+        <td>
+            <textarea class="form-control limited" id="keterangan" maxlength="50" 
+        style="width:98%;height:100px;resize:none;font-size:12px;" cols="20" name="S1" rows="1"></textarea></td>
+        </tr>
+
+      
+         
+        <tr>
+        <td style="text-align:right;" width="30%" valign="top">Reason of change / addon</td>
+        <td valign="top">:</td>
+        <td>
+        <textarea class="form-control limited" id="reason" maxlength="50" 
+        style="width:98%;height:100px;resize:none;font-size:12px;" cols="20" name="S1" rows="1"></textarea></td>
+        </tr>
+         
+        </table>

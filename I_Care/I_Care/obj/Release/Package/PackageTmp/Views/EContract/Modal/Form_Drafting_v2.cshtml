@@ -1,0 +1,281 @@
+@using DevExpress.Web.Mvc.UI;
+@using DevExpress.Web.Mvc;
+@using DevExpress.Web;
+
+@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Title = "E-Contract";
+	ViewBag.Parent = "E-Contract";
+	ViewBag.Child = "E-Contract";
+	ViewBag.Child_Caption = "Procurement";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-list\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+	
+
+}
+
+
+@Html.DevExpress().GetScripts(
+	new Script { ExtensionSuite = ExtensionSuite.Editors },
+	new Script { ExtensionSuite = ExtensionSuite.NavigationAndLayout },
+	new Script { ExtensionSuite = ExtensionSuite.RichEdit }
+)
+
+
+
+@Html.DevExpress().GetStyleSheets(
+
+	new StyleSheet { ExtensionSuite = ExtensionSuite.RichEdit },
+	new StyleSheet { ExtensionSuite = ExtensionSuite.RichEdit, Theme = "Office365" }
+
+)
+
+
+<div id="template_e_contract"  hidden>
+
+
+	@using (Html.BeginForm())
+	{
+		@Html.Partial("RichEditPartial")
+	}
+
+	<div class="drafting_tools">
+
+		<div class="btn-group">
+
+			<button type="button" class="btn btn-white btn-bold btn-draft-tools btn-clear-attach btn-attach-info" onclick="clear_attach_file()" hidden>...</button>
+			<button type="button" class="btn btn-white btn-bold btn-draft-tools btn-clear-attach" onclick="clear_attach_file()" hidden><i class="ace-icon fa fa-trash" aria-hidden="true"></i> Clear Attachment File</button>
+			<button type="button" class="btn btn-white btn-bold btn-draft-tools" onclick="$('#attachment_draft_e_kontrak').click();"><i class="ace-icon fa fa-paperclip" aria-hidden="true" style="color:orange;"></i> Attach File</button>
+			@*<button type="button" class="btn btn-white btn-bold btn-draft-tools" onclick="save_document()"><i class="ace-icon fa fa-floppy-o" aria-hidden="true" style="color:dodgerblue;"></i> Save Draft</button>*@
+			<button type="button" class="btn btn-white btn-bold btn-draft-tools" onclick="pre_submit_draft()"><i class="ace-icon fa fa-paper-plane" aria-hidden="true" style="color:dodgerblue;"></i> Submit Draft</button>
+
+		</div>
+
+
+		<span class="break_menu"></span>
+
+		<div class="btn-group">
+			<button type="button" class="btn btn-white btn-bold btn-draft-tools" onclick="close_drafting();"><i class="ace-icon fa fa-times" aria-hidden="true"></i> Cancel</button>
+		</div>
+
+	</div>
+
+</div>
+
+
+<div id="mandatory_value_confirm" hidden>
+
+	<div class="pre_submit_wording row">
+
+		<img src="~/Content/img/document_check2.png" style="width:5%;" /><br />
+		Harap cek kembali data berikut, sebelum kami memproses nya pastikan
+		bahwa mandatory data berikut sudah sesuai.<br />Karena kami memerlukannya untuk mengutilisasi alert kontrak pada e-kontrak ini.
+
+	</div>
+
+	<div class="row form_mandatory" id="form_mandatory_prep">
+
+		<form class="form-horizontal">
+			<div class="box-body">
+
+
+				<div class="form-group" id="idtext">
+					<label for="inputName" class="col-sm-2 control-label">Judul Kontrak <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+						<input class="form-control wajib" id="EContractTitle" placeholder="Disamakan dengan judul kontrak pada Draft !" type="text" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputName" class="col-sm-2 control-label">Contract Value <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+						<input type="text" id="Etemp_ContractValue" hidden />
+						<input class="form-control wajib" id="EContractValue" placeholder="Nilai kontrak, disarankan sama dengan nilai pengadaan ! " type="text" onselect="format_currency('EContractValue','Etemp_ContractValue')" onkeyup="format_currency('EContractValue','Etemp_ContractValue')" onmouseup="format_currency('EContractValue','Etemp_ContractValue')" autocomplete="off">
+					</div>
+				</div>
+
+
+				<div class="form-group">
+
+					<label for="inputName" class="col-sm-2 control-label">Contract Signing Officer <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+
+						<select class="form-control select2 wajib" id="EPerson" placeholder="Contract Signing Officer">
+							<option value="" selected>-- Select Pic --</option>
+						</select>
+
+						<script>
+
+							var DataPerson = $.ajax({
+								url: URL_PTPR + '/EContract/GetPersonPtpr',
+								type: 'GET',
+								dataType: "json",
+								cache: false,
+								async: false,
+								contentType: false,
+								processData: false,
+							});
+
+							PersonDataList = DataPerson.responseJSON;
+
+							$.each(PersonDataList, function (i, item) {
+
+								$("#EPerson").append('<option value="' + PersonDataList[i].ID + '">' + PersonDataList[i].NM_PEG + ' - ' + PersonDataList[i].NIP + ' - ' + PersonDataList[i].NM_JABATAN_STR + '</option>');
+
+
+							});
+
+							$("#EPerson").trigger("change");
+
+
+						</script>
+
+					</div>
+
+				</div>
+
+				<div class="form-group">
+
+					<label for="inputName" class="col-sm-2 control-label">Contract Type <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+
+						<select class="form-control select2 wajib" id="EContractType" placeholder="Contract Type">
+							<option value="" selected>-- Select Contract Type --</option>
+						</select>
+
+						<script>
+
+							var DataContractType = $.ajax({
+								url: URL_PTPR + '/EContract/GetContractType',
+								type: 'GET',
+								dataType: "json",
+								cache: false,
+								async: false,
+								contentType: false,
+								processData: false,
+							});
+
+							ContractTypeData = DataContractType.responseJSON;
+
+							$.each(ContractTypeData, function (i, item) {
+
+								$("#EContractType").append('<option value="' + ContractTypeData[i].Id + '">' + ContractTypeData[i].ContractType + '</option>');
+
+
+							});
+
+							$("#EContractType").trigger("change");
+
+
+						</script>
+
+					</div>
+
+				</div>
+
+				<div class="form-group">
+
+					<label for="inputName" class="col-sm-2 control-label">Periode Periode Kontrak <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+						<div class="input-daterange input-group col-sm-10">
+
+							<input type="text" class="input-sm form-control wajib" id="EStartDate" placeholder="Tgl. Kontrak Dimulai" autocomplete="off">
+							<span class="input-group-addon">
+								<i class="fa fa-long-arrow-right"></i>
+							</span>
+
+							<input type="text" class="input-sm form-control wajib" id="EEndDate" placeholder="Tgl. Kontrak Berakhir" autocomplete="off">
+						</div>
+					</div>
+				</div>
+
+
+			</div>
+		</form>
+
+	</div>
+
+	<div class="pre_submit_wording row button_box_prep">
+
+		<button type="button" class="btn btn-gray btn-sm" onclick="back_to_drafting()" ondblclick="back_to_drafting()"><i class="ace-icon fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="submit_draft()" ondblclick="submit_draft()"><i class="ace-icon  fa fa-paper-plane" aria-hidden="true"></i> Next</button>
+
+	</div>
+
+</div>
+
+<style>
+
+	.page-content {
+		padding: 0px !important;
+	}
+</style>
+
+
+<style>
+
+	.drafting_tools {
+		background-color: #eaeaea;
+		text-align: right;
+		vertical-align: middle;
+		border-top: 1px solid #d1cdcd;
+		padding: 5px;
+	}
+
+	.btn-draft-tools {
+		border-width: 1px !important;
+		font-size: 11px;
+		padding: 4px;
+		border-radius: 2px;
+	}
+
+	.break_menu {
+		border-left: 1px solid #d2caca;
+		padding: 10px;
+		padding-left: 3px;
+		padding-right: 2px;
+	}
+
+	.pre_submit_wording {
+		line-height: 25px;
+	}
+
+
+	#mandatory_value_confirm {
+		margin:2% auto;
+		padding:5%;
+		text-align:center;
+	}
+
+	#mandatory_value_confirm .select2 {
+		font-size: 12px;
+		text-align: left;
+	}
+
+</style>
+
+
+<script>
+
+	function pre_submit_draft() {
+
+
+		$("#template_e_contract").hide("fade", function () {
+
+			$("#mandatory_value_confirm").show("fade", function () { $("#EContractTitle").focus(); });
+
+		})
+
+
+	}
+
+	function back_to_drafting() {
+
+		$("#mandatory_value_confirm").hide("fade", function () {
+
+			$("#template_e_contract").show();
+
+		})
+	}
+</script>

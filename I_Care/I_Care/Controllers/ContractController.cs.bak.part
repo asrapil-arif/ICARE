@@ -1,0 +1,1363 @@
+ //Old-----------------------------------------------------------
+
+        [Authorize]
+        public ActionResult GeneralAffair()
+        {
+
+            string SQL2 = "select Id,ContractType from FMS.dbo.m_contract_type";
+            DataTable tblDataStat = Koneksi.GetDataTable(SQL2);
+
+
+            List<_ContractType> _ContractType = new List<_ContractType>();
+
+            foreach (DataRow row in tblDataStat.Rows)
+            {
+                _ContractType model = new _ContractType
+                {
+                    Id = (int)row[0],
+                    ContractType = (string)row[1],
+                };
+                _ContractType.Add(model);
+            }
+            ViewBag.ContractType = _ContractType.ToArray();
+
+
+            string SQL3 = "SELECT ";
+            SQL3 = SQL3 + "VId Id, ";
+            SQL3 = SQL3 + "Isnull(VendorID, '-') as VendorID, ";
+            SQL3 = SQL3 + "isnull(VendorName, '-') as VendorName ";
+            SQL3 = SQL3 + "from VendorManagement.[dbo].[V_Vendor_2] ";
+            DataTable tblDataStat2 = Koneksi.GetDataTable(SQL3);
+
+            List<_VendorList> _VendorList = new List<_VendorList>();
+
+            foreach (DataRow row in tblDataStat2.Rows)
+            {
+                _VendorList model = new _VendorList
+                {
+                    Id = (int)row[0],
+                    VendorId = (string)row[1],
+                    VendorName = (string)row[2]
+                };
+                _VendorList.Add(model);
+            }
+
+            ViewBag.VendorList = _VendorList.ToArray();
+
+            string SQL1 = "select distinct ProcID from fms.dbo.[t_proc_procurement_detail] where IsDeleted = 0 and ProcID not in (select ContractId from t_contracts)";
+            DataTable tblDataStat1 = Koneksi.GetDataTable(SQL1);
+
+            List<_ProcurementList> _ProcurementList = new List<_ProcurementList>();
+
+            foreach (DataRow row in tblDataStat1.Rows)
+            {
+                _ProcurementList model = new _ProcurementList
+                {
+                    ContractId = (string)row[0]//,
+                    //Title = (string)row[1],
+                };
+                _ProcurementList.Add(model);
+            }
+
+            ViewBag._ProcurementList = _ProcurementList.ToArray();
+
+
+
+            List<_LookUp> _LookUpFungsi = new List<_LookUp>();
+            string SQL4 = "SELECT ID,NM_UNIT_ORG from SSO.[dbo].[M_Fungsi]";
+            DataTable tblDataStat3 = Koneksi.GetDataTable(SQL4);
+
+            foreach (DataRow row in tblDataStat3.Rows)
+            {
+                _LookUp model = new _LookUp
+                {
+                    LookId = (int)row[0],
+                    LookName = (string)row[1],
+                };
+                _LookUpFungsi.Add(model);
+            }
+            ViewBag.LookUpFungsi = _LookUpFungsi.ToArray();
+
+            string SQLEmail = " SELECT isnull(NM_PEG,'') NM_PEG ,isnull(EMAIL,'')";
+            SQLEmail = SQLEmail + " EMAIL, isnull(NM_JABATAN_STR,'')NM_JABATAN_STR";
+            SQLEmail = SQLEmail + " from fms.dbo.VwMapUserAD";
+
+            //string SQLEmail = "exec FMS.dbo.VwMapUserAD";
+            DataTable tblDataStatEmail = Koneksi.GetDataTable(SQLEmail);
+            List<_EmailList> _EmailList = new List<_EmailList>();
+
+            foreach (DataRow row in tblDataStatEmail.Rows)
+            {
+                _EmailList model = new _EmailList
+                {
+                    NM_PEG = (string)row[0],
+                    EMAIL = (string)row[1],
+                    NM_JABATAN_STR = (string)row[2],
+                };
+                _EmailList.Add(model);
+            }
+
+            ViewBag.EmailList = _EmailList.ToArray();
+
+            //string SQLList = "exec FMS.dbo.procCrudGeneralContract @Type =  4";
+            //         DataTable tblDataList = Koneksi.GetDataTable(SQLList);
+            //         if (tblDataList.Rows.Count != 0)
+            //         {
+            //             //untuk view tesk mandatori
+            //             return View("GeneralAffairTaskList");
+            //             //return View();
+
+            //         }
+
+
+            //         else
+            //         {
+            //             return View();
+            //         };
+
+
+            return View();
+
+        }
+
+
+
+
+        [Authorize]
+        public ActionResult CustomerContractList()
+        {
+
+            SSOWSSoapClient ws = new SSOWSSoapClient();
+
+            if (ws.GetAllowModul(User.Identity.Name.ToString(), "MOD2019090001", 1))
+            {
+
+                string SQL2 = "select ContractId,ContractName from CRM_PTPR.dbo.M_Customer_Contract_Type ";
+                DataTable tblDataStat = Koneksi.GetDataTable(SQL2);
+
+                string SQL3 = "select SubscribeId,SubscribeName from CRM_PTPR.dbo.M_Tipe_Berlangganan where SubscribeGroup = 1";
+                DataTable tblDataLang = Koneksi.GetDataTable(SQL3);
+
+                List<ContractType> _ContractType = new List<ContractType>();
+
+                foreach (DataRow row in tblDataStat.Rows)
+                {
+                    ContractType model = new ContractType
+                    {
+                        ContractId = (int)row[0],
+                        ContractName = (string)row[1],
+                    };
+                    _ContractType.Add(model);
+                }
+
+
+                List<TipeLangganan> _Langganan = new List<TipeLangganan>();
+
+                foreach (DataRow row in tblDataLang.Rows)
+                {
+                    TipeLangganan model = new TipeLangganan
+                    {
+                        Id = (int)row[0],
+                        Langganan = (string)row[1],
+                    };
+                    _Langganan.Add(model);
+                }
+
+                ViewBag.ContractType = _ContractType.ToArray();
+                ViewBag.TipeLangganan = _Langganan.ToArray();
+
+                return View();
+
+            }
+            else
+            {
+
+                return View("Denied");
+
+            }
+
+        }
+
+
+        [Authorize]
+        public JsonResult SaveNewContract(FormCollection Contract)
+        {
+            HttpFileCollectionBase files = Request.Files;
+
+            string ContractNo = Contract["ContractNo"];
+            string NoPR = Contract["NoPR"];
+            string NoPO = Contract["NoPO"];
+            string ContractTitle = Contract["ContractTitle"];
+            string ContractValue = Contract["ContractValue"];
+            string BeginDate = Contract["BeginDate"];
+            string EndDate = Contract["EndDate"];
+            string ContractDate = Contract["ContractDate"];
+            string ContractType = Contract["ContractType"];
+            string IdVendor = Contract["IdVendor"];
+            string Ket = Contract["Description"];
+            string Flag = Contract["Flag"];
+            string ContractId = Contract["ContractId"];
+            string DelMailAlert = Contract["DelMailAlert"];
+            string PenanggungJawabPihak1 = Contract["PenanggungJawabPihak1"];
+            string fungsi = Contract["fungsi"];
+            string parent_id = Contract["parent_id"];
+            string addendumContractNo = Contract["AddendumContractNo"];
+            db.Database.Connection.Open();
+            DbTransaction trans = db.Database.Connection.BeginTransaction();
+            try
+            {
+                var parameters = new SqlParameter[]
+                {
+                    new SqlParameter("contractno", SqlDbType.VarChar,50), //0
+                    new SqlParameter("nopr", SqlDbType.VarChar,50), //1
+                    new SqlParameter("nopo", SqlDbType.VarChar,50), //2
+                    new SqlParameter("contracttitle", SqlDbType.VarChar,200), //3
+                    new SqlParameter("contractvalue", SqlDbType.Money), //4
+                    new SqlParameter("begindate", SqlDbType.Date), //5
+                    new SqlParameter("enddate", SqlDbType.Date), //6
+                    new SqlParameter("contractdate", SqlDbType.Date), //7
+                    new SqlParameter("contracttype", SqlDbType.VarChar,20), //8
+                    new SqlParameter("idvendor", SqlDbType.VarChar,100), //9
+                    new SqlParameter("description", SqlDbType.VarChar,200), //10
+                    new SqlParameter("user", SqlDbType.VarChar,50), //11
+                    new SqlParameter("flag", SqlDbType.VarChar,50), //12
+                    new SqlParameter("contractid", SqlDbType.VarChar,50), //13
+                    new SqlParameter("delmail", SqlDbType.VarChar), //14
+                    new SqlParameter("penanggungjawabpihak1", SqlDbType.VarChar,200),
+                    new SqlParameter("fungsi", SqlDbType.VarChar,20),
+                    new SqlParameter("parent_id", SqlDbType.VarChar,20),
+                    new SqlParameter("addendumContractNo", SqlDbType.VarChar,20),
+                    new SqlParameter("outputVal", SqlDbType.VarChar,20) { Direction = ParameterDirection.Output} //15
+                };
+
+                parameters[0].Value = ContractNo; //0 
+                parameters[1].Value = NoPR; //1 
+                parameters[2].Value = NoPO; //2
+                parameters[3].Value = ContractTitle; //3
+                parameters[4].Value = ContractValue; //4
+                parameters[5].Value = BeginDate; //5
+                parameters[6].Value = EndDate; //6
+                parameters[7].Value = ContractDate; //7
+                parameters[8].Value = ContractType; //8
+                parameters[9].Value = IdVendor; //9
+                parameters[10].Value = Ket; //10
+                parameters[11].Value = User.Identity.Name; //11
+                parameters[12].Value = Flag; //12
+                parameters[13].Value = ContractId; //13
+                parameters[14].Value = DelMailAlert; //14
+                parameters[15].Value = PenanggungJawabPihak1; //15
+                parameters[16].Value = fungsi; //16
+                parameters[17].Value = parent_id; //16
+                parameters[18].Value = addendumContractNo;
+                parameters[19].Direction = ParameterDirection.Output; //15
+
+                string Exec = "EXEC ProcCrudContract ";
+                Exec = Exec + "  @contractno"; //0
+                Exec = Exec + " ,@nopr"; //1
+                Exec = Exec + " ,@nopo"; //2
+                Exec = Exec + " ,@contracttitle"; //3
+                Exec = Exec + " ,@contractvalue"; //4
+                Exec = Exec + " ,@begindate"; //5
+                Exec = Exec + " ,@enddate"; //6
+                Exec = Exec + " ,@contractdate"; //7
+                Exec = Exec + " ,@contracttype"; //8
+                Exec = Exec + " ,@idvendor"; //9
+                Exec = Exec + " ,@description"; //10
+                Exec = Exec + " ,@user"; //11
+                Exec = Exec + " ,@flag"; //12
+                Exec = Exec + " ,@contractid"; //13
+                Exec = Exec + " ,@delmail"; //14
+                Exec = Exec + " ,@penanggungjawabpihak1"; //14
+                Exec = Exec + " ,@fungsi"; //14
+                Exec = Exec + " ,@parent_id"; //14
+                Exec = Exec + " ,@addendumContractNo"; //14
+                Exec = Exec + " ,@outputVal OUT"; //15
+
+                //db.ExecuteStoreCommand(Exec, parameters);
+                db.Database.ExecuteSqlCommand(Exec, parameters);
+                ContractId = parameters[15].Value.ToString();
+                int xc = 1;
+                string sql_upload = "";
+
+                foreach (string file in Request.Files)
+                {
+                    var fileContent = Request.Files[file];
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+
+                        string Id = ContractId + "_" + xc.ToString();//CustomerId;
+                        var len = fileContent.ContentLength;
+                        string filename = System.IO.Path.GetFileName(fileContent.FileName);
+                        string filetype = System.IO.Path.GetExtension(filename);
+                        string filesNames = Id + filename;
+                        var path = Path.Combine(Server.MapPath("~/File_Contract"), filesNames);
+                        fileContent.SaveAs(path);
+                        xc = xc + 1;
+                        sql_upload = "insert into t_contract_file (ContractId,Name,UploadDate,UploadUser) select '" + ContractId + "','" + filesNames + "',getdate(),'" + User.Identity.Name + "'";
+                        Koneksi.execQuery(sql_upload);
+
+                    }
+                }
+
+
+
+                trans.Commit();
+                return Json(new { Result = String.Format(ContractId) });
+
+            }
+            catch (Exception ex)
+            {
+                trans.Rollback();
+                return Json(new { Result = String.Format("Error", "No") });
+            }
+            finally
+            {
+                db.Database.Connection.Close();
+            }
+
+        }
+
+
+        [Authorize]
+        public ContentResult ContractListData(string request)
+        {
+
+            ScrollConfig scConfig = JsonConvert.DeserializeObject<ScrollConfig>(request);
+
+            string sSorter = "";
+            string sSearch = "";
+            string sField = "";
+            string sDirection = "";
+            string sFieldSearch = "";
+            string sFieldValue = "";
+
+            if (scConfig.sort != null)
+            {
+
+                sField = scConfig.sort[0].field.ToString();
+                sDirection = scConfig.sort[0].direction.ToString();
+
+
+                if (sField != "" && sField != null)
+                {
+
+                    sSorter = " ORDER BY A." + sField + " " + sDirection;
+                }
+
+            }
+
+            if (scConfig.search != null)
+            {
+
+                if (scConfig.search.Count == 1)
+                {
+
+                    sSearch = " where (" + scConfig.search[0].field + " like '%" + scConfig.search[0].value + "%' ) ";
+
+                }
+                else
+                {
+
+                    sSearch = " where (ContractNo like '%" + scConfig.search[0].value + "%' or  ";
+                    sSearch = sSearch + " NoPR like '%" + scConfig.search[0].value + "%' or ";
+                    sSearch = sSearch + " NoPO like '%" + scConfig.search[0].value + "%' or ";
+                    sSearch = sSearch + " ContractTitle like '%" + scConfig.search[0].value + "%' or ";
+                    sSearch = sSearch + " ContractValue like '%" + scConfig.search[0].value + "%' or ";
+                    sSearch = sSearch + " ContractDate like '%" + scConfig.search[0].value + "%' ) ";
+
+                }
+
+            }
+
+
+            string SQL = "SELECT A.* FROM (SELECT ContractId as recid, * FROM dbo.[t_contracts] " + sSearch + " ORDER BY ContractId OFFSET " + scConfig.offset.ToString() + " ROWS FETCH NEXT " + scConfig.limit.ToString() + " ROWS ONLY) A " + sSorter;
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+
+            string JSONresult;
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+
+        }
+
+        [Authorize]
+        public ContentResult ContractListData_Local()
+        {
+
+            //var ROLES = new FMS.Classes.UserRoleProvider();
+            //string[] SSO_ALLOW = ROLES.GetRolesForUser(User.Identity.Name.ToString());
+            SSOWSSoapClient ws = new SSOWSSoapClient();
+
+            string SQL = "";
+
+            if (ws.CheckAccGroupUser(User.Identity.Name.ToString(), "ACCG2018010003") || ws.CheckAccGroupUser(User.Identity.Name.ToString(), "ACCG2018010004"))//check user access is I-Care super Administrator or not 
+            {
+                SQL = "exec ProcContractList @Type = 2 ";
+
+            }
+            else
+            {
+
+                SQL = "exec ProcContractList @Type = 1 , @UserId = '" + User.Identity.Name.ToString() + "'";
+            }
+
+
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+
+            string JSONresult;
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+        }
+
+        
+
+        [Authorize]
+        public ContentResult ContractListUpload(string Contract)
+        {
+
+            string SQL = "select id as recid,* from t_contract_file where ContractId ='" + Contract + "'";
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+
+            string JSONresult;
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+
+        }
+
+        [Authorize]
+        public JsonResult SaveMailAlert(FormCollection DataMail)
+        {
+
+            string ContractId = DataMail["ContractId"];
+            string Name = DataMail["Name"];
+            string Email = DataMail["Email"];
+
+            db.Database.Connection.Open();
+            DbTransaction trans = db.Database.Connection.BeginTransaction();
+            try
+            {
+                var parameters = new SqlParameter[]
+                {
+                    new SqlParameter("ContractId", SqlDbType.VarChar,100), //0
+                    new SqlParameter("Name", SqlDbType.VarChar,100), //1
+                    new SqlParameter("Email", SqlDbType.VarChar,100),
+                    new SqlParameter("outputVal", SqlDbType.VarChar,20) { Direction = ParameterDirection.Output} //3
+                };
+
+
+                parameters[0].Value = ContractId; //0 
+                parameters[1].Value = Name; //1 
+                parameters[2].Value = Email; //2
+                parameters[3].Direction = ParameterDirection.Output; //3
+
+                string Exec = "EXEC ProcAddMailAlert ";
+                Exec = Exec + "  @ContractId"; //0
+                Exec = Exec + " ,@Name"; //1
+                Exec = Exec + " ,@Email"; //2
+                Exec = Exec + " ,@outputVal OUT"; //3
+                //db.ExecuteStoreCommand(Exec, parameters);
+                db.Database.ExecuteSqlCommand(Exec, parameters);
+                trans.Commit();
+                return Json(new { Result = String.Format("Success", "Yes") });
+            }
+
+            catch (Exception ex)
+            {
+
+
+                trans.Rollback();
+                return Json(new { Result = String.Format("Error", "No") });
+            }
+            finally
+            {
+                //db.Connection.Close();
+                db.Database.Connection.Close();
+            }
+
+
+        }
+
+
+        [Authorize]
+        public ContentResult ContractTypeList()
+        {
+
+            string SQL = "select Id recid,Id,ContractType from m_contract_type ";
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+
+            string JSONresult;
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+
+        }
+
+
+        [Authorize]
+        public ContentResult ListVendor()
+        {
+
+            string SQL = "exec FMS.dbo.procGetVendorProcurment";
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+
+            string JSONresult;
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+
+        }
+
+
+        [Authorize]
+        public JsonResult ProcessUploadFile(FormCollection Contract)
+        {
+
+            string ContractId = Contract["ContractId"];
+            string sql_upload = "";
+            int xc = 1;
+
+            try
+            {
+                foreach (string file in Request.Files)
+                {
+                    var fileContent = Request.Files[file];
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+                        string Id = ContractId + "_" + xc.ToString();//CustomerId;
+                        var len = fileContent.ContentLength;
+                        string filename = System.IO.Path.GetFileName(fileContent.FileName);
+                        string filetype = System.IO.Path.GetExtension(filename);
+                        string filesNames = Id + filename;
+                        var path = Path.Combine(Server.MapPath("~/File_Contract"), filesNames);
+                        fileContent.SaveAs(path);
+                        xc = xc + 1;
+                        sql_upload = "insert into t_contract_file (ContractId,Name,UploadDate,UploadUser) select '" + ContractId + "','" + filesNames + "',getdate(),'" + User.Identity.Name + "'";
+                        Koneksi.execQuery(sql_upload);
+
+                    }
+                }
+
+                return Json(new { Result = String.Format("OK", "Ok") });
+            }
+            catch (Exception ex)
+            {
+
+                return Json(new { Result = String.Format("Error", "No") });
+            }
+
+
+
+        }
+
+
+        [Authorize]
+        public JsonResult DeleteAttachmentContract(int id)
+        {
+            try
+            {
+                string fileName = "";
+                t_attachtment ct = db.t_attachtment.First(s => s.Id == id);
+                fileName = ct.FileName;
+
+                string strPhysicalFolder = Server.MapPath("..\\File_Contract\\");
+                string strFileFullPath = strPhysicalFolder + fileName;
+
+                if (System.IO.File.Exists(strFileFullPath))
+                {
+                    System.IO.File.Delete(strFileFullPath);
+                }
+
+
+                string sql = "delete from FMS.dbo.T_Attachtment where Id = " + id;
+                Koneksi.execQuery(sql);
+
+
+                return Json(new { Result = String.Format("Success", "Yes") });
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = String.Format("Error", "No") });
+            }
+            finally
+            {
+                db.Database.Connection.Close();
+                //db.Connection.Close();
+                //return JsonContent(new { Status = 1, Message = "Berhasil!" });
+
+            }
+        }
+
+        [Authorize]
+        public JsonResult DeletefilesUpload(int id)
+        {
+            try
+            {
+                string fileName = "";
+                DataTable dtFile = Koneksi.GetDataTable("select * from t_contract_file where Id = " + id.ToString());
+                fileName = dtFile.Rows[0]["Name"].ToString();
+                Koneksi.execQuery("delete t_contract_file where Id = " + id.ToString());
+
+                string strPhysicalFolder = Server.MapPath("..\\Upload\\");
+                string strFileFullPath = strPhysicalFolder + fileName;
+
+                if (System.IO.File.Exists(strFileFullPath))
+                {
+                    System.IO.File.Delete(strFileFullPath);
+                }
+
+                return Json(new { Result = String.Format("Success", "Yes") });
+
+            }
+            catch (Exception)
+            {
+                return Json(new { Result = String.Format("Error", "No") });
+            }
+
+        }
+
+
+        [Authorize]
+        public JsonResult ProcessUploadFileContract(FormCollection Item)
+        {
+
+            string ID = Item["ContractId"];
+            string MaxCounter = Koneksi.getScalarValue("select Isnull(count(*),0) + 1 as MaxCount from  T_Attachtment  where CandidateId_1 ='" + ID + "'");
+
+
+            int xc = int.Parse(MaxCounter);
+            //db.Database.Connection.Open();
+            ////db.Connection.Open();
+            ////DbTransaction trans = db.Connection.BeginTransaction();
+            //DbTransaction trans = db.Database.Connection.BeginTransaction();
+            try
+            {
+                foreach (string file in Request.Files)
+                {
+                    var fileContent = Request.Files[file];
+                    if (fileContent != null && fileContent.ContentLength > 0)
+                    {
+
+                        string Id = ID + "_" + xc.ToString();//contractId
+                        var len = fileContent.ContentLength;
+                        string filename = System.IO.Path.GetFileName(fileContent.FileName);
+                        string filetype = System.IO.Path.GetExtension(filename);
+                        string filesNames = Id + filename;
+                        var path = Path.Combine(Server.MapPath("~/File_Contract"), filesNames);
+                        fileContent.SaveAs(path);
+                        xc = xc + 1;
+
+                        string SQL;
+                        SQL = "exec FMS.dbo.ProcCrudT_Attachment @Type = 1 " + nl;
+                        SQL = SQL + ",@CandidateId_1 = '" + ID + "'" + nl;
+                        SQL = SQL + ",@FileName = '" + filesNames + "'" + nl;
+                        SQL = SQL + ",@UserId = '" + User.Identity.Name.ToString() + "'" + nl;
+
+                        Koneksi.execQuery(SQL);
+
+                        //t_attachtment Upl = null;
+                        //Upl = db.t_attachtment.FirstOrDefault();
+                        //Upl = new t_attachtment();
+                        //Upl.CandidateId_1 = ID;
+                        //Upl.FileName = filesNames;
+                        //Upl.FileName = filesNames;
+                        //Upl.CreateUser = User.Identity.Name;
+                        //Upl.CreateDate = DateTime.Now;
+                        //Upl.UpdateUser = User.Identity.Name;
+                        //Upl.UpdateDate = DateTime.Now;
+                        ////db.t_attachtment.AddObject(Upl);
+                        //db.t_attachtment.Add(Upl);
+                        //db.SaveChanges();
+
+                        /*
+                        ServiceDocSoapClient ws = new ServiceDocSoapClient();
+                        t_attachtment att = db.t_attachtment.First(t => t.CandidateId_1 == ID.ToString() && t.FileName == filesNames);
+
+                        Stream str = fileContent.InputStream;
+                        BinaryReader binReader = new BinaryReader(str);
+                        byte[] data = binReader.ReadBytes((int)str.Length);
+
+                        string result = ws.PutFile("I-Care", "Contract", att.CandidateId_1,
+                            att.Id, 0, "ICARE_CONTRACT", 0, filesNames, "", "", att.CreateUser, data);
+                        if (result != "")
+                        {
+                            throw new Exception(result);
+                        }*/
+                    }
+                }
+                //trans.Commit();
+                return Json(new { Result = String.Format("OK", "Ok") });
+            }
+            catch (Exception ex)
+            {
+                //trans.Rollback();
+                return Json(new { Result = String.Format("Error", "No") });
+            }
+
+
+        }
+
+
+        [Authorize]
+        public JsonResult DeleteContract(string ContractId)
+        {
+            try
+            {
+                string SQL_ = "exec FMS.[dbo].[procCrudGeneralContract] @Type=3,@ContractId='" + ContractId + "',@UserName='" + User.Identity.Name.ToString() + "'";
+                Koneksi.execQuery(SQL_);
+                return Json(new { Result = String.Format("Success", "Yes") });
+
+            }
+            catch (Exception)
+            {
+                return Json(new { Result = String.Format("Error", "No") });
+            }
+
+        }
+
+
+        public int SendAlert()
+        {
+            try
+            {
+                DataTable dtContract = Koneksi.GetDataTable("select * from t_contracts where ActiveYn = 'Y' and Done Is null and Snooze = 0");
+                int SisaWaktu = 0;
+                int reSisa = 0;
+                int AlertDay = 0;
+                string MailDestinationAddress = "";
+                string MailDestinationName = "";
+                string sHeader = "";
+
+
+                foreach (DataRow row in dtContract.Rows)
+                {
+
+                    SisaWaktu = Int32.Parse(row["DayLeft"].ToString());
+
+                    AlertDay = Int32.Parse(row["AlertDay"].ToString());
+                    string sMailBody = System.IO.File.ReadAllText(AppDomain.CurrentDomain.BaseDirectory + "template/alert_and_notif/alert_contract_mail.htm");
+                    string mailBody = "";
+                    string sMessage = "";
+                    decimal cValue = 0;
+                    string sValue = "";
+
+
+
+                    if (SisaWaktu <= AlertDay)
+                    { //begin if --1
+
+                        DataTable dtMail = new DataTable();
+                        MailDestinationAddress = "";
+                        MailDestinationName = "";
+                        dtMail = Koneksi.GetDataTable("select * from dbo.t_cont_alert_dest_mail where ContractId = '" + row["ContractId"].ToString() + "'");
+                        sHeader = "Alert for Contract Id : " + row["ContractId"].ToString();
+
+                        if (dtMail.Rows.Count > 0)
+                        {
+                            foreach (DataRow row_mail in dtMail.Rows)
+                            {
+                                MailDestinationAddress = MailDestinationAddress + row_mail["Email"].ToString() + ",";
+                                MailDestinationName = MailDestinationName + row_mail["Name"].ToString() + ",";
+                            }
+
+                            if (MailDestinationName.Length > 0)
+                            {
+                                MailDestinationName = MailDestinationName.Remove(MailDestinationName.Length - 1);
+                            }
+
+                            if (MailDestinationAddress.Length > 0)
+                            {
+                                MailDestinationAddress = MailDestinationAddress.Remove(MailDestinationAddress.Length - 1);
+                            }
+
+                            sMessage = "Tinggal sisa " + SisaWaktu.ToString() + " hari sampai batas masa kontrak berakhir. ";
+
+                            if (SisaWaktu == 0)
+                            {
+                                sMessage = "Kontrak dibawah ini telah berakhir. ";
+                            }
+
+                            if (SisaWaktu < 0)
+                            {
+                                reSisa = SisaWaktu * -1;
+                                sMessage = "Kontrak dibawah ini telah melewati batas akhir kontrak selama " + reSisa.ToString() + " Hari";
+                            }
+
+                            sValue = row["ContractValue"].ToString();
+                            cValue = decimal.Parse(sValue);
+
+                            DateTime dateTime = DateTime.UtcNow.Date;
+
+                            mailBody = sMailBody.Replace("@pic", MailDestinationName);
+                            mailBody = mailBody.Replace("@Tanggal", dateTime.ToString("dd MMMM yyyy"));
+                            mailBody = mailBody.Replace("@message", sMessage);
+                            mailBody = mailBody.Replace("@contract_id", row["ContractId"].ToString());
+                            mailBody = mailBody.Replace("@contract_no", row["ContractNo"].ToString());
+                            mailBody = mailBody.Replace("@pr_number", row["NoPR"].ToString());
+                            mailBody = mailBody.Replace("@po_number", row["NoPO"].ToString());
+                            mailBody = mailBody.Replace("@contract_value", string.Format("{0:#,##0.##}", cValue));
+                            mailBody = mailBody.Replace("@contract_title", row["ContractTitle"].ToString());
+                            mailBody = mailBody.Replace("@contract_description", row["Description"].ToString());
+                            mailBody = mailBody.Replace("@begin_date", row["BeginDate"].ToString());
+                            mailBody = mailBody.Replace("@end_date", row["EndDate"].ToString());
+                            mailBody = mailBody.Replace("@contract_date", row["ContractDate"].ToString());
+                            mailBody = mailBody.Replace("@contract_type", row["ContractTypeName"].ToString());
+                            mailBody = mailBody.Replace("@vendor_name", row["VendorName"].ToString());
+
+                            I_Care.Classes.Libs.SendAlternateMail(MailDestinationAddress, mailBody, sHeader);
+                        }
+
+
+                    } //end if --1 
+
+
+                }
+
+                return 1;
+
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+
+        }
+
+
+
+
+
+        [Authorize]
+        public JsonResult CekAddendum(string ContractNo)
+        {
+
+            try
+            {
+                DataTable dtContract = Koneksi.GetDataTable("select * from t_contracts where  ContractNo ='" + ContractNo + "'");
+
+                if (dtContract.Rows.Count >= 3)
+                {
+
+                    return Json(new { Result = String.Format("Error", "No") });
+
+                }
+                else
+                {
+
+                    return Json(new { Result = String.Format("Success", "Yes") });
+
+
+                }
+            }
+            catch (Exception)
+            {
+                return Json(new { Result = String.Format("Error", "No") });
+            }
+
+        }
+
+        #region GA Contract
+
+        [Authorize]
+        public ActionResult SaveGAContract(FormCollection Contract)
+        {
+            SqlConnection SqlKOn = new SqlConnection();
+            SqlKOn = Koneksi.GetKoneksi();
+            SqlTransaction transaction;
+            transaction = SqlKOn.BeginTransaction();
+
+            try
+            {
+                string FlagCrud = Contract["FlagCrud"];
+                string ContractId = Contract["ContractId"];
+                string ParentId = Contract["ParentId"];
+
+                string ContractNo = Contract["ContractNo"];
+                string ContractTitle = Contract["ContractTitle"];
+                string ContractPO = Contract["ContractPO"];
+                string ContractPR = Contract["ContractPR"];
+                decimal ContractValue = decimal.Parse(Contract["ContractValue"]);
+
+                string ContractType = Contract["ContractType"];
+                string ContractVendor = Contract["ContractVendorId"];
+                string StartDate = Contract["StartDate"];
+                string EndDate = Contract["EndDate"];
+                string ContractDate = Contract["ContractDate"];
+                string Snooze = Contract["Snooze"];
+                int AlertDay = int.Parse(Contract["AlertDay"].ToString());
+                string Remark = Contract["Remark"];
+                string PenanggungJawabPihak1 = Contract["PenanggungJawabPihak1"];
+                string Fungsi = Contract["Fungsi"];
+                string StartProject = Contract["StartProject"];
+                string EndProject = Contract["EndProject"];
+                string ProcId = Contract["ProcId"];
+
+                string MailDestinations = Contract["MailDestinations"];
+                string MailDestinationsDel = Contract["MailDestinationsDel"];
+                string UserName = User.Identity.Name.ToString();
+
+
+                SqlCommand command = new SqlCommand("FMS.dbo.procSaveGAContract", SqlKOn);
+                command.CommandType = CommandType.StoredProcedure;
+
+                command.Parameters.Add("@FlagCrud", SqlDbType.VarChar).Value = FlagCrud; //1
+                command.Parameters.Add("@ParentId", SqlDbType.VarChar).Value = ParentId; //2
+                command.Parameters.Add("@ContractId", SqlDbType.VarChar).Value = ContractId; //3
+                command.Parameters.Add("@ContractNo", SqlDbType.VarChar).Value = ContractNo;//4
+                command.Parameters.Add("@ContractTitle", SqlDbType.VarChar).Value = ContractTitle;//5
+                command.Parameters.Add("@ContractPO", SqlDbType.VarChar).Value = ContractPO;//6
+                command.Parameters.Add("@ContractPR", SqlDbType.VarChar).Value = ContractPR;//7
+                command.Parameters.Add("@ContractValue", SqlDbType.Decimal).Value = ContractValue;//8
+                command.Parameters.Add("@ContractType", SqlDbType.VarChar).Value = ContractType;//9
+                command.Parameters.Add("@ContractVendor", SqlDbType.VarChar).Value = ContractVendor;//10
+
+
+                if (StartDate == "") { command.Parameters.Add("@StartDate", SqlDbType.Date).Value = DBNull.Value; }
+                else { command.Parameters.Add("@StartDate", SqlDbType.Date).Value = StartDate; } //11
+
+                if (EndDate == "") { command.Parameters.Add("@EndDate", SqlDbType.Date).Value = DBNull.Value; }
+                else { command.Parameters.Add("@EndDate", SqlDbType.Date).Value = EndDate; } //12
+
+                if (ContractDate == "") { command.Parameters.Add("@ContractDate", SqlDbType.Date).Value = DBNull.Value; }
+                else { command.Parameters.Add("@ContractDate", SqlDbType.Date).Value = ContractDate; } //13
+
+                if (StartProject == "") { command.Parameters.Add("@StartProject", SqlDbType.Date).Value = DBNull.Value; }
+                else { command.Parameters.Add("@StartProject", SqlDbType.Date).Value = StartProject; } //14
+
+                if (EndProject == "") { command.Parameters.Add("@EndProject", SqlDbType.Date).Value = DBNull.Value; }
+                else { command.Parameters.Add("@EndProject", SqlDbType.Date).Value = EndProject; } //15
+
+
+
+                command.Parameters.Add("@Snooze", SqlDbType.Int).Value = Snooze;//16
+                command.Parameters.Add("@AlertDay", SqlDbType.Int).Value = AlertDay;//17
+                command.Parameters.Add("@Remark", SqlDbType.VarChar).Value = Remark;//18
+
+                command.Parameters.Add("@PenanggungJawabPihak1", SqlDbType.VarChar).Value = PenanggungJawabPihak1;//19
+                command.Parameters.Add("@Fungsi", SqlDbType.VarChar).Value = Fungsi;//20
+                command.Parameters.Add("@MailDestinations", SqlDbType.Text).Value = MailDestinations;//21
+                command.Parameters.Add("@MailDestinationsDel", SqlDbType.Text).Value = MailDestinationsDel;//22
+                if (ProcId == "0") { command.Parameters.Add("@ProcId", SqlDbType.Int).Value = DBNull.Value; } else { command.Parameters.Add("@ProcId", SqlDbType.Int).Value = ProcId; }//23
+                command.Parameters.Add("@UserName", SqlDbType.VarChar).Value = UserName; //24
+
+                command.Parameters.Add("@outputVal", SqlDbType.VarChar, 800).Direction = ParameterDirection.Output;
+
+
+                command.Connection = SqlKOn;
+                command.Transaction = transaction;
+                command.ExecuteNonQuery();
+
+                //var result = (int)command.Parameters["@outputVal"].Value;
+
+                String result = command.Parameters["@outputVal"].Value.ToString();
+                int xc = 1;
+
+
+                if (result.ToLower().Contains("error"))
+                {
+                    transaction.Rollback();
+                    return Json(new { Result = "error : " + result });
+                }
+                else
+                {
+
+
+                    string SQL = string.Empty;
+
+                    foreach (string file in Request.Files)
+                    {
+                        var fileContent = Request.Files[file];
+                        if (fileContent != null && fileContent.ContentLength > 0)
+                        {
+
+                            string Id = result + "_" + xc.ToString();//CustomerId;
+                            var len = fileContent.ContentLength;
+                            string filename = System.IO.Path.GetFileName(fileContent.FileName);
+                            string filetype = System.IO.Path.GetExtension(filename);
+                            string filesNames_ = Id + filename;
+
+                            var path = Path.Combine(Server.MapPath("~/File_Contract"), filesNames_);
+                            fileContent.SaveAs(path);
+
+                            xc = xc + 1;
+
+                            SQL = "exec FMS.dbo.ProcCrudT_Attachment @Type = 1 " + nl;
+                            SQL = SQL + ",@CandidateId_1 = '" + result + "'" + nl;
+                            SQL = SQL + ",@FileName = '" + filesNames_ + "'" + nl;
+                            SQL = SQL + ",@UserId = '" + User.Identity.Name.ToString() + "'" + nl;
+
+                            Koneksi.execQuery(SQL);
+
+                            //Stream str = fileContent.InputStream;
+                            //BinaryReader binReader = new BinaryReader(str);
+                            //byte[] data = binReader.ReadBytes((int)str.Length);
+
+                            //string result = ws.PutFile("I-Care", "Contract", att.CandidateId_1,
+                            //	att.Id, 0, "ICARE_CONTRACT", 0, filesNames, "", "", att.CreateUser, data);
+
+                            //if (result != "")
+                            //{
+                            //	throw new Exception(result);
+                            //}
+
+                        }
+                    }
+
+                    transaction.Commit();
+                    return Json(new { Result = "OK" });
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                transaction.Rollback();
+                return Json(new { Result = "Error " + ex.Message });
+
+            }
+
+
+
+        }
+
+
+        [Authorize]
+        public ContentResult FindContractGA(string KeyWords, string Field)
+        {
+            string UserLogin = User.Identity.Name.ToString();
+            string SQL = string.Empty;
+
+            SQL = "exec FMS.dbo.procViewGAContractListSearch @Keyword = '" + KeyWords + "',@Field = '" + Field + "',@UserName='" + User.Identity.Name.ToString() + "'";
+
+            string JSONresult;
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+        }
+
+
+        [Authorize]
+        public ContentResult FindContractGA_all(string KeyWords, string Field)
+        {
+            string UserLogin = User.Identity.Name.ToString();
+            string SQL = string.Empty;
+
+            SQL = "exec FMS.dbo.procViewGAContractListSearch_2 @Keyword = '" + KeyWords + "',@Field = '" + Field + "',@UserName='" + User.Identity.Name.ToString() + "'";
+
+            string JSONresult;
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+        }
+
+
+
+        [Authorize]
+        public ContentResult FindContractByProcId(int Id)
+        {
+            string UserLogin = User.Identity.Name.ToString();
+            string SQL = string.Empty;
+
+            SQL = "exec FMS.dbo.procViewGAContractListSearchByProcId @ProcId =" + Id;
+
+            string JSONresult;
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+        }
+
+
+
+        [Authorize]
+        public ActionResult GetGAContractCurrent(FormCollection Param)
+        {
+
+            string ContractId = "'" + Param["ContractId"].ToString() + "'";
+            string UserLogin = User.Identity.Name.ToString();
+            string SQL = string.Empty;
+
+            SQL = "exec FMS.dbo.procGetGAContractCurrent @ContractId = " + ContractId + ",@UserName='" + User.Identity.Name.ToString() + "'";
+
+            string JSONresult;
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+        }
+
+
+        [Authorize]
+        public ActionResult GetOverDueGAContract(string Status)
+        {
+
+
+            string UserLogin = User.Identity.Name.ToString();
+            string SQL = string.Empty;
+
+            SQL = "exec FMS.dbo.procGetOverDueGAContract @UserName='" + User.Identity.Name.ToString() + "'";
+
+            string JSONresult;
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+        }
+
+
+        [Authorize]
+        public ActionResult GetCriticalGAContract(string Status)
+        {
+
+
+            string UserLogin = User.Identity.Name.ToString();
+            string SQL = string.Empty;
+
+            SQL = "exec FMS.dbo.procGetCriticalGAContract @UserName='" + User.Identity.Name.ToString() + "'";
+
+            string JSONresult;
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+
+        }
+
+
+        [Authorize]
+        public ActionResult GetActiveGAContract(string Status)
+        {
+
+
+            string UserLogin = User.Identity.Name.ToString();
+            string SQL = string.Empty;
+
+            SQL = "exec FMS.dbo.procGetActiveGAContract @UserName='" + User.Identity.Name.ToString() + "'";
+
+            string JSONresult;
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+
+        }
+
+
+        [Authorize]
+        public ActionResult GetDoneGAContract(string Status)
+        {
+
+
+            string UserLogin = User.Identity.Name.ToString();
+            string SQL = string.Empty;
+
+            SQL = "exec FMS.dbo.procGetDoneGAContract @UserName='" + User.Identity.Name.ToString() + "'";
+
+            string JSONresult;
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+
+        }
+
+
+        [Authorize]
+        public ActionResult GetCountGAContractStatus()
+        {
+
+
+            string UserLogin = User.Identity.Name.ToString();
+            string SQL = string.Empty;
+
+            SQL = "exec FMS.dbo.procGetCountGAContractStatus @UserName = '" + User.Identity.Name.ToString() + "'";
+
+            string JSONresult;
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+
+        }
+
+
+        #endregion
+
+
+        [Authorize]
+        public ContentResult CustomerContractData()
+        {
+            string SQL = "exec FMS.dbo.procGetViewCustomerContract ";
+
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+            string JSONresult;
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+        }
+
+
+
+        [Authorize]
+        public ContentResult T_Attachment_Contract_Customer(string Pengajuan)
+        {
+            string sqlTemp = "select Id recid,* from CRM_PTPR.dbo.T_Attachtment  where CandidateId_1 = '" + Pengajuan + "'";
+
+            DataTable tblTemp = Koneksi.GetDataTable(sqlTemp);
+            string stepId = string.Empty;
+            string stepName = string.Empty;
+
+            string JSONresult;
+            JSONresult = JsonConvert.SerializeObject(tblTemp);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+        }
+
+
+
+
+        [Authorize]
+        public ContentResult T_Attacment(string ContractId)
+        {
+
+            string sqlTemp = "select Id recid,*,'Icare' API from FMS.dbo.T_Attachtment  where CandidateId_1 = '" + ContractId + "'";
+
+            DataTable tblTemp = Koneksi.GetDataTable(sqlTemp);
+            string stepId = string.Empty;
+            string stepName = string.Empty;
+
+            string JSONresult;
+            JSONresult = JsonConvert.SerializeObject(tblTemp);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+        }
+
+
+        [Authorize]
+        public ActionResult ListHistoryContract(string ContractId)
+        {
+
+            string UserLogin = User.Identity.Name.ToString();
+            string SQL = "exec FMS.dbo.[ProcCrudTHistoryContract] @Type = 2,@ContractId='" + ContractId + "',@UserId='" + UserLogin + "'" + nl;
+
+            DataTable tblData = Koneksi.GetDataTable(SQL);
+
+            string JSONresult;
+            JSONresult = JsonConvert.SerializeObject(tblData);
+
+            return new ContentResult
+            {
+                Content = JSONresult,
+                ContentType = "application/json"
+            };
+
+
+        }
+
+
+
+
+
+        [Authorize]
+        public ActionResult File(int id)
+        {
+            //t_attachtment att = db.t_attachtment.FirstOrDefault(t => t.Id == id);
+            t_attachtment att = db.t_attachtment.First(s => s.Id == id);
+            if (att != null)
+            {
+                ServiceDocSoapClient ws = new ServiceDocSoapClient();
+                string contentType;
+                byte[] data = ws.GetFileData2("I-Care", "Contract", att.CandidateId_1,
+                    att.Id, 0, 0, out contentType);
+                if (data != null)
+                {
+                    MemoryStream str = new MemoryStream(data);
+                    return File(str, contentType);
+                }
+            }
+            throw new Exception("Attachment Not Found!");
+        }

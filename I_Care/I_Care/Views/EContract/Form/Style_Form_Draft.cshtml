@@ -1,0 +1,521 @@
+﻿
+<style>
+
+	mandatory {
+		color: red;
+	}
+
+	.template_e_contract {
+		overflow-y: scroll;
+		width: 100%;
+		padding: 2%;
+		padding-top: 0px;
+		border-radius: 0px;
+		text-align: justify;
+		border: none;
+		border-bottom: 1px solid #dedede;
+		background-color: whitesmoke;
+		display: inline-grid;
+		position: relative;
+		margin: 0% auto;
+	}
+
+	.outer_page_drafting_v2 {
+		overflow-y: auto;
+		margin: 0px auto;
+		width: 100%;
+		padding: 2%;
+		padding-top: 0px;
+		border-radius: 0px;
+		text-align: justify;
+		border: 0px solid #dedede;
+		border-bottom: 0px solid #dedede;
+		border-top: 1px solid #dedede;
+		background-color: whitesmoke;
+	}
+
+	.page {
+		background-color: white;
+		border: 1px dashed #d2caca;
+		margin: 2% auto;
+		margin-top: 1%;
+		margin-bottom: 1%;
+		width: 874px;
+		position: relative;
+		/*box-shadow: 13px 16px 13px -9px rgb(0 0 0 / 21%);
+		 -webkit-box-shadow: 13px 16px 13px -9px rgb(0 0 0 / 21%);
+		-moz-box-shadow: 13px 16px 13px -9px rgba(0,0,0,0.21);*/
+		overflow: hidden;
+		padding: 2%;
+		border-radius: 10px;
+		-webkit-box-shadow: 0px 7px 28px -7px rgba(0,0,0,0.33);
+		-moz-box-shadow: 0px 7px 28px -7px rgba(0,0,0,0.33);
+		box-shadow: 0px 7px 28px -7px rgba(0,0,0,0.33);
+	}
+
+	.content_editor {
+		min-height: 100%;
+		width: 100%;
+		padding: 1%;
+		overflow: hidden;
+	}
+
+	.page_header {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		padding: 5px;
+		font-size: 12px;
+		color: gray;
+		width: 100%;
+		text-align: right;
+	}
+
+	.page_footer {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		font-style: italic;
+		padding: 5px;
+		font-size: 11px;
+		color: gray;
+		width: 100%;
+		text-align: right;
+	}
+
+	.page_footer_sub {
+		border-top: 1px solid #dedede;
+		padding: 5px;
+		margin: 2% auto;
+		width: 90%;
+	}
+
+	.input_box_draft {
+		border: none !important;
+		padding: 0px;
+		text-align: right;
+		width: 100%;
+	}
+
+	.e_materai {
+		font-weight: bold;
+		color: #d6d3d3;
+		border: 0px dashed #dedede;
+		padding: 7%;
+		text-align: center;
+		width: 200px;
+		font-size: 10px;
+		background-color: #778287;
+	}
+
+	.nama_pt {
+		font-weight: bold;
+	}
+
+	.baris_center {
+		text-align: center !important;
+	}
+
+	.inner_template td {
+		font-size: 12px !important;
+	}
+
+	.sub_page_doc {
+		text-align: justify;
+	}
+
+	.page {
+		font-size: 12px !important;
+	}
+
+	.periode {
+		text-align: left !important;
+	}
+
+	.form-group .select2 {
+		text-align: left !important;
+		font-size: 12px !important;
+	}
+
+	.form-group {
+		text-align: left !important;
+		font-size: 12px !important;
+	}
+
+	.contract_info_box {
+		text-align: left;
+		font-size: 13px;
+		/*border: 1px dashed #dedede;
+		padding: 15px;
+		font-size: 14px;*/
+	}
+
+	.icon_draft_group {
+		border-top: 0px dashed #dedede;
+		padding-top: 15px;
+		text-align: center;
+	}
+
+
+
+
+	@@media only screen and (max-width: 800px) {
+		#input-periode {
+			width: 100%;
+		}
+
+		.control-label {
+			text-align: center !important;
+		}
+	}
+
+	@@media only screen and (max-width: 1200px) {
+
+		#input-periode {
+			width: 100%;
+		}
+
+		.control-label {
+			text-align: center !important;
+		}
+	}
+</style>
+
+@*css_drafting_tools*@
+<style>
+
+	.drafting_tools {
+		background-color: #eaeaea;
+		text-align: center;
+		vertical-align: middle;
+		border-top: 1px solid #d1cdcd;
+		padding: 5px;
+	}
+
+	.btn-draft-tools {
+		border-width: 1px !important;
+		font-size: 11px;
+		padding: 4px;
+		border-radius: 2px;
+	}
+
+	.break_menu {
+		border-left: 1px solid #d2caca;
+		padding: 10px;
+		padding-left: 3px;
+		padding-right: 2px;
+	}
+
+	.pre_submit_wording {
+		line-height: 25px;
+		font-size: 13px !important;
+	}
+
+
+	#mandatory_value_confirm .select2 {
+		font-size: 12px;
+		text-align: left;
+	}
+
+	.preview_attachment {
+		overflow-y: hidden;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		width: 100%;
+		border-radius: 0px;
+		text-align: justify;
+		border: none;
+		border-bottom: 0px solid #dedede;
+		background-color: white;
+		position: relative;
+	}
+
+	#frame_preview {
+		background: url("../../Content/images/loading_images/conection.gif") center center no-repeat;
+		background-color: white;
+		background-size: 45%;
+	}
+
+	.file_draft_add_caption {
+		color: dodgerblue;
+		font-size: 12px;
+		text-align: left !important;
+	}
+
+	#hapus_draft {
+		color: red !important;
+		font-size: 15px;
+		cursor: pointer;
+	}
+
+		#hapus_draft:hover {
+			color: dodgerblue !important;
+		}
+
+	.btn_add_draft, .btn_add_attachment {
+		padding: 8.2px;
+	}
+
+		.btn_add_draft i {
+			font-size: 15px;
+		}
+
+	#proses_next_step .file_draft_add_caption {
+		padding: 15px;
+	}
+
+	#add_new_draft_panel .btn-draft-tools i {
+		font-size: 15px !important;
+	}
+
+	#add_new_draft_panel .btn-draft-tools {
+		padding: 8.2px;
+	}
+</style>
+
+@*css_daftar_lampiran*@
+<style>
+
+	#ModalListAttacment .modal-dialog {
+		width: 60%;
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalDownloadDraft .modal-dialog {
+		width: 30%;
+		margin: 0 auto;
+		margin-top: 9%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalDownloadDraft .icon_short_cut {
+		padding: 10px;
+		border: 1px dashed #dedede;
+		height: 70px !important;
+	}
+
+		#ModalDownloadDraft .icon_short_cut .ace-icon {
+			font-size: 35px !important;
+		}
+
+	#gridLampiran .icon-file {
+		font-size: 20px;
+	}
+
+
+	.bagi_dua {
+		width: 50% !important;
+		display: inline-block;
+		float: left;
+	}
+
+	.preview_attachment {
+		border-left: 1px solid #dedede;
+	}
+
+	.judul_preview_file {
+		width: 100%;
+		background: #efefed;
+		border-top: 1px solid #dedede;
+		padding: 10px;
+		font-weight: bold;
+	}
+
+	.close_prev_ {
+		color: red;
+		cursor: pointer;
+	}
+
+		.close_prev_:hover {
+			color: #ff6060;
+		}
+</style>
+
+@*process*@
+<style>
+
+	#proses_next_step label {
+		font-size: 12px;
+	}
+
+	#proses_next_step textarea {
+		resize: none;
+		min-height: 100px;
+		width: 100%;
+	}
+
+
+	.pre_submit_wording, .form_mandatory {
+		font-size: 18px;
+		padding: 10px;
+		width: 90%;
+		margin: 1% auto;
+		border-bottom: 0px solid #dedede;
+		text-align: center;
+	}
+
+	.form_mandatory {
+		padding: 1% !important;
+		border-top: 1px solid #dedede;
+		border-bottom: 1px solid #dedede;
+	}
+
+		.form_mandatory label {
+			font-size: 12px;
+		}
+</style>
+
+@*modal css*@
+<style>
+
+	#ModalRichText .modal-dialog {
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalCustomPoint .modal-dialog {
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalCustomPoint .control-label {
+		font-size: 12px;
+	}
+
+	#ModalInputMail .modal-dialog {
+		width: 60%;
+		margin: 0 auto;
+		margin-top: 10%;
+	}
+
+	#ModalInputMail label {
+		font-size: 12px;
+	}
+</style>
+
+@*hasil*@
+<style>
+
+
+	.result_wording {
+		text-align: center;
+		font-size: 13px;
+		padding: 15px;
+		border-top: 1px dashed #dedede;
+		font-weight: bold;
+	}
+
+	.group_file_kontrak {
+		text-align: center
+	}
+
+	.icon_file_contract {
+		border: 1px solid #dedede;
+		padding: 20px;
+		width: 130px;
+		height: 140px;
+		display: inline-table;
+		margin-left: 5px;
+		font-size: 12px;
+		cursor: pointer;
+		transition: 0.3s;
+		margin-bottom: 1%;
+		background-color: none;
+		cursor: pointer;
+		text-align: center;
+	}
+
+		.icon_file_contract i {
+			color: dodgerblue !important;
+		}
+
+
+
+		.icon_file_contract:hover {
+			color: dodgerblue;
+			border-color: dodgerblue;
+			opacity: .80;
+		}
+
+		.icon_file_contract i {
+			font-size: 45px !important;
+			color: darkorange;
+		}
+
+	.icon_file_contract_red {
+		border: 1px dashed #dedede;
+		width: 120px;
+		height: 100px;
+		display: inline-table;
+		margin-left: 5px;
+		font-size: 12px;
+		cursor: pointer;
+		transition: 0.3s;
+		margin-bottom: 1%;
+		background-color: none;
+		cursor: pointer;
+		text-align: center;
+		padding: 15px;
+	}
+
+
+		.icon_file_contract_red:hover {
+			color: dodgerblue;
+			border-color: dodgerblue;
+			opacity: .80;
+		}
+
+		.icon_file_contract_red i {
+			font-size: 45px !important;
+			color: red;
+		}
+
+	.kata-kata {
+		font-size: 15px;
+	}
+</style>
+
+<style>
+	.icon_pre {
+		text-align: right;
+		padding-right: 0px;
+	}
+
+	@@media screen and (max-width: 992px) {
+
+		.icon_pre {
+			text-align: left;
+			padding-right: unset;
+		}
+	}
+
+	@@media screen and (max-width: 600px) {
+
+		.icon_pre {
+			text-align: left;
+			padding-right: unset;
+		}
+	}
+
+
+	#add_new_draft_panel .row {
+		margin-bottom: 0px !important;
+		margin-top: 0px !important;
+	}
+</style>

@@ -1,0 +1,713 @@
+﻿
+@{
+	
+	Layout = null;
+}
+
+@*@Html.Partial("_Head")*@
+
+<style>
+
+	.page-content {
+		padding: 0px;
+	}
+
+	.box_info {
+
+		text-align: center;
+		padding-top: 4%;
+		border: 0px dashed #dedede;
+		margin: 0px auto;
+		margin-top: 0%;
+		width: 80%;
+		border-radius: 5px;
+	}
+
+
+
+	#box_info_icon {
+		text-align: center;
+		padding-top: 25px;
+		padding-bottom: 25px;
+		border-top: 1px dashed #dedede;
+		margin-top: 10px;
+	}
+
+
+
+		#box_info_icon .icon_short_cut {
+			border: 1px dashed #dedede;
+			padding: 8px;
+			width: 100px;
+			height: 110px;
+			border-radius: 2%;
+			display: inline-table;
+			margin-left: 2px;
+			font-size: 10px;
+			cursor: pointer;
+			transition: 0.3s;
+			margin-bottom: 1%;
+			background-color: none;
+			cursor: pointer;
+		}
+
+			#box_info_icon .icon_short_cut:hover {
+				opacity: 0.50;
+				border: 1px solid #1a8cff;
+			}
+
+			#box_info_icon .icon_short_cut i {
+				font-size: 25px;
+				margin-bottom: 10px;
+			}
+
+	.logo_menu_head {
+		width: 150px;
+	}
+
+	.logo_menu {
+		width: 35px;
+	}
+
+	.list_title {
+		font-weight: normal;
+		font-size: 13px;
+		color: #3279a8;
+	}
+
+	.list_title_2 {
+		font-weight: normal;
+		font-size: 11px;
+		color: #3279a8;
+	}
+
+	.icon_short_cut {
+		min-height: 120px;
+	}
+
+
+	mandatory {
+		color: red !important;
+	}
+
+
+	#ModProcurement .modal-dialog {
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#table_mandatory_file td:first-child {
+		text-align: right;
+	}
+
+	#table_mandatory_file td {
+		border: none;
+	}
+
+	#table_mandatory_file tr {
+		border-top: 1px solid #dedede;
+	}
+
+
+</style>
+
+
+<div id="page_panel">
+
+
+	<div class="row box_info" style="background-color:White;">
+
+		<div class="col-sm-3" style="padding-top:2%;">
+			<img src="../../../Content/img/procurement.png" class="logo_menu_head" style="width:50%;">
+		</div>
+
+		<div class="col-sm-7">
+
+			<div style="text-align:left;font-size:12px;">
+				<span style="font-size:40px;color:orange;font-weight:bold;">Procurement - Tracking</span><span style="font-size:20px;"></span><br />
+				Kelola data Procurement
+				<br />
+
+				<br />
+
+			</div>
+
+			<div style="width:100%;">
+
+				<select class="form-control select2" id="param_field" data-placeholder="Cari Berdasarkan">
+					<option value="All">All</option>
+					<option value="Id">Procurement iD.</option>
+					<option value="FunctionName">Fungsi</option>
+					<option value="Title">Title</option>
+					<option value="Description">Description</option>
+				</select>
+
+				<input class="form-control" id="key_word" placeholder="Enter Keyword" type="text" autocomplete="off" style="text-align:center;margin-top:5px;margin-bottom:10px;" onkeypress="if (event.keyCode == 13){find_proc('NO');}">
+				<button type="button" class="btn btn-sm btn-default" onclick="clear_search()" ondblclick="clear_search()"><i class="fa fa-eraser" aria-hidden="true"></i> Clear</button>
+				<button type="button" class="btn btn-sm btn-info" onclick="find_proc('NO')" ondblclick="find_proc('NO')"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<div  id="box_info_icon" hidden>
+
+
+		<div class="icon_short_cut" onclick="procurement_detail_form('ADD') ;">
+
+			<i class="fa fa-plus-square-o" aria-hidden="true" style="color:#4d4d00;"></i>
+			<br />
+			<span class="lbl bigger-100"> Add New</span>
+
+		</div>
+
+		<div class="icon_short_cut" onclick="addendum_procurement();">
+
+			<i class="fa fa-external-link" aria-hidden="true" style="color:yellowgreen;"></i>
+			<br />
+			<span class="lbl bigger-100"> Addendum</span>
+
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_proc('12');" id="reject_short_cut" hidden>
+			<i class="fa fa-ban" aria-hidden="true" style="color: #ba1111;"></i>
+			<br />
+			<span class="lbl bigger-100">Rejected</span> <br /><br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalReject">0</span>
+		</div>
+
+
+
+		<div class="icon_short_cut" onclick="find_proc('1');" id="review_short_cut" hidden>
+			<i class="fa fa-envelope" aria-hidden="true" style="color:orange;"></i>
+			<br />
+			<span class="lbl bigger-100">Proses <br /> Review</span> <br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalSubmit">0</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_proc('2')" id="inv_short_cut" hidden>
+			<i class="fa fa-paper-plane-o" aria-hidden="true" style="color:dodgerblue;"></i>
+			<br />
+			<span class="lbl bigger-100">Proses <br /> Undangan</span> <br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalInvMeet">0</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_proc('3')" id="rpp_short_cut" hidden>
+			<i class="fa fa-users" aria-hidden="true" style="color:forestgreen;"></i>
+			<br />
+			<span class="lbl bigger-100">Proses <br /> Rapat Penjelasan</span> <br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalExplanationMeeting">0</span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_proc('4')" id="nego_short_cut" hidden>
+			<i class="fa fa-comments" aria-hidden="true" style="color:black;"></i>
+			<br />
+			<span class="lbl bigger-100">Proses <br /> Negosiasi</span> <br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalNegotiation">0</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_proc('5')" id="usul_short_cut" hidden>
+			<i class="fa fa-trophy" aria-hidden="true" style="color:red;"></i>
+			<br />
+			<span class="lbl bigger-100">Usulan Pemenang</span> <br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalMenungguUsulanPemenang">0</span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_proc('6')" id="pengumuman_short_cut" hidden>
+			<i class="fa fa-bullhorn" aria-hidden="true" style="color:#985113;"></i>
+			<br />
+			<span class="lbl bigger-100">Proses Pengumuman</span> <br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalMenungguPengumuman">0</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_proc('7')" id="masa_sanggah_short_cut" hidden>
+			<i class="fa fa-hourglass-half" aria-hidden="true" style="color:#5e5a52;"></i>
+			<br />
+			<span class="lbl bigger-100">Proses Masa Sanggah</span> <br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalMenungguMasaSanggah">0</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_proc('8')" id="penunjukan_short_cut" hidden>
+			<i class="fa fa-hand-o-up" aria-hidden="true" style="color:#ff2c2c;"></i>
+			<br />
+			<span class="lbl bigger-100">Proses Penunjukan</span> <br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalMenungguPenunjukan">0</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_proc('9')" id="surat_sanggup_short_cut" hidden>
+			<i class="fa fa-file-text-o" aria-hidden="true" style="color:orange;"></i>
+			<br />
+			<span class="lbl bigger-100">Proses Surat Kesanggupan</span> <br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalMenungguSuratKesanggupan">0</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_proc('10')" id="kontrak_short_cut" hidden>
+			<i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#77633f;"></i>
+			<br />
+			<span class="lbl bigger-100">Proses <br /> Kontrak</span> <br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalKontrak">0</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_proc('11')" id="success_short_cut" hidden>
+			<i class="fa fa-check-square-o" aria-hidden="true" style="color:#50aa16;"></i>
+			<br />
+			<span class="lbl bigger-100">Pengajuan Berhasil</span> <br /><br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_TotalSuccess">0</span>
+		</div>
+
+
+	</div>
+
+</div>
+
+<div id="page_result" hidden>
+	<div id="gridProc" style="border-radius:0px;border:none;border-top:1px solid #ccc;" class="responsive"></div>
+</div>
+
+
+<script>
+
+	
+
+	var active_form = "";
+	var parent_class = "";
+	var oFileTotal = [];
+	var oFileCount = 0;
+	var current_contract_info = "";
+	var status_global = 'N';
+	var from_add_global = "";
+	var call_back = 0;
+	var source_data = [];
+	var filter_global = 0;
+	var flag_reload = 0;
+
+</script>
+
+
+
+<script>
+
+	var height = Number(window.innerHeight) - 133;
+	$('#gridProc').height(height);
+	var LastGet = new Date();
+	var callback = 0;
+	var lengt_progress_field = "200px";
+
+	$(window).resize(function () {
+
+		$('#gridProc').css('height', Number(window.innerHeight) - 133);
+
+	});
+
+	function find_proc(status) {
+
+		global_status = status;
+
+		if (status == 'NO') {
+			filter_global = 0
+		}
+		else {
+
+			filter_global = status;
+		}
+
+
+		if (status == 10) { lengt_progress_field = "320px" } else { lengt_progress_field = "200px";}
+
+		if (status.toUpperCase() == 'NO') {
+
+			if ($("#param_field").val() != "All") {
+
+
+				if ($("#param_field").val() == "") {
+
+					w2alert("Harap pilih percarian berdasarkan apa ... !");
+					$("#param_field").focus();
+					return;
+
+				}
+				if ($("#key_word").val() == "") {
+
+					w2alert("Ops... please enter your keyword before !", '<div style="text-align:left;">ImPas ::.</div>');
+					$("#key_word").focus();
+					return;
+
+
+
+				}
+
+				StatusRef = "searching";
+
+			}
+		}
+
+		$("#page_panel").hide();
+
+		$("#page_result").show(function () {
+
+			if (w2ui['gridProc'] != null) { w2ui['gridProc'].destroy(); }
+			render_grid_procurement();
+			refresh_procurementt_list();
+		});
+
+
+	}
+
+	function back_search() {
+
+		global_status = "0";
+		StatusRef = "";
+		$("#page_result").hide(function () { $("#page_panel").show("fade"); });
+	}
+
+	function clear_search() {
+
+		$("#param_field").val("All").trigger('change');
+		$("#key_word").val("");
+	}
+
+	function render_grid_procurement() {
+
+		if (w2ui['gridProc'] != null) { w2ui['gridProc'].destroy(); }
+		call_back = 0;
+
+		$('#gridProc').w2grid({
+			name: 'gridProc',
+			textSearch: 'contains',
+			show: {
+
+				header: false,
+				toolbar: true,
+				footer: true,
+				lineNumbers: false,
+				selectColumn: true,
+				toolbarSearch: false,
+				toolbarReload: false
+			},
+			toolbar: {
+				items: [
+					{ type: 'spacer' },
+					{ type: 'break' },
+					{
+						type: 'menu-radio', id: 'item2',
+						text: function (item) {
+
+							var text = item.selected;
+							var el = this.get('item2:' + item.selected);
+							if (call_back == 1) {
+
+								if (el.id == 0) {
+									global_status = 'NO';
+									filter_global = 0;
+								}
+								else {
+
+									global_status = el.id;
+									filter_global = el.id;
+								}
+
+								refresh_procurementt_list();
+
+
+							}
+							return 'Filter By Progress : ' + el.text;
+
+							},
+							selected: filter_global,
+							items: [
+							{ id: '0', text: 'All' },
+
+							@foreach (var item in ViewBag.ProcProcess)
+							{
+
+								<text>{ id: '@item.ProcessStatus', text: '@Html.Raw(HttpUtility.HtmlDecode(item.ActionName)) ', },</text>
+							}
+							],
+
+					},
+					{ type: 'break' },
+					{ type: 'button', id: 'vw_button', text: '<i class="fa fa-external-link" aria-hidden="true"></i> View Detail', disabled: 'true' },
+					{ type: 'break' },
+					{ type: 'button', id: 'vw_button_2', text: '<i class="fa fa-external-link" aria-hidden="true"></i> View Detail On New Tab', disabled: 'true' },
+					{ type: 'break' },
+					{ type: 'button', id: 'btn_refresh', text: '<i class="fa fa-refresh" aria-hidden="true" style="color:green;"></i> Refresh List' },
+					{ type: 'break' },
+					{ type: 'button', id: 'close_button', text: '<i class="fa fa-times" aria-hidden="true" style="color:red;"></i> Close' },
+
+				],
+                onClick: function (target, data) {
+
+					call_back = 1;
+					if (target == 'vw_button') {
+
+						var sel = w2ui.gridProc.getSelection();
+						var record = w2ui.gridProc.get(sel[0]);
+						current_proc = record;
+                        procurement_detail_form('VIEW');
+					}
+
+					if (target == 'vw_button_2') {
+
+						var sel = w2ui.gridProc.getSelection();
+						var record = w2ui.gridProc.get(sel[0]);
+						current_proc = record;
+						window.open(URL_PTPR + '/Procurement/Detail?recid=' + record.Id, '_blank').focus();
+
+
+						
+					}
+
+					if (target == 'close_button') {
+						back_search();
+					}
+
+					if (target == 'btn_refresh') {
+						refresh_procurementt_list();
+					}
+
+				
+
+				}
+
+			},
+			columns: [
+
+				{ field: 'Id', text: 'Id.', size: '70px', sortable: true,  resizable: true, info: true },
+				{ field: 'StatusName', text: 'Progress', size: lengt_progress_field, sortable: true,  resizable: true },
+				{ field: 'Title', text: 'Title', size: '150px', sortable: true,  resizable: true },
+				{ field: 'Descriptions', text: 'Descriptions', size: '300px', resizable: true, sortable: true, style: 'word-wrap:break-word;' },
+				{ field: 'RiskAssesment', text: 'Risk Category', size: '100px', sortable: true, resizable: true },
+				{ field: 'FunctionName', text: 'Fungsi', size: '100px', sortable: true,  resizable: true },
+				{ field: 'Value', text: '<div style="text-align:right;">Nilai Pengadaan (Rp.)</div>', size: '150px', sortable: true, resizable: true, render: 'number', },
+				{ field: 'NoPR', text: 'PR. No.', size: '100px', sortable: true,  resizable: true },
+				{ field: 'CountWinner', text: '<div style="text-align:right;">Winner</div>', size: '60px', sortable: true,  resizable: true, render: 'number', },
+				{ field: 'ExpectedDate', text: 'Expected Date', size: '150px', sortable: true,  resizable: true },
+				{ field: 'CreateUser', text: 'CreateUser', size: '150px', resizable: true, sortable: true,  max: '400px' },
+				{ field: 'CreateDate', text: 'CreateUser', size: '150px', resizable: true, sortable: true,  max: '400px' },
+			],
+			searches: [
+				{ type: 'int', field: 'Id', label: 'Id' },
+				{ type: 'text', field: 'StatusName', label: 'Progress' },
+				{ type: 'text', field: 'Title', label: 'Title' },
+				{ type: 'text', field: 'Descriptions', label: 'Descriptions' },
+				{ type: 'text', field: 'RiskAssesment', label: 'Risk Category' },
+				{ type: 'text', field: 'FunctionName', label: 'Fungsi' },
+				{ type: 'number', field: 'Value', label: 'Value' },
+				{ type: 'text', field: 'NoPR', label: 'PR. No.' },
+				{ type: 'text', field: 'CountWinner', label: 'Winner' },
+				{ type: 'date', field: 'ExpectedDate', label: 'Expected Date' },
+				{ type: 'text', field: 'CreateUser', label: 'Create User' },
+				{ type: 'text', field: 'CreateDate', label: 'Create Date' }
+			],
+            onDblClick: function (event) {
+				var record = this.get(event.recid);
+				current_proc = record;
+				procurement_detail_form('VIEW');
+			},
+			onReload: function (event) {
+				refresh_procurementt_list();
+			},
+			onSelect: function (event) {
+
+				event.onComplete = function () {
+
+					disable_button();
+
+					var count_ = w2ui.gridProc.getSelection();
+
+					if (count_.length == 1) {
+						w2ui['gridProc'].toolbar.enable('vw_button');
+						w2ui['gridProc'].toolbar.enable('vw_button_2');
+					
+					}
+
+				}
+			},
+			onUnselect: function (event) {
+
+				event.onComplete = function () {
+
+					disable_button();
+					var count_ = w2ui.gridProc.getSelection();
+
+					if (count_.length == 1) {
+
+						w2ui['gridProc'].toolbar.enable('vw_button');
+						w2ui['gridProc'].toolbar.enable('vw_button_2');
+
+					}
+				}
+
+			},
+			onRefresh: function (event) {
+				call_back = 0;
+			},
+		});
+
+	}
+
+	function disable_button() {
+		w2ui['gridProc'].toolbar.disable('vw_button');
+		w2ui['gridProc'].toolbar.disable('vw_button_2');
+	}
+
+	function refresh_procurementt_list() {
+
+		if (w2ui['gridProc'] != null) {
+
+			if (global_status.toUpperCase() == "NO") {
+
+				key_word = $("#key_word").val();
+				field_ = $("#param_field").val();
+				w2ui['gridProc'].load(URL_PTPR + '/Procurement/FindProcurement?Type=1&KeyWords=' + key_word + '&Field=' + field_);
+			}
+			else {
+				w2ui['gridProc'].load(URL_PTPR + '/Procurement/FindProcurementByStatus?Status=' + global_status);
+			}
+
+		}
+	}
+
+	function UpdateCountProcProgress() {
+
+		if ( isMainPage == false) {return;}
+		var CountProgress = $.ajax({
+			type: "GET",
+			url: URL_PTPR + '/Procurement/GetCountProcStatus',
+			dataType: 'json',
+			cache: false,
+			async: true,
+			error: function (request, status, error) {
+				w2alert("Load Data Gagal !");
+			},
+			success: function (data) {
+				//console.log(data[0]);
+				DataProgress = data[0];
+
+				if (callback == 0) {
+
+					LastGet = DataProgress.LastUpdate
+				}
+				else {
+
+					Tgl_baru = DataProgress.LastUpdate;
+
+					if (Tgl_baru != LastGet) {
+						LastGet = Tgl_baru;
+					}
+					else {
+
+						return;
+					}
+				}
+
+				if (w2ui['gridProc'] != null) { refresh_procurementt_list(); }
+				if (DataProgress.TotalReject != 0) { $("#count_TotalReject").html(DataProgress.TotalReject); $("#reject_short_cut").show(); } else { $("#count_TotalReject").html(""); $("#reject_short_cut").hide(); }
+				if (DataProgress.TotalSubmit != 0) { $("#count_TotalSubmit").html(DataProgress.TotalSubmit); $("#review_short_cut").show(); } else { $("#count_TotalSubmit").html(""); $("#review_short_cut").hide(); }
+				if (DataProgress.TotalInvMeet != 0) { $("#count_TotalInvMeet").html(DataProgress.TotalInvMeet); $("#inv_short_cut").show(); } else { $("#count_TotalInvMeet").html(""); $("#inv_short_cut").hide(); }
+				if (DataProgress.TotalExplanationMeeting != 0) { $("#count_TotalExplanationMeeting").html(DataProgress.TotalExplanationMeeting); $("#rpp_short_cut").show(); } else { $("#count_TotalExplanationMeeting").html(""); $("#rpp_short_cut").hide(); }
+				if (DataProgress.TotalNegotiation != 0) { $("#count_TotalNegotiation").html(DataProgress.TotalNegotiation); $("#nego_short_cut").show(); } else { $("#count_TotalNegotiation").html(""); $("#nego_short_cut").hide(); }
+				if (DataProgress.TotalMenungguUsulanPemenang != 0) { $("#count_TotalMenungguUsulanPemenang").html(DataProgress.TotalMenungguUsulanPemenang); $("#usul_short_cut").show(); } else { $("#count_TotalMenungguUsulanPemenang").html(""); $("#usul_short_cut").hide(); }
+				if (DataProgress.TotalMenungguPengumuman != 0) { $("#count_TotalMenungguPengumuman").html(DataProgress.TotalMenungguPengumuman); $("#pengumuman_short_cut").show(); } else { $("#count_TotalMenungguPengumuman").html(""); $("#pengumuman_short_cut").hide(); }
+				if (DataProgress.TotalMenungguMasaSanggah != 0) { $("#count_TotalMenungguMasaSanggah").html(DataProgress.TotalMenungguMasaSanggah); $("#masa_sanggah_short_cut").show(); } else { $("#count_TotalMenungguMasaSanggah").html(""); $("#masa_sanggah_short_cut").hide(); }
+				if (DataProgress.TotalMenungguPenunjukan != 0) { $("#count_TotalMenungguPenunjukan").html(DataProgress.TotalMenungguPenunjukan); $("#penunjukan_short_cut").show(); } else { $("#count_TotalMenungguPenunjukan").html(""); $("#penunjukan_short_cut").hide(); }
+				if (DataProgress.TotalMenungguSuratKesanggupan != 0) { $("#count_TotalMenungguSuratKesanggupan").html(DataProgress.TotalMenungguSuratKesanggupan); $("#surat_sanggup_short_cut").show(); } else { $("#count_TotalMenungguSuratKesanggupan").html(""); $("#surat_sanggup_short_cut").hide(); }
+				if (DataProgress.TotalMenungguKontrak != 0) { $("#count_TotalKontrak").html(DataProgress.TotalMenungguKontrak); $("#kontrak_short_cut").show(); } else { $("#count_TotalKontrak").html(""); $("#kontrak_short_cut").hide(); }
+				if (DataProgress.TotalSuccess != 0) { $("#count_TotalSuccess").html(DataProgress.TotalSuccess); $("#success_short_cut").show(); } else { $("#count_TotalSuccess").html(""); $("#success_short_cut").hide(); }
+				callback = 1;
+				$("#box_info_icon").show();
+
+			}
+		});
+
+	}
+
+	
+
+	function OpenWindowWithPost(url, windowoption, name, params) {
+		var form = document.createElement("form");
+
+		form.setAttribute("method", "post");
+		form.setAttribute("action", url);
+		form.setAttribute("target", name);
+
+		for (var i in params) {
+			if (params.hasOwnProperty(i)) {
+				var input = document.createElement('input');
+				input.type = 'hidden';
+				input.name = i;
+				input.value = params[i];
+				form.appendChild(input);
+			}
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
+	}
+
+
+	$(document).ready(function () {
+
+		$("#ProcurementValue,#ContractValue,#negotiation_value").keydown(function (e) {
+
+			// Allow: backspace, delete, tab, escape, enter and .
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				// Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+				((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67) && (e.ctrlKey === true || e.metaKey === true)) ||
+				// Allow: home, end, left, right, down, up
+				(e.keyCode >= 35 && e.keyCode <= 40)) {
+				// let it happen, don't do anything
+				return;
+			}
+			// Ensure that it is a number and stop the keypress
+			if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				e.preventDefault();
+			}
+
+		});
+
+		//$("#box_info_icon").show();
+	});
+
+	$('.select2').trigger('change'); // Notify any JS components that the value changed
+
+
+	function procurement_detail_form(FLAG) {
+
+		FLAG_VIEW = FLAG
+		load_page("#PageContainer", URL_PTPR + "/Procurement/Detail", function () { $('.select2').css('width', '100%').select2() });
+	}
+
+	function addendum_procurement() {
+
+		load_page("#PageContainer", URL_PTPR + "/Procurement/Addendum", function () { $('.select2').css('width', '100%').select2() });
+	}
+
+	isMainPage = true;
+
+	setTimeout(UpdateCountProcProgress, 300000)
+	UpdateCountProcProgress();
+	window.addEventListener("focus", function (event) {
+		UpdateCountProcProgress(); //refresh_procurementt_list();
+	}, false);
+
+	//setTimeout(refresh_procurementt_list, 300000)
+
+</script>

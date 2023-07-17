@@ -1,0 +1,2426 @@
+@*draft style*@
+<script>
+	var Upload_File = [];
+	var Upload_File_Main_Draft = [];
+	var active_form = "";
+	var parent_class = "";
+	var oFileTotal = [];
+	var oFileCount = 0;
+	var current_contract_info = "";
+
+</script>
+
+<style>
+
+	mandatory {
+		color: red;
+	}
+
+	.template_e_contract {
+		overflow-y: scroll;
+		width: 100%;
+		padding: 2%;
+		padding-top: 0px;
+		border-radius: 0px;
+		text-align: justify;
+		border: none;
+		border-bottom: 1px solid #dedede;
+		background-color: whitesmoke;
+		display: inline-grid;
+		position: relative;
+		margin: 0% auto;
+	}
+
+	.outer_page_drafting_v2 {
+		overflow-y: auto;
+		margin: 0px auto;
+		width: 100%;
+		padding: 2%;
+		padding-top: 0px;
+		border-radius: 0px;
+		text-align: justify;
+		border: 0px solid #dedede;
+		border-bottom: 0px solid #dedede;
+		border-top: 1px solid #dedede;
+		background-color: whitesmoke;
+	}
+
+
+	.page {
+		background-color: white;
+		border: 0px dashed #d2caca;
+		margin: 2% auto;
+		margin-bottom: 0%;
+		width: 99%;
+		height: 94%;
+		position: relative;
+		overflow: hidden;
+		padding: 2%;
+		border-radius: 5px;
+		-webkit-box-shadow: 0px 7px 28px -7px rgba(0,0,0,0.33);
+		-moz-box-shadow: 0px 7px 28px -7px rgba(0,0,0,0.33);
+		box-shadow: 0px 7px 28px -7px rgba(0,0,0,0.33);
+	}
+
+	.content_editor {
+		min-height: 100%;
+		width: 100%;
+		padding: 1%;
+		overflow: hidden;
+	}
+
+	.page_header {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		padding: 5px;
+		font-size: 12px;
+		color: gray;
+		width: 100%;
+		text-align: right;
+	}
+
+	.page_footer {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		font-style: italic;
+		padding: 5px;
+		font-size: 11px;
+		color: gray;
+		width: 100%;
+		text-align: right;
+	}
+
+	.page_footer_sub {
+		border-top: 1px solid #dedede;
+		padding: 5px;
+		margin: 2% auto;
+		width: 90%;
+	}
+
+	.input_box_draft {
+		border: none !important;
+		padding: 0px;
+		text-align: right;
+		width: 100%;
+	}
+
+	.e_materai {
+		font-weight: bold;
+		color: #d6d3d3;
+		border: 0px dashed #dedede;
+		padding: 7%;
+		text-align: center;
+		width: 200px;
+		font-size: 10px;
+		background-color: #778287;
+	}
+
+	.nama_pt {
+		font-weight: bold;
+	}
+
+	.baris_center {
+		text-align: center !important;
+	}
+
+	.inner_template td {
+		font-size: 12px !important;
+	}
+
+	.sub_page_doc {
+		text-align: justify;
+	}
+
+	.page {
+		font-size: 12px !important;
+	}
+
+	.periode {
+		text-align: left !important;
+	}
+
+	.form-group .select2 {
+		text-align: left !important;
+		font-size: 12px !important;
+	}
+
+	.form-group {
+		text-align: left !important;
+		font-size: 12px !important;
+	}
+
+	.contract_info_box {
+		text-align: left;
+		font-size: 13px;
+		/*border: 1px dashed #dedede;
+		padding: 15px;
+		font-size: 14px;*/
+	}
+
+	.icon_draft_group {
+		border-top: 0px dashed #dedede;
+		padding-top: 15px;
+		text-align: center;
+	}
+
+
+
+
+	@@media only screen and (max-width: 800px) {
+		#input-periode {
+			width: 100%;
+		}
+
+		.control-label {
+			text-align: center !important;
+		}
+	}
+
+	@@media only screen and (max-width: 1200px) {
+
+		#input-periode {
+			width: 100%;
+		}
+
+		.control-label {
+			text-align: center !important;
+		}
+	}
+</style>
+
+@*css_drafting_tools*@
+<style>
+
+	.drafting_tools {
+		background-color: #eaeaea;
+		text-align: center;
+		vertical-align: middle;
+		border-top: 1px solid #d1cdcd;
+		padding: 5px;
+	}
+
+	.btn-draft-tools {
+		border-width: 1px !important;
+		font-size: 11px;
+		padding: 4px;
+		border-radius: 2px;
+	}
+
+	.break_menu {
+		border-left: 1px solid #d2caca;
+		padding: 10px;
+		padding-left: 3px;
+		padding-right: 2px;
+	}
+
+	.pre_submit_wording {
+		line-height: 25px;
+		font-size: 13px !important;
+	}
+
+
+	#mandatory_value_confirm .select2 {
+		font-size: 12px;
+		text-align: left;
+	}
+
+	.preview_attachment {
+		overflow-y: hidden;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		width: 100%;
+		border-radius: 0px;
+		text-align: justify;
+		border: none;
+		border-bottom: 0px solid #dedede;
+		background-color: white;
+		position: relative;
+	}
+
+	#frame_preview {
+		background: url("../../Content/images/loading_images/conection.gif") center center no-repeat;
+		background-color: white;
+		background-size: 45%;
+	}
+
+	.file_draft_add_caption {
+		color: dodgerblue;
+		font-size: 12px;
+		text-align: left !important;
+	}
+
+	#hapus_draft {
+		color: red !important;
+		font-size: 15px;
+		cursor: pointer;
+	}
+
+		#hapus_draft:hover {
+			color: dodgerblue !important;
+		}
+
+	.btn_add_draft, .btn_add_attachment {
+		padding: 8.2px;
+	}
+
+		.btn_add_draft i {
+			font-size: 15px;
+		}
+
+	#proses_next_step .file_draft_add_caption {
+		padding: 15px;
+	}
+
+	#add_new_draft_panel .btn-draft-tools i {
+		font-size: 15px !important;
+	}
+
+	#add_new_draft_panel .btn-draft-tools {
+		padding: 8.2px;
+	}
+</style>
+
+
+@*css_daftar_lampiran*@
+<style>
+
+	#ModalListAttacment .modal-dialog {
+		width: 60%;
+		margin: 0 auto;
+		margin-top: 9%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalDownloadDraft .modal-dialog {
+		width: 30%;
+		margin: 0 auto;
+		margin-top: 9%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalDownloadDraft .icon_short_cut {
+		padding: 10px;
+		border: 1px dashed #dedede;
+		height: 70px !important;
+	}
+
+		#ModalDownloadDraft .icon_short_cut .ace-icon {
+			font-size: 35px !important;
+		}
+
+	#gridLampiran .icon-file {
+		font-size: 20px;
+	}
+
+
+	.bagi_dua {
+		width: 50% !important;
+		display: inline-block;
+		float: left;
+	}
+
+	.preview_attachment {
+		border-left: 1px solid #dedede;
+	}
+
+	.judul_preview_file {
+		width: 100%;
+		background: #efefed;
+		border-top: 1px solid #dedede;
+		padding: 10px;
+		font-weight: bold;
+	}
+
+	.close_prev_ {
+		color: red;
+		cursor: pointer;
+	}
+
+		.close_prev_:hover {
+			color: #ff6060;
+		}
+</style>
+
+@*process*@
+<style>
+
+	#proses_next_step label {
+		font-size: 12px;
+	}
+
+	#proses_next_step textarea {
+		resize: none;
+		min-height: 100px;
+		width: 100%;
+	}
+
+
+	.pre_submit_wording, .form_mandatory {
+		font-size: 18px;
+		padding: 10px;
+		width: 90%;
+		margin: 1% auto;
+		border-bottom: 0px solid #dedede;
+		text-align: center;
+	}
+
+	.form_mandatory {
+		padding: 1% !important;
+		border-top: 1px solid #dedede;
+		border-bottom: 1px solid #dedede;
+	}
+
+		.form_mandatory label {
+			font-size: 12px;
+		}
+</style>
+
+@*modal css*@
+<style>
+
+	#ModalRichText .modal-dialog {
+		width: 90%;
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalCustomPoint .modal-dialog {
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalCustomPoint .control-label {
+		font-size: 12px;
+	}
+
+	#ModalInputMail .modal-dialog {
+		width: 60%;
+		margin: 0 auto;
+		margin-top: 10%;
+	}
+
+	#ModalInputMail label {
+		font-size: 12px;
+	}
+</style>
+
+@*hasil*@
+<style>
+
+
+	.result_wording {
+		text-align: center;
+		font-size: 13px;
+		padding: 15px;
+		border-top: 1px dashed #dedede;
+		font-weight: bold;
+	}
+
+	.group_file_kontrak {
+		text-align: center
+	}
+
+	.icon_file_contract {
+		border: 1px solid #dedede;
+		padding: 20px;
+		width: 130px;
+		height: 140px;
+		display: inline-table;
+		margin-left: 5px;
+		font-size: 12px;
+		cursor: pointer;
+		transition: 0.3s;
+		margin-bottom: 1%;
+		background-color: none;
+		cursor: pointer;
+		text-align: center;
+	}
+
+		.icon_file_contract i {
+			color: dodgerblue !important;
+		}
+
+
+
+		.icon_file_contract:hover {
+			color: dodgerblue;
+			border-color: dodgerblue;
+			opacity: .80;
+		}
+
+		.icon_file_contract i {
+			font-size: 45px !important;
+			color: darkorange;
+		}
+
+	.icon_file_contract_red {
+		border: 1px dashed #dedede;
+		width: 120px;
+		height: 100px;
+		display: inline-table;
+		margin-left: 5px;
+		font-size: 12px;
+		cursor: pointer;
+		transition: 0.3s;
+		margin-bottom: 1%;
+		background-color: none;
+		cursor: pointer;
+		text-align: center;
+		padding: 15px;
+	}
+
+
+		.icon_file_contract_red:hover {
+			color: dodgerblue;
+			border-color: dodgerblue;
+			opacity: .80;
+		}
+
+		.icon_file_contract_red i {
+			font-size: 45px !important;
+			color: red;
+		}
+
+	.kata-kata {
+		font-size: 15px;
+	}
+</style>
+
+<style>
+
+	.input-daterange {
+		width: 40% !important;
+	}
+	.icon_pre {
+		text-align: right;
+		padding-right: 0px;
+	}
+
+	@@media screen and (max-width: 992px) {
+
+		.icon_pre {
+			text-align: left;
+			padding-right: unset;
+		}
+		.input-daterange {
+			width: 100% !important;
+		}
+	}
+
+	@@media screen and (max-width: 600px) {
+
+		.icon_pre {
+			text-align: left;
+			padding-right: unset;
+		}
+		.input-daterange {
+			width: 100% !important;
+		}
+	}
+
+
+	#add_new_draft_panel .row {
+		margin-bottom: 0px !important;
+		margin-top: 0px !important;
+	}
+
+
+</style>
+
+<div id="template_e_contract" hidden>
+
+	<div class="drafting_tools" id="drafting_tools_draft">
+
+
+
+	</div>
+
+	<div class="outer_page_drafting_v2">
+
+
+	</div>
+
+</div>
+
+<div id="uploader_file" hidden>
+
+	
+	<input type="file" id="file_draft_add" required accept=".doc,.docx,.pdf" hidden />
+
+</div>
+
+<div id="add_new_draft_panel" hidden>
+
+	<div class="pre_submit_wording row" hidden id="pre_process_wording">
+
+		<div class="box-body" style="text-align:left;">
+			<div class="col-sm-1 icon_pre">
+				<img src="../../../Content/img/contract_icon.png" style="width:50px;">
+			</div>
+			<div class="col-sm-4 text-left">
+				<span style="font-size:18px;" id="wording_add">
+					Add New Contract
+				</span><br />
+				<span style="font-size:12px;">Lengkapi data-data berikut !</span>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="row form_mandatory" id="form_mandatory_prep">
+
+		<form class="form-horizontal">
+			<div class="box-body">
+
+
+
+				<div class="form-group" id="idtext">
+					<label for="inputName" class="col-sm-2 control-label">Judul Kontrak <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+						<input class="form-control wajib" id="EContractTitle" placeholder="Judul Kontrak" type="text" autocomplete="off" onkeypress="if (event.keyCode == 13){$('#EContractNamaMitra').focus();}">
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<label for="inputName" class="col-sm-2 control-label">Nama Mitra <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+						<input class="form-control wajib" id="EContractNamaMitra" placeholder="Disarankan nama perusahan atau badan usaha !" type="text" onkeypress="if (event.keyCode == 13){$('#EContractValue').focus();}" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputName" class="col-sm-2 control-label">Contract Value <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+						<input type="text" id="Etemp_ContractValue" hidden />
+						<input class="form-control wajib" id="EContractValue" placeholder="Nilai kontrak" type="text" onselect="format_currency('EContractValue','Etemp_ContractValue')" onkeyup="format_currency('EContractValue','Etemp_ContractValue')" onmouseup="format_currency('EContractValue','Etemp_ContractValue')" autocomplete="off" onkeypress="if (event.keyCode == 13){$('#EFungsi').focus();}">
+					</div>
+				</div>
+
+
+				<div class="form-group">
+
+					<label for="inputName" class="col-sm-2 control-label">Fungsi <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+
+						<select class="form-control select2 wajib" id="EFungsi" placeholder="Fungsi">
+							<option value="" selected>-- Pilih Fungsi --</option>
+						</select>
+
+						<script>
+
+							var DataPerson = $.ajax({
+								url: URL_PTPR + '/EContract/GetFungsiPtpr',
+								type: 'GET',
+								dataType: "json",
+								cache: false,
+								async: false,
+								contentType: false,
+								processData: false,
+							});
+
+							PersonDataList = DataPerson.responseJSON;
+
+							$.each(PersonDataList, function (i, item) {
+
+								$("#EFungsi").append('<option value="' + PersonDataList[i].ID + '">' + PersonDataList[i].ID + ' - ' + PersonDataList[i].NM_UNIT_ORG + '</option>');
+
+
+							});
+
+							$("#EFungsi").trigger("change");
+
+
+						</script>
+
+					</div>
+
+				</div>
+
+				<div class="form-group">
+
+					<label for="inputName" class="col-sm-2 control-label">Contract Signing Officer <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+
+						<select class="form-control select2 wajib" id="EPerson" placeholder="Contract Signing Officer">
+							<option value="" selected>-- Pilih Pejabat  --</option>
+						</select>
+
+						<script>
+
+							var DataPerson = $.ajax({
+								url: URL_PTPR + '/EContract/GetPersonPtpr',
+								type: 'GET',
+								dataType: "json",
+								cache: false,
+								async: false,
+								contentType: false,
+								processData: false,
+							});
+
+							PersonDataList = DataPerson.responseJSON;
+
+							$.each(PersonDataList, function (i, item) {
+
+								$("#EPerson").append('<option value="' + PersonDataList[i].NIP + '">' + PersonDataList[i].NM_PEG + ' - ' + PersonDataList[i].NIP + ' - ' + PersonDataList[i].NM_JABATAN_STR + '</option>');
+
+
+							});
+
+							$("#EPerson").trigger("change");
+
+
+						</script>
+
+					</div>
+
+				</div>
+
+				<div class="form-group">
+
+					<label for="inputName" class="col-sm-2 control-label">Contract Type <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+
+						<select class="form-control select2 wajib" id="EContractType" placeholder="Contract Type">
+							<option value="" selected>-- Pilih Tipe Kontrak --</option>
+						</select>
+
+						<script>
+
+							var DataContractType = $.ajax({
+								url: URL_PTPR + '/EContract/GetContractType',
+								type: 'GET',
+								dataType: "json",
+								cache: false,
+								async: false,
+								contentType: false,
+								processData: false,
+							});
+
+							ContractTypeData = DataContractType.responseJSON;
+
+							$.each(ContractTypeData, function (i, item) {
+
+								$("#EContractType").append('<option value="' + ContractTypeData[i].Id + '">' + ContractTypeData[i].ContractType + '</option>');
+
+
+							});
+
+							$("#EContractType").trigger("change");
+
+
+						</script>
+
+					</div>
+
+				</div>
+
+				<div class="form-group">
+
+					<label for="inputName" class="col-sm-2 control-label">Periode Kontrak <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+						<div class="input-daterange input-group" id="input-periode">
+							<input type="text" class="input-sm form-control wajib periode" id="EStartDate" placeholder="Tgl. Kontrak Dimulai" autocomplete="off">
+							<span class="input-group-addon">
+								<i class="fa fa-long-arrow-right"></i>
+							</span>
+							<input type="text" class="input-sm form-control wajib periode" id="EEndDate" placeholder="Tgl. Kontrak Berakhir" autocomplete="off">
+						</div>
+					</div>
+				</div>
+
+				<div class="form-group" id="add_new_draft">
+					<label for="inputName" class="col-sm-2 control-label">Upload Draft Kontrak <mandatory>*</mandatory> :</label>
+					<div class="col-sm-10">
+
+						<div class="form-control file_draft_add_caption" style="border:none!important;padding-left:2px !important;"></div>
+						<button type="button" class="btn btn-white btn-bold btn-draft-tools btn_add_draft" onclick="parent_class='add_new_draft'; $('#file_draft_add').val(''); $('#file_draft_add').click();"><i class="ace-icon fa fa-arrow-up" aria-hidden="true" style="color:cornflowerblue;"></i> Upload Draft</button>
+						<div class="form-control upload_progress_lampiran_main_draft" style="color:dodgerblue;border:none !important;"><img src="~/Content/img/loading.gif" style="width:25px;" /> Please wait ...</div>
+					</div>
+				</div>
+
+				<div class="form-group" id="attchment_control">
+					<label for="inputName" class="col-sm-2 control-label">File Pendukung :</label>
+					<div class="col-sm-10">
+
+						<button type="button" class="btn btn-white btn-bold btn-draft-tools btn-clear-attach btn-attach-info" hidden>...</button>
+						<button type="button" class="btn btn-white btn-bold btn-draft-tools btn-clear-attach" onclick="clear_attach_file()" hidden><i class="ace-icon fa fa-trash" aria-hidden="true"></i> Clear Attachment File</button>
+						<button type="button" class="btn btn-white btn-bold btn-draft-tools	btn_add_attachment" onclick="$('#attachment_draft_e_kontrak').val('');$('#attachment_draft_e_kontrak').click();"><i class="ace-icon fa fa-paperclip" aria-hidden="true" style="color:orange;"></i> Tambahkan Attachment</button>
+						<button type="button" class="btn btn-white btn-bold btn-draft-tools upload_progress_lampiran" style="color:dodgerblue;border:none !important;"><img src="~/Content/img/loading.gif" style="width:18px;padding:0px !important;" /> Please wait ...</button>
+
+					</div>
+				</div>
+
+				<div class="form-group" id="idtext">
+					<label for="inputName" class="col-sm-2 control-label">Remark  :</label>
+					<div class="col-sm-10">
+						<textarea class="form-control input" placeholder="Tinggalkan keterangan jika diperlukan" id="Remark" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:50px;" autocomplete="off"></textarea>
+					</div>
+				</div>
+
+			</div>
+		</form>
+
+	</div>
+
+
+	<div class="pre_submit_wording row button_box_prep">
+		<button type="button" class="btn btn-gray btn-sm" onclick="cancel_add()" ondblclick="cancel_add()"><i class="ace-icon fa fa-undo" aria-hidden="true"></i> Cancel</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="isi_email_alert()" ondblclick="isi_email_alert()"><i class="ace-icon  fa fa-arrow-right" aria-hidden="true"></i> Next</button>
+	</div>
+
+</div>
+
+<div id="proses_next_step_mail" hidden>
+
+	<div class="pre_submit_wording row">
+
+		<img src="~/Content/img/email_icon.png" style="width:5%;" /><br /><br />
+		<span style="font-size:18px;font-weight:bold;">
+			Setting Email Alert
+		</span>
+		<br />
+		<span style="font-size:15px;">Agar Anda selalu mendapat notofikasi jika kontrak sudah mendekati end periode </span>
+
+	</div>
+
+	<div class="pre_submit_wording row">
+		<div id="gridMail_add" style="width:100%; height:210px;border-radius:0px;text-align:left;"></div>
+	</div>
+
+	<div class="pre_submit_wording row button_box_prep">
+		<button type="button" class="btn btn-gray btn-sm" onclick="back_from_isi_email()" ondblclick="back_from_isi_email()"><i class="ace-icon fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="submit_draft()" ondblclick="submit_draft()"><i class="ace-icon  fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
+	</div>
+
+</div>
+
+<div id="proses_next_step" hidden>
+
+	<div class="pre_submit_wording row" hidden id="pre_process_wording">
+
+		<img src="~/Content/img/document_check2.png" style="width:5%;" /><br />
+		<span>
+			Pastikan <b>DRAFT E-KONTRAK</b> yang akan Anda proses ini telah sesuai <br />
+			atau Anda dapat memerikasa-nya kembali dan Anda juga
+			dapat meninggkalkan catatan pada proses ini.
+		</span>
+		<br />
+		<span id="next_step_wording" style="font-size:15px;"></span>
+
+	</div>
+
+
+	<div class="pre_submit_wording row" hidden id="pre_reject_wording">
+
+		<img src="~/Content/img/reject_icon2.jpg" style="width:10%;" /><br />
+		<span>
+			Yakin mau mereject <b>DRAFT E-KONTRAK</b> ini ?<br />
+			atau Anda dapat memerikasa-nya kembali dan Anda juga
+			dapat meninggkalkan catatan pada proses ini.
+		</span>
+		<br />
+		<span id="next_step_wording" style="font-size:15px;"></span>
+
+	</div>
+
+	<div class="row form_mandatory" id="form_mandatory_prep">
+		<form class="form-horizontal">
+			<div class="box-body">
+
+
+
+				<div class="form-group cek_box" id="field_lanjut_dengan_catatan">
+					<label for="inputName" class="col-sm-2 control-label mandatory">Lanjut Proses Dengan Catatan :</label>
+					<div class="col-sm-10" style="text-align:left !important;">
+						<label class="block">
+							<input name="form-field-checkbox" id="ENeedCorrection" type="checkbox" class="ace input-lg">
+							<span class="lbl bigger-120"> Dengan menchecklist ini proses akan dilanjutkan dengan catatan dan akan dikembalikan ke pembuat draft!</span>
+						</label>
+					</div>
+				</div>
+
+
+				<div class="form-group cek_box" id="field_unprocedural">
+					<label for="inputName" class="col-sm-2 control-label mandatory">Tidak Sesuai Prosedur :</label>
+					<div class="col-sm-10" style="text-align:left !important;">
+						<label class="block">
+							<input name="form-field-checkbox" id="EUnprocedural" type="checkbox" class="ace input-lg">
+							<span class="lbl bigger-120"> Dengan menchecklist ini proses kontrak dianggap tidak sesuai prosedur dan akan langsung dimasukan ke list trash!</span>
+						</label>
+					</div>
+				</div>
+
+
+
+				<div class="form-group" id="field_update_draft">
+					<label for="inputName" class="col-sm-2 control-label">Perbaharui Draft :</label>
+					<div class="col-sm-10">
+						<div class="form-control file_draft_add_caption" style="border:none!important;padding-left:2px !important;"></div>
+						<button type="button" class="btn btn-white btn-bold btn-draft-tools btn_add_draft" onclick="parent_class='field_update_draft'; $('#file_draft_add').val('');$('#file_draft_add').click();"><i class="ace-icon fa fa-arrow-up" aria-hidden="true" style="color:cornflowerblue;"></i> Upload Draft</button>
+						<div class="form-control upload_progress_lampiran_main_draft" style="color:dodgerblue;border:none !important;"><img src="~/Content/img/loading.gif" style="width:25px;" /> Please wait ...</div>
+					</div>
+				</div>
+
+				<div class="form-group file_sign_upload_group" id="signed_1">
+					<label for="inputName" class="col-sm-2 control-label mandatory">Upload Signed Draft I <mandatory>*</mandatory>&nbsp;&nbsp;:</label>
+					<div class="col-sm-10">
+						<div class="form-control file_draft_add_caption" style="border:none!important;padding-left:2px !important;"></div>
+						<button type="button" class="btn btn-white btn-bold btn-draft-tools btn_add_draft" onclick="parent_class='signed_1'; $('#file_draft_add').val(''); $('#file_draft_add').click();"><i class="ace-icon fa fa-arrow-up" aria-hidden="true" style="color:cornflowerblue;"></i> Upload Draft</button>
+						<div class="form-control upload_progress_lampiran_main_draft" style="color:dodgerblue;border:none !important;"><img src="~/Content/img/loading.gif" style="width:25px;" /> Please wait ...</div>
+					</div>
+				</div>
+
+				<div class="form-group file_sign_upload_group" id="signed_2">
+					<label for="inputName" class="col-sm-2 control-label mandatory">Upload Signed Draft II <mandatory>*</mandatory>&nbsp;&nbsp;:</label>
+					<div class="col-sm-10">
+						<div class="form-control file_draft_add_caption" style="border:none!important;padding-left:2px !important;"></div>
+						<button type="button" class="btn btn-white btn-bold btn-draft-tools btn_add_draft" onclick="parent_class='signed_2';$('#file_draft_add').val('');$('#file_draft_add').click();"><i class="ace-icon fa fa-arrow-up" aria-hidden="true" style="color:cornflowerblue;"></i> Upload Draft</button>
+						<div class="form-control upload_progress_lampiran_main_draft" style="color:dodgerblue;border:none !important;"><img src="~/Content/img/loading.gif" style="width:25px;" /> Please wait ...</div>
+					</div>
+				</div>
+
+
+
+				<div class="form-group sign_para_pihak_mandatory">
+					<label for="inputName" class="col-sm-2 control-label mandatory">Tgl. Kontrak <mandatory>*</mandatory>&nbsp;&nbsp;:</label>
+					<div class="col-sm-3">
+						<input type="text" class="input-sm form-control  periode" id="ETglKontrak" placeholder="Tgl. Kontrak" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="form-group sign_para_pihak_mandatory">
+					<label for="inputName" class="col-sm-2 control-label mandatory">No. Kontrak <mandatory>*</mandatory>&nbsp;&nbsp;:</label>
+					<div class="col-sm-10">
+						<input type="text" class="input-sm form-control" id="ENoKontrak" placeholder="No. Kontrak" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputName" class="col-sm-2 control-label mandatory">Tinggalkan Catatan :</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" id="ProcessCatatan" placeholder="Tinggalkan catatan jika diperlukan" autocomplete="off"></textarea>
+					</div>
+				</div>
+
+			</div>
+		</form>
+	</div>
+
+
+	<div class="pre_submit_wording row button_box_prep">
+		<button type="button" class="btn btn-gray btn-sm" onclick="back_to_drafting()" ondblclick="back_to_drafting()"><i class="ace-icon fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="submit_draft()" ondblclick="submit_draft()"><i class="ace-icon  fa fa-paper-plane" aria-hidden="true"></i> Next</button>
+	</div>
+
+</div>
+
+<div class="page_progress" id="progress_save_draft" hidden>
+
+	<img src="~/Content/images/loading_images/roket.gif" style="width:30%;" />
+	<br />
+	<span>Loading ...</span>
+
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal_ex" id="ModalListAttacment" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title"> <i class="fa fa-paperclip" aria-hidden="true"></i> Daftar Lampiran</h4>
+
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="gridLampiran" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade modal_ex" id="ModalDownloadDraft" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title"> <i class="ace-icon fa fa-file-pdf-o" aria-hidden="true" style="color:red;"></i> Silahkan Download Draft Berikut !</h4>
+
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="box_info_icon" style="border:none !important;padding-bottom:15px !important;">
+
+
+					<div class="icon_short_cut" onclick="download_draft(1);">
+						<i class="ace-icon fa fa-file-pdf-o" aria-hidden="true" style="color:red;"></i>
+						<br />
+						<span class="lbl bigger-100">Draft Rangkap I</span> <br /><br />
+					</div>
+
+
+					<div class="icon_short_cut" onclick="download_draft(2);">
+						<i class="ace-icon fa fa-file-pdf-o" aria-hidden="true" style="color:red;"></i>
+						<br />
+						<span class="lbl bigger-100">Draft Rangkap II</span> <br /><br />
+					</div>
+
+				</div>
+
+			</div>
+			<div class="modal-footer" style="text-align:center;">
+				<button type="button" class="btn btn-gray btn-sm" data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalInputMail" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content" style="none;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Input Email Alert</h4>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Nama Penerima <span style="color:Red;">*</span> : </label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control date-picker wajib_diisi" id="penerima_email" placeholder="Nama" autocomplete="off" onkeypress="if (event.keyCode == 13){$('#alamat_email').focus();}">
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Alamat Email <span style="color:Red;">*</span> : </label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control date-picker wajib_diisi" id="alamat_email" placeholder="Email" autocomplete="off" onkeypress="if (event.keyCode == 13){$('#jabatan_penerima').focus();}">
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Jabatan <span style="color:Red;">*</span> : </label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control date-picker wajib_diisi" id="jabatan_penerima" placeholder="Jabatan" autocomplete="off" onkeypress="if (event.keyCode == 13) { add_mail('ÁDD');}">
+							</div>
+
+						</div>
+
+
+					</div>
+				</form>
+
+
+
+			</div>
+			<div class="modal-footer">
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade modal_ex" id="ModalTambahAttachment" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title"> <i class="fa fa-paperclip" aria-hidden="true"></i> Upload File</h4>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Ok</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="table_detail_contract" hidden>
+
+	<table class="table table-striped  table-hover dataTable no-footer">
+		<tr>
+			<td width="15%">Contract Id.</td>
+			<td width="2px">:</td>
+			<td><span class="contract_id">Test</span></td>
+		</tr>
+		<tr>
+			<td>Title</td>
+			<td>:</td>
+			<td><span class="contract_title"></span></td>
+		</tr>
+		<tr>
+			<td>Status</td>
+			<td>:</td>
+			<td><span class="contract_status"></span></td>
+		</tr>
+		<tr>
+			<td>Creator</td>
+			<td>:</td>
+			<td><span class="contract_creator"></span></td>
+		</tr>
+		<tr>
+			<td>Last Update</td>
+			<td>:</td>
+			<td><span class="contract_last_update"></span></td>
+		</tr>
+	</table>
+
+</div>
+
+
+
+
+@*//Drafting Tools JS*@
+<script>
+
+
+
+	$('.outer_page_drafting_v2').css('height', (Number(window.innerHeight) - panel_height_ajustment));
+
+	//$(window).resize(function () {
+
+	//	$('.outer_page_drafting_v2').css('height', (Number(window.innerHeight) - panel_height_ajustment));
+
+	//});
+
+
+
+	function ViewDraft(Record) {
+
+		parent_class = "";
+		Upload_File = [];
+		Upload_File_Main_Draft = [];
+		oFileCount = 0;
+		current_contract = Record;
+		current_contract_id = Record.ContractId;
+		current_reject = 0;
+		page_ = 1;
+		full_screen_stat = 1;
+		current_process = "PROCESS"
+		css_color = "icon_file_contract";
+		icon_download = "fa fa-file-word-o";
+		link_down = "download_draft_v2";
+		active_form = "template_e_contract";
+
+		var DownloadDraft_1 = "";
+		var DownloadDraft_2 = "";
+		var result_wording = "";
+		var DownloadDraft_All = "";
+
+		
+		if (Record.InProcess == 5 || Record.InProcess == 6 || Record.InProcess == 7) {
+
+			css_color = "icon_file_contract_red";
+			icon_download = "fa fa-file-pdf-o";
+			link_down = "download_draft_sign"
+		}
+
+
+		//get control
+		var DataSave = new FormData();
+		DataSave.append('ContractId', current_contract_id);
+		var allow_button = $.ajax({
+			url: URL_PTPR + '/Button/E_Kontrak_General_AllowButton',
+			type: 'POST',
+			data: DataSave,
+			dataType: "json",
+			cache: false,
+			async: false,
+			contentType: false,
+			processData: false,
+		});
+
+		//button_fixed = ' <button type="button" class="btn btn-white btn-bold btn-draft-tools full_screen_btn" onclick="full_screen(\'#template_e_contract\');"><i class="ace-icon fa fa-arrows-alt" aria-hidden="true"></i> Maximize</button>';
+		//button_fixed = button_fixed + ' <button type="button" class="btn btn-white btn-bold btn-draft-tools" onclick="close_drafting();"><i class="ace-icon fa fa-times" aria-hidden="true" style="color:red;"></i> Close</button>';
+
+		button_fixed = ' <button type="button" class="btn btn-white btn-bold btn-draft-tools" onclick="ViewLogContract();"><i class="ace-icon fa fa-history" aria-hidden="true" style="color:black;"></i> Log</button><button type="button" class="btn btn-white btn-bold btn-draft-tools" onclick="close_drafting();"><i class="ace-icon fa fa-times" aria-hidden="true" style="color:red;"></i> Close</button>';
+		button_action = allow_button.responseText;
+		button_lampiran = ' <button type="button" class="btn btn-white btn-bold btn-draft-tools" onclick="lihat_attachment()"><i class="ace-icon fa fa-paperclip" aria-hidden="true" style="color:orange;"></i> List Lampiran Tersedia</button>';
+		button_progress = ' <div class="btn btn-white btn-bold btn-draft-tools upload_progress_lampiran" style="color:dodgerblue !important;"><img src="../Content/img/loading.gif" style="width:10px;" /> Please wait ...</div>';
+		$("#drafting_tools_draft").html('<div class="btn-group">' + button_lampiran + button_progress + button_action + button_fixed + '</div>');
+
+		$(".outer_page_drafting_v2").html("");
+		$(".btn-clear-attach").hide();
+		$(".upload_progress_lampiran").hide();
+
+		$("#table_detail_contract .contract_id").html(Record.ContractId);
+		$("#table_detail_contract .contract_title").html(Record.ContractTitle);
+		$("#table_detail_contract .contract_status").html(Record.ProcTag);
+		$("#table_detail_contract .contract_creator").html(Record.Creator);
+		$("#table_detail_contract .contract_last_update").html(Record.Updater);
+		current_contract_info = "<div class='contract_info_box'>" + $("#table_detail_contract").html() + "</div>";
+
+		$("#form_mandatory_prep .wajib").val("");
+		$("#form_mandatory_prep .select2").val("").trigger('change'); $("#ProcessCatatan").val("");
+		$('#ENeedCorrection,#EUpdateDraft').prop('checked', false); // Checks it
+
+
+		$("#main_panel").hide("fade", function () {
+
+			//$(".group_drafting,.group_drafting_2").hide();
+			$(".outer_page_drafting_v2").html("");
+			$("#template_e_contract").show("fade", function () {
+
+				var Param_ = new FormData();
+				Param_.append('ContractId', current_contract.ContractId);
+
+				var get_last_file = $.ajax({
+					url: URL_PTPR + '/EContract/GetLastDraftEContractGeneral',
+					type: 'POST',
+					data: Param_,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+				});
+
+				if (get_last_file.responseJSON.length > 0) {
+
+					DownloadDraft_1 = '<div class= "' + css_color + '" onclick="' + link_down + '(' + get_last_file.responseJSON[0].ID + ')" ondblclick="' + link_down + '(' + get_last_file.responseJSON[0].ID + ')"><i class="' + icon_download + '" aria-hidden="true"></i> <br><br>Download <br>Draft Kontrak</div> ';
+
+					if (Record.InProcess == 5 || Record.InProcess == 6 || Record.InProcess == 7) {
+
+						DownloadDraft_1 = '<div class= "' + css_color + '" onclick="' + link_down + '(' + get_last_file.responseJSON[0].ID + ')" ondblclick="' + link_down + '(' + get_last_file.responseJSON[0].ID + ')"><i class="' + icon_download + '" aria-hidden="true"></i> <br><br>Download <br>File Kontrak Rangkap Ke 1</div> ';
+
+						if (get_last_file.responseJSON.length > 1) DownloadDraft_2 = '<div class= "' + css_color + '" onclick="' + link_down + '(' + get_last_file.responseJSON[1].ID + ')" ondblclick="' + link_down + '(' + get_last_file.responseJSON[1].ID + ')"><i class="' + icon_download + '" aria-hidden="true"></i> <br><br>Download <br>File Kontrak Rangkap Ke 2</div> ';
+
+					}
+
+					DownloadDraft_All = '<div class="icon_draft_group">' + DownloadDraft_1 + DownloadDraft_2 + '</div>';
+				}
+
+				result_wording = '<div class="result_wording">Berikut ini adalah draft kontrak yang telah dibuat oleh user. <br> Silahkan download dan review serta edit jika ada perubahan, kemudian Anda dapat me-reupload kembali jika dirasa perlu ! </div>';
+
+				if (Record.InProcess == 4) {
+
+					result_wording = '<div class="result_wording">Berikut ini adalah draft kontrak yang telah dibuat oleh user. <br> Silahkan download dan review kemudain save dalam format PDF dan Sign ke Portal Perisai lalu upload kembali pada sistem I-Care </div>';
+				}
+
+
+				$(".outer_page_drafting_v2").html('<div class="page"><div class="group_file_kontrak">' + current_contract_info + result_wording + DownloadDraft_All + '</div></div>');
+
+			});
+
+		})
+
+
+	}
+
+
+	function ViewLogContract() {
+		form_contract_detail("EDIT", current_contract, null, "Log");
+		w2ui['gridHistory'].refresh();
+	}
+
+</script>
+
+@*//Drafting Tools JS*@
+<script>
+
+	function close_drafting() {
+
+		$("#template_e_contract").hide("fade", function () {
+			$("#main_panel").show();
+			$(".main-content-inner .breadcrumb .active").html("General");
+			if (w2ui['gridContract'] != null) { refresh_contract_list(); }
+			UpdateCountProgress();
+		});
+
+	}
+
+</script>
+
+@*//Drafting Attachment Add*@
+<script>
+
+
+	$('#attachment_draft_e_kontrak').change(function () {
+
+		var file = this.files[0];
+		//$(".btn_add_attachment").hide();
+
+		var DataSave = new FormData();
+		DataSave.append('FileCategory', "Lampiran-E-Kontrak");
+		DataSave.append('Source', "I-Care");
+		DataSave.append('Key1', "ICARE_CONTRACT");
+		DataSave.append('UPLOAD_FILE', file);
+
+		$("#" + active_form + " .upload_progress_lampiran").show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/EContract/UploadFilePre',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+
+					w2alert("Upload File Gagal !");
+					//$(".upload_progress_lampiran").hide();
+					//$(".btn_add_attachment").show();
+
+				}
+
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				w2alert("Upload File Gagal !");
+				$("#" + active_form + " .upload_progress_lampiran").hide();
+				//$(".btn_add_attachment").show();
+			}
+			else {
+
+				oFileCount = oFileCount + 1;
+				var row_upload = { ID: Simpan.responseJSON["Result"] };
+				Upload_File.push(row_upload);
+				$("#" + active_form + " .upload_progress_lampiran").hide();
+				//$(".btn_add_attachment").show();
+
+				if (oFileCount > 0) {
+					$(".btn-clear-attach").show();
+					$(".btn-attach-info").html('<i class="ace-icon fa fa-list" aria-hidden="true"></i> ' + oFileCount + ' File Attach');
+				}
+				else {
+					$(".btn-clear-attach").hide();
+				}
+
+
+
+			}
+
+
+		})
+
+
+
+
+
+	});
+
+	function clear_attach_file() {
+
+
+		$(".btn-clear-attach,.btn_add_attachment").hide();
+		var DataSave = new FormData();
+		DataSave.append('FileCategory', "MAIN_DRAFT");
+		DataSave.append('FileUploadList', JSON.stringify(Upload_File));
+
+		$("#" + active_form + " .upload_progress_lampiran").show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/EContract/DeleteFilePre',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+					w2alert("Attachment Gagal Dihapus !");
+					$("#" + active_form + " .upload_progress_lampiran").hide();
+					$(".btn-clear-attach").show();
+				}
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				w2alert("Attachment Gagal Dihapus !");
+				$("#" + active_form + " .upload_progress_lampiran").hide();
+				$(".btn-clear-attach").show()
+			}
+			else {
+
+				$("#" + active_form + " .upload_progress_lampiran").hide();
+				oFileTotal = [];
+				Upload_File = [];
+				oFileCount = 0;
+				w2alert("Attachment Berhasil Dihapus!");
+				$(".btn_add_attachment").show();
+			}
+
+
+		})
+
+
+	}
+
+	
+
+	//file_draft_add
+	$('#file_draft_add').change(function () {
+
+		var goruping = "";
+		goruping = "#" + parent_class + " ";
+
+		$(goruping + ".btn_add_draft").hide();
+
+		var file = this.files[0];
+		var file_name = file.name;
+
+		var DataSave = new FormData();
+		DataSave.append('FileCategory', "MAIN_DRAFT");
+		DataSave.append('Source', "I-Care");
+		DataSave.append('Key1', "ICARE_CONTRACT");
+		DataSave.append('UPLOAD_FILE', file);
+
+		$(goruping + ".upload_progress_lampiran_main_draft").show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/EContract/UploadFilePre',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+
+					w2alert("Upload File Gagal !");
+					$(goruping + ".upload_progress_lampiran").hide();
+					$(goruping + ".btn_add_draft").show();
+
+				}
+
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				w2alert("Upload File Gagal !");
+				$(goruping + ".upload_progress_lampiran_main_draft").hide();
+				$(goruping + ".btn_add_draft").show();
+			}
+			else {
+
+				var row_upload = { ID: Simpan.responseJSON["Result"] };
+				Upload_File_Main_Draft.push(row_upload);
+
+				w2alert("Upload Draft Berhasil !");
+
+				$(goruping + ".upload_progress_lampiran_main_draft").hide();
+				$(goruping + ".file_draft_add_caption").html(file_name + ' &nbsp;&nbsp; <i class="fa fa-trash-o" aria-hidden="true" id="hapus_draft" onclick="parent_class=\'' + parent_class + '\';clear_draft(\'' + Simpan.responseJSON["Result"] + '\');"></i>');
+				$(goruping + ".file_draft_add_caption").show();
+				$(goruping + ".btn_add_draft").hide();
+				parent_class = "";
+
+			}
+
+
+
+		})
+
+
+
+
+
+	})
+
+	function clear_draft(Id) {
+
+		var goruping = "";
+		goruping = "#" + parent_class + " ";
+
+		$(goruping + ".file_draft_add_caption").hide();
+
+		Delete_File = [];
+		var row_delete = { ID: Id };
+		Delete_File.push(row_delete);
+
+		var DataSave = new FormData();
+		DataSave.append('FileCategory', "MAIN_DRAFT");
+		DataSave.append('FileUploadList', JSON.stringify(Delete_File));
+
+		$(goruping + ".upload_progress_lampiran_main_draft").show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/EContract/DeleteFilePre',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+
+					w2alert("Upload File Gagal !");
+					$(goruping + ".upload_progress_lampiran_main_draft").hide();
+					$(goruping + ".file_draft_add_caption").show();
+
+				}
+
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				w2alert("Upload File Gagal !");
+				$(goruping + ".upload_progress_lampiran_main_draft").hide();
+				$(goruping + ".file_draft_add_caption").show();
+			}
+			else {
+
+				Upload_File_Main_Draft = [];
+				w2alert("Draft Berhasil Dihapus!");
+				$(goruping + ".file_draft_add_caption").html("");
+				$(goruping + ".upload_progress_lampiran_main_draft").hide();
+				$(goruping + ".file_draft_add_caption").hide("");
+				$(goruping + ".btn_add_draft").show();
+				parent_class = "";
+
+			}
+
+
+		})
+
+	}
+
+
+
+</script>
+
+
+@*daftar_lampiran_js*@
+<script>
+
+	function lihat_attachment() {
+
+
+		if (w2ui['gridLampiran'] != null) { w2ui['gridLampiran'].destroy(); }
+
+		$('#ModalListAttacment').on('shown.bs.modal', function () {
+
+			$('#gridLampiran').w2grid({
+
+				name: 'gridLampiran',
+				url: URL_PTPR + '/EContract/GetEContractGeneralFile?ContractId=' + current_contract_id,
+				show: {
+					header: false,
+					footer: true,
+					lineNumbers: true,
+					toolbarAdd: false,
+					toolbarDelete: false,
+					toolbar: true,
+					toolbarSearch: false,
+				},
+				toolbar: {
+					items: [
+						//{ type: 'button', id: 'view_attachment', caption: '<i class="fa fa-folder-open" aria-hidden="true" style="color:orange;"></i> View Attachment Beside of Draft', disabled: true },
+						//{ type: 'break' },
+						{ type: 'button', id: 'view_in_new_tab', caption: '<i class="fa fa-external-link" aria-hidden="true" style="color:green;"></i> View In New Tab', disabled: true },
+					],
+					onClick: function (target, data) {
+
+						switch (target) {
+							case 'view_attachment':
+								var sel = w2ui.gridLampiran.getSelection();
+								var record = w2ui.gridLampiran.get(sel[0]);
+								view_attachment(record);
+								break;
+							case 'view_in_new_tab':
+								var sel = w2ui.gridLampiran.getSelection();
+								var record = w2ui.gridLampiran.get(sel[0]);
+								var file_url = "";
+								if (record.API == "DocMan") {
+									file_url = URL_PTPR + "/EContract/ViewAttachment?Id=" + record.ID;
+								}
+								else {
+									file_url = URL_PTPR + '/File_Contract/' + record.FileName_org;
+								}
+
+								window.open(file_url, '_blank');
+								break;
+
+						}
+
+					}
+				},
+				columns: [
+
+					{ field: 'DocType', caption: 'Tipe Dokumen', size: '200px', searchable: 'text' },
+					{ field: 'FileName', caption: 'File Name', size: '100%', searchable: 'text' }
+
+				],
+				onDblClick: function (event) {
+					var record = this.get(event.recid);
+					var file_url = "";
+					if (record.API == "DocMan") {
+						file_url = URL_PTPR + "/EContract/ViewAttachment?Id=" + record.ID;
+					}
+					else {
+						file_url = URL_PTPR + '/File_Contract/' + record.FileName_org;
+					}
+
+					window.open(file_url, '_blank');
+
+
+				},
+				onSelect: function (event) {
+
+					event.onComplete = function () {
+						var contract = w2ui.gridLampiran.getSelection();
+						//w2ui['gridLampiran'].toolbar.disable('view_attachment');
+						w2ui['gridLampiran'].toolbar.disable('view_in_new_tab');
+
+						if (contract.length == 1) {
+
+							var record = this.get(event.recid);
+							//w2ui['gridLampiran'].toolbar.enable('view_attachment');
+							w2ui['gridLampiran'].toolbar.enable('view_in_new_tab');
+
+						}
+					}
+
+				},
+				onUnselect: function (event) {
+
+					event.onComplete = function () {
+						var contract = w2ui.gridLampiran.getSelection();
+						//w2ui['gridLampiran'].toolbar.disable('view_attachment');
+						w2ui['gridLampiran'].toolbar.disable('view_in_new_tab');
+
+						if (contract.length == 1) {
+
+							var record = this.get(event.recid);
+							//w2ui['gridLampiran'].toolbar.enable('view_attachment');
+							w2ui['gridLampiran'].toolbar.enable('view_in_new_tab');
+
+						}
+					}
+				}
+
+
+			});
+		})
+
+
+		$('#ModalListAttacment').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+
+
+	}
+
+	function view_attachment(record) {
+
+
+		$("#template_e_contract").find(".preview_attachment").remove();
+		var tinggi = 0;
+
+
+
+		var box_;
+		var file_url = URL_PTPR + "/EContract/ViewAttachment?Id=" + record.ID;
+
+
+		if (record.API == 'DocMan') {
+
+			file_url = URL_PTPR + "/EContract/ViewAttachment?Id=" + record.ID;
+		}
+		else {
+
+			file_url = URL_PTPR + '/File_Contract/' + record.FileName_org;
+		}
+
+		if (open_preview == 0) {
+
+			$(".outer_page_drafting_v2").addClass("bagi_dua");
+			open_preview = 1;
+		}
+
+
+		if (full_screen_stat == 1) {
+
+			tinggi = Number(window.innerHeight) - 50;
+		}
+		else {
+
+			tinggi = Number(window.innerHeight) - 169;
+		}
+
+		box_ = '<div class="preview_attachment bagi_dua">';
+		box_ = box_ + '<div class="judul_preview_file"><table id="title_prev" width="100%"><tr><td width="80%">' + record.FileName + '</td>';
+		box_ = box_ + '<td width="10%" style="text-align:right;"><span onclick="close_preview_attachment()" class="close_prev_"> <i class="fa fa-times-circle-o" aria-hidden="true"></i> Close</span></td></tr></table></div>';
+		box_ = box_ + '<iframe src="' + file_url + '" scrolling="no" id="frame_preview" class="frame_prev" frameborder="1" style="width:100%;border:1px;height:' + tinggi + 'px;"></iframe></div>';
+
+
+		$(".outer_page_drafting_v2 ").after(box_);
+		$('.preview_attachment').css('height', tinggi);
+		$('#ModalListAttacment').modal("hide");
+
+
+
+	}
+
+	function close_preview_attachment() {
+
+		$("#frame_preview").attr("src", "");
+		$(".preview_attachment").hide();
+		$(".outer_page_drafting_v2").removeClass("bagi_dua");
+		open_preview = 0;
+	}
+
+
+
+	function download_draft_v2(Id) {
+
+		var param = { 'Id': Id, };
+		OpenWindowWithPost(URL_PTPR + '/EContract/GetDraftDoc', "width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+			"ContractId", param);
+
+
+	}
+
+	function download_draft_sign(Id) {
+
+		var param = { 'Id': Id, };
+		OpenWindowWithPost(URL_PTPR + '/EContract/File', "width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+			"ContractId", param);
+
+
+	}
+
+</script>
+
+@*process*@
+<script>
+
+
+	function download_draft(X) {
+
+
+		if (X == undefined) {
+
+			$('#ModalDownloadDraft').modal(
+				{
+					backdrop: 'static',
+					keyboard: false
+				}
+			);
+		}
+		else {
+
+			RptHTML = $(".outer_page_drafting_v2").html();
+			var param = { 'ContractId': current_contract_id, 'RptHTML': '-', 'Rangkap': X };
+			OpenWindowWithPost(URL_PTPR + '/EContract/PrintEKontrakProcurement', "width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+				"ContractId", param);
+
+			$('#ModalDownloadDraft').modal("hide");
+		}
+
+	}
+
+	function back_to_drafting() {
+
+		current_reject = 0;
+		active_form = "template_e_contract";
+		$("#proses_next_step").hide("fade", function () {
+
+			//$(".main-content-inner .breadcrumb .active").html("General");
+			$("#template_e_contract").show();
+
+		})
+	}
+
+	function cancel_add() {
+
+		current_reject = 0;
+		$("#add_new_draft_panel").hide("fade", function () {
+
+			$("#main_panel").show();
+
+		})
+	}
+
+	function add_draft(flagops) {
+
+		current_process = flagops;
+		Upload_File = [];
+		Upload_File_Main_Draft = [];
+		active_form = "add_new_draft_panel";
+		parent_class = "";
+
+		$("#wording_add").html("Add New Contract");	
+		$('#add_new_draft_panel #ENeedCorrection,#add_new_draft_panel #EUpdateDraft').prop('checked', false); // Checks it
+		$("#add_new_draft_panel #pre_reject_wording,#add_new_draft_panel #pre_process_wording").hide();
+		$("#add_new_draft_panel .cek_box").show();
+		$("#add_new_draft_panel .upload_progress_lampiran,#add_new_draft_panel .upload_progress_lampiran_main_draft,#file_draft_add,.file_draft_add_caption").hide();
+		$(".btn_add_attachment,.btn_add_draft").show();
+		$(".btn-clear-attach").hide();
+
+		$("#add_new_draft_panel #form_mandatory_prep .wajib").val("");
+		$("#add_new_draft_panel #form_mandatory_prep .form-control").val("");
+		$("#add_new_draft_panel #form_mandatory_prep .select2").val("").trigger('change');
+
+		$("#pre_process_wording").show();
+		$("#add_new_draft_panel .file_sign_upload_group").show();
+
+		$('#file_draft_add').val("");
+
+
+		$("#main_panel").hide("fade", function () {
+			$("#add_new_draft_panel").show();
+			$("#EContractTitle").focus();
+			render_gridMail_add();
+		})
+
+
+	}
+
+
+	function prep_save_draft(flagops) {
+
+		//arif
+		active_form = "proses_next_step";
+		Upload_File_Main_Draft = [];
+		$(".sign_para_pihak_mandatory").hide();
+		$("#" + active_form + " " + ".upload_progress_lampiran_main_draft").hide();
+		$("#" + active_form + " " + ".file_draft_add_caption").hide();
+		$('#proses_next_step #ENeedCorrection,#proses_next_step #EUpdateDraft,#proses_next_step #EUnprocedural').prop('checked', false); // Checks it
+		$("#proses_next_step #pre_reject_wording,#proses_next_step #pre_process_wording").hide();
+		$("#proses_next_step .cek_box,.btn_add_draft").show();
+		$("#field_unprocedural").hide();
+		$("#ENoKontrak,#ETglKontrak").val("");
+
+
+
+		if (flagops == "reject") {
+
+			$("#proses_next_step #pre_reject_wording").show();
+			$("#proses_next_step .file_sign_upload_group,#proses_next_step #field_lanjut_dengan_catatan").hide();
+			$("#field_unprocedural").show();
+			$("#template_e_contract").hide("fade", function () {
+
+				$("#next_step_wording").html("Anda Akan Mareject Draft Ini  : ");
+				$("#proses_next_step").show();
+
+			})
+
+			current_reject = 1;
+		}
+		else {
+
+			if (current_contract.InProcess == 4 || current_contract.InProcess == 5) {
+
+				$("#proses_next_step #pre_process_wording").show();
+				$("#proses_next_step .file_sign_upload_group").show();
+				$("#proses_next_step .cek_box").hide();
+				if (current_contract.InProcess == 5) {
+					$(".sign_para_pihak_mandatory").show();
+
+				}
+
+				//if (current_contract.InProcess == 1) { $("#proses_next_step #field_lanjut_dengan_catatan").show(); } else { $("#proses_next_step #field_lanjut_dengan_catatan").hide(); }
+
+			}
+			else {
+
+				$("#proses_next_step #pre_process_wording").show();
+				$("#proses_next_step .file_sign_upload_group").hide();
+				if (current_contract.InProcess == 1) { $("#proses_next_step #field_lanjut_dengan_catatan").show(); } else { $("#proses_next_step #field_lanjut_dengan_catatan").hide(); }
+				if (current_contract.InProcess == 3) $("#proses_next_step .cek_box").hide();
+
+			}
+
+
+			if (current_contract.InProcess == 1 || current_contract.InProcess == 3 || current_contract.InProcess == 0) {
+
+				$("#proses_next_step #field_update_draft").show();
+			}
+			else {
+				$("#proses_next_step #field_update_draft").hide();
+			}
+
+			$("#template_e_contract").hide("fade", function () {
+
+				$("#proses_next_step #next_step_wording").html("Proses Selanjutnya : " + current_contract.NextProcessTag);
+				$("#proses_next_step").show();
+
+			})
+
+		}
+
+
+	}
+
+	function back_from_isi_email() {
+
+		$("#proses_next_step_mail").hide("fade", function () {
+
+			//$(".main-content-inner .breadcrumb .active").html("General");
+			$("#add_new_draft_panel").show();
+
+		})
+	}
+
+	function isi_email_alert() {
+
+
+		var last_empty_id = "";
+		var xcount = 1;
+		var validate_save = true;
+		var json_field = [];
+
+
+
+
+
+		$("#add_new_draft_panel #form_mandatory_prep .wajib").each(function () {
+			var element = $(this);
+			if (element.val() == "") {
+
+				isValid = false;
+				var fill_placeholder = element[0].attributes["placeholder"];
+				var placeHolderText = fill_placeholder.nodeValue;
+				placeHolderText = placeHolderText.replace("Harap diisi", "").trim().replace("[ Wajib diisi ! ]", "").trim();
+				$("#" + element[0].id).attr("placeholder", placeHolderText + " [ Wajib diisi ! ]");
+				if (xcount == 1) last_empty_id = element[0].id;
+				xcount = xcount + 1;
+				validate_save = false;
+
+			}
+		});
+
+
+		if (validate_save == false) {
+
+			$("#" + last_empty_id).focus();
+			if (last_empty_id == "EFungsi") { w2alert("Harap pilih Fungsi !"); }
+			if (last_empty_id == "EPerson") { w2alert("Harap pilih Contract signing Officer !"); }
+			if (last_empty_id == "EContractType") { w2alert("Harap pilih Tipe Kontrak !"); }
+
+			return;
+		}
+
+
+
+		if (Upload_File_Main_Draft.length == 0) {
+
+			w2alert("Harap sertakan draft kontrak !");
+			return;
+		}
+
+		$("#add_new_draft_panel").hide("fade", function () {
+			$("#proses_next_step_mail").show();
+			w2ui['gridMail_add'].refresh();
+		})
+
+
+
+	}
+
+	function render_gridMail_add() {
+
+		if (w2ui['gridMail_add'] != null) {
+			w2ui['gridMail_add'].destroy();
+		}
+
+
+		TempDelete = [];
+
+		$('#gridMail_add').w2grid({
+			name: 'gridMail_add',
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: true,
+				toolbarAdd: false,
+				toolbarDelete: true,
+				toolbar: true,
+				toolbarSearch: false,
+			},
+			columns: [
+
+				{ field: 'Email', caption: 'Mail Destination', size: '200px', searchable: 'text', editable: { type: 'text' } },
+				{ field: 'Name', caption: 'Name', size: '200px', searchable: 'text', editable: { type: 'text' } },
+				{ field: 'Jabatan', caption: 'Jabatan', size: '200px', searchable: 'text', editable: { type: 'text' } },
+			],
+			toolbar: {
+				items: [
+					{ id: 'add', type: 'button', caption: 'Add Mail', icon: 'w2ui-icon-plus' }
+				],
+				onClick: function (event) {
+					if (event.target == 'add') {
+						input_mail_grid();
+					}
+				}
+			},
+
+
+		});
+
+	}
+
+	function input_mail_grid() {
+
+		$("#penerima_email").val("");
+		$("#alamat_email").val("");
+		$("#jabatan_penerima").val("");
+
+		button = '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>';
+		button = button + '<button type="button" class="btn btn-info btn-sm" onclick="add_mail(\'ADD\')">Add</button>';
+
+		$("#ModalInputMail .modal-footer").html(button);
+		$("#ModalInputMail").modal({ backdrop: 'static', keyboard: false });
+		$("#ModalInputMail").on('shown.bs.modal', function (e) {
+			$("#penerima_email").focus();
+		});
+	}
+
+	function add_mail() {
+
+		var flag = "ADD";
+		var isValid = true;
+
+		$("#ModalInputMail .wajib_diisi").each(function () {
+
+			var element = $(this);
+
+			if (element.val() == "") {
+
+				isValid = false;
+				var fill_placeholder = element[0].attributes["placeholder"];
+				var placeHolderText = fill_placeholder.nodeValue;
+				placeHolderText = placeHolderText.replace("Wajib Diisi", "").trim() + " Wajib Diisi";
+
+				$("#" + element[0].id).attr("placeholder", placeHolderText);
+
+			}
+
+		});
+
+		if (isValid == true) {
+
+
+			w2ui.gridMail_add.save();
+
+
+			if (flag == 'ADD') {
+
+
+				var list_Rec = w2ui['gridMail_add'].records;
+				var new_rec = new Array();
+
+				if (list_Rec.length > 0) {
+
+					for (x = 0; x < list_Rec.length; x++) {
+
+						new_rec.push(list_Rec[x].recid);
+
+					}
+
+					var new_recid = Math.max.apply(Math, new_rec);
+					w2ui['gridMail_add'].add({
+						recid: new_recid + 1
+						, Email: $('#alamat_email').val()
+						, Name: $('#penerima_email').val()
+						, Jabatan: $('#jabatan_penerima').val()
+
+
+					});
+
+				}
+				else {
+
+					w2ui['gridMail_add'].add({
+						recid: 1
+						, Email: $('#alamat_email').val()
+						, Name: $('#penerima_email').val()
+						, Jabatan: $('#jabatan_penerima').val()
+
+					});
+
+				}
+
+
+			}
+			else {
+				w2ui['gridMail_add'].set(IdSelect, { Email: $('#alamat_email').val(), Name: $('#penerima_email').val(), Jabatan: $('#jabatan_penerima').val() });
+			}
+
+
+
+			$("#ModalInputMail").modal("hide");
+
+		}
+	}
+
+
+	function submit_draft() {
+
+		var last_empty_id = "";
+		var xcount = 1;
+		var validate_save = true;
+		var json_field = [];
+
+		var CaptureDiv = $(".outer_page_drafting_v2").html();
+		var ProcessCatatan = $("#ProcessCatatan").val();
+		var NeedCorrection = $("#ENeedCorrection").is(':checked');
+		var UpdateDraft = $("#EUpdateDraft").is(':checked');
+		var UnProcedural = $("#EUnprocedural").is(':checked');
+
+
+		if (current_process == "ADD" || current_process == "ADDENDUM") {
+
+			w2ui['gridMail_add'].save();
+			var ListDest = w2ui['gridMail_add'].records;
+			var Jabatan = w2ui['gridMail_add'].find({ Jabatan: 'Manager' });
+			var Jabatan2 = w2ui['gridMail_add'].find({ Jabatan: 'manager' });
+			var Jabatan3 = w2ui['gridMail_add'].find({ Jabatan: 'MANAGER' });
+
+			ProcessCatatan = $("#add_new_draft_panel #Remark").val();
+
+
+			if (ListDest.length < 3) {
+				w2alert("Harap sertakan minimal 3 email alert !");
+				return;
+			}
+
+			if (Jabatan.length == 0 && Jabatan2.length == 0 && Jabatan3.length == 0) {
+
+				w2alert("Harap sertakan Email Manager !");
+				return;
+			}
+
+		
+
+			$("#add_new_draft_panel #form_mandatory_prep .wajib").each(function () {
+				var element = $(this);
+				if (element.val() == "") {
+
+					isValid = false;
+					var fill_placeholder = element[0].attributes["placeholder"];
+					var placeHolderText = fill_placeholder.nodeValue;
+					placeHolderText = placeHolderText.replace("Harap diisi", "").trim().replace("[ Wajib diisi ! ]", "").trim();
+					$("#" + element[0].id).attr("placeholder", placeHolderText + " [ Wajib diisi ! ]");
+					if (xcount == 1) last_empty_id = element[0].id;
+
+					xcount = xcount + 1;
+					validate_save = false;
+
+				}
+			});
+
+
+			if (validate_save == false) {
+
+				$("#" + last_empty_id).focus();
+				return;
+			}
+
+
+
+		}
+
+
+		if (current_contract.InProcess == 4 || current_contract.InProcess == 5) {
+
+			if (Upload_File_Main_Draft.length < 2) {
+				w2alert("Harap upload 2 file draft kontrak !");
+				return;
+			}
+
+		}
+
+		if (current_contract.InProcess == 5) {
+			if ($("#ETglKontrak").val() == "") {
+				$("#ETglKontrak").focus();
+				w2alert("Harap input tanggal kontrak !");
+				return;
+			}
+
+			if ($("#ENoKontrak").val() == "") {
+				$("#ENoKontrak").focus();
+				w2alert("Harap input nomor kontrak !");
+				return;
+			}
+		}
+
+		$("#proses_next_step_mail").hide();
+		$("#proses_next_step").hide();
+
+		$("#Modal_load").show("fade", function () {
+
+			var DataSave = new FormData();
+			//DataSave.append('ProcId', current_contract.ProcurementId);
+			DataSave.append('FormField', "");
+				/*DataSave.append('FormCapture', CaptureDiv)*/;
+			DataSave.append('FormCaptureEdit', "");
+			DataSave.append('ContractId', current_contract.ContractId);
+			DataSave.append('ContractType', $("#add_new_draft_panel #EContractType").val());
+			DataSave.append('PenanggungJawabPihak1', $("#EPerson").val());
+			DataSave.append('ContractTitle', $("#EContractTitle").val());
+			DataSave.append('ContractValue', $("#Etemp_ContractValue").val()); //Etemp_ContractValue
+			DataSave.append('StartDate', $("#add_new_draft_panel #EStartDate").val());
+			DataSave.append('EndDate', $("#add_new_draft_panel #EEndDate").val());
+			DataSave.append('FlagCrud', current_process);
+			DataSave.append('FormId', 0);
+			DataSave.append('NeedCorrection', Number(NeedCorrection));
+			DataSave.append('UnProcedural', Number(UnProcedural));
+			DataSave.append('UpdateDraft', Number(UpdateDraft));
+			DataSave.append('Remark', ProcessCatatan);
+			DataSave.append('IsReject', current_reject);
+			DataSave.append('Fungsi', $("#EFungsi").val());
+			DataSave.append('CorpNamePihak2', $("#EContractNamaMitra").val())
+			DataSave.append('ContractNo', $("#ENoKontrak").val())
+			DataSave.append('ContractDate', $("#ETglKontrak").val())
+
+			if (Upload_File_Main_Draft.length > 0) {
+				for (var i = 0; i < Upload_File_Main_Draft.length; i++) {
+					var row_draft = Upload_File_Main_Draft[i];
+					Upload_File.push(row_draft);
+				}
+			}
+			DataSave.append('FileUploadList', JSON.stringify(Upload_File));
+
+			if (current_process == "ADD" || current_process == "ADDENDUM") {
+
+				if (ListDest.length > 0) {
+
+					var ListDest_ = JSON.stringify(ListDest);
+					DataSave.append('MailDestinations', ListDest_);
+				}
+			}
+
+
+			var count_lampiran = 0;
+			for (var i = 0; i < oFileTotal.length; i++) {
+
+				var uploader_attachment = oFileTotal[i];
+
+				for (var x = 0; x < uploader_attachment.length; x++) {
+
+					count_lampiran = Number(i) + 1;
+
+					DataSave.append("Lampiran_" + count_lampiran, uploader_attachment[x]);
+				}
+
+			}
+
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/EContract/SaveEContractGeneral',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+
+					if (current_process == "ADD"  || current_process == "ADDENDUM") {
+						//add_new_draft_panel
+						$("#Modal_load").hide();
+						$("#proses_next_step_mail").show();
+					}
+					else {
+						$("#Modal_load").hide();
+						$("#proses_next_step").show();
+					}
+
+					w2alert("Error, try again or contact our administrator please !", "Process E-Kontrak");
+
+				}
+			});
+
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				if (current_process == "ADD" || current_process == "ADDENDUM" ) {
+					//add_new_draft_panel
+					$("#Modal_load").hide();
+					$("#proses_next_step_mail").show();
+				}
+				else {
+					$("#Modal_load").hide();
+					$("#proses_next_step").show();
+				}
+
+
+				w2alert(Simpan.responseJSON["Result"]);
+
+			}
+			else {
+				if (current_reject == 1 || NeedCorrection == true) {
+
+					if (current_reject == 1) w2alert("Proses Reject E-Kontrak berhasil.", "Process E-Kontrak");
+					if (NeedCorrection == true) w2alert("Proses Lanjut Dengan Catatan E-Kontrak berhasil.", "Process E-Kontrak");
+				}
+				else {
+					w2alert("Proses berhasil.", "Process E-Kontrak");
+				}
+
+				$("#proses_next_step").hide();
+				$("#Modal_load").hide();
+				$("#add_new_draft_panel").hide();
+				$("#proses_next_step_mail").hide();
+				$("#main_panel").show();
+				$(".main-content-inner .breadcrumb .active").html("E-Contract General");
+				UpdateCountProgress();
+				refresh_contract_list();
+			}
+
+
+		});
+
+
+	}
+
+
+	function tambah_attachment() {
+
+
+	}
+
+</script>
+
+@*other*@
+<script>
+
+
+
+
+	$('.uploader').ace_file_input({
+		btn_choose: 'Browse',
+		btn_change: null,
+		no_icon: 'ace-icon fa fa-cloud-upload',
+		droppable: true,
+		thumbnail: 'small',
+		no_file: '',
+	}).on('change', function () {
+
+	});
+
+	function format_currency(Field_ID, temp_field) {
+
+		if ($("#" + Field_ID).val() != "") {
+
+			var Nominal = $("#" + Field_ID).val();
+			Nominal = Nominal.replace(/,/g, "");
+			$("#" + temp_field).val(Nominal);
+			var fix_num = numberWithCommas(Nominal);
+
+			$("#" + Field_ID).val(fix_num);
+
+		}
+		else {
+
+			$("#" + temp_field).val("");
+
+		}
+
+	}
+
+	$('#EStartDate,#EEndDate,#ETglKontrak').w2field('date', { format: 'yyyy/mm/dd' });
+	$(document).ready(function () {
+		$("#add_new_draft_panel #EContractValue").keydown(function (e) {
+			// Allow: backspace, delete, tab, escape, enter and .
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				// Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+				((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67) && (e.ctrlKey === true || e.metaKey === true)) ||
+				// Allow: home, end, left, right, down, up
+				(e.keyCode >= 35 && e.keyCode <= 40)) {
+				// let it happen, don't do anything
+				return;
+			}
+			// Ensure that it is a number and stop the keypress
+			if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				e.preventDefault();
+			}
+		});
+	});
+
+
+	function addendum_draft() {
+
+		current_process = "ADDENDUM";
+
+		Upload_File = [];
+		Upload_File_Main_Draft = [];
+		active_form = "add_new_draft_panel";
+		parent_class = "";
+
+		$("#wording_add").html("Addendum for ContractId : " + current_contract.ContractId);	
+		$('#add_new_draft_panel #ENeedCorrection,#add_new_draft_panel #EUpdateDraft').prop('checked', false); // Checks it
+		$("#add_new_draft_panel #pre_reject_wording,#add_new_draft_panel #pre_process_wording").hide();
+		$("#add_new_draft_panel .cek_box").show();
+		$("#add_new_draft_panel .upload_progress_lampiran,#add_new_draft_panel .upload_progress_lampiran_main_draft,#file_draft_add,.file_draft_add_caption").hide();
+		$(".btn_add_attachment,.btn_add_draft").show();
+		$(".btn-clear-attach").hide();
+
+		$("#add_new_draft_panel #form_mandatory_prep #EContractTitle").val(current_contract.ContractTitle);
+		$("#add_new_draft_panel #form_mandatory_prep #EContractNamaMitra").val(current_contract.CorpNamePihak2);
+		$("#add_new_draft_panel #form_mandatory_prep #EContractValue").val(current_contract.ContractValue);
+		format_currency('EContractValue', 'Etemp_ContractValue');
+		$("#add_new_draft_panel #form_mandatory_prep #EFungsi").val(current_contract.Fungsi).trigger('change');
+		$("#add_new_draft_panel #form_mandatory_prep #EPerson").val(current_contract.PenanggungJawabPihak1Nip).trigger('change');
+		$("#add_new_draft_panel #form_mandatory_prep #EContractType").val(current_contract.ContractType).trigger('change');
+		$("#add_new_draft_panel #form_mandatory_prep #EStartDate").val(current_contract.BeginDate);
+		$("#add_new_draft_panel #form_mandatory_prep #EEndDate").val(current_contract.EndDate);
+		$("#add_new_draft_panel #form_mandatory_prep #Remark").val(current_contract.Remark);
+	
+		$("#pre_process_wording").show();
+		$("#add_new_draft_panel .file_sign_upload_group").show();
+		$('#file_draft_add').val("");
+
+
+		$("#main_panel").hide("fade", function () {
+			$("#add_new_draft_panel").show();
+			$("#EContractTitle").focus();
+			render_gridMail_add();
+			w2ui['gridMail_add'].load(URL_PTR + '/Contract/ContractListMailAlert?Contract=' + current_contract.ContractId);
+		})
+
+
+	}
+
+</script>

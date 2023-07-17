@@ -1,0 +1,1053 @@
+﻿@{
+	Layout = null;
+}
+
+<style>
+
+	#page_detail_broadcast .wording_header {
+		font-size: 16px;
+		padding: 6px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: "...";
+	}
+
+	#page_detail_broadcast .control-label {
+		font-size: 12px;
+		padding-top: 0px !important;
+		text-align: left;
+	}
+
+	#info_broadcast .box-body {
+		padding: 15%;
+		padding-top: 0%;
+		padding-bottom: 0%;
+	}
+
+	.form-control {
+		text-align: left !important;
+	}
+
+	#tab_broadcast_detail {
+		border-bottom: none;
+		border-left: none;
+		border-right: none;
+		padding: 0px !important;
+	}
+
+		#tab_broadcast_detail #info_broadcast {
+			padding: 2% !important;
+		}
+
+
+
+	.disabledbutton {
+		pointer-events: none;
+		opacity: 0.7;
+	}
+
+	.enableupdate {
+		pointer-events: auto;
+		opacity: 1;
+	}
+
+	#gridAttachment .icon-file {
+		font-size: 20px;
+	}
+
+	#ModalReject .modal-dialog {
+		margin-top: 10%;
+		width: 50%;
+	}
+
+	#ModalReject .control-label {
+		font-size: 12px;
+	}
+
+
+	#ModalUpload .modal-dialog {
+		margin: 0 auto;
+		margin-top: 10%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalUpload label {
+		font-size: 12px;
+		vertical-align: top;
+	}
+
+	#ModalTestSendMail .modal-dialog {
+			
+		margin: 0 auto;
+		margin-top: 12%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	
+	@@media screen and (max-width: 1200px) {
+		#info_broadcast .box-body {
+			padding: 0%;
+			padding-top: 0%;
+			padding-bottom: 0%;
+		}
+	}
+</style>
+
+<div class="page_detail" id="page_detail_broadcast">
+
+	<div class="wording_header">
+		<span style="font-size:14px;" id="form_title">
+			Create New Broadcast
+		</span>
+	</div>
+
+
+	<div class="tab_broadcast_detail">
+		<ul class="nav nav-tabs" id="myTab">
+
+			<li class="active">
+				<a data-toggle="tab" href="#info_broadcast" aria-expanded="true" style="border-left:none;">
+					<i class="fa fa-bullhorn"></i>
+					Broadcast
+				</a>
+			</li>
+
+			<li class="" id="tab_attachment_list">
+				<a data-toggle="tab" href="#tab_attachment" aria-expanded="true">
+					<i class="fa fa-paperclip"></i> Attachment
+				</a>
+			</li>
+
+			<li class="" id="tab_log">
+				<a data-toggle="tab" href="#list_log" aria-expanded="false">
+					<i class="fa fa-history"></i> Log.
+				</a>
+			</li>
+
+
+
+		</ul>
+
+		<div class="tab-content" id="tab_broadcast_detail">
+			<div id="info_broadcast" class="tab-pane fade active in">
+
+				<form class="form-horizontal">
+					<div class="box-body" id="field">
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label">Title <mandatory>*</mandatory></label>
+							<div class="col-sm-10">
+								@*<input type="text" id="temp_BroadcastValue" hidden />*@
+								<input class="form-control wajib" id="BroadcastTitle" placeholder="Broadcast Title." type="text" autocomplete="off" caption="Broadcast Title">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label"> Fungsi <mandatory>*</mandatory></label>
+							<div class="col-sm-10 select_wajib">
+								<select class="form-control select2 wajib" id="FungsiName" caption="Nama Fungsi">
+									<option value="" selected>-- Fungsi --</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label">Periode <mandatory>*</mandatory></label>
+							<div class="col-sm-2">
+								<input class="form-control date-picker wajib" id="StartDate" onchange="checkDate()" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="Start Date" autocomplete="off" caption="Start Date">
+							</div>
+							<div class="col-sm-2">
+								<input class="form-control date-picker wajib" id="EndDate" onchange="checkDate()" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="End Date" autocomplete="off" caption="End Date">
+								@*<input id="EndDate" class="form-control date-picker wajib" type="date" style="height:28px;" placeholder="End Date" autocomplete="off">*@
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label">Link/URL (Optional)</label>
+							<div class="col-sm-10">
+								@*<input type="text" id="temp_BroadcastValue" hidden />*@
+								<input class="form-control" id="Tautan" placeholder="Anda dapat menambahkan tautan/link pada content seperti https://pertaminaretail.com" type="text" autocomplete="off" caption="Broadcast Title">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label">Descriptions <mandatory>*</mandatory></label>
+							<div class="col-sm-10">
+								<textarea class="form-control wajib" id="Descriptions" caption="Descriptions" placeholder="Descriptions" type="text" style="color:#333;resize:both;font-size:11px;padding-left:3px;height:150px !important;resize:none;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+
+			<div id="tab_attachment" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+				<div id="gridAttachment" class="data_grid" style="border:none;border-top:1px solid #ccc;"></div>
+				<div hidden><input type="file" id="input_attachment" accept=".jpg,.jpeg,.pdf,.png,.xls,.doc,.docx" multiple /></div>
+
+			</div>
+
+			<div id="list_log" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+				<div id="gridLog" class="data_grid" style="height:299px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+			</div>
+
+		</div>
+
+	</div>
+
+
+	<div class="footer_form">
+
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="ModalReject" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<div class="modal-title" style="font-size:16px;">Tinggalkan alasan kenapa pengajuan ini direject !</div>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label">Alasan Reject <mandatory>*</mandatory></label>
+							<div class="col-sm-10">
+								<textarea class="form-control wajib" id="RemarkReject" placeholder="* Tinggalkan keterangan kenapa pengajuan ini direject !" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:150px;font-size:14px;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-danger btn-sm" onclick="save_broadcast('REJECT')"><i class="ace-icon fa fa-reply" aria-hidden="true"></i> Reject</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+		</div>
+	</div>
+</div>
+
+
+
+<div class="modal fade" id="ModalUpload" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title"> <i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload File</h4>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<form class="form-horizontal">
+					<div class="box-body" style="padding:2%;">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-3 control-label mandatory">Pilih Type Document <mandatory>*</mandatory></label>
+							<div class="col-sm-8 select_wajib">
+
+								<select class="form-control select2" id="UploadDocumentType" placeholder="Document Type" caption="Document Type">
+									<option value="" selected>-- Select Document Type --</option>
+									<option value="1">Main Content</option>
+									<option value="2">Broadcast Attachment</option>
+								</select>
+
+								
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label draft-control">File <mandatory>*</mandatory></label>
+							<div class="col-sm-8 draft-control">
+								<input type="file" id="input_attachment_contract" class="uploader" />
+							</div>
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Keterangan</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" style="resize:none;font-size:11px;padding-left:3px;height:70px !important;" id="UploadRemark"></textarea>
+							</div>
+
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+			<div class="modal-footer" style="text-align:right;">
+				<button type="button" class="btn btn-primary btn-sm" onclick="process_pre_upload()"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload File</button>
+				<button type="button" class="btn btn-gray btn-sm" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="ModalTestSendMail" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title"> <i class="fa fa-paper-plane-o" aria-hidden="true"></i> Test Send Mail</h4>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<form class="form-horizontal">
+					<div class="box-body" style="padding:2%;">
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Masukan Alamat Email</label>
+							<div class="col-sm-8">
+								<input type="email" class="form-control" id="SendMailTestAddress"/>
+							</div>
+
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+			<div class="modal-footer" style="text-align:right;">
+				<button type="button" class="btn btn-primary btn-sm" onclick="test_send_broadcast_process()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Send</button>
+				<button type="button" class="btn btn-gray btn-sm" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+
+
+
+	var allow_action = [];
+	var Upload_File_Main_Content = [];
+	var Delete_File_Main_Content = [];
+	var screen_width = Number(window.innerWidth) * (3 / 4);
+
+	$('.data_grid').css('height', Number(window.innerHeight) - 282);
+	$(window).resize(function () {
+		$('.data_grid').css('height', Number(window.innerHeight) - 282);
+	});
+
+	$('#page_detail_broadcast .tab-content').css('min-height', Number(window.innerHeight) - 280);
+
+
+	function fill_form_detail() {
+
+		$("#BroadcastTitle").val(isStringNull(current_data.Title));
+		$("#FungsiName").val(current_data.Fungsi).trigger('change');
+		$("#StartDate").val(current_data.StartDate);
+		$("#EndDate").val(current_data.EndDate);
+		$("#Descriptions").val(current_data.Descriptions);
+		$("#Tautan").val(current_data.EmbededLink);
+
+	}
+
+	function form_broadcast_detail() {
+
+		$("#tab_log").hide();
+		if (flagCrud == "ADD") {
+
+			set_sub_child_breadcrumb("New");
+			var button_action = '<button type="button" class="btn btn-primary btn-sm" onclick="save_broadcast(\'ADD\')"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Submit</button> '
+				+ ' <button type = "button" class="btn btn-default btn-sm" onclick = "back_main_page()" > Cancel</button > ';
+			$("#page_detail_broadcast .footer_form").html(button_action);
+			$("#BroadcastTitle").focus();
+			render_grid_attachment();
+
+		}
+		else {
+
+			last_udpate = "";
+			if (current_data.Updater == null) { last_udpate = current_data.Creator; } else { last_udpate = current_data.Updater; }
+			$("#form_title").html("Detail of Broadcast : <span class='label label-info label-white middle'>#Id. :" + current_data.Id + " </span> <span class='label label-info label-white middle'>#Progress : " + current_data.ProcTag + "</span> <span class='label label-info label-white middle'>#Send Status : " + current_data.SendStatus + "</span> <span class='label label-info label-white middle'>#Last Update : " + last_udpate + "</span>");
+			var DataSave1 = new FormData();
+			DataSave1.append('BroadcastId', current_data.Id);
+			var allow_action_ = $.ajax({
+				url: URL_PTPR + '/Button/Broadcast_AllowAction',
+				type: 'POST',
+				data: DataSave1,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				processData: false,
+			});
+
+			allow_action = allow_action_.responseJSON[0];
+
+			if (allow_action.AllowResubmit == 0) {
+
+				$(".form-control").attr("readonly", true);
+				$(".select2").attr("disabled", true);
+			}
+
+			var DataSave = new FormData();
+			DataSave.append('BroadcastId', current_data.Id);
+			var allow_button = $.ajax({
+				url: URL_PTPR + '/Button/Broadcast_AllowButton',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			button_cancel = ' <button type="button" class="btn btn-default btn-sm" onclick="back_main_page()">Cancel</button>';
+			button_test_send = ' <button type="button" class="btn btn-primary btn-sm" onclick="test_send_broadcast()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Test Send Broadcast</button>';
+			button_action = allow_button.responseText;
+
+			set_sub_child_breadcrumb("View Detail Broadcast");
+			$("#tab_attachment_list").show();
+			render_grid_attachment();
+			refresh_attachment();
+			fill_form_detail();
+			$("#tab_log").show();
+			render_gridLog();
+			$("#Div_File").hide();
+			$("#page_detail_broadcast .footer_form").html(button_test_send + button_action + button_cancel)
+
+
+
+
+		}
+
+	}
+
+	function reject_broadcast() {
+
+		$('#ModalReject').on('shown.bs.modal', function () {
+			$("#RemarkReject").focus();
+		});
+
+		$('#ModalReject').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+		$("#RemarkReject").val("");
+		$("#RemarkReject").attr("readonly", false);
+		$("#RemarkReject").focus();
+
+
+	}
+	function save_broadcast(action) {
+
+		flagCrud = action;
+		w2ui['gridAttachment'].save();
+		var ListAttachment = w2ui['gridAttachment'].records;
+
+		if (flagCrud == "ADD" || flagCrud == "RESUBMIT") {
+			var valid = form_validation2("info_broadcast", "wajib", function () { $('a[href="#info_broadcast"]').tab('show'); });
+			if (valid == false) {
+				return;
+			}
+			if (ListAttachment.length == 0) {
+				w2alert("Anda belum melampirkan file apapun !");
+				$('a[href="#tab_attachment"]').tab('show');
+				return;
+			}
+
+
+			cek_main_content = 0;
+
+			for (var i = 0; i < ListAttachment.length; i++) {
+				var obj = ListAttachment[i];
+				if (obj["DocType"] == '1') {
+					cek_main_content = cek_main_content + 1;
+				}
+			}
+			if (cek_main_content == 0) {
+				w2alert("Anda belum mengupload main content");
+				$('a[href="#tab_attachment"]').tab('show');
+				return;
+			}
+		}
+
+		if (flagCrud == "REJECT") {
+
+			if ($("#RemarkReject").val() == "") {
+				w2alert("Harap tinggalkan alasan !");
+				return;
+			}
+		}
+
+	
+		var DataSave = new FormData();
+		
+		DataSave.append('Title', $("#BroadcastTitle").val());
+		DataSave.append('Fungsi', $("#FungsiName").val());
+		DataSave.append('StartDate', $("#StartDate").val());
+		DataSave.append('EndDate', $("#EndDate").val());
+		DataSave.append('Description', $("#Descriptions").val());
+		DataSave.append('Tautan', $("#Tautan").val());
+
+		if (flagCrud == "ADD" || flagCrud == "RESUBMIT") {
+			list_upload = [];
+			if (flagCrud == "ADD") {
+
+				$.each(ListAttachment, function (i, item) {
+					var row_upload = { ID: ListAttachment[i].Id };
+					list_upload.push(row_upload);
+				});
+
+			}
+			else {
+
+				for (var i = 0; i < ListAttachment.length; i++) {
+					var obj = ListAttachment[i];
+					if (obj["PreUpload"] == '1') {
+						var row_upload = { ID: obj["Id"] };
+						list_upload.push(row_upload);
+					}
+				}
+			}
+
+			DataSave.append('FileUploadList', JSON.stringify(list_upload));
+		}
+		else {
+			DataSave.append('FileUploadList', '');
+		}
+
+
+		if (flagCrud == "REJECT") {
+			DataSave.append('Remark', $("#RemarkReject").val());
+		}
+
+		if (flagCrud != "ADD") {
+
+			DataSave.append('BroadcastId', current_data.Id);
+		}
+		else {
+			DataSave.append('BroadcastId', "0");
+		}
+
+		if (action == "APPROVE" || action == "RESUBMIT") {
+			flagCrud = "VIEW";
+		}
+
+		DataSave.append('FlagCrud', flagCrud);
+		$("#Saving_Load").show("fade", function () {
+			var Simpan = $.ajax({
+				url: URL_PTR + '/Broadcast/SaveBroadcast',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+					w2alert("Error, try again or contact our administrator please !");
+					$('#Saving_Load').hide();
+				}
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+				$('#Saving_Load').hide();
+				w2alert(Simpan.responseJSON["Result"]);
+			}
+			else {
+				$('#Saving_Load').hide();
+				w2alert("Save data success !");
+				if (flagCrud == "REJECT") {
+					$('#ModalReject').modal("hide");
+				}
+				back_main_page();
+			}
+		});
+	}
+
+	function render_grid_attachment() {
+		if (w2ui['gridAttachment'] != null) w2ui['gridAttachment'].destroy();
+		allow_upload = allow_action.AllowResubmit;
+
+		if (flagCrud == "ADD") {
+			allow_upload = 1;
+		}
+		$('#gridAttachment').w2grid({
+			name: 'gridAttachment',
+			show: {
+				footer: true,
+				toolbar: allow_upload,
+				lineNumbers: true,
+				toolbarAdd: false,
+				toolbarDelete: false,
+				toolbarInput: false,
+				toolbarReload: false,
+				toolbarColumns: false,
+				selectColumn: 1,
+			},
+			toolbar: {
+				items: [
+					{ type: 'spacer' },
+					{ type: 'break' },
+					{ type: 'button', id: 'btn_delete', text: '<i class="fa fa-trash" aria-hidden="true" style="color:#f54b42;"></i> Delete', disabled: 'true' },
+					{ type: 'break' },
+					{ type: 'button', id: 'btn_upload', text: '<i class="fa fa-upload" aria-hidden="true" style="color:#4295f5;"></i> Upload' }
+				],
+				onClick: function (target, data) {
+
+					if (target == 'btn_upload') {
+
+						$("#UploadDocumentType").val("").trigger("change");
+						var file_input = $('#input_attachment_contract');
+						file_input.ace_file_input('reset_input');
+						$("#UploadRemark").val("");
+
+						$('#UploadDocumentType').select2({
+							dropdownParent: $('#ModalUpload')
+						});
+
+						$('#ModalUpload').modal(
+							{
+								backdrop: 'static',
+								keyboard: false
+							}
+						);
+
+					}
+					if (target == 'btn_delete') {
+
+						var sel = w2ui.gridAttachment.getSelection();
+						var record = w2ui.gridAttachment.get(sel);
+						delete_list = [];
+
+						$.each(record, function (i, item) {
+
+							var row_upload = { ID: record[i].Id };
+							delete_list.push(row_upload);
+						});
+
+
+						if (delete_list.length > 0) {
+
+							var DataDelete = new FormData();
+							DataDelete.append('DeleteList', JSON.stringify(delete_list));
+
+							$("#Deleting_Load").show("fade", function () {
+								var Simpan = $.ajax({
+									url: URL_PTPR + '/File/DeleteFilePre',
+									type: 'POST',
+									data: DataDelete,
+									dataType: "json",
+									cache: false,
+									async: false,
+									contentType: false,
+									processData: false,
+									error: function (request, status, error) {
+										w2alert("Delete File Gagal !");
+										$("#Deleting_Load").hide("fade");
+									},
+									success: function (data) {
+										w2alert("File Deleted");
+										$("#Deleting_Load").hide("fade");
+										w2ui.gridAttachment.select(sel);
+										w2ui.gridAttachment.delete(true);
+									}
+								});
+
+
+							});
+						}
+
+
+					}
+				}
+			},
+			onSelect: function (event) {
+
+				event.onComplete = function () {
+					var count_ = w2ui.gridAttachment.getSelection();
+					if (count_.length > 0) {
+
+						w2ui['gridAttachment'].toolbar.enable('btn_delete');
+					}
+				}
+			},
+			onUnselect: function (event) {
+				event.onComplete = function () {
+					var count_ = w2ui.gridAttachment.getSelection();
+					if (count_.length == 0) {
+						w2ui['gridAttachment'].toolbar.disable('btn_delete');
+					}
+				}
+			},
+			columns: [
+				{ field: 'FileName', text: 'File Name', size: '200px' },
+				{ field: 'DocTypeName', text: 'Document Type', size: '200px' },
+				{ field: 'Remark', text: 'Remark', size: '200px' },
+				{
+					field: 'FileName', text: '', size: '100%',
+					render: function (record) {
+						var download;
+						download = '<a href="' + URL_PTPR + '/File/ViewAttachment/' + record.Id + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> Donwload</a>';
+						return download;
+					}
+				},
+
+			],
+		});
+
+	}
+
+	function refresh_attachment() {
+		w2ui['gridAttachment'].load(URL_PTR + '/Broadcast/getBroadcastAttachment/' + current_data.Id);
+	}
+
+	function render_gridLog() {
+
+		if (w2ui['gridLog'] != null) {
+			w2ui['gridLog'].destroy();
+		}
+
+		$('#gridLog').w2grid({
+			name: 'gridLog',
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: false,
+				toolbarAdd: true,
+				toolbarDelete: true,
+			},
+			columns: [
+				//{ field: 'FromName', text: 'From', size: '100px' },
+				//{ field: 'ToName', text: 'Log', size: '50%' },
+				{
+					field: '', text: 'Log', size: '60%',
+					render: function (record) {
+						var log_
+						log_ = '[ ' + record.FromName + ' ] <i class="fa fa-long-arrow-right" aria-hidden="true"></i>  [ ' + record.ToName + ' ] - [ ' + record.Executor + ' ]';
+						return log_;
+					}
+				},
+				{ field: 'Descriptions', text: 'Note', size: '60%' },
+			]
+		});
+		refresh_log_broadcast();
+	}
+
+	function refresh_log_broadcast() {
+
+		w2ui['gridLog'].load(URL_PTR + '/Broadcast/getBroadcastLog/' + current_data.Id);
+	}
+
+	function checkDate() {
+		var selectedStart = document.getElementById('StartDate').value;
+		var selectedStartDate = new Date(selectedStart);
+		var selectedEnd = document.getElementById('EndDate').value;
+		var now = new Date();
+		if (selectedStartDate < now) {
+			w2alert("Start Date tidak bisa Back Date!");
+			document.getElementById('StartDate').value = "";
+		}
+		if (selectedEnd != "") {
+			var selectedEndDate = new Date(selectedEnd);
+			if (selectedEndDate < now || selectedEndDate < selectedStartDate) {
+				w2alert("Start Date tidak bisa Back Date dan lebih awal dari tanggal awal tayang!");
+				document.getElementById('EndDate').value = "";
+			}
+		}
+	}
+
+	function render_Fungsi() {
+
+		$.each(FungsiName_, function (i, item) {
+
+			$("#FungsiName").append('<option value="' + FungsiName_[i].ID + '">' + FungsiName_[i].NM_UNIT_ORG + '</option>');
+		});
+
+		$("#FungsiName").trigger("change");
+
+	}
+
+
+	function test_send_broadcast() {
+
+		$("#SendMailTestAddress").attr("readonly", false);
+		$("#SendMailTestAddress").val("")
+		$('#ModalTestSendMail').on('shown.bs.modal', function () {
+			$("#SendMailTestAddress").focus();
+		});
+
+		$('#ModalTestSendMail').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+		
+	}
+
+	function test_send_broadcast_process() {
+
+		if ($("#SendMailTestAddress").val() == "") {
+			w2alert("Harap masukan alamat email test !");
+			return;
+		}
+
+		$("#Saving_Load").show("fade", function () {
+
+			var DataSend = new FormData();
+			DataSend.append('Id', current_data.Id);
+			DataSend.append('Title', current_data.Title);
+			DataSend.append('Address', $("#SendMailTestAddress").val());
+			DataSend.append('EmbededLink', current_data.EmbededLink);
+
+			var Simpan = $.ajax({
+				url: URL_PTR + '/Broadcast/TestSendBroadcast',
+				type: 'POST',
+				data: DataSend,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+					w2alert("Error, try again or contact our administrator please !");
+					$("#Saving_Load").hide();
+				}
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				w2alert(Simpan.responseJSON["Result"]);
+				$("#Saving_Load").hide();
+			}
+			else {
+
+				w2alert("Test send broadcast success, check your mail inbox please !");
+				$("#Saving_Load").hide();
+				$('#ModalTestSendMail').modal("hide");
+
+			}
+
+		})
+		
+
+	}
+
+
+	function force_send() {
+
+		$("#Saving_Load").show("fade", function () {
+
+			var DataSend = new FormData();
+			DataSend.append('Id', current_data.Id);
+			DataSend.append('Title', current_data.Title);
+			DataSend.append('Address', $("#SendMailTestAddress").val());
+			DataSend.append('EmbededLink', current_data.EmbededLink);
+
+			var Simpan = $.ajax({
+				url: URL_PTR + '/Broadcast/ForceSend',
+				type: 'POST',
+				data: DataSend,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+					w2alert("Error, try again or contact our administrator please !");
+					$("#Saving_Load").hide();
+				}
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				w2alert(Simpan.responseJSON["Result"]);
+				$("#Saving_Load").hide();
+			}
+			else {
+
+				w2alert("Test send broadcast success, check your mail inbox please !");
+				$("#Saving_Load").hide();
+				$('#ModalTestSendMail').modal("hide");
+
+			}
+
+		})
+
+
+	}
+
+
+	function process_pre_upload() {
+
+		var fileUploads = $("#input_attachment_contract").get(0);
+		var files = fileUploads.files;
+
+		if ($("#UploadDocumentType").val() == "") {
+
+			w2alert("Harap pilih tipe dokumen yang akan diupload !");
+			return;
+		}
+
+		if (files.length == 0) {
+			w2alert("Anda belum mencari file yang akan diupload");
+			return;
+		}
+
+		if ($("#UploadDocumentType").val() == "1") {
+
+			cek_main_content = 0;
+			var ListAttachment = w2ui['gridAttachment'].records;
+
+			for (var i = 0; i < ListAttachment.length; i++) {
+				var obj = ListAttachment[i];
+				if (obj["DocType"] == '1') {
+					cek_main_content = cek_main_content + 1;
+				}
+			}
+			if (cek_main_content == 1) {
+				w2alert("Anda hanya dapat mengupload 1 file konten utama");
+				
+				return;
+			}
+		}
+
+
+		$("#ModalUpload").modal("hide");
+		$("#Saving_Load").show("fade", function () {
+
+			for (var i = 0; i < files.length; i++) {
+
+				var file_name = files[i].name;
+				var DataSave = new FormData();
+				DataSave.append('FileCategory', "BROADCAST_FILE");
+				DataSave.append('UPLOAD_FILE', files[i]);
+				DataSave.append('Key1', 'BROADCAST_MANAGEMENT');
+				DataSave.append('Key3', $("#UploadDocumentType").val());
+				DataSave.append('Remark', $("#UploadRemark").val());
+
+				if (flagCrud == "VIEW") {
+
+					DataSave.append('Key2', current_data.Id);
+				}
+				else {
+					DataSave.append('Key2', 'UPLOAD_FILE_PRE');
+				}
+
+				var Simpan = $.ajax({
+					url: URL_PTPR + '/File/UploadFilePre',
+					type: 'POST',
+					data: DataSave,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+					error: function (request, status, error) {
+						w2alert("Upload file gagal, silahkan coba lagi !");
+						$("#Saving_Load").hide("fade");
+						$("#ModalUpload").modal("show");
+					}
+				});
+
+				if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+					w2alert("Upload File Gagal !");
+					$("#Saving_Load").hide("fade");
+				}
+				else {
+					var recid = Simpan.responseJSON["Result"];
+					w2ui['gridAttachment'].add({
+						recid: recid + 'docman'
+						, Id: recid
+						, FileName: file_name
+						, Api: 'docman'
+						, PreUpload: '1'
+						, DocType: $("#UploadDocumentType").val()
+						, DocTypeName: $("#UploadDocumentType option:selected").text()
+						, Remark: $("#UploadRemark").val()
+					});
+					//$("#input_attachment_contract").val("");
+					//w2alert("Upload File Berhasil !");
+					//$("#Saving_Load").hide("fade");
+					var file_input = $('#input_attachment_contract');
+					file_input.ace_file_input('reset_input');
+					w2ui['gridAttachment'].refresh();
+
+				}
+
+
+			}
+			$("#Saving_Load").hide("fade");
+		});
+
+
+	}
+
+
+
+	$('#page_detail_broadcast').on('keydown', 'input, select, textarea', function (e) {
+		if (e.which === 13) {
+			var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+			focusable = form.find('input,select, textarea').filter(':visible');
+			next = focusable.eq(focusable.index(this) + 1);
+			if (next.length) {
+				id = next[0].id;
+				var e = document.getElementById(id);
+				if (e instanceof HTMLSelectElement) {
+					$('#' + id).select2('open');
+				}
+				else {
+					next.focus();
+				}
+			}
+			return false;
+		}
+	});
+
+
+	$('.date-picker').w2field('date', { format: 'yyyy/mm/dd' });
+
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		var target = $(e.target).attr("href");
+
+		if ((target == '#tab_attachment')) {
+			w2ui['gridAttachment'].refresh();
+		}
+		if ((target == '#list_log')) {
+			w2ui['gridLog'].refresh();
+		}
+	});
+
+	$(document).ready(function () {
+
+		render_Fungsi();
+		form_broadcast_detail();
+
+	});
+
+
+</script>

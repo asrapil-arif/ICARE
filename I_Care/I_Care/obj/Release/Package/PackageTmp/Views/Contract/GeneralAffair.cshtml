@@ -1,0 +1,640 @@
+﻿@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Title = "Contract";
+	ViewBag.Parent = "Kontrak GA";
+	//ViewBag.Child = "";
+	ViewBag.Child_Caption = "";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-list\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+}
+
+<script>
+
+
+	var TempDelete = [];
+	var curent_kontrak = [];
+	var CurrentCustomer;
+
+</script>
+
+
+<style>
+
+	.page-content {
+		padding: 0px;
+	}
+
+
+	.box_info {
+		text-align: center;
+		padding-top: 4%;
+		border: 0px dashed #dedede;
+		margin: 0px auto;
+		margin-top: 0%;
+		width: 80%;
+		border-radius: 5px;
+	}
+
+
+	#box_info_icon_top {
+		text-align: right;
+		padding: 3px;
+		border: 0px solid #dedede;
+		margin-top: 0px;
+	}
+
+
+		#box_info_icon_top .icon_short_cut {
+			border: 1px solid #dedede;
+			padding: 4px;
+			width: 65px;
+			height: 50px;
+			border-radius: 2%;
+			display: inline-table;
+			font-size: 9px;
+			cursor: pointer;
+			transition: 0.3s;
+			background-color: none;
+			text-align: center;
+			margin: 0px;
+			border-radius: 2px;
+			cursor: pointer;
+		}
+
+			#box_info_icon_top .icon_short_cut i {
+				font-size: 19px;
+				margin-bottom: 10px;
+			}
+
+
+
+			#box_info_icon_top .icon_short_cut:hover {
+				opacity: 0.50;
+				border: 1px dashed #1a8cff;
+			}
+
+	#box_info_icon {
+		text-align: center;
+		padding-top: 10px;
+		border-top: 1px dashed #dedede;
+		margin-top: 10px;
+	}
+
+
+
+		#box_info_icon .icon_short_cut {
+			border: 1px solid #dedede;
+			padding: 8px;
+			width: 100px;
+			height: 90px;
+			border-radius: 2%;
+			display: inline-table;
+			margin-left: 2px;
+			font-size: 10px;
+			cursor: pointer;
+			transition: 0.3s;
+			margin-bottom: 1%;
+			background-color: none;
+			cursor: pointer;
+		}
+
+			#box_info_icon .icon_short_cut:hover {
+				border-color: yellowgreen;
+				opacity: 0.50;
+				border: 1px solid #dedede;
+			}
+
+			#box_info_icon .icon_short_cut i {
+				font-size: 25px;
+				margin-bottom: 10px;
+			}
+
+	.logo_menu_head {
+		width: 150px;
+	}
+
+	.logo_menu {
+		width: 35px;
+	}
+
+	.list_title {
+		font-weight: normal;
+		font-size: 13px;
+		color: #3279a8;
+	}
+
+	.list_title_2 {
+		font-weight: normal;
+		font-size: 11px;
+		color: #3279a8;
+	}
+</style>
+
+
+<div id="page_panel">
+
+
+	<div class="row box_info" style="background-color:White;">
+
+		<div class="col-sm-3">
+			<img src="../../../Content/img/contract_icon.png" class="logo_menu_head" style="width:30%;">
+		</div>
+
+		<div class="col-sm-7">
+
+			<div style="text-align:left;font-size:12px;">
+				<span style="font-size:40px;color:orange;font-weight:bold;">Kontrak</span><span style="font-size:20px;"> - General Affair</span><br />
+					Upload dokumen kontrak Anda dan konfigurasi alert-nya sehingga periode aktif kontrak Anda lebih termonitor.
+				<br />
+
+				<br />
+
+			</div>
+
+			<div style="width:100%;">
+
+				<select class="form-control select2 wajib3" id="param_field" data-placeholder="Cari Berdasarkan">
+					<option value="">All</option>
+					<option value="All">All</option>
+					<option value="ContractId">Contract Id.</option>
+					<option value="ContractNo">Contract No.</option>
+					<option value="FungsiName">Fungsi</option>
+					<option value="ContractTitle">Nama Kontrak</option>
+					<option value="ContractTypeName">Tipe Kontrak</option>
+				</select>
+
+				<input class="form-control wajib" id="key_word" placeholder="Enter Keyword" type="text" autocomplete="off" style="text-align:center;margin-top:5px;margin-bottom:10px;" onkeypress="if (event.keyCode == 13){find_contract_search(0);}">
+				<button type="button" class="btn btn-default" onclick="clear_search()" ondblclick="clear_search()"><i class="fa fa-undo" aria-hidden="true"></i> Clear</button>
+				<button type="button" class="btn btn-info" onclick="find_contract_search(0)" ondblclick="find_contract_search(0)"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+
+			</div>
+		</div>
+
+	</div>
+
+
+
+	<div id="box_info_icon">
+
+		<div class="icon_short_cut" onclick="form_contract_detail('ADD');">
+
+			<i class="fa fa-plus-square-o" aria-hidden="true" style="color:#4d4d00;"></i>
+			<br />
+			<span class="lbl bigger-100"> Add New</span>
+
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_contract_search(1);">
+			<i class="fa fa-exclamation-triangle" aria-hidden="true" style="color:red;"></i>
+			<br />
+			<span class="lbl bigger-100">Over Due</span> <br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_over_due">0</span>
+		</div>
+
+
+
+		<div class="icon_short_cut" onclick="find_contract_search(2);">
+			<i class="fa fa-bell" aria-hidden="true" style="color:red;"></i>
+			<br />
+			<span class="lbl bigger-100">Critical Left</span> <br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_critical">0</span>
+		</div>
+
+
+		<div class="icon_short_cut" onclick="find_contract_search(3);">
+			<i class="fa fa-bell" aria-hidden="true" style="color:forestgreen;"></i>
+			<br />
+			<span class="lbl bigger-100">Active</span> <br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_active">0</span>
+		</div>
+
+
+
+		<div class="icon_short_cut" onclick="find_contract_search(4);">
+			<i class="fa fa-archive" aria-hidden="true" style="color:grey;"></i>
+			<br />
+			<span class="lbl bigger-100">Done</span> <br />
+			<span class="badge badge-danger" style="margin-top:3px;" id="count_done">0</span>
+		</div>
+
+
+
+	</div>
+
+</div>
+
+
+
+<div id="page_result" hidden>
+	<div id="gridContract" style="border-radius:0px;border:none;border-top:1px solid #ccc;" class="responsive"></div>
+</div>
+
+@Html.Partial("Modal/Form_Detail_Contract")
+
+<script>
+
+	var global_status = 0;
+	var StatusRef = "";
+	var lsting_stat = "";
+	var selected_contract_id = 0;
+	var height = Number(window.innerHeight) - 133;
+	var StatusSearch = 0;
+
+
+	function resizegrid() {
+		$('#gridContract').css('height', height);
+	}
+
+
+	function find_contract_search(status) {
+
+		global_status = status;
+
+		if (status == 0) {
+
+			if ($("#param_field").val() != "All") {
+
+
+				if ($("#param_field").val() == "") {
+
+					alert("Harap pilih percarian berdasarkan apa ... !");
+					$("#param_field").focus();
+					return;
+
+				}
+				if ($("#key_word").val() == "") {
+
+					alert("Ops... please enter your keyword before !", '<div style="text-align:left;">ImPas ::.</div>');
+					$("#key_word").focus();
+					return;
+
+				}
+
+			}
+
+			StatusRef = "searching";
+			//$("#result_wording").html('<span class="list_title">This result of your search .... </span>');
+		}
+
+
+		$("#page_panel").hide();
+
+		$("#page_result").show(function () {
+
+			if (w2ui['gridContract'] != null) { w2ui['gridContract'].destroy(); }
+			render_grid_order();
+			refresh_contract_list();
+		});
+
+	}
+
+
+	function render_grid_order() {
+
+		$('#gridContract').w2grid({
+        name: 'gridContract',
+        textSearch: 'contains',
+        show: {
+
+            header: false,
+            toolbar: true,
+            footer: true,
+            lineNumbers: false,
+            selectColumn: true,
+			toolbarSearch: false,
+			toolbarAdd:true
+        },
+         toolbar: {
+                    items: [
+                            { type: 'break' },
+                            { type: 'button', id: 'view_detail', caption: '<i class="fa fa-eye" aria-hidden="true"></i> View',disabled:true },
+                            { type: 'break' },
+						{ type: 'button', id: 'excel_report', caption: '<i class="fa fa-file-excel-o"></i> Save to Excel', disabled: false },
+							{ type: 'break' },
+							{ type: 'spacer' },
+							{ type: 'button', id: 'close_button', caption: '<i class="fa fa-times" aria-hidden="true" style="color:red;"></i> Close' },
+                            
+                    ],
+                    onClick: function (target,data) {
+
+                          switch (target) {
+                                    case 'view_detail':
+                                            var sel = w2ui.gridContract.getSelection();
+                                            var record = w2ui.gridContract.get(sel[0]);
+                                            form_contract_detail("EDIT",record);
+											break;
+									case 'excel_report':
+											download_report("EXCEL");
+											break;
+									case 'close_button' :
+											back_search();
+											break;
+                                        }
+
+
+                    }
+                },
+        columns: [
+
+			{ field: 'DayAlert', caption: 'Info.', size: '200px', sortable: true, searchable: 'text', resizable: true, info: true },
+            { field: 'ContractId', caption: 'Contract Id.', size: '100px', sortable: true,searchable: 'text', resizable: true,},
+			{ field: 'ContractNo', caption: 'Contract No.', size: '150px', sortable: true, searchable: 'text', resizable: true },
+			{ field: 'ContractTitle', caption: 'Title', size: '300px', resizable: true, sortable: true, searchable: 'text', style: 'word-wrap:break-word;' },
+			{ field: 'BeginDate', caption: 'Start Date', size: '100px', sortable: true, searchable: 'text', resizable: true },
+			{ field: 'EndDate', caption: 'End Date', size: '100px', sortable: true, searchable: 'text', resizable: true },
+            { field: 'Files', caption: 'Attachment', size: '100px', sortable: true,searchable: 'text', resizable: true },
+            { field: 'AlertDestination', caption: 'Mail Destination', size: '150px', sortable: true,searchable: 'text', resizable: true },
+            { field: 'ContractValue', caption: 'Value (Rp.)', size: '100px', resizable: true, sortable: true,searchable: 'text',render: 'number' },
+			{ field: 'ContractTypeName', caption: 'Contract Type', size: '100px', resizable: true, sortable: true, searchable: 'text' },
+			{ field: 'DayLeft', caption: 'Day Left', size: '70px', sortable: true, searchable: 'text', resizable: true, render: 'number' },
+			{ field: 'OverDue', caption: 'Over Due', size: '70px', sortable: true, searchable: 'text', resizable: true, render: 'number' },
+            { field: 'PenanggungJawabPihak1', caption: 'Contract Signing Officer', size: '100px', sortable: true, searchable: 'text', resizable: true },
+            { field: 'FungsiName', caption: 'Fungsi', size: '100px', sortable: true, searchable: 'text', resizable: true },
+            { field: 'Creator', caption: 'Creator', size: '100px', resizable: true, sortable: true,searchable: 'text',max:'400px' },
+            { field: 'Updater', caption: 'Updater', size: '100%', resizable: true, sortable: true,searchable: 'text',max:'400px' },
+
+        ],
+        onAdd: function (event) {
+                     form_contract_detail("ADD");
+        },
+        onAddAddendum: function (event) {
+            var record = this.get(event.recid);
+            form_contract_detail("AddAdendum", record);
+        },
+        onDblClick: function (event) {
+                     var record = this.get(event.recid);
+                     form_contract_detail("EDIT",record);
+            },
+        onReload: function (event) {
+			refresh_contract_list();
+            },
+        onSelect: function(event) {
+
+                event.onComplete = function () {
+                disable_button();
+                var contract = w2ui.gridContract.getSelection();
+
+                    if (contract.length == 1){
+
+                        var record = this.get(event.recid);
+                        w2ui['gridContract'].toolbar.enable('view_detail');
+
+                    }
+                }
+
+            },
+           onUnselect: function(event) {
+
+			   event.onComplete = function () {
+				   disable_button();
+				   var contract = w2ui.gridContract.getSelection();
+
+				   if (contract.length == 1) {
+
+					   var record = this.get(event.recid);
+					   w2ui['gridContract'].toolbar.enable('view_detail');
+
+				   }
+			   }
+            }
+    });
+
+
+	}
+
+
+	function refresh_contract_list() {
+
+		if (global_status == 0) {
+
+			key_word = $("#key_word").val();
+			field_ = $("#param_field").val();
+			w2ui['gridContract'].load(URL_PTPR + '/Contract/FindContractGA?Type=1&KeyWords=' + key_word + '&Field=' + field_);
+		}
+		else {
+
+			if (global_status == 1) {
+				w2ui['gridContract'].load(URL_PTPR + '/Contract/GetOverDueGAContract');
+			}
+			if (global_status == 2) {
+				w2ui['gridContract'].load(URL_PTPR + '/Contract/GetCriticalGAContract');
+			}
+			if (global_status == 3) {
+				w2ui['gridContract'].load(URL_PTPR + '/Contract/GetActiveGAContract');
+			}
+			if (global_status == 4) {
+				w2ui['gridContract'].load(URL_PTPR + '/Contract/GetDoneGAContract');
+			}
+
+			
+		}
+
+	}
+
+
+	function back_search() {
+
+		var CountProgress = $.ajax({
+			type: "GET",
+			url: URL_PTPR + '/Contract/GetCountGAContractStatus',
+			dataType: 'json',
+			cache: false,
+			async: false,
+		});
+
+		DataProgress = CountProgress.responseJSON[0];
+		if (DataProgress.AllowOverDue != 1) {
+			w2alert("Terdapat  Kontrak Overdue,.. lakukan tindakan terlebih dahulu !");
+		}
+		else {
+			StatusRef = "";
+			$("#page_result").hide(function () { $("#page_panel").show("fade"); });
+		}
+
+
+	}
+
+
+	function disable_button() {
+		w2ui['gridContract'].toolbar.disable('view_detail');
+	}
+
+
+	function UpdateCountProgress() {
+
+		var CountProgress = $.ajax({
+			type: "GET",
+			url: URL_PTPR + '/Contract/GetCountGAContractStatus',
+			dataType: 'json',
+			cache: false,
+			async: false,
+		});
+
+		DataProgress = CountProgress.responseJSON[0];
+		if (DataProgress.TotalOverDue != 0) { $("#count_over_due").html(DataProgress.TotalOverDue); } else { $("#count_over_due").html("0"); }
+		if (DataProgress.TotalDone != 0) { $("#count_done").html(DataProgress.TotalDone); } else { $("#count_done").html("0"); }
+		if (DataProgress.TotalActive != 0) { $("#count_active").html(DataProgress.TotalActive); } else { $("#count_active").html("0"); }
+		if (DataProgress.TotalCritical != 0) { $("#count_critical").html(DataProgress.TotalCritical); } else { $("#count_critical").html("0"); }
+
+		if (DataProgress.AllowOverDue != 1) {
+			w2alert("Terdapat  Kontrak Overdue,... lakukan tindakan terlebih dahulu !");
+			find_contract_search(1);
+			return;
+			
+		}
+	}
+
+
+	function OpenWindowWithPost(url, windowoption, name, params) {
+		var form = document.createElement("form");
+
+		form.setAttribute("method", "post");
+		form.setAttribute("action", url);
+		form.setAttribute("target", name);
+
+		for (var i in params) {
+			if (params.hasOwnProperty(i)) {
+				var input = document.createElement('input');
+				input.type = 'hidden';
+				input.name = i;
+				input.value = params[i];
+				form.appendChild(input);
+			}
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
+
+
+	}
+
+
+	function cek_over_due() {
+
+		var CountProgress = $.ajax({
+			type: "GET",
+			url: URL_PTPR + '/Contract/GetCountGAContractStatus',
+			dataType: 'json',
+			cache: false,
+			async: false,
+		});
+
+		DataProgress = CountProgress.responseJSON[0];
+		if (DataProgress.TotalOverDue != 0) { $("#count_over_due").html(DataProgress.TotalOverDue); } else { $("#count_over_due").html("0"); }
+		if (DataProgress.TotalDone != 0) { $("#count_done").html(DataProgress.TotalDone); } else { $("#count_done").html("0"); }
+		if (DataProgress.TotalActive != 0) { $("#count_active").html(DataProgress.TotalActive); } else { $("#count_active").html("0"); }
+		if (DataProgress.TotalCritical != 0) { $("#count_critical").html(DataProgress.TotalCritical); } else { $("#count_critical").html("0"); }
+
+		if (DataProgress.AllowOverDue != 1) {
+			w2alert("Terdapat  Kontrak Overdue,... lakukan tindakan terlebih dahulu !");
+			find_contract_search(1);
+			return;
+		}
+
+	}
+
+
+	function download_report(option_file) {
+
+		if (w2ui['gridContract'].records.length == 0) {
+
+			alert('Tidak ada data yang akan didownload !');
+			return;
+		}
+		data_get = w2ui['gridContract'].getSelection();
+		var TransSelected = "";
+
+
+		data_get.forEach(function (item) {
+			TransSelected = "" + item + "," + TransSelected;
+		});
+
+		if (TransSelected.length > 0) {
+
+			TransSelected = TransSelected.substring(0, TransSelected.length - 1);
+		}
+
+		if (data_get.length == w2ui['gridContract'].records.length) {
+
+			TransSelected = "";
+		}
+
+
+
+
+
+
+		if (data_get.length == 0) {
+
+			var desc_confirm = "";
+			desc_confirm = '<span style="font-size:11px;">Apakah Anda yakin akan mendownload semua record dibawah ini  ? </span>';
+
+			w2confirm(desc_confirm, function btn(answer) {
+
+				if (answer == 'Yes') {
+
+					data_send = w2ui['gridContract'].records;
+					data_send_fix = JSON.stringify(data_send);
+					var param = { 'ExportedData': data_send_fix};
+					OpenWindowWithPost(URL_PTPR + '/Reporting/ReportAllContractClosedClient',
+						"width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+						"Reporting Reimbursement", param);
+
+				}
+			});
+
+		}
+		else {
+
+
+			var desc_confirm2 = "";
+			desc_confirm2 = '<span style="font-size:11px;">Apakah Anda yakin hanya akan mendownload reocord yang Anda selection ? </span>';
+
+			w2confirm(desc_confirm2, function btn(answer) {
+
+				if (answer == 'Yes') {
+
+
+					data_select = w2ui['gridContract'].getSelection();
+					data_send = [];
+					data_select.forEach(function (entry) {
+						var record = w2ui.gridContract.get(entry);
+						data_send.push(record);
+					});
+
+					data_send_fix = JSON.stringify(data_send);
+					var param = { 'ExportedData': data_send_fix };
+					OpenWindowWithPost(URL_PTPR + '/Reporting/ReportAllContractClosedClient',
+						"width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+						"Reporting Reimbursement", param);
+
+
+				}
+			});
+
+		}
+
+
+
+	}
+
+
+	UpdateCountProgress();
+	
+	window.addEventListener("focus", function (event) {
+		UpdateCountProgress();
+	}, false);
+
+
+	resizegrid();
+	$(window).resize(function () {
+
+		resizegrid();
+
+	});
+
+
+</script>

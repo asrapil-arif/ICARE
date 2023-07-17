@@ -1,0 +1,2632 @@
+﻿@{
+	Layout = null;
+}
+
+@*<script>
+		flagCrudEcontract = "ADD";
+	</script>*@
+
+<style>
+	#tab_contract_detail {
+		border-bottom: none;
+		border-left: none;
+		border-right: none;
+		padding: 0px !important;
+	}
+
+		#tab_contract_detail #info_contract {
+			padding: 2% !important;
+		}
+
+	#page_detail_contract .wording_header {
+		font-size: 16px;
+		padding: 6px;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: "...";
+	}
+
+
+
+	#tab_contract_detail #info_customer {
+		padding: 2% !important;
+	}
+
+	#page_detail_contract .control-label {
+		padding-top: 0px !important;
+	}
+
+	#page_detail_contract .form-control, #ModalInputMail .form-control {
+		height: 25px !important;
+	}
+
+		#page_detail_contract .form-control:active, #page_detail_contract .form-control:hover, #page_detail_contract .form-control:focus {
+			border-color: #6eaff0;
+		}
+
+		#ModalInputMail .form-control:active, #ModalInputMail .form-control:hover, #ModalInputMail .form-control:focus {
+			border-color: #6eaff0;
+		}
+
+	#ModalInputMail .control-label {
+		font-size: 12px;
+		padding-top: 0px !important;
+	}
+
+	#page_detail_contract .btn-finder {
+		padding: 0px !important;
+		width: 25px;
+	}
+
+	#page_detail_contract #AlertDay {
+		height: 35px !important;
+	}
+
+
+	#ModalInputMail .modal-dialog, #ModalListUser .modal-dialog, #ModalListCustomer .modal-dialog, #ModalShare .modal-dialog {
+		margin: 0 auto;
+		margin-top: 8%;
+	}
+
+	.btn {
+		border-radius: 2px;
+	}
+
+
+	#gridDraft .icon-file {
+		font-size: 20px;
+	}
+
+	#ModalDownloadTemplate .modal-dialog {
+		margin: 0 auto;
+		margin-top: 7%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+
+	#ModalUpload .modal-dialog {
+		margin: 0 auto;
+		margin-top: 10%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalUpload label {
+		font-size: 12px;
+		vertical-align: top;
+	}
+</style>
+
+
+
+<div class="page_detail" id="page_detail_contract">
+
+	<div class="wording_header">
+		<span style="font-size:14px;" id="form_title">
+			Create New E-Contract For Procurement
+		</span>
+	</div>
+
+	<div class="tabbable">
+		<ul class="nav nav-tabs" id="myTab">
+
+			<li class="active">
+				<a data-toggle="tab" href="#info_contract" aria-expanded="true" style="border-left:none;">
+					<i class="fa fa-desktop"></i>
+					Main Info.
+				</a>
+			</li>
+
+			<li class="" id="tab_addendum_list_caption">
+				<a data-toggle="tab" href="#tab_addendum_list" aria-expanded="true">
+					<i class="fa fa-list"></i> Addendum List
+				</a>
+			</li>
+
+			<li class="" id="tab_draft_caption">
+				<a data-toggle="tab" href="#tab_draft" aria-expanded="true">
+					<i class="fa fa-file"></i> Draft E-Kontrak
+				</a>
+			</li>
+
+			<li class="" id="tab_upload_list_caption">
+				<a data-toggle="tab" href="#tab_attachment" aria-expanded="true">
+					<i class="fa fa-paperclip"></i> Attachment
+				</a>
+			</li>
+
+			<li class="">
+				<a data-toggle="tab" href="#tab_alert_config" aria-expanded="true">
+					<i class="fa fa-bell"></i>  Alert Configuration
+				</a>
+			</li>
+
+
+
+			<li class="" id="tab_log">
+				<a data-toggle="tab" href="#list_log" aria-expanded="false">
+					<i class="fa fa-history"></i> Log.
+				</a>
+			</li>
+
+		</ul>
+
+		<div class="tab-content" id="tab_contract_detail">
+
+			<div id="info_contract" class="tab-pane fade active in">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-2 control-label">Procurement <mandatory>*</mandatory></label>
+							<div class="col-sm-4 select_wajib">
+								<input class="form-control wajib" caption="Procurement" id="ProcurementId" placeholder="Procurement Title." type="text" autocomplete="off" readonly>
+							</div>
+
+							<label for="inputName" class="col-sm-2 control-label">Procurement Value <mandatory>*</mandatory></label>
+							<div class="col-sm-4">
+								<input type="text" id="temp_ContractValue" hidden />
+								<input class="form-control wajib" caption="Procurement Value" style="font-weight:bold;" id="ProcurementValue" placeholder="Procurement Value." type="text" autocomplete="off" readonly>
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-2 control-label">Contract Group <mandatory>*</mandatory></label>
+							<div class="col-sm-4 select_wajib">
+								<select class="form-control select2 wajib" id="ContractGroup" caption="Contract Group">
+									<option value="" selected>-- Select Contract Group --</option>
+								</select>
+							</div>
+
+							<label for="inputName" class="col-sm-2 control-label">Contract Value <mandatory>*</mandatory></label>
+							<div class="col-sm-4">
+								<input type="text" id="temp_ContractValue" hidden />
+								<input class="form-control wajib" caption="Contract Value" style="font-weight:bold;" id="ContractValue" placeholder="Contract Value." type="text" onselect="format_currency('ContractValue','temp_ContractValue')" onkeyup="format_currency('ContractValue','temp_ContractValue')" onmouseup="format_currency('ContractValue','temp_ContractValue')" autocomplete="off">
+							</div>
+
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label">Contract Title <mandatory>*</mandatory></label>
+							<div class="col-sm-4">
+								<input class="form-control wajib" caption="Contract Title" id="ContractTitle" placeholder="Contract Title." type="text" autocomplete="off">
+							</div>
+
+							<label for="inputName" class="col-sm-2 control-label">Contract Type <mandatory>*</mandatory></label>
+							<div class="col-sm-4 select_wajib">
+
+								<select class="form-control select2 wajib" id="ContractType" caption="Contract Type">
+									<option value="" selected>-- Select Contract Type --</option>
+								</select>
+
+							</div>
+
+						</div>
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-2 control-label">Periode <mandatory>*</mandatory></label>
+							<div class="col-sm-2">
+								<input class="form-control date-picker wajib" caption="Start Date" id="StartDate" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="Start Date" autocomplete="off">
+							</div>
+
+							<div class="col-sm-2">
+								<input id="EndDate" class="form-control date-picker wajib" caption="End Date" type="text" style="height:28px;" placeholder="End Date" autocomplete="off">
+
+							</div>
+
+							<label for="inputName" class="col-sm-2 control-label">Fungsi Name <mandatory>*</mandatory></label>
+							<div class="col-sm-4 select_wajib">
+
+								<select class="form-control select2 wajib" id="FungsiName" caption="Fungsi">
+									<option value="" selected>-- Select Fungsi Type --</option>
+								</select>
+
+							</div>
+
+						</div>
+
+						<div class="form-group" id="addendum_checklist">
+
+							<label for="inputName" class="col-sm-2 control-label">&nbsp;</label>
+							<div class="col-sm-8" style="text-align:left !important;">
+								<label class="block">
+									<input name="form-field-checkbox" id="FollowPeriode" type="checkbox" class="ace input-lg">
+									<span class="lbl" style="color:#808080;font-size:12px;font-style:normal;"> Mengikuti periode kontrak sebelumn addendum</span>
+								</label>
+							</div>
+
+
+						</div>
+
+						<div class="form-group" id="divIDClass">
+
+							<label for="inputName" class="col-sm-2 control-label">Project Date ( Optional )</label>
+							<div class="col-sm-2">
+								<input class="form-control date-picker" id="StartProject" caption="Start Project" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="Start Project" autocomplete="off">
+							</div>
+
+							<div class="col-sm-2">
+								<input id="EndProject" class="form-control date-picker" caption="End Project" type="text" style="height:28px;" placeholder="End Project" autocomplete="off">
+
+							</div>
+
+							<label for="inputName" class="col-sm-2 control-label">Vendor ( Optional )</label>
+							<div class="col-sm-4">
+								<select class="form-control select2" id="ContractVendor">
+									<option value="" selected>-- Select an Vendor --</option>
+								</select>
+							</div>
+
+
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-2 control-label">Contract Signing Officer <mandatory>*</mandatory></label>
+							<div class="col-sm-4 select_wajib">
+								<select class="form-control select2 wajib" id="ContractSigningOfficer" caption="Contract Signing Officer">
+									<option value="" selected>-- Select Contract Signing Officer --</option>
+
+								</select>
+
+							</div>
+
+
+
+							<label for="inputName" class="col-sm-2 control-label">Draft Type <mandatory>*</mandatory></label>
+							<div class="col-sm-4 select_wajib">
+
+								<select class="form-control select2 wajib" id="EDraftType" placeholder="Draft Type" name="Draft Type" caption="Draft Type">
+									<option value="" selected>-- Pilih Tipe Draft --</option>
+								</select>
+
+								<script>
+
+									var DataContractDraftType = $.ajax({
+										url: URL_PTPR + '/EContract/GetContractDraftType',
+										type: 'GET',
+										dataType: "json",
+										cache: false,
+										async: false,
+										contentType: false,
+										processData: false,
+									});
+
+									DataContractDraftType_ = DataContractDraftType.responseJSON;
+
+									$.each(DataContractDraftType_, function (i, item) {
+
+										$("#EDraftType").append('<option value="' + DataContractDraftType_[i].Id + '">' + DataContractDraftType_[i].Title + '</option>');
+
+
+									});
+
+									$("#EDraftType").trigger("change");
+
+
+								</script>
+
+							</div>
+
+
+
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label">PR ( Optional )</label>
+							<div class="col-sm-1">
+								<input class="form-control" id="ContractPR" placeholder="PR." type="text" autocomplete="off" style="width:120%;">
+							</div>
+
+							<label for="inputName" class="col-sm-1 control-label">PO</label>
+							<div class="col-sm-2">
+								<input class="form-control" id="ContractPO" placeholder="PO" type="text" autocomplete="off">
+							</div>
+
+
+							<label for="inputName" class="col-sm-2 control-label draft-control">Contract Draft <mandatory>*</mandatory></label>
+							<div class="col-sm-4 draft-control">
+								<input type="file" id="draft_contract_file" required accept=".doc,.docx" class="uploader" />
+							</div>
+
+
+						</div>
+
+
+						<div class="form-group upload_wajib">
+
+							<label for="inputName" class="col-sm-2 control-label">Nama Mitra <mandatory>*</mandatory></label>
+							<div class="col-sm-4">
+								<input class="form-control wajib" id="EContractNamaMitra" placeholder="Biasanya diisi dengan nama Pihak Kedua" type="text" autocomplete="off" caption="Nama Mitra">
+							</div>
+
+							<label for="inputName" class="col-sm-2 control-label contract_date_info">Contract Date :</label>
+							<div class="col-sm-4 contract_date_info">
+								<input id="ContractDate" class="form-control date-picker" type="text" style="height:28px;" placeholder="Contract Date" autocomplete="off">
+
+							</div>
+
+							<label for="inputName" class="col-sm-2 control-label contract_no_info">Contract No. ( Optional )</label>
+							<div class="col-sm-4 contract_no_info">
+								<input class="form-control" id="ContractNo" placeholder="Dapat anda isi setelah proses routing selesai " type="text" autocomplete="off">
+							</div>
+
+
+						</div>
+
+
+
+						<div class="form-group customer_info">
+							<label for="inputName" class="col-sm-2 control-label">Customer Id. <mandatory>*</mandatory></label>
+							<div class="col-sm-4 select_wajib">
+								<script>var CustomerId = "";</script>
+								<table border="0" style="width:100%;">
+									<tr>
+										<td><input style="border-left:1px solid red;" class="form-control " readonly id="CustomerName" placeholder="Digunakan Sebagai Referensi" type="text" autocomplete="off" caption="Customer Id."></td>
+										<td width="5%" style="padding:4px;"><button type="button" class="btn-finder" onclick="find_customer()">...</button></td>
+									</tr>
+								</table>
+
+							</div>
+
+						</div>
+
+						<div class="form-group customer_info">
+
+							<label for="inputName" class="col-sm-2 control-label">Document Type <mandatory>*</mandatory></label>
+							<div class="col-sm-4 select_wajib">
+								<select class="form-control select2" id="DocumentType" caption="Document Type">
+									<option value="" selected>-- Select Document Type --</option>
+								</select>
+							</div>
+
+							<label for="inputName" class="col-sm-2 control-label">Suscribe Type <mandatory>*</mandatory></label>
+							<div class="col-sm-4 select_wajib">
+								<select class="form-control select2" id="SuscribeType" caption="Suscribe Type">
+									<option value="" selected>-- Select Suscribe Type --</option>
+								</select>
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label">Remark ( Optional )</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" placeholder="Remark" id="Remark" style="resize:none;font-size:11px;padding-left:3px;height:70px !important;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+
+
+
+					</div>
+				</form>
+
+			</div>
+
+			<div id="tab_draft" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+				<div id="gridDraft" class="data_grid" style="border:none;border-top:1px solid #ccc;"></div>
+
+			</div>
+
+			<div id="tab_attachment" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+				<div id="gridAttachment" class="data_grid" style="border:none;border-top:1px solid #ccc;"></div>
+				@*<div hidden><input type="file" id="input_attachment_contract" accept=".jpg,.jpeg,.pdf,.png,.xls,.doc,.docx" multiple /></div>*@
+
+			</div>
+
+			<div id="tab_alert_config" class="tab-pane fade" style="padding:0px;padding-top:0px;">
+
+				<table border="0" align="center" cellpadding="0" cellspacing="0" style="width:100%;">
+
+					<tr>
+						<td width="60%" valign="top" style="padding-top:1px;">
+							<div id="gridEmail" class="data_grid" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+						</td>
+						<td valign="top" style="border-left:1px solid #ccc;">
+							<div id="setting_box" style="padding:10px;padding-top:30px;">
+
+
+
+								<div style="font-size:20px;padding-left:10px;">Alert Setting</div><br />
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-4 control-label">Enabled Alert</label>
+									<div class="col-sm-6" style="text-align:left;">
+
+
+										<div class="col-xs-2">
+											<label>
+												<input name="switch-field-1" class="ace ace-switch" type="checkbox" id="Snooze" />
+												<span class="lbl"></span>
+											</label>
+										</div>
+
+									</div>
+								</div>
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-4 control-label">Start From</label>
+									<div class="col-sm-6">
+
+										<input type="text" id="AlertDay" readonly />
+
+										<span class="lbl" style="font-size:11px;">Day before contract expire</span>
+
+									</div>
+								</div>
+
+
+								<div class="form-group test_send_alert">
+
+									<label for="inputName" class="col-sm-4 control-label">Test Send Alert</label>
+									<div class="col-sm-6" style="padding-top:5px;">
+
+										<button type="button" class="btn btn-danger btn-sm" onclick="send_alert()"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
+									</div>
+
+								</div>
+
+
+							</div>
+						</td>
+
+					</tr>
+				</table>
+
+			</div>
+
+
+			<div id="tab_addendum_list" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+				<div id="gridAddendumList" class="data_grid" style="border:none;border-top:1px solid #ccc;"></div>
+
+			</div>
+
+			<div id="list_log" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+				<div id="gridLog" class="data_grid" style="height:299px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+			</div>
+
+
+
+		</div>
+	</div>
+
+	<div class="footer_form">
+
+	</div>
+
+</div>
+
+
+
+<div class="modal fade" id="ModalInputMail" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content" style="none;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Input Email Alert</h4>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-3 control-label mandatory">Tujuan Undangan <mandatory>*</mandatory></label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control wajib" id="penerima_email" placeholder="Nama" type="text" onkeypress="if (event.keyCode == 13){$('#alamat_email').focus();}" autocomplete="off" />
+							</div>
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Alamat Email <mandatory>*</mandatory></label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control wajib" id="alamat_email" placeholder="Email" autocomplete="off" onkeypress="if (event.keyCode == 13){$('#jabatan_penerima').focus();}">
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Jabatan <mandatory>*</mandatory></label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control wajib" id="jabatan_penerima" placeholder="Jabatan" autocomplete="off" onkeypress="if (event.keyCode == 13) { add_mail('ÁDD');}">
+							</div>
+
+						</div>
+
+
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer">
+
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ModalListUser" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content" style="none;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Daftar Email Tujuan</h4>
+
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="gridUser" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-sm" onclick="select_mail()">Pilih</button>
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ModalListCustomer" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content" style="none;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Customer</h4>
+
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="gridCustomer" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-sm" onclick="select_customer()">Pilih</button>
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ModalShare" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content" style="none;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title"><i class="fa fa-share-alt-square" aria-hidden="true" style="color:purple;"></i> Share this contract with other user or function</h4>
+
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div class="tabbable">
+					<ul class="nav nav-tabs" id="myTab">
+
+						<li class="active">
+							<a data-toggle="tab" href="#share_user" aria-expanded="true" style="border-left:none;">
+								<i class="fa fa-users" aria-hidden="true"></i>
+								Share With Other User
+							</a>
+						</li>
+
+
+						<li class="">
+							<a data-toggle="tab" href="#share_function" aria-expanded="true">
+								<i class="fa fa-sitemap" aria-hidden="true"></i>
+								Share With Other Function
+							</a>
+						</li>
+
+
+					</ul>
+
+					<div class="tab-content" style="min-height:300px;border-bottom:none;border-left:none;border-right:none;padding:0px;">
+
+
+						<div id="share_user" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+							<div id="gridShareUser" style="height:299px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+						</div>
+
+						<div id="share_function" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+							<div id="gridShareFunction" style="height:299px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+						</div>
+
+					</div>
+				</div>
+
+
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-sm" onclick="share_process()">Share</button>
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade modal_ex" id="ModalDownloadTemplate" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h5 class="modal-title"> <i class="ace-icon fa fa-file" aria-hidden="true" style="color:darkorange;"></i> Sample Draft</h5>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+				<div id="gridTemplateDraft" style="border-radius:0px;border:none;border-top:1px solid #ccc;height:299px;" class="responsive"></div>
+			</div>
+			<div class="modal-footer" style="text-align:right;">
+				<button type="button" class="btn btn-gray btn-sm" data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="ModalUpload" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title"> <i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload File</h4>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<form class="form-horizontal">
+					<div class="box-body" style="padding:2%;">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-3 control-label mandatory">Pilih Type Document <mandatory>*</mandatory></label>
+							<div class="col-sm-8 select_wajib">
+
+								<select class="form-control select2" id="UploadDocumentType" placeholder="Document Type" caption="Document Type">
+									<option value="" selected>-- Select Document Type --</option>
+								</select>
+
+								<script>
+
+									var method = "";
+									if (flagCrudEcontract == "ADD") {
+										method = "GetAttachmentDcoumentType";
+									}
+									if (flagCrudEcontract == "ADDENDUM") {
+										method = "GetAttachmentDcoumentTypeForAddendum";
+									}
+
+									var AttachmentDocumentType = $.ajax({
+										url: URL_PTPR + '/Contract/' + method,
+										type: 'GET',
+										dataType: "json",
+										cache: false,
+										async: false,
+										contentType: false,
+										processData: false,
+									});
+
+									AttachmentDocumentType_ = AttachmentDocumentType.responseJSON;
+
+									$.each(AttachmentDocumentType_, function (i, item) {
+
+										$("#UploadDocumentType").append('<option value="' + AttachmentDocumentType_[i].TypeId + '">' + AttachmentDocumentType_[i].TypeName + '</option>');
+
+
+									});
+
+									$("#UploadDocumentType").trigger("change");
+
+
+								</script>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label draft-control">File <mandatory>*</mandatory></label>
+							<div class="col-sm-8 draft-control">
+								<input type="file" id="input_attachment_contract" class="uploader" />
+							</div>
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Keterangan</label>
+							<div class="col-sm-8">
+								<textarea class="form-control" style="resize:none;font-size:11px;padding-left:3px;height:70px !important;" id="UploadRemark"></textarea>
+							</div>
+
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+			<div class="modal-footer" style="text-align:right;">
+				<button type="button" class="btn btn-primary btn-sm" onclick="process_pre_upload()"><i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload File</button>
+				<button type="button" class="btn btn-gray btn-sm" data-dismiss="modal">Cancel</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script>
+
+
+	var is_customer_contract = 0;
+	attachment_tools_contract_file = [];
+	var screen_width = Number(window.innerWidth) * (3 / 4);
+	var allow_action = [];
+	var Upload_File_Main_Draft = [];
+	var Delete_File_Main_Draft = [];
+
+	$('.data_grid').css('height', Number(window.innerHeight) - 282);
+	$('#page_detail_contract .tab-content').css('min-height', Number(window.innerHeight) - 280);
+	$('#frame_preview').css('height', Number(window.innerHeight) - 286);
+
+	$(window).resize(function () {
+		$('.data_grid').css('height', Number(window.innerHeight) - 282);
+		$('#page_detail_contract .tab-content').css('min-height', Number(window.innerHeight) - 280);
+		$('#frame_preview').css('height', Number(window.innerHeight) - 286);
+	});
+
+
+
+
+	function render_ContractGroup() {
+
+		$.each(GetContractGroup_, function (i, item) {
+
+			$("#ContractGroup").append('<option value="' + GetContractGroup_[i].GroupId + '">' + GetContractGroup_[i].GroupName + '</option>');
+
+			if (flagCrudEcontract == "ADD") {
+				$("#ContractGroup").val("3").trigger("change");
+				$("#ContractGroup").attr("disabled", true);
+				$("#ContractGroup").trigger("change");
+			}
+			else {
+				$("#ContractGroup").attr("disabled", true);
+				$("#ContractGroup").trigger("change");
+			}
+
+		});
+
+	}
+
+	function render_ContractType() {
+
+
+		$.each(ContractType_, function (i, item) {
+			$("#ContractType").append('<option value="' + ContractType_[i].TypeId + '">' + ContractType_[i].ContractType + '</option>');
+		});
+
+		$("#ContractType").trigger("change");
+
+	}
+
+	function render_ContractSigningOfficer() {
+
+		$.each(ContractSigningOfficer_, function (i, item) {
+
+			$("#ContractSigningOfficer").append('<option value="' + ContractSigningOfficer_[i].NIP + '">' + ContractSigningOfficer_[i].NIP + ' -  ' + ContractSigningOfficer_[i].NM_PEG + ' - ' + ContractSigningOfficer_[i].NM_JABATAN_STR + '</option>');
+		});
+
+		$("#ContractSigningOfficer").trigger("change");
+	}
+
+	function render_Fungsi() {
+
+		$.each(FungsiName_, function (i, item) {
+
+			$("#FungsiName").append('<option value="' + FungsiName_[i].ID + '">' + FungsiName_[i].NM_UNIT_ORG + '</option>');
+		});
+
+		$("#FungsiName").trigger("change");
+
+	}
+
+	function render_Vendor() {
+
+		$.each(ContractVendor_, function (i, item) {
+
+			$("#ContractVendor").append('<option value="' + ContractVendor_[i].Vid + '">' + ContractVendor_[i].VendorId + ' - ' + ContractVendor_[i].VendorName + '</option>');
+		});
+
+		$("#ContractVendor").trigger("change");
+
+	}
+
+	function render_ContractDocType() {
+
+		$.each(DocumentType_, function (i, item) {
+
+			$("#DocumentType").append('<option value="' + DocumentType_[i].DocId + '">' + DocumentType_[i].Name + '</option>');
+		});
+
+		$("#DocumentType").trigger("change");
+	}
+
+	function render_CustomerSubscribeType() {
+		$.each(SuscribeType_, function (i, item) {
+
+			$("#SuscribeType").append('<option value="' + SuscribeType_[i].SubscribeId + '">' + SuscribeType_[i].SubscribeName + '</option>');
+		});
+
+		$("#SuscribeType").trigger("change");
+	}
+
+	function form_contract_detail() {
+
+		set_sub_child_breadcrumb("");
+		if (flagCrudEcontract == "ADD") { set_sub_child_breadcrumb("New Contract"); $(".wording_header").html("Add new contract for procurement"); }
+		if (flagCrudEcontract == "VIEW") { set_sub_child_breadcrumb("View Detail Contract"); }
+		if (flagCrudEcontract == "ADDENDUM") { set_sub_child_breadcrumb("Addendum Contract"); }
+
+
+
+
+		$("#tab_draft_caption,.draft-control").hide();
+		$("#tab_addendum_list_caption,#tab_log,.customer_info").hide();
+		$(".form-control").attr("readonly", true);
+		$(".select2").attr("disabled", true);
+		$("#addendum_checklist").hide();
+		$(".contract_no_info,.contract_date_info").show();
+
+		if (flagCrudEcontract == "VIEW") {
+
+			render_gridLog();
+			fill_form_detail();
+
+			$('a[href="#info_contract"]').tab('show');
+			$("#tab_log").show();
+			$("#draft_info_upload").hide();
+
+			$("#tab_draft_caption").show();
+			render_grid_draft();
+			refresh_draft_contract();
+
+			if (current_contract.IsAddendum == 1) {
+
+				$("#tab_addendum_list_caption").show();
+				render_gridAddendumList();
+				refresh_list_addendum();
+			}
+
+			if (current_contract.ContractGroup == 5 || current_contract.ContractGroup == 2) { $(".customer_info").show(); }
+
+			var DataSave1 = new FormData();
+			DataSave1.append('ContractId', current_contract.ContractId);
+			var allow_action_ = $.ajax({
+				url: URL_PTPR + '/Button/E_Contract_AllowAction',
+				type: 'POST',
+				data: DataSave1,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				processData: false,
+			});
+
+			allow_action = allow_action_.responseJSON[0];
+
+			var DataSave = new FormData();
+			DataSave.append('ContractId', current_contract.ContractId);
+			var allow_button = $.ajax({
+				url: URL_PTPR + '/Button/E_Contract_AllowButton',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			button_cancel = ' <button type="button" class="btn btn-default btn-sm" onclick="back_from_contract_detail()">Cancel</button>';
+			button_action = allow_button.responseText;
+			button_parent = "";
+			button_share = "";
+
+			if (current_contract.ParentId != null) {
+				''
+				button_parent = ' <button type="button" class="btn btn-primary btn-sm" onclick="view_current(\'' + current_contract.ParentId + '\')">Go To Parent</button>';
+			}
+
+			if (allow_action.AllowShare == 1) {
+				button_share = ' <button type="button" class="btn btn-info btn-sm" onclick="share_this_contract()"><i class="fa fa-share-alt-square" aria-hidden="true"></i> Share</button>';
+			}
+			$("#page_detail_contract .footer_form").html(button_parent + button_action + button_cancel)
+
+			render_grid_upload();
+			render_gridMail();
+
+			refresh_mail_alert();
+			refresh_log_contract();
+			refresh_attachemnt_contract()
+
+		}
+
+		if (flagCrudEcontract == "ADD") {
+
+			render_grid_upload();
+			render_gridMail();
+
+			var button_action = '<button type="button" class="btn btn-info btn-sm" onclick="download_sample_draft()"><i class="fa fa-download" aria-hidden="true"></i> Download Template</button> <button type="button" class="btn btn-primary btn-sm" onclick="save_contract()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Submit</button> <button type="button" class="btn btn-default btn-sm" onclick="back_from_contract_detail()">Cancel</button>';
+			$("#page_detail_contract .footer_form").html(button_action);
+			$("#tab_log").hide();
+			$(".test_send_alert").hide();
+			$('#Snooze').prop('checked', true);
+			$(".form-control").attr("readonly", false);
+			$(".select2").attr("disabled", false);
+			$(".draft-control").show();
+			$(".contract_no_info,.contract_date_info").hide();
+			$("#ContractGroup").attr("disabled", true);
+			$("#FungsiName").val(current_proc.Function).trigger("change");
+			$("#ProcurementId").val(current_proc.Id + " - " + current_proc.Title);
+			$("#ProcurementValue").val(numberWithCommas(current_proc.Value));
+			$("#ProcurementValue,#ProcurementId").attr("readonly", true);
+
+			if (curr_winner.VendorId != "0") {
+				$("#ContractVendor").val(curr_winner.VendorId).trigger("change");
+			}
+
+
+			if (current_proc.CountWinner == 1) {
+
+				$("#ContractTitle").val(current_proc.Title);
+				$("#EContractNamaMitra").val(curr_winner.InvToName);
+				$("#ContractValue").val(current_proc.Value);
+			}
+			else {
+				$("#ContractTitle").val(current_proc.Title);
+				$("#EContractNamaMitra").val(curr_winner.InvToName);
+			}
+
+		}
+
+		if (flagCrudEcontract == "ADDENDUM") {
+
+			render_grid_upload();
+			render_gridMail();
+			fill_form_detail();
+
+			$(".form-control").attr("readonly", false);
+			$(".select2").attr("disabled", false);
+
+			$("#ContractTitle,#EContractNamaMitra").attr("readonly", false);
+			$("#ContractGroup,#FungsiName").attr("disabled", true);
+			$("#addendum_checklist").show();
+			$(".draft-control").show()
+			$(".contract_no_info,.contract_date_info").hide();
+			$("#ProcurementId").val(current_proc.Id + " - " + current_proc.Title);
+			$("#ProcurementValue").val(numberWithCommas(current_proc.Value));
+			$("#ProcurementValue,#ProcurementId").attr("readonly", true);
+
+			$('a[href="#info_contract"]').tab('show');
+			var button_cancel = ' <button type="button" class="btn btn-default btn-sm" onclick="back_from_contract_detail()">Cancel</button>';
+			var button_action = ' <button type="button" class="btn btn-primary btn-sm" onclick="save_contract()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save Addendum</button>';
+			$("#page_detail_contract .footer_form").html(button_action + button_cancel);
+			refresh_mail_alert();
+			refresh_attachemnt_contract();
+			$("#ProcurementId").val(current_proc.Id + " - " + current_proc.Title);
+			$("#ProcurementValue").val(numberWithCommas(current_proc.Value));
+
+		}
+
+
+		$("#tab_contract_detail .customer_info").hide();
+		$("#page_detail_contract").show("fade", function () {
+			$("#ContractValue").focus();
+		});
+
+
+	}
+
+	function fill_form_detail() {
+
+		$("#ContractGroup").val(current_contract.ContractGroup).trigger('change');
+		$("#ContractNo").val(isStringNull(current_contract.ContractNo));
+		$("#ContractTitle").val(isStringNull(current_contract.ContractTitle));
+		$("#StartDate").val(current_contract.BeginDate);
+		$("#EndDate").val(current_contract.EndDate);
+		$("#ContractDate").val(current_contract.ContractDate);
+		$("#StartProject").val(current_contract.StartProject);
+		$("#EndProject").val(current_contract.EndProject);
+		$("#temp_ContractValue").val(current_contract.ContractValue);
+		$("#ContractValue").val(numberWithCommas(current_contract.ContractValue));
+		$("#ContractSigningOfficer").val(current_contract.PenanggungJawabPihak1Nip).trigger('change');
+		$("#FungsiName").val(current_contract.Fungsi).trigger('change');
+		$("#ContractPR").val(isStringNull(current_contract.NoPR));
+		$("#ContractPO").val(isStringNull(current_contract.NoPO));
+		$("#ContractVendor").val(current_contract.IdVendor).trigger('change');
+		$("#ContractType").val(current_contract.ContractType).trigger('change');
+		$("#Remark").val(isStringNull(current_contract.Remark));
+		$("#CustomerName").val(current_contract.CustomerName);
+		CustomerId = current_contract.CustomerId;
+		$("#DocumentType").val(current_contract.DocType).trigger("change");
+		$("#SuscribeType").val(current_contract.CandidateId_2).trigger("change");
+		$("#EContractNamaMitra").val(current_contract.CorpNamePihak2);
+
+		if (current_contract.Snooze == 0) {
+			$('#Snooze').prop('checked', true);
+		}
+		else {
+			$('#Snooze').prop('checked', false);
+		}
+
+
+		$("#page_detail_contract .customer_info").hide();
+
+		if (flagCrudEcontract == "ADDENDUM") {
+
+			$("#page_detail_contract #form_title").html("Addendum For Contract : " + current_contract.ContractId + ' <i class="fa fa-arrow-right" aria-hidden="true"></i> ' + current_contract.DayAlert);
+		}
+		else {
+			$("#page_detail_contract #form_title").html(current_contract.ContractId + ' <i class="fa fa-arrow-right" aria-hidden="true"></i> ' + current_contract.DayAlert + ' - ' + current_contract.ProcTag + ' - <span style="font-size:12px;color:#918383;">' + current_contract.Updater + '</span>');
+		}
+
+	}
+
+	function render_grid_upload() {
+
+		if (w2ui['gridAttachment'] != null) w2ui['gridAttachment'].destroy();
+		allow_upload = 0;
+		allow_upload = allow_action.AllowUpload;
+		if (flagCrudEcontract == "ADD" || flagCrudEcontract == "ADDENDUM") { allow_upload = 1; }
+
+		$('#gridAttachment').w2grid({
+			name: 'gridAttachment',
+			show: {
+				footer: true,
+				toolbar: allow_upload,
+				lineNumbers: true,
+				toolbarAdd: false,
+				toolbarDelete: false,
+				toolbarInput: false,
+				toolbarReload: false,
+				toolbarColumns: false,
+				selectColumn: true,
+			},
+			toolbar: {
+				items: [
+					{ type: 'spacer' },
+					{ type: 'break' },
+					{ type: 'button', id: 'btn_delete', text: '<i class="fa fa-trash" aria-hidden="true" style="color:#f54b42;"></i> Delete', disabled: 'true' },
+					{ type: 'break' },
+					{ type: 'button', id: 'btn_upload', text: '<i class="fa fa-upload" aria-hidden="true" style="color:#4295f5;"></i> Upload' }
+				],
+				onClick: function (target, data) {
+
+					if (target == 'btn_upload') {
+
+						$("#UploadDocumentType").val("").trigger("change");
+						var file_input = $('#input_attachment_contract');
+						file_input.ace_file_input('reset_input');
+						$("#UploadRemark").val("");
+
+						$('#UploadDocumentType').select2({
+							dropdownParent: $('#ModalUpload')
+						});
+
+						$('#ModalUpload').modal(
+							{
+								backdrop: 'static',
+								keyboard: false
+							}
+						);
+					}
+					if (target == 'btn_delete') {
+						var sel = w2ui.gridAttachment.getSelection();
+						var record = w2ui.gridAttachment.get(sel);
+						delete_list = [];
+						delete_list_local = [];
+
+						$.each(record, function (i, item) {
+							if (record[i].Api == "docman") {
+								if (flagCrudEcontract != "ADDENDUM") {
+									var row_upload = { ID: record[i].Id };
+									delete_list.push(row_upload);
+								}
+								else {
+									if (record[i].PreUpload == '1') {
+										var row_upload = { ID: record[i].Id };
+										delete_list.push(row_upload);
+									}
+								}
+							}
+							else {
+								var row_upload = { ID: record[i].Id };
+								delete_list_local.push(row_upload);
+							}
+						});
+
+						if (delete_list_local.length > 0) {
+
+							var DataDelete = new FormData();
+							DataDelete.append('DeleteList', JSON.stringify(delete_list_local));
+
+							$("#Deleting_Load").show("fade", function () {
+								var Simpan = $.ajax({
+									url: URL_PTPR + '/File/DeleteFileContractLocalIcare',
+									type: 'POST',
+									data: DataDelete,
+									dataType: "json",
+									cache: false,
+									async: false,
+									contentType: false,
+									processData: false,
+									error: function (request, status, error) {
+										w2alert("Delete File Gagal !");
+										$("#Deleting_Load").hide("fade");
+									},
+									success: function (data) {
+										w2alert("File Deleted");
+										$("#Deleting_Load").hide("fade");
+										w2ui.gridAttachment.select(sel);
+										w2ui.gridAttachment.delete(true);
+									}
+								});
+							});
+						}
+
+
+						if (delete_list.length > 0) {
+
+							var DataDelete = new FormData();
+							DataDelete.append('DeleteList', JSON.stringify(delete_list));
+
+							$("#Deleting_Load").show("fade", function () {
+								var Simpan = $.ajax({
+									url: URL_PTPR + '/File/DeleteFilePre',
+									type: 'POST',
+									data: DataDelete,
+									dataType: "json",
+									cache: false,
+									async: false,
+									contentType: false,
+									processData: false,
+									error: function (request, status, error) {
+										w2alert("Delete File Gagal !");
+										$("#Deleting_Load").hide("fade");
+									},
+									success: function (data) {
+										w2alert("File Deleted");
+										$("#Deleting_Load").hide("fade");
+										w2ui.gridAttachment.select(sel);
+										w2ui.gridAttachment.delete(true);
+									}
+								});
+
+
+							});
+						}
+
+					}
+				}
+			},
+			onSelect: function (event) {
+
+				event.onComplete = function () {
+					var count_ = w2ui.gridAttachment.getSelection();
+					if (count_.length > 0) {
+
+						w2ui['gridAttachment'].toolbar.enable('btn_delete');
+					}
+				}
+			},
+			onUnselect: function (event) {
+				event.onComplete = function () {
+					var count_ = w2ui.gridAttachment.getSelection();
+					if (count_.length == 0) {
+						w2ui['gridAttachment'].toolbar.disable('btn_delete');
+					}
+				}
+			},
+			columns: [
+				{ field: 'FileName', text: 'File Name', size: '200px' },
+				{ field: 'DocTypeName', text: 'Document Type', size: '200px' },
+				{ field: 'Remark', text: 'Remark', size: '200px' },
+				//{ field: 'Api', text: 'Api', size: '100px' },
+				{
+					field: 'FileName', text: '', size: '100%',
+					render: function (record) {
+						var download
+
+						switch (record.Api) {
+							case 'docman':
+								download = '<a href="' + URL_PTPR + '/File/ViewAttachment/' + record.Id + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> Donwload</a>';
+								break;
+							case 'icuzz':
+								download = '<a href="http://203.77.249.186:8012/File_Contract/' + record.FileName2 + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> Donwload</a>';
+								break;
+							default:
+								download = '<a href="' + URL_PTPR + '/File_Contract/' + record.FileName2 + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> Donwload</a>';
+								break
+						}
+
+						return download;
+					}
+				},
+
+			],
+
+
+		});
+
+	}
+
+	function render_grid_draft() {
+
+		if (w2ui['gridDraft'] != null) w2ui['gridDraft'].destroy();
+		$('#gridDraft').w2grid({
+			name: 'gridDraft',
+			recordHeight: 40,
+			show: {
+				footer: true,
+				toolbar: false,
+				lineNumbers: true,
+				toolbarAdd: false,
+				toolbarDelete: false,
+				toolbarInput: false,
+				toolbarReload: false,
+				toolbarColumns: false,
+				selectColumn: false,
+			},
+			columns: [
+				{ field: 'FileName', text: 'File Name', size: '60%' },
+				{
+					field: 'FileName', text: '', size: '50%',
+					render: function (record) {
+						var download
+						if (record.Api == "convert") {
+							download = '<a href="#" onclick="create_draft_econtract()"><i class="fa fa-cloud-download" aria-hidden="true" ></i> Donwload</a>';
+						}
+						else {
+							download = '<a href="' + URL_PTPR + '/File/ViewAttachment/' + record.Id + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> Donwload</a>';
+						}
+						return download;
+					}
+				},
+
+			],
+		});
+
+	}
+
+	function render_gridMail() {
+
+
+		if (w2ui['gridEmail'] != null) { w2ui['gridEmail'].destroy(); }
+		allow_add_mail = 0;
+		allow_add_mail = Number(allow_action.AllowAddMail);
+
+		if (flagCrudEcontract == "ADD" || flagCrudEcontract == "ADDENDUM") { allow_add_mail = 1; }
+		$('#gridEmail').w2grid({
+			name: 'gridEmail',
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: true,
+				toolbarAdd: false,
+				toolbarDelete: true,
+				toolbar: allow_add_mail,
+				toolbarSearch: false,
+			},
+			columns: [
+
+				{ field: 'Email', text: 'Mail Destination', size: '200px', searchable: 'text', editable: { type: 'text' } },
+				{ field: 'Name', text: 'Name', size: '200px', searchable: 'text', editable: { type: 'text' } },
+				{ field: 'Jabatan', text: 'Jabatan', size: '200px', searchable: 'text', editable: { type: 'text' } },
+			],
+			toolbar: {
+				items: [
+					{ id: 'add', type: 'button', text: 'Add Mail', icon: 'w2ui-icon-plus' },
+					{ type: 'break' },
+					{ id: 'add_from_list', type: 'button', text: 'Add Mail From List', icon: 'w2ui-icon-plus' }
+				],
+				onClick: function (event) {
+					if (event.target == 'add') {
+						input_mail_grid();
+					}
+					if (event.target == 'add_from_list') {
+						find_mail();
+					}
+				}
+			},
+
+
+		});
+
+	}
+
+	function render_gridAddendumList() {
+
+		if (w2ui['gridAddendumList'] != null) {
+			w2ui['gridAddendumList'].destroy();
+		}
+
+		$('#gridAddendumList').w2grid({
+			name: 'gridAddendumList',
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: true,
+				toolbarAdd: false,
+				toolbarDelete: true,
+				toolbar: false,
+				toolbarSearch: false,
+			},
+			columns: [
+				{ field: 'ProcTag', text: 'Status', size: '300px', searchable: 'text', info: true },
+				{ field: 'ContractId', text: 'Contract Id.', size: '200px', searchable: 'text' },
+				{ field: 'ContractTitle', text: 'Title', size: '80%', searchable: 'text', },
+				{
+					field: 'FileName', text: '', size: '20%',
+					render: function (record) {
+						var download
+						download = '<a href="#" onclick="view_current(\'' + record.ContractId + '\')"><i class="fa fa-eye" aria-hidden="true" ></i> View Addendum </a>';
+						return download;
+					}
+				},
+			],
+			onDblClick: function (event) {
+				var record = this.get(event.recid);
+				current_contract = record;
+				flagCrudEcontract = "VIEW";
+				form_contract_detail();
+			},
+		});
+
+	}
+
+	function render_gridLog() {
+
+		if (w2ui['gridLog'] != null) {
+			w2ui['gridLog'].destroy();
+		}
+
+		$('#gridLog').w2grid({
+			name: 'gridLog',
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: false,
+				toolbarAdd: true,
+				toolbarDelete: true,
+			},
+			columns: [
+				//{ field: 'FromName', text: 'From', size: '100px' },
+				//{ field: 'ToName', text: 'Log', size: '50%' },
+				{
+					field: '', text: 'Log', size: '60%',
+					render: function (record) {
+						var log_
+						log_ = '[ ' + record.FromName + ' ] <i class="fa fa-long-arrow-right" aria-hidden="true"></i>  [ ' + record.ToName + ' ] - [ ' + record.Executor + ' ]';
+						return log_;
+					}
+				},
+				{ field: 'Descriptions', text: 'Note', size: '60%' },
+			]
+		});
+
+	}
+
+	function refresh_attachemnt_contract() {
+		w2ui['gridAttachment'].load(URL_PTR + '/Contract/Contract_Attachment/' + current_contract.ContractId);
+	}
+
+	function refresh_draft_contract() {
+		w2ui['gridDraft'].load(URL_PTR + '/Contract/Contract_E_Contract_Draft/' + current_contract.ContractId);
+	}
+
+	function refresh_mail_alert() {
+		w2ui['gridEmail'].load(URL_PTR + '/Contract/Contract_MailAlertList/' + current_contract.ContractId);
+	}
+
+	function refresh_log_contract() {
+		w2ui['gridLog'].load(URL_PTR + '/Contract/Contract_Log/' + current_contract.ContractId);
+	}
+
+	function refresh_list_addendum() {
+		w2ui['gridAddendumList'].load(URL_PTR + '/Contract/Contract_AddendumList/' + current_contract.ContractId);
+	}
+
+	function input_mail_grid() {
+
+		$("#penerima_email").val("");
+		$("#alamat_email").val("");
+		$("#jabatan_penerima").val("");
+
+
+		button = '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>';
+		button = button + '<button type="button" class="btn btn-info btn-sm" onclick="add_mail(\'ADD\')">Add</button>';
+
+
+
+		$("#ModalInputMail .modal-footer").html(button);
+		$("#ModalInputMail").modal({ backdrop: 'static', keyboard: false });
+		$("#ModalInputMail").on('shown.bs.modal', function (e) {
+			$("#penerima_email").focus();
+		});
+	}
+
+	function add_mail() {
+
+		var flag = "ADD";
+		var isValid = true;
+
+		$("#ModalInputMail .wajib_diisi").each(function () {
+
+			var element = $(this);
+
+			if (element.val() == "") {
+
+				isValid = false;
+				var fill_placeholder = element[0].attributes["placeholder"];
+				var placeHolderText = fill_placeholder.nodeValue;
+				placeHolderText = placeHolderText.replace("Wajib Diisi", "").trim() + " Wajib Diisi";
+
+				$("#" + element[0].id).attr("placeholder", placeHolderText);
+
+			}
+
+		});
+
+		if (isValid == true) {
+
+
+			w2ui.gridEmail.save();
+
+
+			if (flag == 'ADD') {
+
+
+				var list_Rec = w2ui['gridEmail'].records;
+				var new_rec = new Array();
+
+				if (list_Rec.length > 0) {
+
+					for (x = 0; x < list_Rec.length; x++) {
+
+						new_rec.push(list_Rec[x].recid);
+
+					}
+
+					var new_recid = Math.max.apply(Math, new_rec);
+					w2ui['gridEmail'].add({
+						recid: new_recid + 1
+						, Email: $('#alamat_email').val()
+						, Name: $('#penerima_email').val()
+						, Jabatan: $('#jabatan_penerima').val()
+
+
+					});
+
+				}
+				else {
+
+					w2ui['gridEmail'].add({
+						recid: 1
+						, Email: $('#alamat_email').val()
+						, Name: $('#penerima_email').val()
+						, Jabatan: $('#jabatan_penerima').val()
+
+					});
+
+				}
+
+
+			}
+			else {
+				w2ui['gridEmail'].set(IdSelect, { Email: $('#alamat_email').val(), Name: $('#penerima_email').val(), Jabatan: $('#jabatan_penerima').val() });
+			}
+
+
+
+			$("#ModalInputMail").modal("hide");
+
+		}
+	}
+
+	function find_mail() {
+
+		if (w2ui['gridUser'] != null) {
+			w2ui['gridUser'].destroy();
+		}
+
+
+		$('#ModalListUser').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+		$('#ModalListUser').on('shown.bs.modal', function () {
+
+			$('#gridUser').w2grid({
+
+				name: 'gridUser',
+				multiSelect: false,
+				header: 'List Mail',
+				textSearch: 'contains',
+				show: {
+					header: false,
+					toolbar: true,
+					footer: true,
+					toolbarSearch: false,
+				},
+				columns: [
+					{ field: 'NM_PEG', text: 'Nama Penerima', size: '200px', sortable: true, searchable: 'text' },
+					{ field: 'NM_JABATAN_STR', text: 'Jabatan', size: '200px', sortable: true, searchable: 'text' },
+					{ field: 'EMAIL', text: 'Email', size: '100%', sortable: true, searchable: 'text' },
+				],
+				onDblClick: function (event) {
+					select_mail();
+				},
+				onReload: function (event) {
+					refresh_list_user();
+				}
+			});
+
+			refresh_list_user();
+		})
+
+
+
+	}
+
+	function refresh_list_user() {
+		w2ui['gridUser'].load(URL_PTR + '/Contract/GetUserList');
+	}
+
+	function select_mail() {
+
+		var sel = w2ui.gridUser.getSelection();
+		var record = w2ui.gridUser.get(sel[0]);
+
+		var cek_mail = 0;
+		var ListDest = w2ui['gridEmail'].records;
+
+		for (var i = 0; i < ListDest.length; i++) {
+			var obj = ListDest[i];
+			if (obj["Email"].toLowerCase() == record.EMAIL.toLowerCase()) {
+				cek_mail = cek_mail + 1;
+			}
+		}
+
+		if (cek_mail == 0) {
+			w2ui['gridEmail'].add({
+				recid: record.recid
+				, Email: record.EMAIL
+				, Name: record.NM_PEG
+				, Jabatan: record.NM_JABATAN_STR
+				, FlagStat: 'new'
+
+			});
+			//$('#ModalListUser').modal("hide");
+		}
+		else {
+			w2alert("Alamat email : <b>" + record.EMAIL + "</b> <br> Sudah ada pada list !");
+		}
+
+	}
+
+	function find_customer() {
+
+		if (w2ui['gridCustomer'] != null) {
+			w2ui['gridCustomer'].destroy();
+		}
+
+
+		$('#ModalListCustomer').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+		$('#ModalListCustomer').on('shown.bs.modal', function () {
+
+			$('#gridCustomer').w2grid({
+				name: 'gridCustomer',
+				multiSelect: false,
+				header: 'List Mail',
+				textSearch: 'contains',
+				show: {
+					header: false,
+					toolbar: true,
+					footer: true,
+					toolbarSearch: false,
+				},
+				columns: [
+					{ field: 'CustomerId', text: 'CustomerId', size: '200px', sortable: true, searchable: 'text' },
+					{ field: 'CustomerName', text: 'CustomerName', size: '100%', sortable: true, searchable: 'text' },
+				],
+				onDblClick: function (event) {
+					select_customer();
+				},
+				onReload: function (event) {
+					refresh_list_customer();
+				}
+			});
+
+			refresh_list_customer();
+		})
+
+	}
+
+	function refresh_list_customer() {
+		w2ui['gridCustomer'].load(URL_PTR + '/Contract/GetCustomerList');
+	}
+
+	function select_customer() {
+
+		var sel = w2ui.gridCustomer.getSelection();
+		var record = w2ui.gridCustomer.get(sel[0]);
+		$("#CustomerName").val(record.CustomerId + " - " + record.CustomerName);
+		CustomerId = record.CustomerId;
+		$('#ModalListCustomer').modal("hide");
+
+	}
+
+	function send_alert() {
+
+		var sel = w2ui.gridEmail.getSelection();
+		var record = w2ui.gridEmail.get(sel);
+		if (record.length == 0) { w2alert("Harap isi email tujuan alert disamping terlebih dahulu !"); return; }
+
+	}
+
+
+
+	function save_contract() {
+
+
+		w2ui['gridEmail'].save();
+		w2ui['gridAttachment'].save();
+		var ListDest = w2ui['gridEmail'].records;
+		var ListAttachment = w2ui['gridAttachment'].records;
+		var valid = form_validation2("info_contract", "wajib", function () { $('a[href="#info_contract"]').tab('show'); });
+
+
+		if (valid == false) {
+			return;
+		}
+
+		if (is_customer_contract == 1) {
+			if ($("#CustomerName").val() == "") {
+				$("#CustomerName").focus();
+				w2alert("Customer name wajib diisi !");
+				return;
+			}
+		}
+
+
+		if (flagCrudEcontract == "ADD" || flagCrudEcontract == "ADDENDUM") {
+
+			if (Upload_File_Main_Draft.length == 0) {
+
+				w2alert("Anda belum mengupload draft kontrak !");
+				return;
+			}
+		}
+
+
+		if (ListAttachment.length == 0) {
+			w2alert("Anda belum melampirkan file apapun !");
+			$('a[href="#tab_attachment"]').tab('show');
+			return;
+		}
+
+		if (ListDest.length < 3) {
+			w2alert("Input minimal 3 alamat email untuk alert dengan salah satunya email dengan jabatan manager !");
+			$('a[href="#tab_alert_config"]').tab('show');
+			return;
+		}
+
+		var cek_manager = 0;
+
+		for (var i = 0; i < ListDest.length; i++) {
+			var obj = ListDest[i];
+			if (obj["Jabatan"].toLowerCase() == "manager") {
+				cek_manager = cek_manager + 1;
+			}
+		}
+
+		if (cek_manager == 0) {
+
+			w2alert("Tidak terdapat email dengan jabatan manager !");
+			$('a[href="#tab_alert_config"]').tab('show');
+			return;
+		}
+
+
+		if (flagCrudEcontract == "ADDENDUM") {
+
+			cek_addendum_file = 0;
+			cek_bak = 0;
+			cek_memo_pengajuan = 0;
+			cek_memo_justifikasi = 0;
+			cek_pr = 0;
+
+			for (var i = 0; i < ListAttachment.length; i++) {
+
+				var obj = ListAttachment[i];
+				if (obj["PreUpload"] == '1') {
+					cek_addendum_file = cek_addendum_file + 1;
+				}
+
+				if (obj["PreUpload"] == '1') {
+					if (obj["DocType"] == '2') {
+						cek_bak = cek_bak + 1;
+					} 
+				}
+
+				if (obj["PreUpload"] == '1') {
+					if (obj["DocType"] == '3') {
+						cek_memo_pengajuan = cek_memo_pengajuan + 1;
+					}
+				}
+
+				if (obj["PreUpload"] == '1') {
+					if (obj["DocType"] == '4') {
+						cek_memo_justifikasi = cek_memo_justifikasi + 1;
+					}
+				}
+
+				if (obj["PreUpload"] == '1') {
+					if (obj["DocType"] == '5') {
+						cek_pr = cek_pr + 1;
+					}
+				}
+
+			}
+
+			//if (cek_addendum_file == 0) {
+
+			//	w2alert("Anda belum menambahkan file apapun terkait addendum !");
+			//	$('a[href="#tab_attachment"]').tab('show');
+			//	return;
+			//}
+			
+			if (cek_bak == 0) {
+				w2alert("BAK addendum harus dilampirakan !");
+				$('a[href="#tab_attachment"]').tab('show');
+				return;
+			}
+
+			if (cek_memo_pengajuan == 0) {
+				w2alert("Memo pengajuan addendum harus dilampirakan !");
+				$('a[href="#tab_attachment"]').tab('show');
+				return;
+			}
+
+
+			if (cek_memo_justifikasi == 0) {
+				w2alert("Memo justifikasi addendum harus dilampirakan !");
+				$('a[href="#tab_attachment"]').tab('show');
+				return;
+			}
+
+
+			if (cek_pr == 0) {
+				w2alert("PR addendum harus dilampirakan !");
+				$('a[href="#tab_attachment"]').tab('show');
+				return;
+			}
+
+
+	
+
+			
+
+		}
+
+		var DataSave = new FormData();
+
+		DataSave.append('flagCrud', flagCrudEcontract);
+		DataSave.append('ContractId', current_contract.ContractId);
+		DataSave.append('ContractGroup', $("#ContractGroup").val());
+		DataSave.append('ParentId', $("#parent_id").val());
+		DataSave.append('PenanggungJawabPihak1', $("#ContractSigningOfficer").val());
+		DataSave.append('CorpNamePihak2', $("#EContractNamaMitra").val());
+		DataSave.append('Fungsi', $("#FungsiName").val());
+		DataSave.append('ContractNo', $("#ContractNo").val());
+		DataSave.append('AddendumContractNo', $("#addendumContractNo").val());
+		DataSave.append('ContractType', $("#ContractType").val());
+		DataSave.append('ContractTitle', $("#ContractTitle").val());
+		DataSave.append('ContractPO', $("#ContractPO").val());
+		DataSave.append('ContractPR', $("#ContractPR").val());
+		DataSave.append('ContractValue', $("#temp_ContractValue").val());
+		DataSave.append('StartDate', $("#StartDate").val());
+		DataSave.append('EndDate', $("#EndDate").val());
+		DataSave.append('StartProject', $("#StartProject").val());
+		DataSave.append('EndProject', $("#EndProject").val());
+		DataSave.append('ContractDate', $("#ContractDate").val());
+		DataSave.append('ContractVendorId', $("#ContractVendor").val());
+		DataSave.append('Remark', $("#Remark").val());
+		DataSave.append('AlertDay', $("#AlertDay").val());
+		DataSave.append('MailDestinations', JSON.stringify(ListDest));
+		DataSave.append('ProcId', current_proc.Id);
+		DataSave.append('FormId', $("#EDraftType").val());
+		DataSave.append('Winner', curr_winner.Id);
+
+		if ($('#Snooze').is(":checked")) {
+
+			DataSave.append('Snooze', "0");
+		}
+		else {
+
+			DataSave.append('Snooze', "1");
+		}
+
+		if (flagCrudEcontract == "ADD" || flagCrudEcontract == "ADDENDUM") {
+			list_upload = [];
+
+			if (flagCrudEcontract == "ADD") {
+
+				$.each(ListAttachment, function (i, item) {
+					var row_upload = { ID: ListAttachment[i].Id };
+					list_upload.push(row_upload);
+				});
+
+			}
+			else {
+
+				for (var i = 0; i < ListAttachment.length; i++) {
+					var obj = ListAttachment[i];
+					if (obj["PreUpload"] == '1') {
+						var row_upload = { ID: obj["Id"] };
+						list_upload.push(row_upload);
+					}
+				}
+			}
+
+			if (flagCrudEcontract == "ADD" || flagCrudEcontract == "ADDENDUM") {
+				var row_upload = { ID: Upload_File_Main_Draft[0].ID };
+				list_upload.push(row_upload);
+			}
+
+			if (flagCrudEcontract == "ADDENDUM") {
+				if (list_upload.length == 0) {
+					w2alert("Harap upload file pendukung addendum terlebih dahulu !");
+				}
+			}
+
+			DataSave.append('FileUploadList', JSON.stringify(list_upload));
+		}
+		else {
+			DataSave.append('FileUploadList', '');
+		}
+
+		$("#Saving_Load").show("fade", function () {
+			var Simpan = $.ajax({
+				url: URL_PTR + '/Contract/SaveEContract',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+					w2alert("Error, try again or contact our administrator please !", "Saving Contract Archive");
+					$('#Saving_Load').hide();
+				}
+
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+				$('#Saving_Load').hide();
+				w2alert(Simpan.responseJSON["Result"]);
+			}
+			else {
+				w2alert("Save data success !");
+				$('#Saving_Load').hide();
+				back_main_page();
+			}
+		});
+	}
+
+	function delete_contract() {
+
+		w2confirm('Are you sure to delete this contract ?')
+			.yes(() => {
+
+				var DataDelete = new FormData();
+				DataDelete.append('ContractId', current_contract.ContractId);
+
+				$("#Deleting_Load").show("fade", function () {
+
+					var Delete_ = $.ajax({
+						url: URL_PTR + '/Contract/DeleteContract_Archive',
+						type: 'POST',
+						data: DataDelete,
+						dataType: "json",
+						cache: false,
+						async: false,
+						contentType: false,
+						processData: false,
+						error: function (request, status, error) {
+							w2alert("Error, try again or contact our administrator please !", "Saving Contract Archive");
+							$('#Deleting_Load').hide();
+						}
+					});
+
+					if (Delete_.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+						$('#Deleting_Load').hide();
+						w2alert(Simpan.responseJSON["Result"]);
+					}
+					else {
+						w2alert("Delete contract success !");
+						$('#Deleting_Load').hide();
+						back_from_contract_detail();
+					}
+				});
+
+
+			})
+			.no(() => {
+				console.log('No')
+			})
+	}
+
+	function done_contract() {
+
+		w2confirm('Are you sure to done this contract ?')
+			.yes(() => {
+
+				var DataDelete = new FormData();
+				DataDelete.append('ContractId', current_contract.ContractId);
+
+				$("#Saving_Load").show("fade", function () {
+
+					var Delete_ = $.ajax({
+						url: URL_PTR + '/Contract/DoneContract_Archive',
+						type: 'POST',
+						data: DataDelete,
+						dataType: "json",
+						cache: false,
+						async: false,
+						contentType: false,
+						processData: false,
+						error: function (request, status, error) {
+							w2alert("Error, try again or contact our administrator please !", "Saving Contract Archive");
+							$('#Saving_Load').hide();
+						}
+					});
+
+					if (Delete_.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+						$('#Saving_Load').hide();
+						w2alert(Simpan.responseJSON["Result"]);
+					}
+					else {
+						w2alert("Done contract success !");
+						$('#Saving_Load').hide();
+						back_from_contract_detail();
+					}
+				});
+
+
+			})
+			.no(() => {
+				console.log('No')
+			})
+	}
+
+	function create_addendum() {
+
+		flagCrudEcontract = "ADDENDUM"
+		form_contract_detail();
+	}
+
+
+	function back_from_contract_detail() {
+
+		if (flagCrudEcontract == "ADD") {
+
+
+			load_page("#PageContainer", URL_PTPR + "/Procurement/ProcessContract", null);
+
+		}
+
+
+		if (flagCrudEcontract == "ADDENDUM") {
+
+			//load_page("#PageContainer", URL_PTPR + "/Procurement/Addendum", null);
+			//localStorage.setItem("ContractDetailPage", $("#PageContainer").html());
+
+			$("#PageContainer").hide("fade", function () {
+				$("#PageContainer").html(localStorage.getItem("AddendumPage"));
+				$("#Addendum_Contract").val("");
+				$("#Addendum_Procurement").val(current_proc.Id + " - " + current_proc.Title);
+				$("#Addendum_Contract").val(current_contract.ContractId + " - " + current_contract.ContractTitle);
+				$("#PageContainer").show("fade");
+			});
+
+		}
+
+
+
+
+	}
+
+	function create_draft_econtract() {
+
+		var param = { 'ContractId': current_contract.ContractId };
+		OpenWindowWithPost(URL_PTPR + '/Contract/CreateFirstDraftCustomerContract', "width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+			"ContractId", param);
+	}
+
+	function view_current(Id) {
+
+		var Data_ = new FormData();
+		Data_.append('Id', Id);
+
+		var get_data = $.ajax({
+			url: URL_PTPR + '/Contract/Contract_GetCurrent',
+			type: 'POST',
+			data: Data_,
+			dataType: "json",
+			cache: false,
+			async: false,
+			contentType: false,
+			processData: false,
+		});
+
+		current_contract = get_data.responseJSON[0];
+		flagCrudEcontract = "VIEW";
+		form_contract_detail();
+	}
+
+	function share_this_contract() {
+
+
+		if (w2ui['gridShareUser'] != null) {
+			w2ui['gridShareUser'].destroy();
+		}
+
+		$('#gridShareUser').w2grid({
+			name: 'gridShareUser',
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: true,
+				toolbarAdd: false,
+				toolbarDelete: false,
+				toolbar: true,
+				toolbarSearch: false,
+			},
+			columns: [
+
+				{ field: 'Name', text: 'Name', size: '200px', searchable: 'text', editable: { type: 'text' } },
+				{ field: 'Jabatan', text: 'Jabatan', size: '200px', searchable: 'text', editable: { type: 'text' } },
+				{ field: 'FunctionName', text: 'Function', size: '100%', searchable: 'text', editable: { type: 'text' } },
+			],
+
+		});
+
+
+		if (w2ui['gridShareFunction'] != null) {
+			w2ui['gridShareFunction'].destroy();
+		}
+
+		$('#gridShareFunction').w2grid({
+			name: 'gridShareFunction',
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: true,
+				toolbarAdd: false,
+				toolbarDelete: false,
+				toolbar: true,
+				toolbarSearch: false,
+			},
+			columns: [
+
+				{ field: 'FunctionName', text: 'Function', size: '100%', searchable: 'text', editable: { type: 'text' } },
+			],
+
+		});
+
+		$('a[href="#share_function"]').tab('show');
+		$("#ModalShare").modal({ backdrop: 'static', keyboard: false });
+		$("#ModalShare").on('shown.bs.modal', function (event) {
+			$('a[href="#share_user"]').tab('show');
+		});
+
+	}
+
+	function routing_draft() {
+
+		w2ui['gridAttachment'].save
+		w2ui['gridEmail'].save();
+
+		List_Mail_Alert = [];
+		ListAttachment_For_Routing = [];
+		var ListAttachment = w2ui['gridAttachment'].records;
+		if ($('#Snooze').is(":checked")) { current_contract_snooze = 0; }
+		else { current_contract_snooze = 1; }
+
+		$.each(ListAttachment, function (i, item) {
+			var row_upload = { ID: ListAttachment[i].Id };
+			ListAttachment_For_Routing.push(row_upload);
+		});
+
+		List_Mail_Alert = w2ui['gridEmail'].records;
+
+		flagRouting = "NEXT";
+		load_page("#PageContainer", URL_PTPR + "/Contract/EContractRouting", function () { $('.select2').css('width', '100%').select2(); });
+
+	}
+
+	function reject_draft() {
+
+		w2ui['gridAttachment'].save
+		w2ui['gridEmail'].save();
+
+		List_Mail_Alert = [];
+		ListAttachment_For_Routing = [];
+		var ListAttachment = w2ui['gridAttachment'].records;
+		if ($('#Snooze').is(":checked")) { current_contract_snooze = 0; }
+		else { current_contract_snooze = 1; }
+
+		$.each(ListAttachment, function (i, item) {
+			var row_upload = { ID: ListAttachment[i].Id };
+			ListAttachment_For_Routing.push(row_upload);
+		});
+
+		List_Mail_Alert = w2ui['gridEmail'].records;
+
+		flagRouting = "REJECT";
+		load_page("#PageContainer", URL_PTPR + "/Contract/EContractRouting", function () { $('.select2').css('width', '100%').select2(); });
+
+	}
+
+
+	function download_sample_draft() {
+
+		if (w2ui['gridTemplateDraft'] != null) { w2ui['gridTemplateDraft'].destroy(); }
+
+		$('#gridTemplateDraft').w2grid({
+
+			name: 'gridTemplateDraft',
+			url: URL_PTPR + '/EContract/GetContractDraftType',
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: true,
+				toolbarAdd: false,
+				toolbarDelete: false,
+				toolbar: true,
+				toolbarSearch: false,
+			},
+			toolbar: {
+				items: [
+					//	{ type: 'button', id: 'view_in_new_tab', caption: '<i class="fa fa-external-link" aria-hidden="true" style="color:green;"></i> View In New Tab', disabled: true },
+				],
+				onClick: function (target, data) {
+
+					switch (target) {
+						case 'view_attachment':
+							var sel = w2ui.gridTemplateDraft.getSelection();
+							var record = w2ui.gridTemplateDraft.get(sel[0]);
+							view_attachment(record);
+							break;
+						case 'view_in_new_tab':
+							var sel = w2ui.gridTemplateDraft.getSelection();
+							var record = w2ui.gridTemplateDraft.get(sel[0]);
+							var file_url = "";
+							if (record.API == "DocMan") {
+								file_url = URL_PTPR + "/EContract/ViewAttachment?Id=" + record.ID;
+							}
+							else {
+								file_url = URL_PTPR + '/File_Contract/' + record.FileName_org;
+							}
+
+							window.open(file_url, '_blank');
+							break;
+
+					}
+
+				}
+			},
+			columns: [
+
+				{ field: 'TitleTag', text: 'Template', size: '200px', searchable: 'text' },
+				{
+					field: 'FileId', text: '', size: '100%',
+					render: function (record) {
+						var download = '<a href="' + URL_PTR + '/Procurement/File?id=' + record.FileId + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> Download Template</a>';
+						return download;
+					}
+				},
+
+
+			],
+
+
+
+		});
+
+
+
+		$('#ModalDownloadTemplate').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+
+	}
+
+
+	function process_pre_upload() {
+
+		var fileUploads = $("#input_attachment_contract").get(0);
+		var files = fileUploads.files;
+
+		if ($("#UploadDocumentType").val() == "" ) {
+
+			w2alert("Harap pilih tipe dokumen yang akan diupload !");
+			return;
+		}
+
+		if (files.length == 0) {
+			w2alert("Anda belum mencari file yang akan diupload");
+			return;
+		}
+
+		$("#ModalUpload").modal("hide");
+		$("#Saving_Load").show("fade", function () {
+
+			for (var i = 0; i < files.length; i++) {
+
+				var file_name = files[i].name;
+				var DataSave = new FormData();
+				DataSave.append('FileCategory', "CONTRACT_FILE");
+				DataSave.append('UPLOAD_FILE', files[i]);
+				DataSave.append('Key1', 'CONTRACT_FILE');
+				DataSave.append('Key3', $("#UploadDocumentType").val());
+				DataSave.append('Remark', $("#UploadRemark").val());
+
+				if (flagCrudEcontract == "VIEW") {
+					DataSave.append('Key2', current_contract.ContractId);
+				}
+				else {
+					DataSave.append('Key2', 'UPLOAD_FILE_PRE');
+				}
+
+				var Simpan = $.ajax({
+					url: URL_PTPR + '/File/UploadFilePre',
+					type: 'POST',
+					data: DataSave,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+					error: function (request, status, error) {
+						w2alert("Upload file gagal, silahkan coba lagi !");
+						$("#Saving_Load").hide("fade");
+						$("#ModalUpload").modal("show");
+					}
+				});
+
+				if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+					w2alert("Upload File Gagal !");
+					$("#Saving_Load").hide("fade");
+				}
+				else {
+					var recid = Simpan.responseJSON["Result"];
+					w2ui['gridAttachment'].add({
+						recid: recid + 'docman'
+						, Id: recid
+						, FileName: file_name
+						, Api: 'docman'
+						, PreUpload: '1'
+						, DocType: $("#UploadDocumentType").val()
+						, DocTypeName: $("#UploadDocumentType option:selected").text()
+						, Remark: $("#UploadRemark").val()
+					});
+					//$("#input_attachment_contract").val("");
+					//w2alert("Upload File Berhasil !");
+					//$("#Saving_Load").hide("fade");
+					var file_input = $('#input_attachment_contract');
+					file_input.ace_file_input('reset_input');
+					w2ui['gridAttachment'].refresh();
+					
+				}
+
+
+			}
+			$("#Saving_Load").hide("fade");
+		});
+
+
+	}
+
+	//==================================================================================//
+	//not fucntional core business sytem code ..............***
+
+
+	$("#ContractGroup").change(function () {
+
+		if (this.value == 5) {
+			is_customer_contract = 1;
+			$("#tab_contract_detail .customer_info").show("fade");
+
+
+		}
+		else {
+			is_customer_contract = 0;
+			$("#tab_contract_detail .customer_info").hide("fade");
+
+		}
+	})
+
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+		var target = $(e.target).attr("href");
+
+		if ((target == '#tab_alert_config')) {
+			w2ui['gridEmail'].refresh();
+		}
+
+		if ((target == '#list_log')) {
+			w2ui['gridLog'].refresh();
+		}
+
+		if ((target == '#tab_attachment')) {
+			w2ui['gridAttachment'].refresh();
+		}
+
+		if ((target == '#tab_draft')) {
+			w2ui['gridDraft'].refresh();
+		}
+
+		if ((target == '#tab_addendum_list')) {
+			w2ui['gridAddendumList'].refresh();
+		}
+
+
+		if ((target == '#share_user')) {
+			w2ui['gridShareUser'].refresh();
+		}
+
+		if ((target == '#share_function')) {
+			w2ui['gridShareFunction'].refresh();
+		}
+
+	});
+
+
+
+	$('#draft_contract_file').ace_file_input({
+
+		btn_choose: 'Browse',
+		btn_change: null,
+		no_icon: 'ace-icon fa fa-cloud-upload',
+		droppable: true,
+		thumbnail: 'small',
+		before_remove: function () {
+
+			Id = Upload_File_Main_Draft[0].ID;
+			Delete_File_Main_Draft = [];
+			var row_delete = { ID: Id };
+			Delete_File_Main_Draft.push(row_delete);
+
+			var DataSave = new FormData();
+			DataSave.append('FileCategory', "MAIN_DRAFT");
+			DataSave.append('FileUploadList', JSON.stringify(Delete_File_Main_Draft));
+
+			$("#Deleting_Load").show("fade", function () {
+
+				var Simpan = $.ajax({
+					url: URL_PTPR + '/EContract/DeleteFilePre',
+					type: 'POST',
+					data: DataSave,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+					error: function (request, status, error) {
+						$("#Deleting_Load").hide();
+						w2alert("Upload File Gagal !");
+					}
+
+				});
+
+				if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+					$("#Deleting_Load").hide();
+					w2alert("Upload File Gagal !");
+					return false;
+				}
+				else {
+					$("#Deleting_Load").hide();
+					Upload_File_Main_Draft = [];
+					w2alert("Draft Berhasil Dihapus!");
+					var file_input = $('#draft_contract_file');
+					file_input.ace_file_input('reset_input');
+					return true;
+
+				}
+			})
+		},
+		preview_error: function (filename, error_code) {
+		}
+	}).on('change', function () {
+
+		Upload_File_Main_Draft = [];
+		var file = this.files[0];
+		var file_name = file.name;
+		var DataSave = new FormData();
+		DataSave.append('FileCategory', "MAIN_DRAFT");
+		DataSave.append('UPLOAD_FILE', file);
+
+		$("#Saving_Load").show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/EContract/UploadFilePre',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+					w2alert("Upload File Gagal !");
+					var file_input = $('#draft_contract_file');
+					file_input.ace_file_input('reset_input');
+					$("#Saving_Load").hide();
+				}
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+				var file_input = $('#draft_contract_file');
+				file_input.ace_file_input('reset_input');
+				w2alert("Upload File Gagal !");
+				$("#Saving_Load").hide();
+
+			}
+			else {
+
+				var row_upload = { ID: Simpan.responseJSON["Result"] };
+				Upload_File_Main_Draft.push(row_upload);
+				w2alert("Upload Draft Berhasil !");
+				$("#Saving_Load").hide();
+
+			}
+
+		});
+
+
+	});
+
+
+	$('#info_contract').on('keydown', 'input, select, textarea', function (e) {
+		if (e.which === 13) {
+			var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+			focusable = form.find('input,select, textarea').filter(':visible');
+			next = focusable.eq(focusable.index(this) + 1);
+			if (next.length) {
+				id = next[0].id;
+				var e = document.getElementById(id);
+				if (e instanceof HTMLSelectElement) {
+					$('#' + id).select2('open');
+				}
+				else {
+					next.focus();
+				}
+
+			}
+			return false;
+		}
+	});
+
+	$("#AlertDay").val("10");
+	$('.date-picker').w2field('date', { format: 'yyyy/mm/dd' });
+	$('#AlertDay').ace_spinner({ value: 0, min: 0, max: 30, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+		.closest('.ace-spinner')
+		.on('changed.fu.spinbox', function () {
+		});
+
+	$(document).ready(function () {
+		$("#ContractValue").keydown(function (e) {
+			// Allow: backspace, delete, tab, escape, enter and .
+			if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+				// Allow: Ctrl+A,Ctrl+C,Ctrl+V, Command+A
+				((e.keyCode == 65 || e.keyCode == 86 || e.keyCode == 67) && (e.ctrlKey === true || e.metaKey === true)) ||
+				// Allow: home, end, left, right, down, up
+				(e.keyCode >= 35 && e.keyCode <= 40)) {
+				// let it happen, don't do anything
+				return;
+			}
+			// Ensure that it is a number and stop the keypress
+			if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+				e.preventDefault();
+			}
+		});
+	});
+
+	$('#FollowPeriode').click(function () {
+		if ($(this).is(':checked')) {
+			$('#StartDate,#EndDate').attr("readonly", true);
+			$('#StartDate').val(current_contract.BeginDate);
+			$('#EndDate').val(current_contract.EndDate);
+		}
+		else {
+			$('#StartDate,#EndDate').attr("readonly", false);
+			$('#StartDate').focus();
+		}
+	});
+
+
+	$('#input_attachment_contract').ace_file_input({
+		btn_choose: 'Browse',
+		btn_change: null,
+		no_icon: 'ace-icon fa fa-cloud-upload',
+		droppable: true,
+		thumbnail: 'small',
+	});
+
+	//first load event
+	$(document).ready(function () {
+
+
+		render_ContractGroup();
+		render_ContractType();
+		render_ContractSigningOfficer();
+		render_Fungsi();
+		render_Vendor();
+		render_ContractDocType();
+		render_CustomerSubscribeType();
+
+		form_contract_detail();
+
+	});
+
+</script>	
+
+

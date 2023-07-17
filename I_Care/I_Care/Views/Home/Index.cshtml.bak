@@ -1,0 +1,89 @@
+﻿@{
+	ViewBag.Title = "Home";
+	ViewBag.Parent = "Home";
+	ViewBag.Child = "";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-home home-icon\"></i>";
+
+}
+
+<style type="text/css">
+	#welcome-img {
+		position: absolute;
+		top: 50%;
+		right: 10px;
+	}
+
+	#welcome-img-2 {
+		position: absolute;
+		top: 38%;
+		right: 2%;
+		width: 300px;
+	}
+
+	#welcome-img-3 {
+		position: absolute;
+		top: 78%;
+		right: 0%;
+		width: 20px;
+		display: none;
+	}
+
+
+	#welcome-img-4 {
+		position: absolute;
+		top: 55%;
+		right: 6%;
+		width: 65px;
+	}
+
+	#welcome-img-5 {
+		position: absolute;
+		top: 50%;
+		right: 0%;
+		width: 70px;
+		display: none;
+	}
+
+	#welcome-img-6 {
+		position: absolute;
+		top: 78%;
+		right: 15%;
+		width: 70px;
+	}
+</style>
+
+
+<div style="margin:10px;" id="home-page">
+
+
+	<div style="font-size:16px;color:#5D8AA5;font-weight:bold;text-decoration:none;">
+		Welcome to I-Care Pertamina Retail.
+	</div>
+
+
+	<span style="color:#5D8AA5;">
+		Terima kasih telah menggunakan sistem I-Care Pertamina Retail.<br />
+		I-Care adalah aplikasi berbasis web yang digunakan untuk memfasilitasi berbagai kebutuhan user di Pertamina Retail
+		yang bisa dimonitor secara real time progress dari pengerjaan berbagai kebutuhan tersebut Mulai dari : <br />
+
+		<ul>
+			<li>IT Equipment (Pengajuan Perangkat TI)</li>
+			<li>Contract Management (Pengelolaan Data Kontrak)</li>
+		</ul>
+
+
+
+	</span>
+	<br><br>
+	<span style="font-weight:bold;color:#5D8AA5;">
+		Salam,<br>
+		Pertamina Retail IT Team.
+	</span>
+
+	<br />
+
+
+
+	<img src="../../Content/img/facility.png" id="welcome-img">
+
+</div>

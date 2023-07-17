@@ -1,0 +1,92 @@
+﻿@using I_Care.Models;
+@{
+    ViewBag.Title = "Request";
+    ViewBag.Parent = "Request";
+    ViewBag.Child = "Create Request";
+    ViewBag.Child_Caption = "Create Request";
+    ViewBag.Icon = "<i class='menu-icon fa fa-file'></i>";
+
+    FMSEntities db = new FMSEntities();
+    var menu = (from m in db.m_group_item where m.Publish == 1 select m);
+
+
+
+}
+
+<style>
+    .my-icon {
+        border: 1px solid #dedede;
+        border-radius: 5px;
+        width: 150px;
+        text-align: center;
+        padding: 5px;
+        cursor: pointer;
+        display: inline-table;
+        margin: 5px;
+        transition: 0.1s;
+    }
+
+        .my-icon img {
+            width: 100px;
+            /*  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+            /* filter: grayscale(100%);     */
+        }
+
+        .my-icon:hover {
+            opacity: .80;
+            -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
+            filter: grayscale(0);
+        }
+
+            .my-icon:hover > img {
+                -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
+                filter: grayscale(0);
+            }
+
+    #icon-content {
+        margin: 10px;
+    }
+</style>
+
+
+<div style="margin:10px;" id="home-page">
+
+    <div style="font-size:16px;color:#5D8AA5;font-weight:bold;text-decoration:none;margin:15px;">
+        Add your request and submit !...
+    </div>
+
+    <div id="icon-content">
+
+
+        @foreach (var HtMenu in menu)
+        {
+
+            <text>
+
+                <div class="my-icon" onclick="to_menu('@HtMenu.GroupLink')">
+                    <img src="../../Content/img/icon/@HtMenu.GroupImage" id="welcome-img">
+                    <br />
+                    @HtMenu.GroupName
+                </div>
+
+            </text>
+
+        }
+
+
+
+
+
+
+
+    </div>
+
+
+    <script>
+
+    function to_menu(cotroller) {
+        var URI = URL_PTR + cotroller;
+        window.location = URI;
+    }
+
+    </script>

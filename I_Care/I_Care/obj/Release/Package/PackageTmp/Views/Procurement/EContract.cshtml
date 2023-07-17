@@ -1,0 +1,726 @@
+﻿
+@{
+	Layout = null;
+}
+
+<style>
+
+	#page_e_kontrak_pilih_winner, #proses_next_step_mail {
+		padding: 4%;
+		padding-top: 1% !important;
+		padding-bottom: 0% !important;
+		
+	}
+		#page_e_kontrak_pilih_winner .header_form, #proses_next_step_mail .header_form {
+			text-align: center;
+			font-size: 18px;
+			font-weight: bold;
+			padding-bottom: 15px;
+		}
+		#page_e_kontrak_pilih_winner .footer_form, #proses_next_step_mail .footer_form {
+			text-align: center;
+			font-size: 18px;
+			font-weight: bold;
+			padding-bottom: 15px;
+			padding-top: 15px;
+		}
+
+		#draft_panel {
+			padding: 2%;
+			padding-top: 1% !important;
+			padding-bottom: 0% !important;
+		}
+
+		#draft_panel .control-label {
+			font-size: 12px;
+		}
+
+
+		#draft_panel .form_mandatory {
+			padding:10px;
+			padding-top:10px !important;
+			padding-bottom:0px !important;
+		}
+
+		#draft_panel .wording_header_form {
+			padding: 5px;
+			border-bottom: 1px dashed #dedede;
+			text-align: center;
+			line-height: 25px;
+			font-size: 13px !important;
+		}
+
+			#draft_panel .wording_header_form .box-body {
+				text-align: center;
+			}
+
+			#draft_panel .footer_form {
+				text-align: center;
+				margin-top: 5px;
+				border-top: 1px dashed #dedede;
+				padding-top: 10px;
+				padding-bottom: 10px;
+			}
+
+			#draft_panel .row {
+				margin-bottom: 0px !important;
+				margin-top: 0px !important;
+			}
+
+
+	#ModalListAttacment .modal-dialog {
+		width: 60%;
+		margin: 0 auto;
+		margin-top: 6%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalDownloadDraft .modal-dialog {
+		width: 30%;
+		margin: 0 auto;
+		margin-top: 6%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalDownloadTemplate .modal-dialog {
+		margin: 0 auto;
+		margin-top: 6%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+
+	#ModalDownloadDraft .icon_short_cut {
+		padding: 10px;
+		border: 1px dashed #dedede;
+		height: 70px !important;
+	}
+
+		#ModalDownloadDraft .icon_short_cut .ace-icon {
+			font-size: 35px !important;
+		}
+
+	#attchment_control button {
+		font-size:12px !important;
+	
+	}
+	.btn_donwload_template {
+		font-size:12px;
+	}
+
+	#gridWinner .w2ui-col-header {
+		padding-top: 20px;
+	}
+</style>
+
+
+<div id="page_e_kontrak_pilih_winner" hidden>
+
+	<div class="row box_info" style="padding-top:0px !important;">
+
+		<div class="header_form"><i class="fa fa-check-square-o" aria-hidden="true"></i> Pilih salah satu Winner yang akan dibuatkan E-Kontrak</div>
+
+		<div id="gridWinner" style="width:100%;"></div>
+
+		<div class="footer_form">
+
+			<button type="button" class="btn btn-gray btn-sm" onclick="cancel_e_contract()" ondblclick="cancel_e_contract()"><i class="ace-icon fa fa-arrow-left" aria-hidden="true"></i> Cancel</button>
+			<button type="button" class="btn btn-primary btn-sm" onclick="select_winner()" ondblclick="select_winner()"><i class="ace-icon  fa fa-arrow-right" aria-hidden="true"></i> Next</button>
+		
+		</div>
+		
+
+	</div>
+
+</div>
+
+
+<div id="draft_panel"  hidden>
+
+	<div class="wording_header_form row">
+
+		<div class="box-body" style="text-align:left;">
+			
+			<div class="col-sm-9 text-left">
+				<img src="../../../Content/img/contract_icon.png" style="width:40px;">
+				<span style="font-size:15px;">
+					Add new E-Contract <span id="proc_curr_contract"></span>
+				</span>
+			</div>
+		</div>
+
+	</div>
+
+	<div class="form_mandatory row">
+
+		<form class="form-horizontal">
+
+			<div class="box-body">
+
+				<div class="form-group" id="idtext">
+					<label for="inputName" class="col-sm-3 control-label">Contract Title <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<input class="form-control wajib" id="EContractTitle" placeholder="Judul Kontrak" type="text" autocomplete="off" onkeypress="if (event.keyCode == 13){$('#EContractNamaMitra').focus();}">
+					</div>
+				</div>
+
+
+				<div class="form-group">
+					<label for="inputName" class="col-sm-3 control-label">Mitra Name <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<input class="form-control wajib" id="EContractNamaMitra" placeholder="Disarankan nama perusahan atau badan usaha !" type="text" onkeypress="if (event.keyCode == 13){$('#EContractValue').focus();}" autocomplete="off">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label for="inputName" class="col-sm-3 control-label">Contract Value <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<input type="text" id="Etemp_ContractValue" hidden />
+						<input class="form-control wajib" id="EContractValue" placeholder="Nilai kontrak" type="text" onselect="format_currency('EContractValue','Etemp_ContractValue')" onkeyup="format_currency('EContractValue','Etemp_ContractValue')" onmouseup="format_currency('EContractValue','Etemp_ContractValue')" autocomplete="off" onkeypress="if (event.keyCode == 13){$('#EFungsi').focus();}">
+					</div>
+				</div>
+
+
+
+				<div class="form-group select_wajib">
+
+					<label for="inputName" class="col-sm-3 control-label">Function <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+
+						<select class="form-control select2 wajib" id="EFungsi" placeholder="Fungsi">
+							<option value="" selected>-- Pilih Fungsi --</option>
+						</select>
+
+						<script>
+
+							var DataPerson = $.ajax({
+								url: URL_PTPR + '/EContract/GetFungsiPtpr',
+								type: 'GET',
+								dataType: "json",
+								cache: false,
+								async: false,
+								contentType: false,
+								processData: false,
+							});
+
+							PersonDataList = DataPerson.responseJSON;
+
+							$.each(PersonDataList, function (i, item) {
+
+								$("#EFungsi").append('<option value="' + PersonDataList[i].ID + '">' + PersonDataList[i].ID + ' - ' + PersonDataList[i].NM_UNIT_ORG + '</option>');
+
+
+							});
+
+							$("#EFungsi").trigger("change");
+
+
+						</script>
+
+					</div>
+
+				</div>
+
+				<div class="form-group select_wajib">
+
+					<label for="inputName" class="col-sm-3 control-label">Contract Signing Officer <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+
+						<select class="form-control select2 wajib" id="EPerson" placeholder="Contract Signing Officer" required>
+							<option value="" selected>-- Pilih Pejabat  --</option>
+						</select>
+
+						<script>
+
+							var DataPerson = $.ajax({
+								url: URL_PTPR + '/EContract/GetPersonPtpr',
+								type: 'GET',
+								dataType: "json",
+								cache: false,
+								async: false,
+								contentType: false,
+								processData: false,
+							});
+
+							PersonDataList = DataPerson.responseJSON;
+
+							$.each(PersonDataList, function (i, item) {
+
+								$("#EPerson").append('<option value="' + PersonDataList[i].NIP + '">' + PersonDataList[i].NM_PEG + ' - ' + PersonDataList[i].NIP + ' - ' + PersonDataList[i].NM_JABATAN_STR + '</option>');
+
+
+							});
+
+							$("#EPerson").trigger("change");
+
+
+						</script>
+
+					</div>
+
+				</div>
+
+				<div class="form-group select_wajib">
+
+					<label for="inputName" class="col-sm-3 control-label">Contract Type <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+
+						<select class="form-control select2 wajib" id="EContractType" placeholder="Contract Type">
+							<option value="" selected>-- Pilih Tipe Kontrak --</option>
+						</select>
+
+						<script>
+
+							var DataContractType = $.ajax({
+								url: URL_PTPR + '/Contract/GetContractType',
+								type: 'GET',
+								dataType: "json",
+								cache: false,
+								async: false,
+								contentType: false,
+								processData: false,
+							});
+
+							ContractTypeData = DataContractType.responseJSON;
+
+							$.each(ContractTypeData, function (i, item) {
+
+								$("#EContractType").append('<option value="' + ContractTypeData[i].Id + '">' + ContractTypeData[i].ContractType + '</option>');
+
+
+							});
+
+							$("#EContractType").trigger("change");
+
+
+						</script>
+
+					</div>
+
+				</div>
+
+				<div class="form-group ">
+
+					<label for="inputName" class="col-sm-3 control-label">Contract Periode <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+						<div class="input-daterange input-group" id="input-periode">
+							<input type="text" class="input-sm form-control wajib periode" id="EStartDate" placeholder="Tgl. Kontrak Dimulai" autocomplete="off">
+							<span class="input-group-addon">
+								<i class="fa fa-long-arrow-right"></i>
+							</span>
+							<input type="text" class="input-sm form-control wajib periode" id="EEndDate" placeholder="Tgl. Kontrak Berakhir" autocomplete="off">
+						</div>
+					</div>
+
+
+				</div>
+
+				<div class="form-group select_wajib" style="text-align:left;font-size:12px;">
+
+					<label for="inputName" class="col-sm-3 control-label">Draft Type <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+
+						<select class="form-control select2 wajib" id="EDraftType" placeholder="Draft Type" name="Draft Type">
+							<option value="" selected>-- Pilih Tipe Draft --</option>
+						</select>
+
+						<script>
+
+							var DataContractDraftType = $.ajax({
+								url: URL_PTPR + '/EContract/GetContractDraftType',
+								type: 'GET',
+								dataType: "json",
+								cache: false,
+								async: false,
+								contentType: false,
+								processData: false,
+							});
+
+							DataContractDraftType_ = DataContractDraftType.responseJSON;
+
+							$.each(DataContractDraftType_, function (i, item) {
+
+								$("#EDraftType").append('<option value="' + DataContractDraftType_[i].Id + '">' + DataContractDraftType_[i].Title + '</option>');
+
+
+							});
+
+							$("#EDraftType").trigger("change");
+
+
+						</script>
+
+					</div>
+
+				</div>
+
+				<div class="form-group upload_wajib" id="draft_contract_file_control">
+					<label for="inputName" class="col-sm-3 control-label">Contract Draft <mandatory>*</mandatory></label>
+					<div class="col-sm-8">
+
+						<table border="0">
+							<tr>
+								<td style="padding-right:10px;width:70%;">
+									<input type="file" id="draft_contract_file" required accept=".doc,.docx" class="uploader" />
+								</td>
+								<td style="padding-left:10px;">
+									<table border="0" width="100%">
+										<tr>
+											<td width="50%">
+												<div class="ProgresUpload" hidden><img src="/Content/img/loading.gif" style="width:18px;padding:0px !important;">Please wait ...</div>
+											</td>
+											<td>
+												<button type="button" class="btn btn-white  btn-draft-tools btn_donwload_template" style="color:dodgerblue !important;" onclick="download_sample_draft()"><i class="ace-icon fa fa-list-ol" aria-hidden="true"></i> Download Template</button>
+
+											</td>
+										</tr>
+									</table>
+									
+								</td>
+
+							</tr>
+
+						</table>
+					</div>
+				</div>
+
+
+				<div class="form-group" id="attchment_control">
+					<label for="inputName" class="col-sm-3 control-label">Attachment</label>
+					<div class="col-sm-8">
+
+						<button type="button" class="btn btn-white  btn-draft-tools btn-clear-attach btn-attach-info" hidden>...</button>
+						<button type="button" class="btn btn-white  btn-draft-tools btn-clear-attach" onclick="clear_attach_file()" hidden><i class="ace-icon fa fa-trash" aria-hidden="true"></i> Clear Attachment File</button>
+						<button type="button" class="btn btn-white  btn-draft-tools	btn_add_attachment" onclick="$('#attachment_draft_e_kontrak').val('');$('#attachment_draft_e_kontrak').click();"><i class="ace-icon fa fa-paperclip" aria-hidden="true" style="color:orange;"></i> Tambahkan Attachment</button>
+						<button type="button" class="btn btn-white  btn-draft-tools upload_progress_lampiran" style="color:dodgerblue;border:none !important;"><img src="~/Content/img/loading.gif" style="width:18px;padding:0px !important;" /> Please wait ...</button>
+
+					</div>
+				</div>
+
+				<div class="form-group" id="idtext">
+					<label for="inputName" class="col-sm-3 control-label">Remark</label>
+					<div class="col-sm-8">
+						<textarea class="form-control input" placeholder="Tinggalkan keterangan jika diperlukan" id="Remark" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:50px;" autocomplete="off"></textarea>
+					</div>
+				</div>
+
+			</div>
+
+		</form>
+
+	</div>
+
+
+	<div class="footer_form row">
+		<button type="button" class="btn btn-gray btn-sm" onclick="cancel_e_contract()" ondblclick="cancel_e_contract()"><i class="ace-icon fa fa-arrow-left" aria-hidden="true"></i> Cancel</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="isi_email_alert()" ondblclick="isi_email_alert()"><i class="ace-icon  fa fa-arrow-right" aria-hidden="true"></i> Next</button>
+	</div>
+
+</div>
+
+<div id="proses_next_step_mail" hidden>
+
+	<div class="wording_header_form row" style="text-align:center;margin-bottom:15px;">
+
+		<img src="~/Content/img/email_icon.png" style="width:5%;" /><br /><br />
+		<span style="font-size:20px;font-weight:bold;">
+			Setting Email Alert
+		</span>
+		<br />
+		<span style="font-size:15px;font-weight:bold;">Agar Anda selalu mendapat notofikasi jika kontrak sudah mendekati end periode </span>
+
+	</div>
+
+	<div class="form_mandatory row">
+		<div id="gridMail_add" style="width:100%; height:210px;border-radius:0px;text-align:left;"></div>
+	</div>
+
+	<div class="footer_form">
+
+		<button type="button" class="btn btn-gray btn-sm" onclick="back_from_isi_email()" ondblclick="back_from_isi_email()"><i class="ace-icon fa fa-arrow-left" aria-hidden="true"></i> Back</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="submit_draft()" ondblclick="submit_draft()"><i class="ace-icon  fa fa-paper-plane" aria-hidden="true"></i> Submit</button>
+	</div>
+
+</div>
+
+<div class="modal fade modal_ex" id="ModalDownloadDraft" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title"> <i class="ace-icon fa fa-file-pdf-o" aria-hidden="true" style="color:red;"></i> Silahkan Download Draft Berikut !</h4>
+
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="box_info_icon" style="border:none !important;padding-bottom:15px !important;">
+
+
+					<div class="icon_short_cut" onclick="download_draft(1);">
+						<i class="ace-icon fa fa-file-pdf-o" aria-hidden="true" style="color:red;"></i>
+						<br />
+						<span class="lbl bigger-100">Draft Rangkap I</span> <br /><br />
+					</div>
+
+
+					<div class="icon_short_cut" onclick="download_draft(2);">
+						<i class="ace-icon fa fa-file-pdf-o" aria-hidden="true" style="color:red;"></i>
+						<br />
+						<span class="lbl bigger-100">Draft Rangkap II</span> <br /><br />
+					</div>
+
+				</div>
+
+			</div>
+			<div class="modal-footer" style="text-align:center;">
+				<button type="button" class="btn btn-gray btn-sm" data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ModalInputMail" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content" style="none;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Input Email Alert</h4>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-3 control-label mandatory">Tujuan Undangan <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control inv_field" id="penerima_email" placeholder="Nama" type="text" onkeypress="if (event.keyCode == 13){$('#alamat_email').focus();}" autocomplete="off" />
+							</div>
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Alamat Email <span style="color:Red;">*</span> : </label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control date-picker wajib_diisi" id="alamat_email" placeholder="Email" autocomplete="off" onkeypress="if (event.keyCode == 13){$('#jabatan_penerima').focus();}">
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Jabatan <span style="color:Red;">*</span> : </label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control date-picker wajib_diisi" id="jabatan_penerima" placeholder="Jabatan" autocomplete="off" onkeypress="if (event.keyCode == 13) { add_mail('ÁDD');}">
+							</div>
+
+						</div>
+
+
+					</div>
+				</form>
+
+
+
+			</div>
+			<div class="modal-footer">
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ModalListUser" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content" style="none;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">List Penerima</h4>
+
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="gridUser" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-sm" onclick="select_mail()">Pilih</button>
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade modal_ex" id="ModalDownloadTemplate" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title"> <i class="ace-icon fa fa-file-pdf-o" aria-hidden="true" style="color:red;"></i> Silahkan Download Template Draft Berikut !</h4>
+
+			</div>
+			<div class="modal-body" style="padding:0px;">
+				<div id="gridTemplateDraft" style="border-radius:0px;border:none;border-top:1px solid #ccc;height:299px;" class="responsive"></div>
+			</div>
+			<div class="modal-footer" style="text-align:center;">
+				<button type="button" class="btn btn-gray btn-sm" data-dismiss="modal">Close</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+<div id="uploader_file" hidden>
+
+	<input type="file" id="attachment_draft_e_kontrak" required accept=".jpg,.jpeg,.pdf,.png,.xls" />
+	
+</div>
+
+@*variabel & Const*@
+<script>
+
+	var current_contract_id = "";
+	var panel_height_ajustment = 170;
+	var panel_height_ajustment_editor = 200;
+	var curent_template = [];
+	var page_ = 1;
+
+	var current_contract = [];
+	var current_formid = 0;
+	var FlagSign = 0;
+	var open_preview = 0;
+	var current_reject = 0;
+	var current_process = "";
+	var IdSelect = "";
+	var form_mode = "";
+
+	var Upload_File = [];
+	var Upload_File_Main_Draft = [];
+
+
+</script>
+
+<script>
+
+	curr_winner = [];
+
+	$('#gridWinner').css('height', (Number(window.innerHeight) - 300));
+	$(window).resize(function () {
+
+		$('#gridWinner').css('height', (Number(window.innerHeight) - 300));
+	});
+
+
+	function form_e_kontrak() {
+
+		if (current_proc.CountWinner > 1) {
+
+			$("#page_e_kontrak_pilih_winner").show(function () {
+				render_grid_winner();
+				clear_wait();
+			});
+
+		}
+		else {
+
+
+			var Data_Winner = $.ajax({
+				url: URL_PTPR + '/Procurement/GetWinner?Id=' + current_proc.Id,
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			//responseJSON
+			curr_winner = Data_Winner.responseJSON[0];
+			form_mode = "";
+			select_winner();
+			
+		}
+
+
+	}
+
+	function render_grid_winner() {
+
+		if (w2ui['gridWinner'] != null) w2ui['gridWinner'].destroy();
+
+		$('#gridWinner').w2grid({
+			name: 'gridWinner',
+			recordHeight: 50,
+			url: URL_PTPR + '/Procurement/GetWinner?Id=' + current_proc.Id,
+			show: {
+				footer: false,
+				lineNumbers: false,
+				toolbarAdd: false,
+				toolbarDelete: true,
+				toolbarInput: false,
+				toolbarReload: false,
+				toolbarColumns: false,
+				toolbar: false,
+				selectColumn: true,
+			},
+			multiSelect: false,
+			columns: [
+
+				{ field: 'InvToName', caption: 'Winner Name', size: '200px' },
+				{ field: 'UsulanPemenangName', caption: 'Status', size: '100%' },
+			],
+		});
+
+	}
+
+
+
+	function select_winner() {
+
+		
+		
+		if (current_proc.CountWinner > 1) {
+
+			$("#page_e_kontrak_pilih_winner").hide("fade", function () {
+				$("#draft_panel").show("fade");
+
+				form_mode = "multi";
+			})
+		}
+		else {
+
+
+			$("#draft_panel").show("slide");
+			$("#draft_panel #EContractTitle").val(current_proc.Title);
+			$("#draft_panel #EContractNamaMitra").val(curr_winner.InvToName);
+			$("#draft_panel #EContractValue").val(current_proc.Value);
+			format_currency('EContractValue', 'Etemp_ContractValue')
+			$("#EContractTitle").focus();
+			render_gridMail_add();
+			clear_wait();
+			form_mode = "";
+
+
+
+		}
+
+
+	}
+
+
+	form_e_kontrak();
+	isMainPage = false;
+
+</script>

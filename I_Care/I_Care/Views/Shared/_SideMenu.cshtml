@@ -1,0 +1,115 @@
+﻿@using System.Data.SqlClient;
+@using System.Data;
+@using I_Care.Classes;
+
+
+
+	
+	<div id="sidebar" class="sidebar menu-min responsive">
+
+		<ul class="nav nav-list">
+
+
+
+			<li @{if (ViewBag.Parent == "Home") { <text> class="active open hover" </text>  } else { <text> class="hover" </text>  }}>
+				<a href="@Url.Content("~/Home")" onclick="render_wait()">
+
+					<img src="../../../Content/img/HomeIcon2.png" class="icon_image_side">
+					<span class="menu-text">Home</span>
+				</a>
+
+			</li>
+
+
+
+			@*<li @{if (ViewBag.Parent == "Contract") { <text> class="active open hover" </text>  } else { <text> class="hover" </text>  }}>
+				<a href="@Url.Content("~/Contract")" onclick="render_wait()">
+
+					<img src="../../../Content/images/contract.png" class="icon_image_side">
+					<span class="menu-text">Contract</span>
+				</a>
+				<b class="arrow"></b>
+				<ul class="submenu">
+					<li @{if (ViewBag.Child == "Archive") { <text> class="active" </text>  }}>
+						<a href="@Url.Content("~/Contract/Archive")" onclick="render_wait()">
+							<i class="menu-icon fa fa-caret-right"></i>Archive
+						</a>
+					</li>
+					<li @{if (ViewBag.Child == "EContract") { <text> class="active" </text>  }}>
+						<a href="@Url.Content("~/Contract/EContract")" onclick="render_wait()">
+							<i class="menu-icon fa fa-caret-right"></i>E-Contract
+						</a>
+					</li>
+				</ul>
+
+			</li>
+
+			<li @{if (ViewBag.Parent == "Procurement") { <text> class="active open hover" </text>  } else { <text> class="hover" </text>  }}>
+				<a href="@Url.Content("~/Procurement")" onclick="render_wait()">
+
+					<img src="../../../Content/img/procurement.png" class="icon_image_side">
+					<span class="menu-text">Procurement</span>
+				</a>
+
+			</li>
+
+
+
+			<li @{if (ViewBag.Parent == "StakeholderBirthday") { <text> class="active open hover" </text>  } else { <text> class="hover" </text>  }}>
+				<a href="@Url.Content("~/StakeholderBirthday")" onclick="render_wait()">
+
+					<img src="../../../Content/img/ultah.png" class="icon_image_side">
+					<span class="menu-text">Stakeholder Birthday</span>
+				</a>
+				<b class="arrow"></b>
+				<ul class="submenu">
+					<li @{if (ViewBag.Child == "Employees") { <text> class="active" </text>  }}>
+						<a href="@Url.Content("~/StakeholderBirthday/Employees")" onclick="render_wait()">
+							<i class="menu-icon fa fa-caret-right"></i>Employees
+						</a>
+					</li>
+					<li @{if (ViewBag.Child == "External") { <text> class="active" </text>  }}>
+						<a href="@Url.Content("~/StakeholderBirthday")" onclick="render_wait()">
+							<i class="menu-icon fa fa-caret-right"></i>External
+						</a>
+					</li>
+				</ul>
+
+			</li>
+
+
+			<li @{if (ViewBag.Parent == "MyVoucher") { <text> class="active open hover" </text>  } else { <text> class="hover" </text>  }}>
+				<a href="@Url.Content("~/MyVoucher")" onclick="render_wait()">
+
+					<img src="../../../Content/img/evoucher.png" class="icon_image_side">
+					<span class="menu-text">My Voucher</span>
+				</a>
+
+			</li>*@
+
+			<li @{if (ViewBag.Parent == "Broadcast") { <text> class="active open hover" </text>  } else { <text> class="hover" </text>  }}>
+				<a href="@Url.Content("~/Broadcast")" onclick="render_wait()">
+
+					<img src="../../../Content/img/broadcast_4.png" class="icon_image_side">
+					<span class="menu-text">Broadcast</span>
+				</a>
+
+			</li>
+
+
+			<li @{if (ViewBag.Parent == "ChangePassword") { <text> class="active open hover" </text>  } else { <text> class="hover" </text>  }}>
+				<a href="@Url.Content("~/User/ChangePassword")" onclick="render_wait()">
+
+					<img src="../../../Content/img/change_password.png" class="icon_image_side">
+					<span class="menu-text">Change Password</span>
+				</a>
+
+			</li>
+
+
+		</ul><!-- /.nav-list -->
+
+
+                
+
+    </div>

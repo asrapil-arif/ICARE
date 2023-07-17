@@ -1,0 +1,353 @@
+﻿@using I_Care.Models;
+@{
+    ViewBag.Title = "Submissions List";
+    ViewBag.Parent = "IT Equipment";
+    ViewBag.Child = "Submissions List";
+    ViewBag.Child_Caption = "Submissions List";
+    ViewBag.Icon = "<i class='menu-icon fa fa-desktop'></i>";
+
+
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    string[] SSO_ALLOW = ROLES.GetRolesForUser(User.Identity.Name.ToString());
+   
+    FMSEntities db = new FMSEntities();
+    var Item = (from m in db.m_item where m.ItemGroup == 1 select m);
+    int H_W = Request.Browser.ScreenPixelsHeight + 15;
+
+}
+
+<style>
+    .page-content {
+        padding: 0px;
+    }
+
+    #check_card:hover {
+        color: Blue;
+    }
+
+    #ModSubmissionDetails label {
+        font-size: 12px;
+    }
+
+    .loading_on_modal {
+        position: absolute;
+        border: 1px solid #dedede;
+        top: 10%;
+        width: 100%;
+        height: 100%;
+    }
+</style>
+
+<div id="gridPengajuanHeader" style="height:@{<text>@H_W</text>}px;border-left:none;border-right:none;border-bottom:none;border-radius:0px;"></div>
+
+@Html.Partial("Modal/SubmissionDetail")
+
+
+<script>
+
+
+    var height = Number(window.innerHeight)-132;
+    $('#gridPengajuanHeader').height(height);
+
+    var UserLogin = '@User.Identity.Name.ToString()';
+    var FinalApp = '@ViewBag.UserFinalApp';
+    var UserRealisasi = '@ViewBag.UserRealisasi';
+
+  $('#gridPengajuanHeader').w2grid({
+        name: 'gridPengajuanHeader',
+        textSearch: 'contains',
+        show: {
+        footer          :true,
+        toolbar         :true,
+        footer          :true,
+        lineNumbers     :true,
+        selectColumn    :true,
+        toolbarSearch   :false,
+        toolbarAdd      :false,
+        toolbarDelete   :false,
+        },
+        toolbar: {
+        items: [
+
+                { type: 'break' },
+                { type: 'button', id: 'detail_button', caption: '<i class="fa fa-eye" aria-hidden="true"></i> View',disabled:true },
+
+                @if (ROLES.CheckAllowExtendAccess(User.Identity.Name.ToString(), 35)  == true)
+                {
+                <text>
+                { type: 'break' },
+                { type: 'button', id: 'batal_button', caption: '<i class="fa fa-ban" aria-hidden="true"></i> Cancel',disabled:true },
+                </text>
+                }
+
+
+                @if (ROLES.CheckAllowExtendAccess(User.Identity.Name.ToString(), 36)  == true)
+                {
+                <text>
+                { type: 'break' },
+                { type: 'button', id: 'reposting', caption: '<i class="fa fa-upload" aria-hidden="true"></i> Resubmit',disabled:true },
+                </text>
+                }
+
+                @if (ROLES.CheckAllowExtendAccess(User.Identity.Name.ToString(), 37)  == true)
+                {
+                <text>
+                { type: 'break' },
+                { type: 'button', id: 'app_atasan', caption: '<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Approval Manager',disabled:true },
+                </text>
+                }
+
+                @if (ROLES.CheckAllowExtendAccess(User.Identity.Name.ToString(), 38)  == true)
+                {
+                <text>
+                { type: 'break' },
+                { type: 'button', id: 'app_it', caption: '<i class="fa fa-thumbs-o-up" aria-hidden="true"></i> Final Approvement',disabled:true },
+                </text>
+                }
+
+                @if (ROLES.CheckAllowExtendAccess(User.Identity.Name.ToString(), 39)  == true)
+                {
+                <text>
+                { type: 'break' },
+                { type: 'button', id: 'realisasi', caption: '<i class="fa fa-paper-plane" aria-hidden="true"></i> Realization',disabled:true },
+                </text>
+                }
+
+                @if (ROLES.CheckAllowExtendAccess(User.Identity.Name.ToString(), 40)  == true)
+                {
+                <text>
+                { type: 'break' },
+                { type: 'button', id: 'pending_btn', caption: '<i class="fa fa-hourglass-start" aria-hidden="true"></i> Pending',disabled:true },
+                { type: 'button', id: 'resume_btn', caption: '<i class="fa fa-play" aria-hidden="true"></i> Resume',disabled:true },
+                </text>
+                }
+
+                @if (ROLES.CheckAllowExtendAccess(User.Identity.Name.ToString(), 41)  == true)
+                {
+                <text>
+                { type: 'break' },
+                { type: 'button', id: 'print_btn', caption: '<i class="fa fa-print" aria-hidden="true"></i> Print Handover Form',disabled:true },
+                </text>
+                }
+
+                { type: 'break' },
+
+
+                ],
+                onClick: function (target,data) {
+
+                        switch (target) {
+                                case 'app_atasan':
+                                    var sel = w2ui.gridPengajuanHeader.getSelection();
+                                    var record = w2ui.gridPengajuanHeader.get(sel[0]);
+                                    detail_submission('APPROVE_ATASAN',record);
+                                break;
+
+                                case 'app_it':
+                                    var sel = w2ui.gridPengajuanHeader.getSelection();
+                                    var record = w2ui.gridPengajuanHeader.get(sel[0]);
+                                    detail_submission('FINAL_APPROVEMENT',record);
+
+                                break;
+
+                                case 'batal_button':
+                                    var sel = w2ui.gridPengajuanHeader.getSelection();
+                                    var record = w2ui.gridPengajuanHeader.get(sel[0]);
+                                    form_pengajuan('CANCEL',record);
+                                break;
+
+                                case 'detail_button':
+                                    var sel = w2ui.gridPengajuanHeader.getSelection();
+                                    var record = w2ui.gridPengajuanHeader.get(sel[0]);
+                                    detail_submission('VIEW',record);
+                                break;
+
+                                case 'reposting':
+                                    var sel = w2ui.gridPengajuanHeader.getSelection();
+                                    var record = w2ui.gridPengajuanHeader.get(sel[0]);
+                                    detail_submission('REPOSTING',record);
+                                break;
+
+                                case 'realisasi':
+                                    var sel = w2ui.gridPengajuanHeader.getSelection();
+                                    var record = w2ui.gridPengajuanHeader.get(sel[0]);
+                                    detail_submission('REALISASI_PRKT_IT',record);
+                                break;
+
+                                case 'pending_btn':
+                                    var sel = w2ui.gridPengajuanHeader.getSelection();
+                                    var record = w2ui.gridPengajuanHeader.get(sel[0]);
+                                    detail_submission('PENDING',record);
+                                break;
+                                case 'resume_btn':
+                                    var sel = w2ui.gridPengajuanHeader.getSelection();
+                                    var record = w2ui.gridPengajuanHeader.get(sel[0]);
+                                    detail_submission('RESUME',record);
+                                break;
+                                case 'print_btn':
+                                    var sel = w2ui.gridPengajuanHeader.getSelection();
+                                    var record = w2ui.gridPengajuanHeader.get(sel[0]);
+                                    download_report(record);
+                                break;
+                                    }
+                }
+        },
+        columns: [
+                { field: 'HtmlTag', caption: '', size: '10px', sortable: true, resizable: true, searchable: 'text' },
+                { field: 'ProcessName', caption: 'Status', size: '200px', sortable: true, resizable: true, searchable: 'text' },
+                { field: 'Id', caption: 'Id', size: '120px', sortable: true, resizable: true, searchable: 'text' },
+                { field: 'GroupName', caption: 'Request Category', size: '150px', sortable: true, resizable: true, searchable: 'text' },
+                { field: 'Keterangan', caption: 'Remark', size: '150px', sortable: true, resizable: true, searchable: 'text' },
+                { field: 'CreateUser', caption: 'Create By.', size: '150px', sortable: true, resizable: true, searchable: 'text' },
+                //{ field: 'AtasanName', caption: 'Atasan', size: '150px', sortable: true, resizable: true, searchable: 'text' },
+                //{ field: 'UserAtasan', caption: 'UserATasan', size: '150px', sortable: true, resizable: true, searchable: 'text' },
+                { field: 'UpdateDate', caption: 'Last Update', size: '100px', sortable: true, resizable: true, searchable: 'text',style:'text-align:right;'},
+                { field: 'UpdateUser', caption: 'Update By.', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+                //{ field: 'Realized', caption: 'Realized', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+
+        ],
+        onAdd: function (event) {
+            from_add_pengajuan();
+        },
+        onReload: function (event) {
+            refresh_list_Pengajuan();
+        },
+        onDblClick:function (event) {
+            var record = this.get(event.recid);
+            //form_pengajuan('UPDATE',record);
+            detail_submission('VIEW',record);
+        },
+        onSelect: function(event) {
+                event.onComplete = function () {
+
+                    disable_button();
+                    var pengajuan = w2ui.gridPengajuanHeader.getSelection();
+
+                    if (pengajuan.length == 1){
+                        var record = this.get(event.recid);
+                        w2ui['gridPengajuanHeader'].toolbar.enable('detail_button');
+                        switch (record.Process) {
+                            case 0:
+                                w2ui['gridPengajuanHeader'].toolbar.enable('reposting');
+                                w2ui['gridPengajuanHeader'].toolbar.enable('batal_button');
+                            break;
+                            case 1:
+                                w2ui['gridPengajuanHeader'].toolbar.enable('batal_button');
+                            if (UserLogin == record.UserAtasan){
+
+                                w2ui['gridPengajuanHeader'].toolbar.enable('app_atasan');
+                            }
+                            break;
+                            case 2:
+                            if (UserLogin ==  record.FinnalApprovement){
+
+                                w2ui['gridPengajuanHeader'].toolbar.enable('app_it');
+                            }
+                            break;
+                            case 3:
+                            if (UserLogin == UserRealisasi){
+                            w2ui['gridPengajuanHeader'].toolbar.enable('realisasi');
+                            }
+                            if (record.Realized != '100%'){
+                            w2ui['gridPengajuanHeader'].toolbar.enable('pending_btn');
+                            w2ui['gridPengajuanHeader'].toolbar.enable('realisasi');
+                            }
+                            break;
+                            case 4:
+                            if (record.Realized != '100%'){
+                                w2ui['gridPengajuanHeader'].toolbar.enable('pending_btn');
+                                w2ui['gridPengajuanHeader'].toolbar.enable('realisasi');
+
+                            }
+                            w2ui['gridPengajuanHeader'].toolbar.enable('print_btn');
+                            break;
+                            case 5:
+                                    w2ui['gridPengajuanHeader'].toolbar.enable('resume_btn');
+                            break;
+                        }
+                    }
+
+
+
+                }
+
+        },
+        onUnselect: function(event) {
+                event.onComplete = function () {
+                    disable_button();
+                    var pengajuan = w2ui.gridPengajuanHeader.getSelection();
+
+                        if (pengajuan.length == 1){
+                            var record = this.get(event.recid);
+                            switch (record.Process) {
+                                case 0:
+                                        w2ui['gridPengajuanHeader'].toolbar.enable('reposting');
+                                        w2ui['gridPengajuanHeader'].toolbar.enable('batal_button');
+                                break;
+                                case 1:
+                                        w2ui['gridPengajuanHeader'].toolbar.enable('batal_button');
+                                    if (UserLogin == record.UserAtasan){
+                                        w2ui['gridPengajuanHeader'].toolbar.enable('app_atasan');
+                                    }
+                                break;
+                                case 2:
+                                    if (UserLogin == FinalApp){
+                                    w2ui['gridPengajuanHeader'].toolbar.enable('app_it');
+                                    }
+                                break;
+                                case 3:
+                                    if (UserLogin == UserRealisasi){
+                                    w2ui['gridPengajuanHeader'].toolbar.enable('realisasi');
+                                    }
+                                    if (record.Realized != '100%'){
+                                    w2ui['gridPengajuanHeader'].toolbar.enable('pending_btn');
+                                    w2ui['gridPengajuanHeader'].toolbar.enable('realisasi');
+                                    }
+                                break;
+                                case 4:
+                                    if (record.Realized != '100%'){
+                                        w2ui['gridPengajuanHeader'].toolbar.enable('pending_btn');
+                                        w2ui['gridPengajuanHeader'].toolbar.enable('realisasi');
+                                    }
+                                    w2ui['gridPengajuanHeader'].toolbar.enable('print_btn');
+                                break;
+                                case 5:
+                                    w2ui['gridPengajuanHeader'].toolbar.enable('resume_btn');
+                                break;
+                            }
+                        }
+                 }
+
+        }
+        });
+
+
+refresh_list_Pengajuan();
+
+
+function disable_button(){
+
+w2ui['gridPengajuanHeader'].toolbar.disable('app_atasan');
+w2ui['gridPengajuanHeader'].toolbar.disable('app_it');
+w2ui['gridPengajuanHeader'].toolbar.disable('realisasi');
+w2ui['gridPengajuanHeader'].toolbar.disable('batal_button');
+w2ui['gridPengajuanHeader'].toolbar.disable('detail_button');
+w2ui['gridPengajuanHeader'].toolbar.disable('reposting');
+w2ui['gridPengajuanHeader'].toolbar.disable('pending_btn');
+w2ui['gridPengajuanHeader'].toolbar.disable('resume_btn');
+w2ui['gridPengajuanHeader'].toolbar.disable('print_btn');
+
+
+}
+
+
+
+function download_report(record){
+
+        var url = URL_PTR + '/Reporting/HandOverFormReport?Id=' + record.recid;
+        var win = window.open(url, '_blank');
+
+}
+
+
+</script>

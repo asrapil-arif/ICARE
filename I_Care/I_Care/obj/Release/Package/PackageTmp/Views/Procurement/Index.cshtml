@@ -1,0 +1,193 @@
+@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Title = "Procurement";
+	ViewBag.Parent = "Procurement";
+	ViewBag.Child = "Procurement";
+	ViewBag.Parent_Caption = "<a href='" + @Request.Url.GetLeftPart(UriPartial.Authority) + "/Procurement'>Procurement</a>";
+	//ViewBag.Child_Caption = "<a href='" + @Request.Url.GetLeftPart(UriPartial.Authority) + "/Procurement'>Procurement</a>";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-cart-arrow-down\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+}
+
+<style>
+	.page-content {
+		padding: 0px;
+	}
+
+
+</style>
+
+<script>
+
+	var from_add = "1";
+	var global_status = "0";
+	var StatusRef = "";
+	var lsting_stat = "";
+	var selected_contract_id = 0;
+
+	var TempDelete = [];
+	var current_proc = [];
+	var InvVendorId = "0";
+	var FLAG_VIEW = "";
+	var isMainPage = false;
+	var GetMetodePenunjukanList_ = [];
+	var flagCrudEcontract = "";
+	var current_contract = [];
+	var cur_proc_addendum = 0;
+	var cur_contract_addendum = "";
+
+	var GetContractGroup_ = [];
+	var ContractType_ = [];
+	var ContractSigningOfficer_ = [];
+	var FungsiName_ = [];
+	var ContractVendor_ = [];
+	var DocumentType_ = [];
+	var SuscribeType_ = [];
+	var curr_winner = [];
+
+	localStorage.clear();
+
+</script>
+
+
+
+<div id="PageContainer"></div>
+
+<script>
+
+	function back_main_page() {
+
+		set_sub_child_breadcrumb("");
+		localStorage.clear();
+		isMainPage = true;
+		if (global_status == "0") {
+
+			FLAG_VIEW = "";
+			load_page("#PageContainer", URL_PTPR + "/Procurement/MainPage", function () { $('.select2').css('width', '100%').select2() });
+
+		}
+		else {
+
+			load_page("#PageContainer", URL_PTPR + "/Procurement/MainPage", function () { $('.select2').css('width', '100%').select2(); find_proc(global_status); });
+		}
+		
+	}
+
+	$(document).ready(function () {
+
+		isMainPage = true;
+		load_page("#PageContainer", URL_PTPR + "/Procurement/MainPage", function () { $('.select2').css('width', '100%').select2(); });
+
+	});
+
+
+
+	function fill_data() {
+
+
+		if (GetContractGroup_.length == 0) {
+			var GetContractGroup = $.ajax({
+				url: URL_PTPR + '/Contract/GetEContractGroup_V2',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			GetContractGroup_ = GetContractGroup.responseJSON;
+			///console.log(GetContractGroup_);
+		}
+
+		if (ContractType_.length == 0) {
+			var ContractType = $.ajax({
+				url: URL_PTPR + '/Contract/GetContractType',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			ContractType_ = ContractType.responseJSON;
+			//console.log(ContractType_);
+		}
+		
+		if (ContractSigningOfficer_.length == 0) {
+			var ContractSigningOfficer = $.ajax({
+				url: URL_PTPR + '/Contract/GetOfficer',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			ContractSigningOfficer_ = ContractSigningOfficer.responseJSON;
+			//console.log(ContractSigningOfficer_);
+		}
+
+		if (FungsiName_.length == 0) {
+			var FungsiName = $.ajax({
+				url: URL_PTPR + '/Contract/GetFungsi',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+			FungsiName_ = FungsiName.responseJSON;
+		}
+
+		if (ContractVendor_.length == 0) {
+			var ContractVendor = $.ajax({
+				url: URL_PTPR + '/Contract/GetVendor',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			ContractVendor_ = ContractVendor.responseJSON;
+		}
+
+		if (DocumentType_.length == 0) {
+			var DocumentType = $.ajax({
+				url: URL_PTPR + '/Contract/GetCustomerContractDocType',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			DocumentType_ = DocumentType.responseJSON;
+		}
+
+		if (SuscribeType_.length == 0) {
+			var SuscribeType = $.ajax({
+				url: URL_PTPR + '/Contract/GetCustomerSubscribeType',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+			SuscribeType_ = SuscribeType.responseJSON;
+		}
+
+	}
+
+	fill_data();
+
+
+</script>	

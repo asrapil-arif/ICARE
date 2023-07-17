@@ -1,0 +1,392 @@
+﻿@using I_Care.Models;
+@{
+    ViewBag.Title = "Item";
+    ViewBag.Parent = "Master Data";
+    ViewBag.Child = "Item";
+    ViewBag.Child_Caption = "Item";
+    ViewBag.Icon = "<i class='menu-icon fa fa-pencil-square-o'></i>";
+
+
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    string[] SSO_ALLOW = ROLES.GetRolesForUser(User.Identity.Name.ToString());
+   
+    FMSEntities db = new FMSEntities();
+    var Item = (from m in db.m_item where m.ItemGroup == 1 select m);
+    int H_W = Request.Browser.ScreenPixelsHeight + 15;
+
+}
+
+<div id="gridMasterItem" style="height:@{<text>@H_W</text>}px;border-left:none;border-bottom:none;border-radius:0px;"></div>
+
+
+<script>
+
+        var height = Number(window.innerHeight)-132;
+        $('#gridMasterItem').height(height);
+
+        $('#gridMasterItem').w2grid({
+                    name: 'gridMasterItem',
+                    textSearch: 'contains',
+                    show: {
+                    footer: true,
+                    toolbar: true,
+                    footer        : true,
+                    lineNumbers    : true,
+                    selectColumn: true,
+                    toolbarSearch:false,
+                    toolbarAdd :true,
+                    toolbarDelete :true,
+
+                    },
+                    columns: [
+                    { field: 'ItemId', caption: 'ID', size: '200px', sortable: true, resizable: true, searchable: 'text' },
+                    { field: 'ItemName', caption: 'Name', size: '200px', sortable: true, resizable: true, searchable: 'text' },
+                    { field: 'GroupName', caption: 'Group Item', size: '300px', sortable: true, resizable: true ,searchable: 'text' },
+                    ],
+                    onAdd: function (event) {
+                      master_item_form('new');
+                    },
+                    onReload: function (event) {
+                        refresh_list_item();
+                    },
+                    onDblClick:function (event) {
+                      var record = this.get(event.recid);
+                      master_item_form('edit',record);
+                    },
+        });
+
+
+
+    refresh_list_item();
+
+    function refresh_list_item(){
+
+    w2ui['gridMasterItem'].load(URL_PTR + '/MasterData/MasterItemList');
+
+    }
+
+   function master_item_form(flag_,record){
+
+        judul_pop = "Add New Item";
+
+        var config = {
+                layout: {
+                name: 'layout',
+                padding: 0,
+                panels: [
+                    { type: 'top', size: 32, content: '<div style="padding: 7px;text-align:left">'+judul_pop+'</div>', style: 'border-bottom: 1px solid silver;' },
+                    { type: 'left', size: 150, resizable: true, minSize: 120 },
+                    { type: 'main', minSize: 350 }
+                ]
+                },
+                sidebar: {
+                name: 'sidebar',
+                nodes: [
+                { id: 'general', text: 'General Data', group: true, expanded: true, nodes: [
+                { id: 'item_info', text: 'Item Data', img: 'icon-page', selected: true },
+                { id: 'item_part', text: 'Part of Item', img: 'icon-page'},
+                ]
+                }
+                ],
+                onClick: function (event) {
+
+                        switch (event.target) {
+                            case 'item_info':
+                            swicth_content("item_info")
+                            break;
+                            case 'item_part':
+                            swicth_content("item_part")
+                            w2ui['gridPart'].reload();
+                            break;
+                        }
+                     }
+                },
+
+
+        };
+
+        $().w2layout(config.layout);
+        $().w2sidebar(config.sidebar);
+        var button_save = '';
+
+        if (flag_ == 'new'){
+              button_save = '<button class="w2ui-btn" onclick="save_item(\'ADD\')">Save</button>';
+        }
+        if (flag_ == 'edit'){
+              button_save = '<button class="w2ui-btn" onclick="save_item(\'UPDATE\')">Update</button>';
+        }
+
+
+
+
+        w2popup.open({
+            title: 'I-Care',
+            width: 800,
+            height: 450,
+            modal : true,
+            showMax: false,
+            buttons   : button_save + '<button class="w2ui-btn" onclick="w2popup.close();">Cancel</button>',
+            body: '<div id="main" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px;"></div>',
+            onOpen: function (event) {
+            event.onComplete = function () {
+
+                    $('#w2ui-popup #main').w2render('layout');
+                    w2ui.layout.content('left', w2ui.sidebar);
+
+                    var resStep = $.ajax({
+                    type: "GET",
+                    url: URL_PTR + '/template/form_item_detail.htm',
+                    cache: false,
+                    async: false
+                    });
+
+
+                    w2ui.layout.content('main', resStep.responseText);
+                    $(w2ui.layout.el('main'))
+                    .removeClass('w2ui-grid')
+                    .css({
+                    'border-left': '1px solid silver','background-color': 'white'
+                    });
+
+
+
+                    if (flag_ == "edit"){
+                          $("#group_id").val(record.ItemGroup);
+                          $("#group_name").val(record.GroupName);
+                          $("#item_id").val(record.ItemId);
+                          $("#item_name").val(record.ItemName);
+                          $("#image-view").append( "<img src='"+ URL_PTR + "/Assets/image_item/" + record.ItemImage +  "'>" );
+                           $("#image-view").show();
+                          //$("#row-upload").hide();
+                          render_part('edit',record.ItemId);
+
+                    }
+                    else{
+
+                          render_part('new');
+                           w2ui['sidebar'].hide('item_part');
+                    }
+                }
+            },
+            onToggle: function (event) {
+                event.onComplete = function () {
+                w2ui.layout.resize();
+                }
+            },
+            onClose: function (event) {
+                w2ui['layout'].destroy();
+                w2ui['sidebar'].destroy();
+                w2ui['gridPart'].destroy();
+            }
+
+        });
+
+
+   }
+
+function   swicth_content(active){
+
+    $("#item_info").hide();
+    $("#item_part").hide();
+    $("#"+active).show();
+
+
+}
+
+function render_part(Flag,Id){
+
+        $('#gridPart').w2grid({
+            name: 'gridPart',
+            textSearch: 'contains',
+            show: {
+            footer: true,
+            toolbar: true,
+            footer        : true,
+            lineNumbers    : true,
+            selectColumn: true,
+            toolbarSearch:false,
+            toolbarDelete:true,
+            toolbarAdd:true,
+            },
+            columns: [
+               { field: 'PartName', caption: 'Part Name', size: '300px', sortable: true, resizable: true ,searchable: 'text' },
+               { field: 'FlagStat', caption: 'Flag', size: '100px', sortable: true, resizable: true ,searchable: 'text' },
+            ],
+            onAdd: function (event) {
+                add_new_part();
+            },
+            onReload: function (event) {
+                reload_part(Id);
+            },
+            onDblClick:function (event) {
+            //var record = this.get(event.recid);
+            //master_item_form('edit',record);
+            },
+            onDelete: function (event) {
+                var before_temp = "";
+                var sel = this.getSelection();
+                if (event.force == true){
+
+                sel.forEach(function(entry) {
+                var record = w2ui.gridPart.get(entry);
+
+                    var Simpan =   $.ajax({
+                    url: URL_PTR + '/MasterData/DeletePart?PartId='+ record.PartId,
+                    dataType: "json",
+                    cache: false,
+                    async: false,
+                    contentType: false,
+                    processData: false,
+                    });
+
+                });
+
+                }
+
+             }
+        });
+
+        if (Flag == 'edit'){
+            reload_part(Id);
+        }
+
+}
+
+function reload_part(Id){
+      w2ui['gridPart'].load(URL_PTR + '/MasterData/MasterPartList?ItemId=' + Id);
+}
+
+function add_new_part(){
+
+
+    fill_add = '<input type="text" id="part_name" placeholder="Enter Part Name !" style="width:100%;text-align:center;"/><br><br>';
+    //fill_add = fill_add + '<input type="text" id="mail_alert" placeholder="Masukan Alamat Email !" style="width:100%;text-align:center;"/>';
+
+    w2popup.message({
+        width   : 300,
+        height  : 150,
+        body    : '<div style="text-align:center;padding:20px;">'+fill_add+'</div>',
+        buttons : '<button class="w2ui-btn" onclick="push_part();">Add</button><button class="w2ui-btn" onclick="w2popup.message();">Cancel</button>',
+        onOpen : function (event){
+              $("#no_ser").focus();
+        }
+
+
+    });
+
+
+  }
+
+
+  function push_part(){
+
+     if($("#part_name").val() == ""){
+        $("#part_name").focus();
+        $("#part_name").attr("placeholder", "Tidak boleh kosong !");
+        return;
+     }
+
+        Item_Id = $("#item_id").val();
+        Part_Name = $("#part_name").val();
+
+        var DataPart = new FormData();
+        DataPart.append('item_id',Item_Id);
+        DataPart.append('part_name',Part_Name);
+
+        var Simpan =   $.ajax({
+        url: URL_PTR + '/MasterData/AddPart',
+        type: 'POST',
+        data: DataPart,
+        dataType: "json",
+        cache: false,
+        async: false,
+        contentType: false,
+        processData: false,
+        });
+
+
+        if (Simpan.responseJSON["Result"] != "Error"){
+          w2popup.message();
+            reload_part(Item_Id);
+
+        }
+        else{
+          w2alert("Add new Part fail try again !");
+        }
+
+
+  }
+
+
+  function save_item(Flag_Save){
+
+
+        if ($("#group_name").val() == ""){
+
+        $("#group_name").attr("placeholder", "Group Item Masih Kosong !");
+        document.getElementById("group_name").focus();
+        return ;
+
+
+        }
+
+        if ($("#item_name").val() == ""){
+
+        $("#item_name").attr("placeholder", "Nama Part Masih Kosong !");
+        document.getElementById("item_name").focus();
+        return ;
+
+
+        }
+
+
+
+        var GridPernyataan = w2ui['gridPart'].records;
+        var fileUpload = $("#file_pendukung").get(0);
+        var files = fileUpload.files;
+
+
+        var DataItem = new FormData();
+        DataItem.append('group_id',$("#group_id").val());
+        DataItem.append('item_name',$("#item_name").val());
+        DataItem.append('item_id',$("#item_id").val());
+        DataItem.append('flag_save',Flag_Save);
+
+        for (var i = 0; i < files.length; i++) {
+        DataItem.append(files[i].name, files[i]);
+        }
+
+        $("#w2ui-popup").hide();
+        render_wait();
+
+        var Simpan =   $.ajax({
+        url: URL_PTR + '/MasterData/SaveItem',
+        type: 'POST',
+        data: DataItem,
+        dataType: "json",
+        cache: false,
+        async: false,
+        contentType: false,
+        processData: false,
+        });
+
+        if (Simpan.responseJSON["Result"] != "Error"){
+            w2popup.close();
+            clear_wait();
+            w2alert("Add new Item success");
+            refresh_list_item();
+            //location.reload();
+
+        }
+        else{
+            $("#w2ui-popup").show();
+            w2alert("Add new Item fail try again !");
+            clear_wait();
+        }
+
+
+
+  }
+
+</script>
+

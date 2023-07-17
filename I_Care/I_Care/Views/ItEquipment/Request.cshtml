@@ -1,0 +1,375 @@
+﻿@using I_Care.Models;
+@{
+    ViewBag.Title = "Create Request";
+    ViewBag.Parent = "IT Equipment";
+    ViewBag.Child = "Create_Request_IT_Equipment";
+    ViewBag.Child_Caption = "Create Request";
+    ViewBag.Icon = "<i class='menu-icon fa fa-file'></i>";
+
+    FMSEntities db = new FMSEntities();
+    var Item = (from m in db.m_item where m.ItemGroup == 1 select m);
+    var RequestType = (from r in db.m_request_type select r);
+
+}
+
+
+<style>
+    .my-icon {
+        border: 1px solid #dedede;
+        border-radius: 3px;
+        width: 120px;
+        height: 100px;
+        text-align: center;
+        padding: 5px;
+        cursor: pointer;
+        display: inline-table;
+        margin: 5px;
+        transition: 0.1s;
+        font-size: 11px;
+        color: #666;
+    }
+
+        .my-icon img {
+            width: 70px;
+            height: 70px;
+        }
+
+        .my-icon:hover {
+            opacity: .80;
+        }
+
+            .my-icon:hover > img {
+                -webkit-filter: grayscale(0); /* Safari 6.0 - 9.0 */
+                filter: grayscale(0);
+            }
+
+    .icon-content {
+        margin: 10px;
+    }
+
+    #tbl-klas-add td {
+        padding: 5px;
+    }
+</style>
+
+
+<div style="margin:10px;" id="home-page">
+
+    <div style="font-size:16px;color:#5D8AA5;font-weight:bold;text-decoration:none;margin:15px;">
+        IT Equipment
+    </div>
+
+
+    <div class="icon-content">
+
+
+        @foreach (var HtItem in Item)
+        {
+
+            <text>
+
+                <div class="my-icon" onclick="add_item('@HtItem.ItemImage','@HtItem.ItemName','@HtItem.ItemId')">
+                    <table border="0px" width="100%" height="100%">
+                        <tr><td height="70%"><img src="../../Assets/image_item/@HtItem.ItemImage"></td></tr>
+                        <tr><td>@HtItem.ItemName</td></tr>
+                    </table>
+
+                </div>
+
+            </text>
+
+        }
+
+
+
+    </div>
+
+
+
+</div>
+
+
+
+
+
+<!-- Modal -->
+<div id="mod_add_item" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"><div id="judul-item"></div></h4>
+            </div>
+            <div class="modal-body" id="tab-unit-list" style="padding:5px;">
+
+                <div id="PopUpUnit" style="height:300px;" class="responsive">
+
+                    <input type="text" id="item_id" hidden />
+                    <table border="0" width="100%" id="tbl-klas-add" cellpadding="0" cellspacing="0">
+                        <tr>
+                            <td style="text-align:right;" rowspan="5" valign="top">
+
+                                <div id="image_item"></div>
+
+                            </td>
+                            <td style="text-align:right;" width="30%">Request Type</td>
+                            <td>:</td>
+                            <td>
+                                <select name="cmb_tipe_permintaan" id="cmb_tipe_permintaan" class="chosen-select form-control" style="width:250px" onchange="check_tipe(this.value)">
+
+
+                                    @foreach (var rItem in RequestType)
+                                    {
+                                        <text>
+                                            <option value="@rItem.Id">@rItem.Name</option>
+                                        </text>
+
+                                    }
+
+                                </select>
+
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align:right;">Part</td>
+                            <td>:</td>
+                            <td>
+                                <select name="cmb_part" id="cmb_part" class="chosen-select form-control" style="width:250px"></select>
+                            </td>
+                        </tr>
+
+                        <tr>
+                            <td style="text-align:right;">Qty <span style="color:Red;">*</span></td>
+                            <td>:</td>
+                            <td>
+                                <input id="item_qty" placeholder="Qty" class="col-xs-10 col-sm-5" type="text" style="width:98%">
+                            </td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td style="text-align:right;" valign="top">Remark</td>
+                            <td valign="top">:</td>
+                            <td>
+                                <textarea class="form-control limited" id="keterangan" maxlength="50"
+                                          style="width:98%;height:60px;resize:none;font-size:12px;" cols="20" name="S1" rows="1"></textarea>
+                            </td>
+                        </tr>
+
+
+
+                        <tr>
+                            <td style="text-align:right;" width="30%" valign="top">Reason of change or addon</td>
+                            <td valign="top">:</td>
+                            <td>
+                                <textarea class="form-control limited" id="reason" maxlength="50"
+                                          style="width:98%;height:100px;resize:none;font-size:12px;" cols="20" name="S1" rows="1"></textarea>
+                            </td>
+                        </tr>
+
+                    </table>
+
+
+
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-info" onclick="add_request()">Request</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<script>
+
+
+    function add_item(image, judul,ItemId) {
+
+        $("#item_id").val("");
+        $("#item_id").val(ItemId);
+        $("#item_qty").val("");
+        $("#keterangan").val("");
+        $("#reason").val("");
+
+
+        $('#cmb_part').children().remove();
+        $('#cmb_part').append($('<option>', {
+        value: "0",
+        text: "All Part"
+        }));
+
+
+        $("#image_item").html('<img style="width:120px;height:120px;"src="' + URL_PTR + '/Assets/image_item/' + image + '" />');
+        $("#mod_add_item").modal("show");
+        $("#judul-item").html(judul);
+
+        $('#mod_add_item').on('shown.bs.modal', function () {
+
+            $('#cmb_part', this).chosen({ allow_single_deselect: true });
+            $("#cmb_part").trigger("chosen:updated");
+
+            $('#cmb_tipe_permintaan', this).chosen({ allow_single_deselect: true });
+            $("#cmb_tipe_permintaan").trigger("chosen:updated");
+
+        });
+
+
+        $('#cmb_part', this).chosen({ allow_single_deselect: true });
+        $("#cmb_part").trigger("chosen:updated");
+
+
+    }
+
+    function check_tipe(data){
+
+        if (data == "1"){
+
+            $('#cmb_part').children().remove();
+            $('#cmb_part').append($('<option>', {
+            value: "0",
+            text: "All Part"
+            }));
+
+            $('#cmb_part', this).chosen({ allow_single_deselect: true });
+            $("#cmb_part").trigger("chosen:updated");
+
+
+        }else{
+
+            var ItemId = $("#item_id").val();
+
+            var resDataPart =   $.ajax({
+            url: URL_PTR + '/MasterData/MasterPartList?ItemId=' + ItemId,
+            type: 'GET',
+            dataType: "json",
+            cache: false,
+            async: false,
+            contentType: false,
+            processData: false,
+            });
+
+            var record_part = resDataPart.responseJSON ;
+
+
+            $('#cmb_part').children().remove();
+            $('#cmb_part').append($('<option>', {
+                    value: "0",
+                    text: "All Part"
+                    }));
+
+
+            for(var i =0;i < record_part.length;i++)
+            {
+                    var item = record_part[i];
+                    $('#cmb_part').append($('<option>', {
+                    value: item.PartId,
+                    text: item.PartName
+                    }));
+            }
+
+            $('#cmb_part', this).chosen({ allow_single_deselect: true });
+            $("#cmb_part").trigger("chosen:updated");
+
+
+        }
+
+
+
+    }
+
+
+    function add_request(){
+
+        if ($("#item_qty").val() == ""){
+            $("#item_qty").attr("placeholder", "Qty tidak boleh kosong !");
+            document.getElementById("item_qty").focus();
+            return ;
+        }
+
+
+       if ($("#keterangan").val() == ""){
+            $("#keterangan").attr("placeholder", "Keterangan tidak boleh kosong !");
+            document.getElementById("keterangan").focus();
+            return ;
+        }
+
+        if ($("#reason").val() == ""){
+            $("#reason").attr("placeholder", "Alasan tidak boleh kosong !");
+            document.getElementById("reason").focus();
+            return ;
+        }
+
+
+        var DataRequest = new FormData();
+
+        DataRequest.append('ReqId',"0");
+        DataRequest.append('ReqItem',$("#item_id").val());
+        DataRequest.append('ReqType',$("#cmb_tipe_permintaan").val());
+        DataRequest.append('ReqQty',$("#item_qty").val());
+        DataRequest.append('ReqPart',$("#cmb_part").val());
+        DataRequest.append('ReqKeterangan',$("#keterangan").val());
+        DataRequest.append('ReqReason',$("#reason").val());
+        DataRequest.append('Flag','Add');
+        DataRequest.append('ReqGroup','1');
+
+
+        var Simpan =   $.ajax({
+                        url: URL_PTR + '/ItEquipment/SaveRequest',
+                        type: 'POST',
+                        data: DataRequest,
+                        dataType: "json",
+                        cache: false,
+                        async: false,
+                        contentType: false,
+                        processData: false,
+
+                    });
+
+
+        if (Simpan.responseJSON["Result"] != "Error"){
+
+            clear_wait();
+            $("#mod_add_item").modal("hide");
+            w2alert("Add new request success");
+
+        }
+        else{
+            w2alert("Add new request fail try again !");
+            clear_wait();
+        }
+
+
+
+
+    }
+
+$(document).ready(function() {
+$("#item_qty").keydown(function (e) {
+// Allow: backspace, delete, tab, escape, enter and .
+if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
+// Allow: Ctrl+A, Command+A
+(e.keyCode === 65 && (e.ctrlKey === true || e.metaKey === true)) ||
+// Allow: home, end, left, right, down, up
+(e.keyCode >= 35 && e.keyCode <= 40)) {
+// let it happen, don't do anything
+return;
+}
+// Ensure that it is a number and stop the keypress
+if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+e.preventDefault();
+}
+});
+});
+
+
+</script>

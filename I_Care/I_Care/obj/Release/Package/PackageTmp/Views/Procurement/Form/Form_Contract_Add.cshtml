@@ -1,0 +1,848 @@
+
+@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+
+}
+
+
+<style>
+
+	#ModContract .modal-dialog {
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 1%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModContract .control-label {
+		font-size: 12px;
+	}
+</style>
+
+<div id="ModContract" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<div class="modal-title" style="color:#292865;"></div>
+			</div>
+			<div class="modal-body" style="padding:0px;padding-top:10px;">
+				<div class="tabbable">
+					<ul class="nav nav-tabs" id="myTab">
+
+						<li class="active">
+							<a data-toggle="tab" href="#info_contract" aria-expanded="true" style="border-left:none;">
+								<i class="fa fa-desktop"></i>
+								Main Info.
+							</a>
+						</li>
+
+
+						<li class="" id="tab_upload_caption">
+							<a data-toggle="tab" href="#tab_upload" aria-expanded="true">
+								<i class="fa fa-file"></i>
+								Upload File
+							</a>
+						</li>
+
+						
+						<li class="">
+							<a data-toggle="tab" href="#tab_alert_config" aria-expanded="true">
+								<i class="fa fa-bell"></i>  Alert Configuration
+							</a>
+						</li>
+
+
+					</ul>
+
+					<div class="tab-content" style="min-height:300px;border-bottom:none;border-left:none;border-right:none;padding:0px;">
+						<div id="info_contract" class="tab-pane fade active in" style="padding:10px;">
+
+							<form class="form-horizontal">
+								<div class="box-body">
+
+									
+									<div class="form-group" id="idtext" hidden="">
+										<label for="inputName" class="col-sm-2 control-label">Id :</label>
+										<div class="col-sm-10">
+											<input class="form-control" id="ContractId" placeholder="Id. Will be generate by system" type="text" readonly style="background-color:whitesmoke;" autocomplete="off">
+
+										</div>
+
+
+									</div>
+
+
+									<div id="IDParrent" class="form-group" hidden="">
+										<label for="inputName" class="col-sm-2 control-label">Parent Id :</label>
+										<div class="col-sm-10">
+											<input class="form-control" id="parent_id" placeholder="Parent Id." type="text" readonly style="background-color:whitesmoke;cursor:pointer;color:blue;" autocomplete="off" ondblclick="goto_parent(this.value)">
+										</div>
+
+
+									</div>
+
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Contract Signing Officer :</label>
+										<div class="col-sm-4">
+											@*<input class="form-control" id="ContractSigningOfficer" placeholder="Contract Signing Officer" type="text">*@
+											<select class="form-control select2" id="NM_PEG">
+												<option value="" selected>-- Select Contract Signing Officer --</option>
+
+												@foreach (var item in ViewBag.Officier)
+												{
+
+													<option value="@item.NM_PEG">@item.NM_PEG - @item.NM_JABATAN_STR </option>
+
+												}
+
+											</select>
+
+										</div>
+
+
+										<label for="inputName" class="col-sm-2 control-label">Fungsi Name :</label>
+										<div class="col-sm-4">
+
+											<select class="form-control select2" id="FungsiNameContractAdd">
+												<option value="" selected >-- Select Fungsi Type --</option>
+
+												@foreach (var item in ViewBag.LookUpFungsi)
+												{
+
+													<option value="@item.LookId">@item.LookName</option>
+
+												}
+
+
+											</select>
+
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Contract No. :</label>
+										<div class="col-sm-4">
+											<input class="form-control" id="ContractNo" placeholder="Contract No." type="text" autocomplete="off">
+										</div>
+
+
+										<label for="inputName" class="col-sm-2 control-label">Contract Type :</label>
+										<div class="col-sm-4">
+
+											<select onchange="myFunction()" class="form-control select2" id="ContractType">
+												<option value="" selected>-- Select Contract Type --</option>
+
+												@foreach (var item in ViewBag.ContractType)
+												{
+													<option value="@item.Id">@item.ContractType</option>
+												}
+
+											</select>
+											<script>
+												function myFunction() {
+													document.getElementById("ContractValue").value = "";
+													var value = document.getElementById("ContractType").value;
+													document.getElementById('divIDClass').hidden = true;
+													if (value == 1) {
+														document.getElementById("ContractValue").value = 1;//(1).toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+														document.getElementById("temp_ContractValue").value = 1;
+														document.getElementById('divIDClass').hidden = false;
+													}
+												}
+											</script>
+										</div>
+
+									</div>
+									<div class="form-group" id="AddendumContr1" hidden="">
+										<label for="inputName" class="col-sm-2 control-label">Addendum Contract No Before :</label>
+										<div class="col-sm-4">
+											<input disabled="" class="form-control" id="addendumContractNo1" placeholder="Addendum Contract No 1" type="text" autocomplete="off">
+										</div>
+									</div>
+									<div class="form-group" id="AddendumContr" hidden="">
+										<label for="inputName" class="col-sm-2 control-label">Addendum Contract No :</label>
+										<div class="col-sm-4">
+											<input class="form-control" id="addendumContractNo" placeholder="Addendum Contract No" type="text" autocomplete="off">
+										</div>
+									</div>
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Contract Title :</label>
+										<div class="col-sm-10">
+											<input class="form-control" id="ContractTitle" placeholder="Contract Title" type="text" autocomplete="off">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">PR :</label>
+										<div class="col-sm-5">
+											<input class="form-control" id="ContractPR" placeholder="PR." type="text" autocomplete="off">
+										</div>
+
+										<label for="inputName" class="col-sm-1 control-label">PO :</label>
+										<div class="col-sm-4">
+											<input class="form-control" id="ContractPO" placeholder="PO" type="text" autocomplete="off">
+										</div>
+
+									</div>
+
+
+
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Total Contract Value :</label>
+										<div class="col-sm-10">
+											<input type="text" id="temp_ContractValue" hidden />
+											<input class="form-control" id="ContractValue" placeholder="Value." type="text" onselect="format_currency('ContractValue','temp_ContractValue')" onkeyup="format_currency('ContractValue','temp_ContractValue')" onmouseup="format_currency('ContractValue','temp_ContractValue')" autocomplete="off">
+										</div>
+									</div>
+
+									<div class="form-group">
+
+										<label for="inputName" class="col-sm-2 control-label">Periode :</label>
+										<div class="col-sm-2">
+											<input class="form-control date-picker" id="StartDate" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="Start Date" autocomplete="off">
+										</div>
+
+										<div class="col-sm-2">
+											<input id="EndDate" class="form-control date-picker" type="text" style="height:28px;" placeholder="End Date" autocomplete="off">
+
+										</div>
+
+										<label for="inputName" class="col-sm-2 control-label">Contract Date :</label>
+										<div class="col-sm-4">
+											<input id="ContractDate" class="form-control date-picker" type="text" style="height:28px;" placeholder="Contract Date" autocomplete="off">
+
+										</div>
+									</div>
+									<div class="form-group" id="divIDClass" hidden="">
+
+										<label for="inputName" class="col-sm-2 control-label">Project Date :</label>
+										<div class="col-sm-2">
+											<input class="form-control date-picker" id="StartProject" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="Start Project" autocomplete="off">
+										</div>
+
+										<div class="col-sm-2">
+											<input id="EndProject" class="form-control date-picker" type="text" style="height:28px;" placeholder="End Project" autocomplete="off">
+
+										</div>
+
+									</div>
+									<div class="form-group">
+
+										<label for="inputName" class="col-sm-2 control-label">Vendor</label>
+										<div class="col-sm-10">
+
+											<select class="form-control select2" id="ContractVendor">
+												<option value="" selected>-- Select an Vendor --</option>
+
+												@foreach (var item in ViewBag.VendorList)
+												{
+
+													<option value="@item.Id">@item.Id - @item.VendorId -  @item.VendorName </option>
+
+												}
+
+
+											</select>
+
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Remark :</label>
+										<div class="col-sm-10">
+
+											<textarea class="form-control" placeholder="Remark" id="Remark" style="color:#333;resize:none;font-size:11px;padding-left:3px;" autocomplete="off"></textarea>
+
+										</div>
+									</div>
+
+
+								</div>
+							</form>
+
+						</div>
+
+
+						<div id="tab_upload" class="tab-pane fade" style="padding:0px;padding-top:10px;">
+
+
+							<div class="col-sm-12">
+								<input multiple="" type="file" id="contract_file" required accept=".jpg,.jpeg,.pdf,.png,.xls" />
+								<span style="font-style:normal;text-align:center;font-size:12px;color:blue;">
+									Note : Anda disarankan untuk mengunggah file pendukung yang diperlukan,
+								</span>
+								<span style="font-style:normal;text-align:center;font-size:12px;color:red;">
+									Jika file yang anda upload terlalu besar disarankan untuk mengupload parsial setelah draft ini tersimpan.
+								</span>
+							</div>
+
+
+
+						</div>
+
+						
+
+						<div id="tab_alert_config" class="tab-pane fade" style="padding:0px;padding-top:0px;">
+
+
+
+							<table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
+
+								<tr>
+									<td width="60%" valign="top" style="padding-top:1px;">
+										<div id="gridEmail" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+									</td>
+									<td valign="top" style="border-left:1px solid #ccc;">
+										<div id="setting_box" style="padding:10px;padding-top:30px;">
+
+
+
+											<div style="font-size:20px;padding-left:10px;">Alert Setting</div><br />
+
+											<div class="form-group">
+												<label for="inputName" class="col-sm-4 control-label">Enabled Alert</label>
+												<div class="col-sm-6">
+
+
+													<div class="col-xs-2">
+
+														<label>
+															<input name="switch-field-1" class="ace ace-switch" type="checkbox" id="Snooze" />
+															<span class="lbl"></span>
+														</label>
+													</div>
+
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="inputName" class="col-sm-4 control-label">Start From</label>
+												<div class="col-sm-6">
+
+													<input type="text" id="AlertDayContract" readonly />
+
+													<span class="lbl" style="font-size:11px;">Day before contract expire</span>
+
+												</div>
+											</div>
+
+										</div>
+									</td>
+
+								</tr>
+							</table>
+
+						</div>
+
+						
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer" id="fot_form_contract">
+
+
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+
+<script>
+
+
+
+	var TempDelete = [];
+	var CurrentContract = [];
+
+
+    function form_contract_detail(FLAG) {
+
+
+				$('a[href="#info_contract"]').tab('show');
+				$('#StartDate,#EndDate,#ContractDate,#StartProject,#EndProject').w2field('date', { format: 'yyyy/mm/dd' });
+				$('#ModContract .modal-dialog').css('margin-top', "5%");
+				$("#idtext").hide();
+				$("#addendumContractNo1").hide();
+				$("#AddendumContr1").hide();
+				$("#ModContract .modal-title").html("Tambah kontrak baru untuk procurement : [#Id." + current_proc.Id + "] [#Title." + current_proc.Title + "]");
+				button = '<button type="button" class="btn btn-info btn-sm" onclick="save_contract(\'ADD\')"> <i class="fa fa-floppy-o" aria-hidden="true"></i> Save & Tautkan </button><button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>'
+				$("#fot_form_contract").html(button);
+				
+
+				form_default_contract();
+				render_grid_mail();
+
+				var file_input = $('#contract_file');
+				file_input.ace_file_input('reset_input');
+
+				$('#ModContract').modal(
+							{
+								backdrop: 'static',
+								keyboard: false
+							}
+						);
+
+
+    }
+
+	
+	function form_default_contract() {
+
+		$("#IDParrent").hide();
+		$("#parent_id").val("");
+        $("#StartDateFDC").val("");
+        $("#EndDateFDC").val("");
+		$("#ContractId").val("");
+        $("#ContractNo").val("");
+        $("#addendumContractNo").val("");
+        $("#ContractTitle").val("");
+        $("#ContractPR").val("");
+        $("#ContractPO").val("");
+        $("#ContractValue").val("");
+        $("#ContractValueTemp").val("");
+        $("#StartDate").val("");
+        $("#EndDate").val("");
+        $("#StartProject").val("");
+        $("#EndProject").val("");
+        $("#ContractDate").val("");
+        $("#ContractVendor").val("");
+        $("#Remark").val("");
+        $("#AlertDayContract").val("10");
+		$('#Snooze').prop('checked', true);
+
+		$("#NM_PEG").val("").trigger('change');
+		$("#ContractVendor").val("").trigger('change');
+		$("#FungsiNameContractAdd").val("").trigger('change');
+		$("#ContractType").val("").trigger('change');
+       
+
+
+	}
+
+	function fill_form(record) {
+
+		if (record.ParentId != null) {
+			$("#IDParrent").show();
+			$("#parent_id").val(record.ParentId);
+		}
+		else {
+
+			$("#IDParrent").hide();
+			$("#parent_id").val("");
+		}
+
+		$("#ContractId").val(record.ContractId);
+		$("#idtext").show();
+		$("#NM_PEG").val(record.PenanggungJawabPihak1).trigger('change');
+		$("#FungsiNameContractAdd").val(record.Fungsi).trigger('change');
+		$("#ContractNo").val(record.ContractNo);
+
+		$("#ContractTitle").val(record.ContractTitle);
+		$("#ContractPR").val(record.NoPR);
+		$("#ContractPO").val(record.NoPO);
+		$("#ContractType").val(record.ContractType).trigger('change');
+		$("#temp_ContractValue").val(record.ContractValue);
+		$("#ContractValue").val(numberWithCommas(record.ContractValue));
+
+		$("#ContractVendor").val(record.IdVendor).trigger('change');;
+		$("#StartDate").val(record.BeginDate);
+		$("#EndDate").val(record.EndDate);
+		$("#StartProject").val(record.StartProject);
+		$("#EndProject").val(record.EndProject);
+		$("#ContractDate").val(record.ContractDate);
+		$("#Remark").val(record.Remark);
+
+		$("#frame_preview").attr("src", "");
+
+		$("#tab_upload_caption").hide();
+		$("#tab_upload_list_caption").show();
+
+		$("#DocType").attr("disabled", true);
+
+
+		$("#AlertDayContract").val(record.AlertDayContract);
+
+		if (record.Snooze == 1) {
+
+			$('#Snooze').prop('checked', false);
+		}
+		else {
+
+			$('#Snooze').prop('checked', true);
+		}
+
+
+		render_grid_mail(record.ContractId);
+
+
+
+
+	}
+
+
+
+    function render_grid_mail(){
+
+                if (w2ui['gridEmail'] != null) {
+                    w2ui['gridEmail'].destroy();
+                }
+
+
+                TempDelete = [];
+
+                $('#gridEmail').w2grid({
+                    name: 'gridEmail',
+                    header : 'Mail Destination',
+                    show: {
+                    header          : true,
+                    footer          : true,
+                    lineNumbers     : true,
+                    toolbarAdd      : false,
+                    toolbarDelete   : true,
+                    toolbar         : true,
+                    toolbarSearch   : false,
+                    },
+                    columns: [
+
+						{ field: 'Email', caption: 'Mail Destination', size: '200px', searchable: 'text', editable: { type: 'text' } },
+                        { field: 'Name', caption: 'Name', size: '200px',searchable:'text',editable: { type: 'text' } },
+                        { field: 'Jabatan', caption: 'Jabatan', size: '200px', searchable: 'text', editable: { type: 'text' } },
+
+
+                    ],
+                    toolbar: {
+                        items: [
+                            { id: 'add', type: 'button', caption: 'Add Record', icon: 'w2ui-icon-plus' }
+                        ],
+                        onClick: function (event) {
+                            if (event.target == 'add') {
+
+                                w2ui.gridEmail.save();
+                                var list_Rec    = w2ui['gridEmail'].records;
+                                var new_rec =  new Array();
+
+                                if (list_Rec.length > 0){
+
+									for (x = 0; x < list_Rec.length; x++){
+
+                                        new_rec.push(list_Rec[x].recid);
+
+                                    }
+
+                                    var new_recid = Math.max.apply(Math, new_rec);
+									w2ui.gridEmail.add({ recid: new_recid + 1, FlagStat:'new'});
+                                 }
+                                 else{
+
+									w2ui.gridEmail.add({ recid: 1, FlagStat: 'new'});
+                                 }
+
+                            }
+                        }
+                    },
+                    onDelete: function (event) {
+
+                        var sel = this.getSelection();
+                        if (event.force == true){
+
+
+                            sel.forEach(function(entry) {
+
+                                var record = w2ui.gridEmail.get(entry);
+
+                                if (record.Flag_Exists = 1){
+
+                                    TempDelete.push({Id:record.recid});
+
+                                }
+
+                            });
+
+
+
+                        }
+
+                    }
+
+                });
+
+    }
+
+   
+    function save_contract(FLAG,Roles) {
+
+
+        if ($("#NM_PEG").val() == "") {
+
+			$('a[href="#info_contract"]').tab('show');
+			$("#NM_PEG").select2('open')
+            return;
+
+        }
+        if ($("#FungsiNameContractAdd").val() == "") {
+
+			$('a[href="#info_contract"]').tab('show');
+			$("#FungsiNameContractAdd").select2('open');
+            return;
+
+
+        }
+
+        if ($("#ContractNo").val()==""){
+
+            $('a[href="#info_contract"]').tab('show');
+            $("#ContractNo").focus();
+            $("#ContractNo").attr("placeholder", "Contract No may not be empty !");
+            return;
+
+        }
+
+        if ($("#ContractType").val()==""){
+
+			$('a[href="#info_contract"]').tab('show');
+			$("#ContractType").select2('open');
+            return;
+
+
+    }
+
+
+        if ($("#ContractTitle").val()==""){
+
+            $('a[href="#info_contract"]').tab('show');
+            $("#ContractTitle").focus();
+            $("#ContractTitle").attr("placeholder", "Contract Title No may not be empty !");
+            return;
+
+        }
+
+
+        if ($("#ContractValue").val()==""){
+
+            $('a[href="#info_contract"]').tab('show');
+            $("#ContractValue").focus();
+            $("#ContractValue").attr("placeholder", "Contract Value may not be empty !");
+            return;
+
+        }
+
+
+
+        if ($("#StartDate").val()==""){
+
+				$('a[href="#info_contract"]').tab('show');
+				$("#StartDate").focus();
+				//w2alert("Start date is empty!");
+            return;
+
+        }
+
+        if ($("#EndDate").val()==""){
+
+				$('a[href="#info_contract"]').tab('show');
+				$("#EndDate").focus();
+				//w2alert("End date is empty!");
+            return;
+
+        }
+
+        if ($("#ContractDate").val()==""){
+
+				$('a[href="#info_contract"]').tab('show');
+				$("#ContractDate").focus();
+				//w2alert("Contract Date is empty!");
+            return;
+
+        }
+
+        if ($("#ContractVendor").val()==""){
+
+			$('a[href="#info_contract"]').tab('show');
+			$("#ContractVendor").select2('open');
+            return;
+
+        }
+
+
+        var fileUpload = $("#contract_file").get(0);
+        var files = fileUpload.files;
+
+        if (FLAG == "ADD" || FLAG == "AddAdendum"){
+            if (files.length ==0){
+
+				w2alert("Harap sertakan file pendukung !");
+                $('a[href="#tab_upload"]').tab('show');
+                return;
+
+            }
+        }
+
+
+        var DataSave = new FormData();
+		debugger;
+
+		DataSave.append('FlagCrud', "ADD");
+        DataSave.append('ContractId', $("#ContractId").val());
+		DataSave.append('ParentId', $("#parent_id").val());
+        DataSave.append('PenanggungJawabPihak1', $("#NM_PEG").val());
+        DataSave.append('Fungsi', $("#FungsiNameContractAdd").val());
+        DataSave.append('ContractNo', $("#ContractNo").val());
+        DataSave.append('AddendumContractNo', $("#addendumContractNo").val());
+        DataSave.append('ContractType', $("#ContractType").val());
+        DataSave.append('ContractTitle', $("#ContractTitle").val());
+        DataSave.append('ContractPO', $("#ContractPO").val());
+        DataSave.append('ContractPR', $("#ContractPR").val());
+        DataSave.append('ContractValue', $("#temp_ContractValue").val());
+        DataSave.append('StartDate', $("#StartDate").val());
+        DataSave.append('EndDate', $("#EndDate").val());
+        DataSave.append('StartProject', $("#StartProject").val());
+        DataSave.append('EndProject', $("#EndProject").val());
+        DataSave.append('ContractDate', $("#ContractDate").val());
+        DataSave.append('ContractVendorId', $("#ContractVendor").val());
+        DataSave.append('Remark', $("#Remark").val());
+		DataSave.append('AlertDayContract', $("#AlertDayContract").val());
+		DataSave.append('ProcId', current_proc.Id);
+
+        debugger
+        w2ui['gridEmail'].save();
+        var ListDest = w2ui['gridEmail'].records;
+        var Jabatan = w2ui['gridEmail'].find({ Jabatan: 'Manager' });
+        var Jabatan2 = w2ui['gridEmail'].find({ Jabatan: 'manager' });
+
+        //data_bridging
+        if (ListDest.length < 3) {
+			alert("Harap sertakan Min 3 Email !");
+			$('a[href="#tab_alert_config"]').tab('show');
+            return;
+        }
+        else if (Jabatan.length == 0 && Jabatan2.length == 0) {
+			alert("Harap sertakan Email Manager !");
+			$('a[href="#tab_alert_config"]').tab('show');
+                return;
+            }
+		else {
+
+            //var Daat_ = JSON.stringify(ListDest);
+            var Daat_del = JSON.stringify(TempDelete);
+
+            //DataSave.append('ListAdd', Daat_);
+            //DataSave.append('ListDelete', Daat_del);
+
+			var ListDest_ = JSON.stringify(ListDest);
+			DataSave.append('MailDestinations', ListDest_);
+			DataSave.append('MailDestinationsDel', Daat_del);
+        }
+
+
+        if ($('#Snooze').is(":checked")){
+
+            DataSave.append('Snooze', "0");
+        }
+        else{
+
+            DataSave.append('Snooze', "1");
+        }
+
+
+
+        var fileUpload = $("#contract_file").get(0);
+        var files = fileUpload.files;
+
+        if (FLAG == "ADD" || FLAG == "AddAdendum"){
+
+            if (Roles == undefined){
+
+                for (var i = 0; i < files.length; i++) {
+
+                    DataSave.append(files[i].name, files[i]);
+
+
+                }
+
+            }
+
+        }
+
+
+        render_wait()
+
+        var Simpan =   $.ajax({
+			url: URL_PTR + '/Contract/SaveGAContract',
+            type: 'POST',
+            data: DataSave,
+            dataType: "json",
+            cache: false,
+            async: false,
+            contentType: false,
+            processData: false,
+        });
+
+
+        if (  Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error")!=-1 ){
+
+                clear_wait();
+				w2alert(Simpan.responseJSON["Result"]);
+
+        }
+        else{
+
+			w2alert('Save Data Success !');
+			clear_wait();
+			UpdateCountProcProgress();
+			refresh_procurementt_list();
+			$("#ModContract").modal("hide");
+			$('#Modal_load').hide();
+			$("#ModalContract").modal("hide");
+
+        }
+
+     }
+
+    function format_currency(Field_ID,temp_field){
+
+        if($("#"+Field_ID).val() != ""){
+
+             var Nominal = $("#"+Field_ID).val();
+             Nominal = Nominal.replace(/,/g , "");
+             $("#"+temp_field).val(Nominal);
+             var fix_num = numberWithCommas(Nominal);
+
+             $("#"+Field_ID).val(fix_num);
+
+        }
+        else{
+
+             $("#"+temp_field).val("");
+
+        }
+
+    }
+
+	//==================================================================================//
+	//not fucntional core business sytem code ..............***
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+		var target = $(e.target).attr("href");
+
+		if ((target == '#tab_alert_config')) {
+		w2ui['gridEmail'].refresh();
+
+		}
+
+
+	});
+
+	$('#AlertDayContract').ace_spinner({ value: 0, min: 0, max: 30, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+	.closest('.ace-spinner')
+	.on('changed.fu.spinbox', function () {
+	});
+
+	
+</script>

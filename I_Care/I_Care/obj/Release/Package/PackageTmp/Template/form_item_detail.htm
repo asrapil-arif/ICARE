@@ -1,0 +1,141 @@
+﻿<style>
+
+  .form-control-mod-dta
+{
+
+    font-size:12px;
+    width:100%;
+    height:30px;
+    
+    
+    }
+.tbl-customer td 
+{
+    padding:2px;
+    
+    }
+.judul-form
+{   
+    font-size:18px;
+    padding:10px;
+    border-bottom:1px solid #dedede;
+    margin-bottom:5px;
+    
+    }  
+ .tombol
+{
+     border:1px solid #dedede;
+     padding:2px;
+     width:30px;
+     background-color:#dedede;
+     color:Black;
+        height: 20px;
+    }  
+ #preview_file
+ {
+     height:100%;
+     
+     }
+    #frame_prevview
+    {
+        width: 489px;
+        height: 486px;
+    }
+    
+ .ace-file-container
+ {
+     height:10px;
+     }
+    .style1
+    {
+        width: 25%;
+    }
+    
+ #image-view
+ {
+     width:200px;
+     margin:5px;
+     border:0px solid #dedede;
+     padding:10px;
+     text-align:center;
+     
+     }
+     
+   #image-view img
+   {   
+       width:120px;
+       
+       }
+    </style>
+
+
+<div id="item_info">
+<div class='judul-form'>Form Penamabahan Master Item</div>
+
+<div style="padding:20px;">
+   <table class="tbl-customer" border="0px" width="100%">
+   <tr><td width="20%">Item Group</td><td width="1px">:</td><td width="10%"><input type="text" style="text-align:right;" placeholder="Id" class="form-control-mod-dta" value="" id="group_id" readonly/></td><td><input placeholder="Item Group Name" type="text" class="form-control-mod-dta" value="" id="group_name" readonly/></td><td>
+                <button class="tombol"  onclick="ListGroup_('group_id','group_name')"                                                                                                                                                                                       
+                    type="button">
+                    ...
+                </button>
+            </td></tr>
+   <tr><td width="20%">Item Name</td><td width="1px">:</td><td colspan="3"><input type="text" class="form-control-mod-dta" value="" id="item_id" hidden/>
+   <input type="text" class="form-control-mod-dta" value="" id="item_name" placeholder="Item Name"/></td></tr>
+   <tr id="row-upload"><td width="20%">Upload Image</td><td width="1px">:</td><td width="40%">
+               <input multiple="" type="file" id="file_pendukung" required accept=".jpg,.jpeg,.pdf,.png" />
+       
+       </td><td colspan="2">
+               <div id="image-view" hidden></div></td></tr>
+   </table>
+ </div>
+
+
+
+</div>
+
+
+<div id="item_part" hidden>
+<input type="text" id="temp_delete_part" hidden />
+<div id="gridPart" style="height:330px;border-left:none;border-right:none;border-bottom:1px dotted #dedede;border-radius:0px;border-top:0px;" class="responsive"></div>
+
+</div>
+
+<script>
+
+    $('#file_pendukung').ace_file_input({
+        style: 'well',
+        btn_choose: 'Click Here to Upload',
+        btn_change: null,
+        no_icon: 'ace-icon fa fa-cloud-upload',
+        droppable: true,
+        thumbnail: 'small'//large | fit
+        //,icon_remove:null//set null, to hide remove/reset button
+        /**,before_change:function(files, dropped) {
+        //Check an example below
+        //or examples/file-upload.html
+        return true;
+        }*/
+        /**,before_remove : function() {
+        return true;
+        }*/
+					,
+        preview_error: function (filename, error_code) {
+            //name of the file that failed
+            //error_code values
+            //1 = 'FILE_LOAD_FAILED',
+            //2 = 'IMAGE_LOAD_FAILED',
+            //3 = 'THUMBNAIL_FAILED'
+            //alert(error_code);
+        }
+
+    }).on('change', function () {
+        //console.log($(this).data('ace_input_files'));
+        //console.log($(this).data('ace_input_method'));
+    });
+
+
+  
+
+</script>
+

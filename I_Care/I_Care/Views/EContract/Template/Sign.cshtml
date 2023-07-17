@@ -1,0 +1,1683 @@
+﻿<style>
+
+	.outer_template {
+		overflow-y: scroll;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		width: 100%;
+		padding: 2%;
+		padding-top: 0px;
+		border-radius: 0px;
+		text-align: justify;
+		border: none;
+		border-bottom: 1px solid #dedede;
+		background-color: whitesmoke;
+		display: inline-grid;
+		position: relative;
+	}
+
+	.preview_attachment {
+		overflow-y: hidden;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		width: 100%;
+		border-radius: 0px;
+		text-align: justify;
+		border: none;
+		border-bottom: 1px solid #dedede;
+		background-color: white;
+		position: relative;
+	}
+
+	#frame_preview {
+		background: url("../../Content/images/loading_images/conection.gif") center center no-repeat;
+		background-color: white;
+		background-size: 45%;
+	}
+
+	#sign_info {
+		border-bottom: 1px solid #dedede;
+		padding: 0.5%;
+		text-align: center;
+		opacity: 90 !important;
+		background-color: white;
+	}
+
+	.inner_template {
+		background-color: white;
+		padding: 6%;
+		border: 1px solid #dedede;
+		width: 80%;
+		margin: 2% auto;
+		margin-top: 1%;
+		margin-bottom: 1%;
+		height: 1240px;
+		width: 874px;
+		position: relative;
+		box-shadow: 13px 16px 13px -9px rgba(0,0,0,0.21);
+		-webkit-box-shadow: 13px 16px 13px -9px rgba(0,0,0,0.21);
+		-moz-box-shadow: 13px 16px 13px -9px rgba(0,0,0,0.21);
+	}
+
+		.inner_template td {
+			font-size: 12px !important;
+		}
+
+	.footer_inner_template {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		font-style: italic;
+		padding: 5px;
+		font-size: 11px;
+		color: gray;
+		width: 100%;
+		text-align: right;
+	}
+
+	.footer_inner_template_sub {
+		border-top: 1px solid #dedede;
+		padding: 5px;
+		margin: 2% auto;
+		width: 90%;
+	}
+
+	
+	.header_inner_template {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		padding: 5px;
+		font-size: 15px;
+		color: gray;
+		width: 100%;
+		text-align: right;
+	}
+
+	.header_inner_template_sub {
+		border-top: 0px solid #dedede;
+		padding: 5px;
+		margin: 1% auto;
+		width: 90%;
+	}
+
+
+	.button_box {
+		border: 0px solid #dedede;
+		width: 100%;
+		text-align: center;
+		padding-top: 1%;
+	}
+
+		.button_box .btn {
+			margin: 5px;
+		}
+
+	#pokok_perjanjian_table td {
+		font-family: Arial;
+		font-size: 15px;
+		text-align: justify;
+	}
+
+	.sub_page_doc {
+		text-align: justify;
+	}
+
+	.baris_center {
+		text-align: center !important;
+	}
+
+	.harap_input {
+		padding: 2px;
+		border: 1px solid #b5c02b !important;
+		background-color: whitesmoke !important;
+		margin: 2px auto !important;
+	}
+
+	.text_pasal {
+		resize: none;
+		width: 100%;
+		height: auto;
+		background-color: whitesmoke;
+		border: 1px solid #b5c02b !important;
+	}
+
+		.text_pasal:focus {
+			background-color: #faff24c9 !important;
+		}
+
+	.catatan_ td {
+		color: red;
+		font-style: italic;
+	}
+
+	.inner_template td {
+		vertical-align: top;
+	}
+
+	#page_proses_load {
+		text-align: center;
+		padding: 10%;
+		padding-top: 5%;
+	}
+
+	#judul_ppp {
+		text-align: center !important;
+	}
+
+	#ModalSignDraftTemplate1 .modal-dialog {
+		width: 70%;
+		margin: 0 auto;
+		margin-top: 10%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	.e_materai {
+		font-weight: bold;
+		color: #d6d3d3;
+		border: 0px dashed #dedede;
+		padding: 7%;
+		text-align: center;
+		width: 200px;
+		font-size: 10px;
+		background-color: #778287;
+	}
+
+	.nama_pt {
+		font-weight: bold;
+	}
+
+	#ModalSignDraftTemplate1 .control-label {
+		font-size: 11px;
+	}
+
+	mandatory {
+		color: red;
+	}
+
+	.group_file_kontrak {
+		margin-top: 2%;
+	}
+
+	.icon_file_contract {
+		border: 1px solid #dedede;
+		padding: 15px;
+		width: 130px;
+		height: 140px;
+		display: inline-table;
+		margin-left: 5px;
+		font-size: 12px;
+		cursor: pointer;
+		transition: 0.3s;
+		margin-bottom: 1%;
+		background-color: none;
+		cursor: pointer;
+	}
+
+		.icon_file_contract:hover {
+			color: dodgerblue;
+			border-color: dodgerblue;
+			opacity: .80;
+		}
+
+		.icon_file_contract i {
+			font-size: 35px !important;
+			color: #ff6a00;
+		}
+
+
+	.kata-kata {
+		font-size: 15px;
+	}
+
+
+	#ModaRichText .modal-dialog {
+		width: 70%;
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+
+	#ModalCustomPoint .modal-dialog {
+		width: 80%;
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#ModalListAttacment .modal-dialog {
+		width: 60%;
+		margin: 0 auto;
+		margin-top: 5%;
+		-webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+	}
+
+	#gridLampiran .icon-file {
+		font-size: 20px;
+	}
+
+	.bagi_dua {
+		width: 50% !important;
+		display: inline-block;
+		float: left;
+	}
+
+	.preview_attachment {
+		border-left: 1px solid #dedede;
+	}
+
+	.judul_preview_file {
+		width: 100%;
+		background: #efefed;
+		border-bottom: 1px solid #dedede;
+		padding: 10px;
+		font-weight: bold;
+	}
+
+	.close_prev_ {
+		color: red;
+		cursor: pointer;
+	}
+
+		.close_prev_:hover {
+			color: #ff6060;
+		}
+</style>
+
+
+<div id="template_main" hidden>
+
+
+
+
+
+
+
+</div>
+
+<div id="page_proses_load" hidden>
+
+	<img src="~/Content/images/loading_images/roket.gif" style="width:30%;" />
+	<br />
+	<span>Loading ...</span>
+
+</div>
+
+
+<!-- Modal -->
+<div class="modal modal_ex fade" id="ModalSignDraftTemplate1" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Upload Draft Kontrak Yang Telah di Sign</h4>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Remark :</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="remark_sign" placeholder="Tinggalkan keterangan jika diperlukan" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:150px;background-color:#faffbc;font-size:14px;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group file_sign_upload_group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Upload Signed Draft I <mandatory>*</mandatory>&nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input type="file" id="file_sign_upload_1" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" />
+							</div>
+						</div>
+
+						<div class="form-group file_sign_upload_group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Upload Signed Draft II <mandatory>*</mandatory>&nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input type="file" id="file_sign_upload_2" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" />
+							</div>
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+
+
+
+		</div>
+		<div class="modal-footer">
+
+
+
+		</div>
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal modal_ex fade" id="ModalRichText" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Customize Your Text Here</h4>
+				<span style="font-size:11px;">(Powered by CKeditor)</span>
+
+			</div>
+
+
+			<div class="modal-body" style="padding:0px;">
+				<div class="box-body">
+					@*<textarea class="form-control" id="text_editor_draft" placeholder="Anda dapat menambahkan custom text/draft disini" style="height:400px !important;" autocomplete="off"></textarea>*@
+
+					<div id="editor">
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+
+			<button type="button" class="btn btn-primary btn-sm" onclick="add_custom_text()">Add</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal modal_ex fade" id="ModalCustomPoint" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Add Custom Point</h4>
+				<span style="font-size:11px;">(Powered by CKeditor)</span>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Number of Point <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input class="form-control " id="number_point" type="text" placeholder="enter number of point" autocomplete="off">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Enter Text of Point <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<div id="text_point">
+								</div>
+							</div>
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+
+
+
+		</div>
+		<div class="modal-footer">
+
+			<button type="button" class="btn btn-primary btn-sm" onclick="add_custom_point()">Add</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade modal_ex" id="ModalListAttacment" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title"> <i class="fa fa-paperclip" aria-hidden="true"></i> Daftar Lampiran</h4>
+
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="gridLampiran" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script>
+
+	var current_contract = [];
+	var current_contract_id = "";
+	var current_formid = 0;
+	var FlagSign = 0;
+	var open_preview = 0;
+
+	var curr_div_custom_text = "";
+	var curr_table_point = "";
+
+	//var height_sign_outer = Number(window.innerHeight) - 280;
+	var FormCaptureEdit_Current = "";
+
+
+	function ViewDraft(ContractId) {
+		full_screen_stat = 1;
+		full_screen("#template_main");
+		current_contract_id = ContractId;
+		open_preview = 0;
+		var file_1 = $('#file_sign_upload_1');
+		var file_2 = $('#file_sign_upload_2');
+		file_1.ace_file_input('reset_input');
+		file_2.ace_file_input('reset_input');
+		$("#remark_sign").val("");
+
+
+		$("#main_panel").hide("fade", function () {
+
+			var record_;
+			var PostParam = new FormData();
+			PostParam.append('ContractId', ContractId);
+
+			var get_date_contract = $.ajax({
+				url: URL_PTPR + '/EContract/GetGA_E_ContractCurrent',
+				type: 'POST',
+				data: PostParam,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+
+			FormCapture = get_date_contract.responseJSON[0].FormCapture;
+			FormCaptureEdit_Current = FormCapture;
+			FormCaptureEdit = get_date_contract.responseJSON[0].FormCaptureEdit;
+			current_formid = get_date_contract.responseJSON[0].FormId;
+			judul_draft = "#ContractId: " + get_date_contract.responseJSON[0].ContractId + ", #Title : " + get_date_contract.responseJSON[0].ContractTitle; 
+
+			$("#template_main").html("");
+			$("#template_main").append('<div class="template_header"><div class="judul_draft">'+ judul_draft +'</div><div class="header_button"> <button type="button" class="btn btn-danger btn-sm full_screen_btn" onclick="full_screen(\'#template_main\');"><i class="fa fa-arrows-alt" aria-hidden="true"></i> Maximize</button></div></div><div class="outer_template">' + '<div id="rangkap_1">' + FormCapture + '</div>' + '<div id="rangkap_2">' + FormCapture + '</div>' + '</div><div class="button_box" id="button_box_"></div>');
+			$("#sign_info").html("#ContractId : " + ContractId + " #Title : " + get_date_contract.responseJSON[0].ContractTitle + " #" + get_date_contract.responseJSON[0].Creator)
+
+			var ActionButton = "";
+			var DownloadDraft = "";
+			var CancelButton = '<button type="button" class="btn btn-default btn-sm" onclick="back_main_panel()" ondblclick="back_main_panel()" > Close</button > '
+			var RejectButton = '<button type="button" class="btn btn-danger btn-sm" onclick="save_sign(\'REJECT\')" ondblclick="save_sign(\'REJECT\')" ><i class="fa fa-ban" aria-hidden="true"></i>  Reject</button > ';
+			var AttachmentButton = '<button type="button" class="btn btn-info btn-sm" onclick="lihat_attachment()" ondblclick="lihat_attachment()" ><i class="fa fa-paperclip" aria-hidden="true"></i>  Daftar Lampiran</button > ';
+
+			if (get_date_contract.responseJSON[0].InProcess == 0) {
+
+				ActionButton = '<button type="button" class="btn btn-success btn-sm" onclick="edit_sign()" ondblclick="edit_sign()" > <i class="fa fa-check" aria-hidden=" true"></i> Edit</button> ';
+				RejectButton = "";
+
+
+			}
+
+			if (get_date_contract.responseJSON[0].InProcess == 1) {
+				ActionButton = '<button type="button" class="btn btn-success btn-sm" onclick="save_sign(\'REVIEW_LEGAL\')" ondblclick="save_sign(\'REVIEW_LEGAL\')" > <i class="fa fa-check" aria-hidden=" true"></i> Review By Legal</button> ';
+			}
+
+			if (get_date_contract.responseJSON[0].InProcess == 2) {
+				ActionButton = '<button type="button" class="btn btn-success btn-sm" onclick="save_sign(\'REVIEW_LEGAL_2\')" ondblclick="save_sign(\'REVIEW_LEGAL_2\')" > <i class="fa fa-check" aria-hidden=" true"></i> Review By Legal II</button> ';
+			}
+
+			if (get_date_contract.responseJSON[0].InProcess == 3) {
+				ActionButton = '<button type="button" class="btn btn-success btn-sm" onclick="save_sign(\'APPROVE_LEGAL\')" ondblclick=save_sign(\'APPROVE_LEGAL\')" > <i class="fa fa-check" aria-hidden=" true"></i> Approve By Legal</button> ';
+			}
+
+			if (get_date_contract.responseJSON[0].InProcess == 4) {
+				ActionButton = '<button type="button" class="btn btn-success btn-sm" onclick="save_sign(\'SIGN_PERISAI\')" ondblclick="approve(\'SIGN_PERISAI\')" > <i class="fa fa-check" aria-hidden=" true"></i> Upload Signed Draft By Perisai</button> ';
+				DownloadDraft = '<button type="button" class="btn btn-info btn-sm" onclick="download_draft(1)" ondblclick="download_draft(1)"><i class="fa fa-file-text" aria-hidden="true"></i> Download Lasted Draft I</button> ';
+				DownloadDraft = DownloadDraft + '<button type="button" class="btn btn-info btn-sm" onclick="download_draft(2)" ondblclick="download_draft(2)"><i class="fa fa-file-text" aria-hidden="true"></i> Download Lasted Draft II</button> '
+				RejectButton = "";
+			}
+
+
+			if (get_date_contract.responseJSON[0].InProcess == 5) {
+
+				ActionButton = '<button type="button" class="btn btn-success btn-sm" onclick="save_sign(\'SIGN_VENDOR\')" ondblclick="approve(\'SIGN_VENDOR\')" > <i class="fa fa-check" aria-hidden=" true"></i> Upload Signed Draft By Vendor</button> ';
+				RejectButton = "";
+
+
+				var Param_ = new FormData();
+				Param_.append('ContractId', ContractId);
+
+				var get_last_file = $.ajax({
+					url: URL_PTPR + '/EContract/GetLastSignFileEContract_V2',
+					type: 'POST',
+					data: Param_,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+				});
+
+				if (get_last_file.responseJSON.length > 0) {
+
+					DownloadDraft_1 = ""; DownloadDraft_2 = "";
+
+					DownloadDraft_1 = '<button type="button" class="btn btn-purple btn-sm" onclick="download_draft_sign(' + get_last_file.responseJSON[0].ID + ')" ondblclick="download_draft_sign(' + get_last_file.responseJSON[0].ID + ')"><i class="fa fa-file-text" aria-hidden="true"></i> Download Lasted Draft I</button> ';
+
+					if (get_last_file.responseJSON.length > 1) {
+						DownloadDraft_2 = '<button type="button" class="btn btn-purple btn-sm" onclick="download_draft_sign(' + get_last_file.responseJSON[1].ID + ')" ondblclick="download_draft_sign(' + get_last_file.responseJSON[1].ID + ')"><i class="fa fa-file-text" aria-hidden="true"></i> Download Lasted Draft II</button> ';
+					}
+
+
+					DownloadDraft_3 = '<button type="button" class="btn btn-purple btn-sm" onclick="download_lampiran(\'403657\')"><i class="fa fa-file-text" aria-hidden="true"></i> Syarat & Ketentuan Umum</button> ';
+
+
+					if (current_formid == 1) {
+
+						DownloadDraft = DownloadDraft_1 + DownloadDraft_2 + DownloadDraft_3;
+
+
+					}
+					else {
+
+						DownloadDraft = DownloadDraft_1 + DownloadDraft_2;
+					}
+
+
+				}
+
+			}
+
+			if (get_date_contract.responseJSON[0].InProcess == 6) {
+
+				$("#template_main").find(".outer_template").remove();
+				RejectButton = "";
+				AttachmentButton = "";
+
+				var Param_ = new FormData();
+				Param_.append('ContractId', ContractId);
+
+				var get_last_file = $.ajax({
+					url: URL_PTPR + '/EContract/GetLastSignFileEContract_V2',
+					type: 'POST',
+					data: Param_,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+				});
+
+				if (get_last_file.responseJSON.length > 0) {
+
+					DownloadDraft_1 = ""; DownloadDraft_2 = "";
+
+					DownloadDraft_1 = '<div class= "icon_file_contract" onclick="download_draft_sign(' + get_last_file.responseJSON[0].ID + ')" ondblclick="download_draft_sign(' + get_last_file.responseJSON[0].ID + ')"><i class="fa fa-file-text" aria-hidden="true"></i> <br><br>File Kontrak Rangkap Ke 1</div> ';
+
+					if (get_last_file.responseJSON.length > 1) {
+
+						DownloadDraft_2 = '<div class= "icon_file_contract" onclick="download_draft_sign(' + get_last_file.responseJSON[1].ID + ')" ondblclick="download_draft_sign(' + get_last_file.responseJSON[1].ID + ')"><i class="fa fa-file-text" aria-hidden="true"></i> <br><br>File Kontrak Rangkap Ke 2</div> ';
+					}
+
+
+					DownloadDraft_3 = '<div class= "icon_file_contract" onclick="download_lampiran(\'403657\')" ondblclick="download_lampiran(\'403657\')"><i class="fa fa-file-text" aria-hidden="true"></i> <br><br> SYARAT-SYARAT DAN KETENTUAN-KETENTUAN UMUM</div>  ';
+
+
+					if (current_formid == 1) {
+
+						DownloadDraft = '<div class="group_file_kontrak" > <span class="kata-kata"> Silahkan download file kontrak yang telah ditanda tangani yang terdapat dalam 2 rangkap berikut ! </span><br><br>   ' + DownloadDraft_1 + DownloadDraft_2 + DownloadDraft_3 + '</div>';
+					}
+					else {
+
+						DownloadDraft = '<div class="group_file_kontrak" > <span class="kata-kata"> Silahkan download file kontrak yang telah ditanda tangani yang terdapat dalam 2 rangkap berikut ! </span><br><br>   ' + DownloadDraft_1 + DownloadDraft_2 + '</div>';
+					}
+
+
+
+
+				}
+
+			}
+
+
+
+			Buton_Box = AttachmentButton + DownloadDraft + ActionButton + RejectButton + CancelButton;
+			//Buton_Box = DownloadDraft + ActionButton + RejectButton + CancelButton;
+
+			$("#template_main .button_box").html(Buton_Box);
+			$("#template_main").show();
+			//$("#outer_template_form1").scrollTop(0);
+			$('.outer_template').css('height', height_sign_outer);
+			$("#rangkap_1 .e_materai_pihak_2 .materai_sub").hide();
+			$("#rangkap_2 .e_materai_pihak_1 .materai_sub").hide();
+
+
+
+
+		})
+
+	}
+
+
+
+	function back_main_panel() {
+
+		$("#template_main").hide("fade", function () {
+			$("#main_panel").show(function () {
+				if (w2ui['gridContract'] != null) w2ui['gridContract'].refresh();
+			});
+		})
+	}
+
+
+	function download_draft(rangkap) {
+
+		var CaptureDiv = "";
+
+		switch (rangkap) {
+
+			case 1:
+				CaptureDiv = $(".outer_template #rangkap_1").html();
+
+				break;
+			case 2:
+				CaptureDiv = $(".outer_template #rangkap_2").html();
+
+				break;
+			default:
+				CaptureDiv = $(".outer_template").html();
+		}
+
+		RptHTML = CaptureDiv;
+		var param = { 'ContractId': current_contract_id, 'RptHTML': RptHTML };
+		OpenWindowWithPost(URL_PTPR + '/EContract/PrintEKontrakProcurement', "width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+			"ContractId", param);
+
+
+	}
+
+	function download_draft_sign(Id) {
+
+		var param = { 'Id': Id, };
+		OpenWindowWithPost(URL_PTPR + '/EContract/File', "width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+			"ContractId", param);
+
+
+	}
+
+	function download_lampiran(Id) {
+
+		var param = { 'Id': Id, };
+		OpenWindowWithPost(URL_PTPR + '/EContract/File', "width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+			"Id", param);
+
+
+	}
+
+	function save_sign(flag_crud) {
+
+		var file_sign_1 = $("#file_sign_upload_1").get(0).files;
+		var file_sign_2 = $("#file_sign_upload_2").get(0).files;
+
+
+		if (flag_crud == "REJECT") {
+
+			if ($("#remark_sign").val() == "") {
+
+				if (FlagSign == 0) {
+
+					var file_1 = $('#file_sign_upload_1');
+					var file_2 = $('#file_sign_upload_2');
+					file_1.ace_file_input('reset_input');
+					file_2.ace_file_input('reset_input');
+
+					$("#remark_sign").val("");
+					$('.file_sign_upload_group').hide();
+
+					var button_ = '<button type="button" class="btn btn-danger btn-sm" onclick="save_sign(\'REJECT\')">Reject</button>';
+					button_ = button_ + '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>';
+					$("#ModalSignDraftTemplate1 .modal-footer").html(button_);
+					$("#ModalSignDraftTemplate1 .modal-title").html("Reject");
+					$('#ModalSignDraftTemplate1').modal(
+						{
+							backdrop: 'static',
+							keyboard: false
+						}
+					);
+					$("#ModalSignDraftTemplate1").modal("show");
+				}
+				else {
+
+					$("#remark_sign").focus();
+					w2alert("Tinggalkan alasan kenapa kontrak ini di reject !");
+				}
+
+				FlagSign = 1;
+
+				return;
+			}
+		}
+
+		if (flag_crud == "APPROVE_LEGAL" || flag_crud == "REVIEW_LEGAL" || flag_crud == "REVIEW_LEGAL_2") {
+
+			if ($("#remark_sign").val() == "") {
+
+				if (FlagSign == 0) {
+
+					var file_1 = $('#file_sign_upload_1');
+					var file_2 = $('#file_sign_upload_2');
+					file_1.ace_file_input('reset_input');
+					file_2.ace_file_input('reset_input');
+
+					$("#remark_sign").val("");
+					$('.file_sign_upload_group').hide();
+
+				
+					
+					var judul_modal = "";
+
+					switch (flag_crud) {
+						case "APPROVE_LEGAL":
+							judul_modal = "Approve By Legal";
+							break;
+						case "REVIEW_LEGAL":
+							judul_modal = "Review By Legal I";
+							break;
+						case "REVIEW_LEGAL_2":
+							judul_modal = "Review By Legal II";
+							break;
+						default:
+							judul_modal = "Udpate";
+					}
+
+
+					var button_ = '<button type="button" class="btn btn-success btn-sm" onclick="save_sign(\'' + flag_crud + '\')">' + judul_modal+'</button>';
+					button_ = button_ + '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>';
+					$("#ModalSignDraftTemplate1 .modal-footer").html(button_);
+					$("#ModalSignDraftTemplate1 .modal-title").html(judul_modal);
+
+					$('#ModalSignDraftTemplate1').modal(
+						{
+							backdrop: 'static',
+							keyboard: false
+						}
+					);
+					$("#ModalSignDraftTemplate1").modal("show");
+				}
+				else {
+
+					$("#remark_sign").focus();
+					w2alert("Harap tinggalkan catatan untuk proses ini !");
+				}
+
+				FlagSign = 1;
+
+				return;
+			}
+		}
+
+
+
+		if (flag_crud == "SIGN_PERISAI") {
+
+			if (file_sign_1.length == 0 || file_sign_2.length == 0) {
+
+				if (FlagSign == 0) {
+
+					var file_ = $('#file_sign_upload');
+					file_.ace_file_input('reset_input');
+					$("#remark_sign").val("");
+					$('.file_sign_upload_group').show();
+
+					var button_ = '<button type="button" class="btn btn-primary btn-sm" onclick="save_sign(\'SIGN_PERISAI\')">Process</button>';
+					button_ = button_ + '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>';
+					$("#ModalSignDraftTemplate1 .modal-footer").html(button_);
+					$("#ModalSignDraftTemplate1 .modal-title").html('<i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload document signed from perisai');
+
+
+
+					$('#ModalSignDraftTemplate1').modal(
+						{
+							backdrop: 'static',
+							keyboard: false
+						}
+					);
+
+					$("#ModalSignDraftTemplate1").modal("show");
+				}
+				else {
+
+					w2alert("Anda belum mengupload file kontrak !");
+				}
+				FlagSign = 1;
+				return;
+			}
+		}
+
+
+		//if (flag_crud == "SIGN_LEGAL") {
+
+		//	if (file_sign.length == 0) {
+
+		//		if (FlagSign == 0) {
+
+		//			var file_ = $('#file_sign_upload');
+		//			file_.ace_file_input('reset_input');
+		//			$("#remark_sign").val("");
+
+		//			var button_ = '<button type="button" class="btn btn-primary btn-sm" onclick="save_sign(\'SIGN_LEGAL\')">Process</button>';
+		//			button_ = button_ + '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>';
+		//			$("#ModalSignDraftTemplate1 .modal-footer").html(button_);
+		//			$("#ModalSignDraftTemplate1 .modal-title").html("Sign By Legal");
+		//			$('#ModalSignDraftTemplate1').modal(
+		//				{
+		//					backdrop: 'static',
+		//					keyboard: false
+		//				}
+		//			);
+		//			$("#ModalSignDraftTemplate1").modal("show");
+		//		}
+		//		else {
+
+		//			w2alert("Anda belum mengupload file kontrak !");
+		//		}
+
+		//		FlagSign = 1;
+
+		//		return;
+		//	}
+		//}
+
+		//if (flag_crud == "SIGN_USER") {
+
+		//	if (file_sign.length == 0) {
+
+		//		if (FlagSign == 0) {
+
+		//			var file_ = $('#file_sign_upload');
+		//			file_.ace_file_input('reset_input');
+		//			$("#remark_sign").val("");
+
+		//			var button_ = '<button type="button" class="btn btn-primary btn-sm" onclick="save_sign(\'SIGN_USER\')">Process</button>';
+		//			button_ = button_ + '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>';
+		//			$("#ModalSignDraftTemplate1 .modal-footer").html(button_);
+		//			$("#ModalSignDraftTemplate1 .modal-title").html("Sign By User");
+		//			$('#ModalSignDraftTemplate1').modal(
+		//				{
+		//					backdrop: 'static',
+		//					keyboard: false
+		//				}
+		//			);
+		//			$("#ModalSignDraftTemplate1").modal("show");
+		//		}
+		//		else {
+
+		//			w2alert("Anda belum mengupload file kontrak !");
+		//		}
+
+		//		FlagSign = 1;
+
+		//		return;
+		//	}
+		//}
+
+		//if (flag_crud == "SIGN_DIRECTOR") {
+
+		//	if (file_sign.length == 0) {
+
+		//		if (FlagSign == 0) {
+
+		//			var file_ = $('#file_sign_upload');
+		//			file_.ace_file_input('reset_input');
+		//			$("#remark_sign").val("");
+
+		//			var button_ = '<button type="button" class="btn btn-primary btn-sm" onclick="save_sign(\'SIGN_DIRECTOR\')">Process</button>';
+		//			button_ = button_ + '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>';
+		//			$("#ModalSignDraftTemplate1 .modal-footer").html(button_);
+		//			$("#ModalSignDraftTemplate1 .modal-title").html("Sign By Director");
+		//			$('#ModalSignDraftTemplate1').modal(
+		//				{
+		//					backdrop: 'static',
+		//					keyboard: false
+		//				}
+		//			);
+		//			$("#ModalSignDraftTemplate1").modal("show");
+		//		}
+		//		else {
+
+		//			w2alert("Anda belum mengupload file kontrak !");
+		//		}
+
+		//		FlagSign = 1;
+
+		//		return;
+		//	}
+		//}
+
+		if (flag_crud == "SIGN_VENDOR") {
+
+			if (file_sign_1.length == 0 || file_sign_2.length == 0) {
+
+				if (FlagSign == 0) {
+
+					var file_ = $('#file_sign_upload');
+					file_.ace_file_input('reset_input');
+					$("#remark_sign").val("");
+
+					var button_ = '<button type="button" class="btn btn-primary btn-sm" onclick="save_sign(\'SIGN_VENDOR\')">Process</button>';
+					button_ = button_ + '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>';
+					$("#ModalSignDraftTemplate1 .modal-footer").html(button_);
+					$("#ModalSignDraftTemplate1 .modal-title").html('<i class="fa fa-cloud-upload" aria-hidden="true"></i> Upload document signed by Vendor');
+					$('#ModalSignDraftTemplate1').modal(
+						{
+							backdrop: 'static',
+							keyboard: false
+						}
+					);
+					$("#ModalSignDraftTemplate1").modal("show");
+				}
+				else {
+
+					w2alert("Anda belum mengupload file kontrak !");
+				}
+
+				FlagSign = 1;
+
+				return;
+			}
+		}
+
+
+
+		$("#ModalSignDraftTemplate1").modal("hide");
+
+		$("#template_main").hide();
+
+		$("#page_proses_load").show("fade", function () {
+
+			var DataSave = new FormData();
+			DataSave.append('ProcId', '0')
+			DataSave.append('ContractId', current_contract_id)
+			DataSave.append('FormField', '')
+			DataSave.append('FormCapture', '')
+			DataSave.append('FlagCrud', flag_crud)
+			DataSave.append('Remark', $("#remark_sign").val())
+
+			if (file_sign_1.length > 0) {
+
+				DataSave.append('FILE_1', file_sign_1[0]);
+			}
+
+			if (file_sign_2.length > 0) {
+
+				DataSave.append('FILE_2', file_sign_2[0]);
+			}
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/EContract/SaveEContractPengadaan',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+
+					$("#page_proses_load").hide();
+					$("#template_main").show();
+					w2alert("Error, try again or contact our administrator please !", "Save E-Kontrak");
+
+				}
+			});
+
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				w2alert(Simpan.responseJSON["Result"]);
+				$("#page_proses_load").hide();
+				$("#template_main").show();
+				$('#ModalSignDraftTemplate1').modal(
+					{
+						backdrop: 'static',
+						keyboard: false
+					}
+				);
+				$("#ModalSignDraftTemplate1").modal("show");
+			}
+			else {
+
+				w2alert("Berhasil !", "Save E-Kontrak");
+				$("#page_proses_load").hide();
+				$("#ModalSignDraftTemplate1").modal("hide");
+
+				UpdateCountProgress(); refresh_contract_list();
+
+				$("#template_main").hide();
+				$("#main_panel").show();
+				$("#page_result").show();
+
+
+			}
+
+		});
+
+
+
+
+
+
+
+
+
+	}
+
+	function edit_sign() {
+
+		ActionButton = '<button type="button" class="btn btn-info btn-sm" onclick="resubmit(\'RESUBMIT\')" ondblclick="resubmit(\'RESUBMIT\')" > <i class="fa fa-floppy-o" aria-hidden=" true"></i> Save & Resubmit</button> ';
+		CancelButton = '<button type="button" class="btn btn-default btn-sm" onclick="cancel_edit()" ondblclick="cancel_edit()" > Cancel</button > '
+		Buton_Box = ActionButton + CancelButton;
+
+		var PostParam = new FormData();
+		PostParam.append('ContractId', current_contract_id);
+
+		var get_date_contract = $.ajax({
+			url: URL_PTPR + '/EContract/GetGA_E_ContractCurrent',
+			type: 'POST',
+			data: PostParam,
+			dataType: "json",
+			cache: false,
+			async: false,
+			contentType: false,
+			processData: false,
+		});
+
+		FormCaptureEdit = get_date_contract.responseJSON[0].FormCaptureEdit;
+		FormField = get_date_contract.responseJSON[0].FormField;
+		current_formid = get_date_contract.responseJSON[0].FormId;
+
+
+		$("#template_main").find(".outer_template,.preview_attachment").remove();
+		$("#template_main").removeClass("bagi_dua");
+		$("#template_main .button_box").before('<div class="outer_template">' + FormCaptureEdit + '</div>');
+
+
+		if (full_screen_stat == 1) {
+
+			$(".button_box").hide();
+			$("#template_main .from_bottom").html(Buton_Box);
+			$('.outer_template,.bagi_dua').css('height', (Number(window.innerHeight) - 50));
+
+		}
+		else {
+			$("#template_main .button_box").html(Buton_Box);
+			$(".button_box").show();
+		}
+
+
+		const obj_FormField = JSON.parse(FormField);
+		$.each(obj_FormField[0], function (index, value) { $("#" + index).val(value); });
+
+		$('#template_main input[type="text"],#template_main textarea').attr("readonly", false);
+		if (current_formid == 1) {
+			$("#template_main").find(".ace-file-container").remove();
+
+			$('#uploader_attachment').ace_file_input({
+				style: 'well',
+				btn_choose: 'Tambahakan File Attacment',
+				btn_change: null,
+				no_icon: 'ace-icon fa fa-cloud-upload',
+				droppable: true,
+				thumbnail: 'small'
+			}).on('change', function () {
+
+
+
+			});
+
+			var file_attachment = $('#uploader_attachment');
+			file_attachment.ace_file_input('reset_input');
+
+		}
+
+	}
+
+	function cancel_edit() {
+
+
+		var PostParam = new FormData();
+		PostParam.append('ContractId', current_contract_id);
+
+		var get_date_contract = $.ajax({
+			url: URL_PTPR + '/EContract/GetGA_E_ContractCurrent',
+			type: 'POST',
+			data: PostParam,
+			dataType: "json",
+			cache: false,
+			async: false,
+			contentType: false,
+			processData: false,
+		});
+
+		FormCapture = get_date_contract.responseJSON[0].FormCapture;
+		FormField = get_date_contract.responseJSON[0].FormField;
+
+
+
+		ActionButton = '<button type="button" class="btn btn-success btn-sm" onclick="edit_sign()" ondblclick="edit_sign()" > <i class="fa fa-check" aria-hidden=" true"></i> Edit</button> ';
+		var CancelButton = '<button type="button" class="btn btn-default btn-sm" onclick="back_main_panel()" ondblclick="back_main_panel()" > Close</button > ';
+		var AttachmentButton = '<button type="button" class="btn btn-info btn-sm" onclick="lihat_attachment()" ondblclick="lihat_attachment()" ><i class="fa fa-paperclip" aria-hidden="true"></i>  Daftar Lampiran</button > ';
+
+
+		Buton_Box = AttachmentButton + ActionButton + CancelButton;
+
+
+		$("#template_main").find(".outer_template").remove();
+		$("#template_main .button_box").before('<div class="outer_template">' + FormCaptureEdit + '</div>');
+
+		if (full_screen_stat == 1) {
+			$(".button_box").hide();
+			$("#template_main .from_bottom").html(Buton_Box);
+			$('.outer_template,.bagi_dua').css('height', (Number(window.innerHeight) - 50));
+		}
+		else {
+			$("#template_main .button_box").html(Buton_Box);
+			$(".button_box").show();
+		}
+
+
+
+	}
+
+	function resubmit() {
+
+		var last_empty_id = "";
+		var xcount = 1;
+		var validate_save = true;
+		var json_field = [];
+
+		$("#template_main .wajib").each(function () {
+			var element = $(this);
+			if (element.val() == "" && element[0].id != "harga_kontrak_lamp_b_temp") {
+
+				isValid = false;
+				var fill_placeholder = element[0].attributes["placeholder"];
+				var placeHolderText = fill_placeholder.nodeValue;
+				placeHolderText = placeHolderText.replace("Harap diisi", "").trim().replace("[ Wajib diisi ! ]", "");
+				$("#" + element[0].id).attr("placeholder", placeHolderText + "[ Wajib diisi ! ]");
+				if (xcount == 1) last_empty_id = element[0].id;
+
+				xcount = xcount + 1;
+				validate_save = false;
+
+			}
+		});
+
+		if (validate_save == false) {
+
+			$("#" + last_empty_id).focus();
+			return;
+		}
+		else {
+
+			$("#template_main").hide();
+
+			$("#page_proses_load").show("fade", function () {
+
+
+				var feed = {};
+				$("#template_main .wajib").each(function () {
+					var element = $(this);
+					if (element.val() != "") {
+
+						isValid = false;
+						value_ = $("#" + element[0].id).val();
+
+						if (element[0].id != "nilai_spk_temp") {
+
+							$("#" + element[0].id).after("<span class='value_'>" + value_ + "<span>");
+
+						}
+
+						var field_name = element[0].id.toString();
+						feed[field_name] = value_;
+					}
+				});
+
+				json_field.push(feed);
+
+				$("#template_main").after("<div id='template_main_temp' hidden>" + $("#template_main").html() + "<div>");
+				$("#template_main_temp").find("input,textarea").remove();
+				$("#template_main_temp").find(".richText,.btn_custom_text,btn_custom_point").remove();
+
+				var DataSave = new FormData();
+				var CaptureDiv = $("#template_main_temp .outer_template").html();
+				$("#template_main .value_").remove();
+				var CaptureDivEdit = $("#template_main .outer_template").html();;
+
+				DataSave.append('ProcId', '0')
+				DataSave.append('FormField', JSON.stringify(json_field))
+				DataSave.append('FormCapture', CaptureDiv)
+				DataSave.append('FormCaptureEdit', CaptureDivEdit)
+				DataSave.append('ContractId', current_contract_id)
+				DataSave.append('FlagCrud', 'RESUBMIT')
+				DataSave.append('FormId', current_formid)
+
+				var Simpan = $.ajax({
+					url: URL_PTPR + '/EContract/SaveEContractPengadaan',
+					type: 'POST',
+					data: DataSave,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+					error: function (request, status, error) {
+
+						$("#page_proses_load").hide();
+						$("#template_main").show();
+						w2alert("Error, try again or contact our administrator please !", "Save E-Kontrak");
+
+					}
+				});
+
+				$(".value_").remove();
+				$(".template_main_temp").remove();
+
+
+				if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+					w2alert(Simpan.responseJSON["Result"]);
+					$("#page_proses_load").hide();
+					$("#template_main").show();
+					//w2alert("Error, try again or contact our administrator please !", "Save E-Kontrak");
+				}
+				else {
+
+
+					w2alert("Berhasil !", "Save E-Kontrak");
+					$("#page_proses_load").hide();
+					UpdateCountProgress(); refresh_contract_list();
+
+					$("#template_main").hide();
+					$("#main_panel").show();
+					$("#page_result").show();
+
+
+				}
+
+
+			});
+
+		}
+
+
+	}
+
+
+	function lihat_attachment() {
+
+
+		if (w2ui['gridLampiran'] != null) { w2ui['gridLampiran'].destroy(); }
+
+		$('#ModalListAttacment').on('shown.bs.modal', function () {
+
+			$('#gridLampiran').w2grid({
+
+				name: 'gridLampiran',
+				url: URL_PTPR + '/EContract/GetEContractFile?ContractId=' + current_contract_id,
+				show: {
+					header: false,
+					footer: true,
+					lineNumbers: true,
+					toolbarAdd: false,
+					toolbarDelete: false,
+					toolbar: true,
+					toolbarSearch: false,
+				},
+				toolbar: {
+					items: [
+						{ type: 'button', id: 'view_attachment', caption: '<i class="fa fa-folder-open" aria-hidden="true" style="color:orange;"></i> View Attachment Beside of Draft', disabled: true },
+						{ type: 'break' },
+						{ type: 'button', id: 'view_in_new_tab', caption: '<i class="fa fa-external-link" aria-hidden="true" style="color:green;"></i> View In New Tab', disabled: true },
+					],
+					onClick: function (target, data) {
+
+						switch (target) {
+							case 'view_attachment':
+								var sel = w2ui.gridLampiran.getSelection();
+								var record = w2ui.gridLampiran.get(sel[0]);
+								view_attachment(record);
+								break;
+							case 'view_in_new_tab':
+								var sel = w2ui.gridLampiran.getSelection();
+								var record = w2ui.gridLampiran.get(sel[0]);
+								var file_url = "";
+								if (record.API == "DocMan") {
+									file_url = URL_PTPR + "/EContract/ViewAttachment?Id=" + record.ID;
+								}
+								else {
+									file_url = URL_PTPR + '/File_Contract/' + record.FileName_org;
+								}
+								
+								window.open(file_url, '_blank');
+								break;
+
+						}
+
+					}
+				},
+				columns: [
+
+					{ field: 'DocType', caption: 'Tipe Dokumen', size: '200px', searchable: 'text' },
+					{ field: 'FileName', caption: 'File Name', size: '100%', searchable: 'text' }
+
+				],
+				onDblClick: function (event) {
+					var record = this.get(event.recid);
+					view_attachment(record);
+				},
+				onSelect: function (event) {
+
+					event.onComplete = function () {
+						var contract = w2ui.gridLampiran.getSelection();
+						w2ui['gridLampiran'].toolbar.disable('view_attachment');
+						w2ui['gridLampiran'].toolbar.disable('view_in_new_tab');
+
+						if (contract.length == 1) {
+
+							var record = this.get(event.recid);
+							w2ui['gridLampiran'].toolbar.enable('view_attachment');
+							w2ui['gridLampiran'].toolbar.enable('view_in_new_tab');
+
+						}
+					}
+
+				},
+				onUnselect: function (event) {
+
+					event.onComplete = function () {
+						w2ui['gridLampiran'].toolbar.disable('view_attachment');
+						w2ui['gridLampiran'].toolbar.disable('view_in_new_tab');
+
+						if (contract.length == 1) {
+
+							var record = this.get(event.recid);
+							w2ui['gridLampiran'].toolbar.enable('view_attachment');
+							w2ui['gridLampiran'].toolbar.enable('view_in_new_tab');
+
+						}
+					}
+				}
+
+
+			});
+		})
+
+
+		$('#ModalListAttacment').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+
+
+	}
+
+	function view_attachment(record) {
+
+
+		$("#template_main").find(".preview_attachment").remove();
+		var tinggi = 0;
+
+
+
+		var box_;
+		var file_url = URL_PTPR + "/EContract/ViewAttachment?Id=" + record.ID;
+
+
+		if (record.API == 'DocMan') {
+
+			file_url = URL_PTPR + "/EContract/ViewAttachment?Id=" + record.ID;
+		}
+		else {
+
+			file_url = URL_PTPR + '/File_Contract/' + record.FileName_org ;
+		}
+
+		if (open_preview == 0) {
+
+			$(".outer_template").addClass("bagi_dua");
+			open_preview = 1;
+		}
+
+
+		if (full_screen_stat == 1) {
+
+			tinggi = Number(window.innerHeight) - 50;
+		}
+		else {
+
+			tinggi = Number(window.innerHeight) - 270;
+		}
+
+		box_ = '<div class="preview_attachment bagi_dua">';
+		box_ = box_ + '<div class="judul_preview_file"><table id="title_prev" width="100%"><tr><td width="80%">' + record.FileName + '</td>';
+		box_ = box_ + '<td width="10%" style="text-align:right;"><span onclick="close_preview_attachment()" class="close_prev_"> <i class="fa fa-times-circle-o" aria-hidden="true"></i> Close</span></td></tr></table></div>';
+		box_ = box_ + '<iframe src="' + file_url + '" scrolling="no" id="frame_preview" class="frame_prev" frameborder="1" style="width:100%;border:1px;height:' + tinggi + 'px;"></iframe></div>';
+
+		$(".outer_template").after(box_);
+		$('.preview_attachment').css('height', tinggi);
+		$('#ModalListAttacment').modal("hide");
+
+
+	}
+
+	function close_preview_attachment() {
+
+		$("#frame_preview").attr("src", "");
+		$(".preview_attachment").hide();
+		$(".outer_template").removeClass("bagi_dua");
+		open_preview = 0;
+	}
+
+	function rich_text(destination_div) {
+
+		curr_div_custom_text = destination_div;
+		CKEDITOR.instances.editor.setData("");
+
+		$('#ModalRichText').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+	}
+
+
+	function add_custom_text() {
+
+		var _custom_text = CKEDITOR.instances.editor.getData();
+		$('#' + curr_div_custom_text).html(_custom_text);
+		$('#ModalRichText').modal("hide");
+
+	}
+
+
+	function custom_point(table_) {
+
+		//$('#text_point').unRichText();
+		//$('#text_point').richText();
+		//$("#text_point").val('').trigger('change')
+		CKEDITOR.instances.text_point.setData("");
+
+
+		curr_table_point = table_;
+		$("#number_point").val("");
+		//$("#text_point").val("");
+
+		$("#number_point").focus();
+
+		$('#ModalCustomPoint').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+	}
+
+
+	function add_custom_point() {
+
+		curr_number = $("#number_point").val();
+		var _custom_text = CKEDITOR.instances.text_point.getData();
+
+		if ($("#number_point").val() == "") {
+
+			$("#number_point").attr("placeholder", " Number of point harus diisi !");
+			$("#number_point").focus();
+			return;
+		}
+
+		if (_custom_text == "") {
+
+			w2alert("Anda belum menambahkan point apapun pada text point !");
+			return;
+		}
+
+		//$('#' + curr_table_point + 'tr:last').after('<tr><td>' + curr_number + '</td><td>' + curr_text + '</td></tr>');
+		$('#' + curr_table_point).append('<tr><td>&nbsp;</td><td>&nbsp;</td></tr><tr><td>' + curr_number + '.</td><td>' + _custom_text + '</td></tr>');
+		$('#ModalCustomPoint').modal("hide");
+
+	}
+
+
+	function clear_last_point(table_) {
+
+		var class_ = $('#' + table_ + ' tr:last').attr('class');
+
+		if (class_ != "btn_custom_point") {
+
+			$('#' + table_ + ' tr:last').remove();
+		}
+
+	}
+
+
+	function add_page_ater() {
+
+
+
+	}
+
+
+
+
+	$('#file_sign_upload').ace_file_input({
+		btn_choose: 'Upload File',
+		btn_change: null,
+		no_icon: 'ace-icon fa fa-cloud-upload',
+		droppable: true,
+		thumbnail: 'small',
+		preview_error: function (filename, error_code) {
+		}
+
+	}).on('change', function () {
+	});
+
+
+
+
+	$('#ModalSignDraftTemplate1').on('hidden.bs.modal', function () {
+
+		FlagSign = 0;
+	});
+
+
+	//$(window).resize(function () {
+
+	//	$('.outer_template,.preview_attachment').css('height', height_sign_outer);
+	//	$('#frame_preview').css('height', height_sign_outer - 50);
+	//});
+
+
+
+
+	if (CKEDITOR.env.ie && CKEDITOR.env.version < 9)
+		CKEDITOR.tools.enableHtml5Elements(document);
+
+	// The trick to keep the editor in the sample quite small
+	// unless user specified own height.
+	CKEDITOR.config.height = 150;
+	CKEDITOR.config.width = 'auto';
+
+	var initSample = (function () {
+		var wysiwygareaAvailable = isWysiwygareaAvailable(),
+			isBBCodeBuiltIn = !!CKEDITOR.plugins.get('bbcode');
+
+		return function () {
+			var editorElement = CKEDITOR.document.getById('editor');
+			var editorElement2 = CKEDITOR.document.getById('text_point');
+
+			// :(((
+			if (isBBCodeBuiltIn) {
+				editorElement.setHtml(
+					''
+				);
+
+				editorElement2.setHtml(
+					''
+				);
+			}
+
+			// Depending on the wysiwygarea plugin availability initialize classic or inline editor.
+			if (wysiwygareaAvailable) {
+				CKEDITOR.replace('editor');
+				CKEDITOR.replace('text_point');
+			} else {
+				editorElement.setAttribute('contenteditable', 'true');
+				CKEDITOR.inline('editor');
+				CKEDITOR.inline('text_point');
+
+				// TODO we can consider displaying some info box that
+				// without wysiwygarea the classic editor may not work.
+			}
+		};
+
+		function isWysiwygareaAvailable() {
+			// If in development mode, then the wysiwygarea must be available.
+			// Split REV into two strings so builder does not replace it :D.
+			if (CKEDITOR.revision == ('%RE' + 'V%')) {
+				return true;
+			}
+
+			return !!CKEDITOR.plugins.get('wysiwygarea');
+		}
+	})();
+
+
+
+	initSample();
+
+
+
+
+</script>

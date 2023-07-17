@@ -1,0 +1,784 @@
+﻿@{
+	Layout = null;
+}
+
+<script>
+	var TempDelete = [];
+	var curent_kontrak = [];
+	var CurrentCustomer;
+</script>
+
+<style>
+
+	.page-content {
+		padding: 0px;
+	}
+
+	.box_info {
+		text-align: center;
+		padding-top: 0.7%;
+		border: 0px dashed #dedede;
+		margin: 0px auto;
+		margin-top: 0%;
+		width: 80%;
+		border-radius: 5px;
+	}
+
+	#box_info_icon {
+		text-align: center;
+		padding-top: 25px;
+		padding-bottom: 25px;
+		border-top: 1px dashed #dedede;
+		margin-top: 10px;
+		box-sizing: border-box;
+	}
+
+		#box_info_icon .icon_short_cut {
+			border: 1px dashed #dedede;
+			padding: 8px;
+			width: 85px;
+			height: 110px;
+			border-radius: 2%;
+			display: inline-table;
+			margin-left: 2px;
+			font-size: 10px;
+			cursor: pointer;
+			transition: 0.3s;
+			margin-bottom: 1%;
+			background-color: none;
+			cursor: pointer;
+			
+		}
+			
+			#box_info_icon .icon_short_cut:hover {
+				opacity: 0.50;
+				border: 1px solid #1a8cff;
+			}
+
+			#box_info_icon .icon_short_cut i {
+				font-size: 25px;
+				margin-bottom: 10px;
+			}
+
+	.logo_menu_head {
+		width: 150px;
+	}
+
+	.logo_menu {
+		width: 35px;
+	}
+
+	.list_title {
+		font-weight: normal;
+		font-size: 13px;
+		color: #3279a8;
+	}
+
+	.list_title_2 {
+		font-weight: normal;
+		font-size: 11px;
+		color: #3279a8;
+	}
+
+	.non_aktif {
+		filter: grayscale(90%);
+		border: 1px dashed #dedede !important;
+		background-color: whitesmoke;
+		cursor: not-allowed !important;
+	}
+</style>
+
+
+<div id="page_panel">
+
+
+	<div class="row box_info" style="background-color:White;">
+
+		<div class="col-sm-3" style="padding-top:4%;">
+			<img src="../../../Content/images/e_contract.png" class="logo_menu_head" style="width:90%;">
+		</div>
+
+		<div class="col-sm-7">
+
+			<div style="text-align:left;font-size:13px;margin-bottom:30px;">
+				<span style="font-size:60px;color:#1a8cff;font-weight:bold;">e</span><span style="font-size:25px;color:#88a833;"> - Contract</span><br />
+				<ul style="list-style-type:circle;color:#4d4d00;">
+					<li>Ajukan draft kontak Anda secara elektronik dengan fitur e-kontrak</li>
+					<li>Monitoring progressnya pengajuan draft kontrak Anda dengan lebih mudah</li>
+					<li>Lakukan action terhadap draft kontrak anda yang sedang progress sesuai otoritas yang diberikan kepada Anda.</li>
+				</ul>
+			</div>
+
+			<div style="width:100%;">
+
+				<select class="form-control select2 wajib3" id="param_field" data-placeholder="Cari Berdasarkan">
+					<option value="All" selected>All</option>
+					<option value="ContractId">Contract Id.</option>
+					<option value="ContractNo">Contract No.</option>
+					<option value="FungsiName">Fungsi</option>
+					<option value="ContractTitle">Nama Kontrak</option>
+					<option value="CandidateId_1">Reference Id.</option>
+				</select>
+
+				<input class="form-control wajib" id="key_word" placeholder="Enter Keyword" type="text" autocomplete="off" style="text-align:center;margin-top:5px;margin-bottom:10px;" onkeypress="if (event.keyCode == 13){find_contract_search(0);}">
+				<button type="button" class="btn btn-sm btn-default" onclick="clear_search()" ondblclick="clear_search()"><i class="fa fa-undo" aria-hidden="true"></i> Clear</button>
+				<button type="button" class="btn btn-sm btn-info" onclick="find_contract_search()" ondblclick="find_contract_search()"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div id="box_info_icon" hidden>
+
+		<div class="icon_short_cut" onclick="add_contract(); is_search = 0;" id="shortcut_add">
+			<i class="fa fa-plus-square-o" aria-hidden="true" style="color:dodgerblue;"></i>
+			<br />
+			<span class="lbl bigger-100">Create New</span> <br /><br />
+		</div>
+
+		<div class="icon_short_cut" onclick="find_contract_search_by_status('7',this.className);" id="count_reject_unpro_">
+			<i class="fa fa-trash" aria-hidden="true" style="color:#8b7979;"></i>
+			<br />
+			<span class="lbl bigger-100">Unprocedural</span> <br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_reject_unpro"></span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_contract_search_by_status('0',this.className);" id="count_reject_">
+			<i class="fa fa-ban" aria-hidden="true" style="color:red;"></i>
+			<br />
+			<span class="lbl bigger-100">Rejected</span> <br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_reject"></span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_contract_search_by_status('6',this.className);" id="count_correction_pam_">
+			<i class="fa fa-pencil-square-o" aria-hidden="true" style="color:#d22027;"></i>
+			<br />
+			<span class="lbl bigger-100">Need Correction</span> <br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_correction_pam"></span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_contract_search_by_status('1',this.className);" id="count_review_legal_">
+			<i class="fa fa-search" aria-hidden="true" style="color:orange;"></i>
+			<br />
+			<span class="lbl bigger-100">Review Legal</span> <br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_review_legal"></span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_contract_search_by_status('2',this.className);" id="count_approve_legal_">
+			<i class="fa fa-check-square-o" aria-hidden="true" style="color:orange;"></i>
+			<br />
+			<span class="lbl bigger-100">Approve Legal</span> <br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_approve_legal"></span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_contract_search_by_status('3',this.className);" id="count_sign_perisai_">
+			<i class="fa fa-pencil-square" aria-hidden="true" style="color:#3279a8;"></i>
+			<br />
+			<span class="lbl bigger-100">Signed on Perisai</span> <br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_sign_perisai"></span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_contract_search_by_status('4',this.className);" id="count_sign_para_pihak_">
+			<i class="fa fa-pencil-square" aria-hidden="true" style="color:forestgreen;"></i>
+			<br />
+			<span class="lbl bigger-100">Sign Pihak II</span> <br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_sign_para_pihak"></span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_contract_search_by_status('5',this.className);" id="count_legal_verified_">
+			<i class="fa fa-check-square-o" aria-hidden="true" style="color:orange;"></i>
+			<br />
+			<span class="lbl bigger-100">Verified By Legal</span> <br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_legal_verified"></span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_contract_search_by_status('100',this.className);" id="count_success_">
+			<i class="fa fa-check-square" aria-hidden="true" style="color:forestgreen;"></i>
+			<br />
+			<span class="lbl bigger-100">Sucess</span><br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_success"></span>
+		</div>
+
+	</div>
+
+</div>
+
+
+
+<div id="page_result" hidden>
+	<div id="gridContract" style="border-radius:0px;border:none;border-top:1px solid #ccc;" class="responsive"></div>
+</div>
+
+
+<script>
+
+	$('#gridContract').css('height', Number(window.innerHeight) - 133);
+	$(window).resize(function () {
+		$('#gridContract').css('height', Number(window.innerHeight) - 133);
+	});
+
+	function find_contract_search() {
+
+		global_status = 300;
+
+		if ($("#param_field").val() != "All") {
+
+			if ($("#param_field").val() == "") {
+
+				w2alert("Harap pilih percarian berdasarkan apa ... !");
+				$("#param_field").focus();
+				return;
+			}
+			if ($("#key_word").val() == "") {
+				$("#key_word").focus();
+				w2alert("Enter your keyword !");
+				return;
+			}
+
+			field_search = $("#param_field").val();
+			key_search = $("#key_word").val();
+		}
+		else {
+			field_search = "All";
+			key_search = "All";
+		}
+
+		is_search = 1;
+		is_grid = 1;
+
+		$("#page_panel").hide(function () {
+
+			$("#page_result").show(function () {
+				render_grid_contract();
+				refresh_contract_list();
+			});
+		});
+		
+
+	}
+
+	function find_contract_search_by_status(status, class_name) {
+
+		is_search = 0;
+		is_grid = 1;
+		global_status = status;
+		filter_global = status;
+		if (class_name.toLocaleLowerCase().indexOf("non_aktif") != -1) { return false; }
+		$("#page_panel").hide(function () {
+			$("#page_result").show(function () {
+				render_grid_contract();
+				refresh_contract_list();
+			});
+		});
+	
+	}
+
+	function render_grid_contract() {
+
+		if (w2ui['gridContract'] != null) { w2ui['gridContract'].destroy(); }
+		call_back = 0;
+		$('#gridContract').w2grid({
+			name: 'gridContract',
+			textSearch: 'contains',
+			show: {
+				header: false,
+				toolbar: true,
+				footer: true,
+				lineNumbers: false,
+				selectColumn: true,
+				toolbarSearch: false,
+				toolbarAdd: true,
+				toolbarReload: false
+			},
+			toolbar: {
+				items: [
+					{ type: 'spacer' },
+					{ type: 'break' },
+					{ type: 'button', id: 'excel_report', text: '<i class="fa fa-file-excel-o"></i> Save to Excel', disabled: false },
+					{ type: 'break' },
+					{
+						type: 'menu-radio', id: 'filter_e_contract',
+						text: function (item) {
+
+							var text = item.selected;
+							var el = this.get('filter_e_contract:' + item.selected);
+							if (call_back == 1) {
+								if (el.id == '300') {
+									global_status = 300;
+									is_search = 1;
+								}
+								else {
+
+									global_status = el.id;
+									is_search = 0;
+								}
+
+								refresh_contract_list();
+							}
+
+							return 'Filter By Progress : ' + el.text;
+
+						},
+						selected: global_status,
+						items: [{ id: '300', text: 'All' },
+						{ id: '1', text: '<i class="fa fa-search" style="color:orange;"></i> Proses Review Oleh Legal' },
+						{ id: '2', text: '<i class="fa fa-check-square-o" style="color:orange;"></i> Proses Approve Oleh Legal' },
+						{ id: '3', text: '<i class="fa fa-pencil-square" aria-hidden="true" style="color:#3279a8;"></i> Proses Sign Di Perisai' },
+						{ id: '4', text: '<i class="fa fa-pencil-square" aria-hidden="true" style="color:forestgreen;"></i> Proses Sign Oleh Pihak II' },
+						{ id: '5', text: '<i class="fa fa-check-square-o" aria-hidden="true" style="color:orange;"></i> Verified by Legal' },
+						{ id: '6', text: '<i class="fa fa-pencil-square-o" aria-hidden="true" style="color:red;"></i> Need PAM Correction' },
+						{ id: '7', text: '<i class="fa fa-trash" aria-hidden="true" style="color:red;"></i> Rejected Unprocedural' },
+						{ id: '0', text: '<i class="fa fa-ban" aria-hidden="true" style="color:red;"></i> Rejected' },
+						{ id: '100', text: '<i class="fa fa-check-square" aria-hidden="true" style="color:forestgreen;"></i> Success' },
+						]
+					},
+					{ type: 'break' },
+					{ type: 'button', id: 'view_detail', text: '<i class="fa fa-eye" aria-hidden="true"></i> View Detail', disabled: true },
+					{ type: 'break' },
+					{ type: 'button', id: 'btn_refresh', text: '<i class="fa fa-refresh" aria-hidden="true" style="color:green;"></i> Refresh List' },
+					{ type: 'break' },
+					{ type: 'button', id: 'close_button', text: '<i class="fa fa-times" aria-hidden="true" style="color:red;"></i> Close' },
+				],
+				onClick: function (target, data) {
+					call_back = 1;
+					switch (target) {
+						case 'view_detail':
+							var sel = w2ui.gridContract.getSelection();
+							var record = w2ui.gridContract.get(sel[0]);
+							current_contract = record;
+							flagCrud = "VIEW";
+							form_contract_detail();
+							break;
+						case 'excel_report':
+							download_report("EXCEL");
+							break;
+						case 'close_button':
+							back_search();
+							break;
+						case 'btn_refresh':
+							refresh_contract_list();
+							break;
+					}
+				}
+			},
+			columns: [
+				{ field: 'ProcTag', text: 'Progress', size: '400px', sortable: true, searchable: 'text', resizable: true, info: true },
+				{ field: 'ContractId', text: 'Contract Id.', size: '150px', sortable: true, searchable: 'text', resizable: true, },
+				{
+					field: 'CandidateId_1', text: 'Reference', size: '150px', sortable: true, searchable: 'text',
+					render: function (record) {
+						var baris;
+						switch (record.ContractGroup) {
+							case 2:
+								if (record.CandidateId_1 != null) { baris = record.CandidateId_1 + ' - ' + record.CustomerName; }
+								else { baris = record.CandidateId_1; }
+
+								break;
+							case 5:
+								if (record.CandidateId_1 != null) { baris = record.CandidateId_1 + ' - ' + record.CustomerName; }
+								else { baris = record.CandidateId_1; }
+								break;
+							default:
+								baris = record.CandidateId_1;
+								break
+						}
+
+						return baris;
+					}
+				},
+				{ field: 'GroupName', text: 'Contract Group', size: '200px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'FungsiName', text: 'Fungsi', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'ContractNo', text: 'Contract No.', size: '150px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'ContractTitle', text: 'Title', size: '300px', resizable: true, sortable: true, searchable: 'text', style: 'word-wrap:break-word;' },
+				{ field: 'BeginDate', text: 'Start Date', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'EndDate', text: 'End Date', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'VendorName', text: 'Vendor', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'ContractValue', text: 'Value (Rp.)', size: '100px', resizable: true, sortable: true, searchable: 'text', render: 'number' },
+				{ field: 'ContractTypeName', text: 'Contract Type', size: '100px', resizable: true, sortable: true, searchable: 'text' },
+				{ field: 'Creator', text: 'Creator', size: '100px', resizable: true, sortable: true, searchable: 'text', max: '400px' },
+				{ field: 'Updater', text: 'Updater', size: '100%', resizable: true, sortable: true, searchable: 'text', max: '400px' },
+			],
+			searches: [
+				{ type: 'text', field: 'ContractId', label: 'Contract Id.' },
+				{ type: 'text', field: 'GroupName', label: 'Contract Group' },
+				{ type: 'text', field: 'ContractNo', label: 'Contract No.' },
+				{ type: 'text', field: 'ContractTitle', label: 'Title' },
+				{ type: 'date', field: 'BeginDate', label: 'Start Date' },
+				{ type: 'date', field: 'EndDate', label: 'End Date' },
+				{ type: 'text', field: 'VendorName', label: 'ID' },
+				{ type: 'number', field: 'ContractValue', label: 'Contract Value' },
+				{ type: 'text', field: 'ContractTypeName', label: 'Contract Type' },
+				{ type: 'number', field: 'DayLeft', label: 'Day Left' },
+				{ type: 'number', field: 'OverDue', label: 'Over Due' },
+				{ type: 'text', field: 'PenanggungJawabPihak1', label: 'Contract Signing Officer' },
+				{ type: 'text', field: 'FungsiName', label: 'Fungsi' },
+				{ type: 'text', field: 'Creator', label: 'Creator' },
+			],
+			onAdd: function (event) {
+				flagCrud = "ADD";
+				form_contract_detail();
+			},
+			onDblClick: function (event) {
+				
+				var record = this.get(event.recid);
+				if (record != null) {
+
+					current_contract = record;
+					flagCrud = "VIEW";
+					form_contract_detail();
+				}
+				
+			},
+			onReload: function (event) {
+				refresh_contract_list();
+			},
+			onSelect: function (event) {
+				event.onComplete = function () {
+					disable_button();
+					var contract = w2ui.gridContract.getSelection();
+					if (contract.length == 1) {
+						var record = this.get(event.recid);
+						w2ui['gridContract'].toolbar.enable('view_detail');
+					}
+				}
+			},
+			onUnselect: function (event) {
+				event.onComplete = function () {
+					disable_button();
+					var contract = w2ui.gridContract.getSelection();
+					if (contract.length == 1) {
+						var record = this.get(event.recid);
+						w2ui['gridContract'].toolbar.enable('view_detail');
+					}
+				}
+			},
+			onRefresh: function (event) {
+				call_back = 0;
+			},
+		});
+
+
+	}
+
+	function refresh_contract_list() {
+
+		if (w2ui['gridContract'] != null) { 
+
+			if (is_search == 1) {
+
+				w2ui['gridContract'].load(URL_PTPR + '/Contract/FindEContract?KeyWord=' + key_search + '&Field=' + field_search);
+			}
+			else {
+				w2ui['gridContract'].load(URL_PTPR + '/Contract/FindEContractByStatus?Status=' + global_status);
+				}
+		}
+	}
+
+	function back_search() {
+
+		is_grid = 0;
+		is_search = 0;
+
+		$("#page_result").hide(function () { $("#page_panel").show("fade"); });
+		if (w2ui['gridContract'] != null) { w2ui['gridContract'].destroy(); }
+		UpdateCountProgress();
+	}
+
+	function disable_button() {
+		w2ui['gridContract'].toolbar.disable('view_detail');
+		w2ui['gridContract'].toolbar.disable('view_draft');
+		w2ui['gridContract'].toolbar.disable('addendum');
+	}
+
+	function UpdateCountProgress() {
+
+		var CountProgress = $.ajax({
+			type: "GET",
+			url: URL_PTPR + '/Contract/GetEcontractCountStatus',
+			dataType: 'json',
+			cache: false,
+			async: true,
+			error: function (request, status, error) {
+				//w2alert("Load Data Gagal !");
+				//$("#Deleting_Load").hide("fade");
+			},
+			success: function (data) {
+				//console.log(data[0]);
+				DataProgress = data[0];
+				
+				if (callback == 0) {
+					LastGetDate = DataProgress.LastUpdate;
+					callback = 1;
+					//alert(callback);
+				}
+				else {
+
+					Tgl_baru = DataProgress.LastUpdate;
+					//alert(Tgl_baru + ' = ' + LastGetDate);
+					if (Tgl_baru != LastGetDate) {
+
+						LastGetDate = Tgl_baru;
+					}
+					else {
+
+						return;
+					}
+				}
+
+				if (w2ui['gridContract'] != null) {
+
+					refresh_contract_list();
+				}
+
+				if (DataProgress.TotalAllListUnprocedural != 0) {
+					$("#count_reject_unpro").html(DataProgress.TotalAllListUnprocedural); $("#count_reject_unpro_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_reject_unpro").html(""); $("#count_reject_unpro_").addClass("non_aktif");
+				}
+
+				if (DataProgress.TotalReject != 0) {
+					$("#count_reject").html(DataProgress.TotalReject); $("#count_reject_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_reject").html(""); $("#count_reject_").addClass("non_aktif");
+				}
+
+				if (DataProgress.TotalReviewLegal != 0) {
+					$("#count_review_legal").html(DataProgress.TotalReviewLegal); $("#count_review_legal_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_review_legal").html(""); $("#count_review_legal_").addClass("non_aktif");
+				}
+
+				if (DataProgress.TotalApproveLegal != 0) {
+					$("#count_approve_legal").html(DataProgress.TotalApproveLegal); $("#count_approve_legal_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_approve_legal").html(""); $("#count_approve_legal_").addClass("non_aktif");
+				}
+
+				if (DataProgress.TotalSignPerisai != 0) {
+					$("#count_sign_perisai").html(DataProgress.TotalSignPerisai); $("#count_sign_perisai_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_sign_perisai").html(""); $("#count_sign_perisai_").addClass("non_aktif");
+				}
+
+				if (DataProgress.TotalSignPihak2 != 0) {
+					$("#count_sign_para_pihak").html(DataProgress.TotalSignPihak2); $("#count_sign_para_pihak_").removeClass("non_aktif");
+
+				}
+				else {
+					$("#count_sign_para_pihak").html(""); $("#count_sign_para_pihak_").addClass("non_aktif");
+				}
+
+				if (DataProgress.TotalVerifiedLegal != 0) {
+
+					$("#count_legal_verified").html(DataProgress.TotalVerifiedLegal); $("#count_legal_verified_").removeClass("non_aktif");
+
+				}
+				else {
+					$("#count_legal_verified").html(""); $("#count_legal_verified_").addClass("non_aktif");
+				}
+
+
+				if (DataProgress.TotalCorrectionPam != 0) {
+					$("#count_correction_pam").html(DataProgress.TotalCorrectionPam); $("#count_correction_pam_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_correction_pam").html(""); $("#count_correction_pam_").addClass("non_aktif");
+				}
+
+				if (DataProgress.TotalSuccess != 0) {
+					$("#count_success").html(DataProgress.TotalSuccess); $("#count_success_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_success").html(""); $("#count_success_").addClass("non_aktif");
+				}
+
+
+				if (DataProgress.TotalCorrectionPam != 0) {
+					$("#count_correction_GENERAL").html(DataProgress.TotalCorrectionPam); $("#count_correction_GENERAL_").removeClass("non_aktif");
+				}
+				else {
+					$("#count_correction_GENERAL").html(""); $("#count_correction_GENERAL_").addClass("non_aktif");
+				}
+				
+			}
+		});
+
+		
+
+		
+	}
+
+	function OpenWindowWithPost(url, windowoption, name, params) {
+		var form = document.createElement("form");
+
+		form.setAttribute("method", "post");
+		form.setAttribute("action", url);
+		form.setAttribute("target", name);
+
+		for (var i in params) {
+			if (params.hasOwnProperty(i)) {
+				var input = document.createElement('input');
+				input.type = 'hidden';
+				input.name = i;
+				input.value = params[i];
+				form.appendChild(input);
+			}
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
+	}
+
+	function download_report(option_file) {
+
+		if (w2ui['gridContract'].records.length == 0) {
+
+			alert('Tidak ada data yang akan didownload !');
+			return;
+		}
+		data_get = w2ui['gridContract'].getSelection();
+		var TransSelected = "";
+
+
+		data_get.forEach(function (item) {
+			TransSelected = "" + item + "," + TransSelected;
+		});
+
+		if (TransSelected.length > 0) {
+
+			TransSelected = TransSelected.substring(0, TransSelected.length - 1);
+		}
+
+		if (data_get.length == w2ui['gridContract'].records.length) {
+
+			TransSelected = "";
+		}
+
+		if (data_get.length == 0) {
+
+			var desc_confirm = "";
+			desc_confirm = '<span style="font-size:11px;">Apakah Anda yakin akan mendownload semua record dibawah ini  ? </span>';
+
+			w2confirm(desc_confirm, function btn(answer) {
+
+				if (answer == 'Yes') {
+
+					data_send = w2ui['gridContract'].records;
+					data_send_fix = JSON.stringify(data_send);
+					var param = { 'ExportedData': data_send_fix };
+					OpenWindowWithPost(URL_PTPR + '/Reporting/Report_ExportSelectedContractToExcel',
+						"width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+						"Reporting Reimbursement", param);
+
+				}
+			});
+
+		}
+		else {
+
+			var desc_confirm2 = "";
+			desc_confirm2 = '<span style="font-size:11px;">Apakah Anda yakin hanya akan mendownload record yang Anda selection ? </span>';
+
+			w2confirm(desc_confirm2, function btn(answer) {
+
+				if (answer == 'Yes') {
+
+					data_select = w2ui['gridContract'].records;
+					data_send = [];
+					$.each(data_select, function (i, item) {
+						var row_upload = { recid: data_select[i].recid };
+						data_send.push(row_upload);
+
+					});
+
+					data_send_fix = JSON.stringify(data_send);
+					var param = { 'ExportedData': data_send_fix };
+					OpenWindowWithPost(URL_PTPR + '/Reporting/Report_ExportSelectedContractToExcel',
+						"width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+						"Reporting Reimbursement", param);
+				}
+			});
+
+		}
+
+	}
+
+	function format_currencyproc(Field_ID, temp_field) {
+
+		if ($("#" + Field_ID).val() != "") {
+
+			var Nominal = $("#" + Field_ID).val();
+			Nominal = Nominal.replace(/,/g, "");
+			$("#" + temp_field).val(Nominal);
+			var fix_num = numberWithCommas(Nominal);
+
+			$("#" + Field_ID).val(fix_num);
+
+		}
+		else {
+
+			$("#" + temp_field).val("");
+
+		}
+	}
+
+	function form_contract_detail() {
+		load_page("#PageContainer", URL_PTPR + "/Contract/EContractDetail", function () { $('.select2').css('width', '100%').select2(); });
+	}
+
+	function add_contract() {
+
+		flagCrud = "ADD";
+		form_contract_detail();
+	}
+
+	/*--------------------------------------------------------*/
+	
+
+	$(window).resize(function () {
+		$('#gridContract').css('height', Number(window.innerHeight) - 133);
+	});
+
+	$("#box_info_icon").show();
+
+	
+
+	$('#param_field').on('select2:select', function (e) {
+		$("#key_word").focus();
+	});
+
+	$('#param_field').select2({
+	}).on("change", function (e) {
+		$("#key_word").val("");
+
+	});
+
+
+	callback = 0;
+	UpdateCountProgress();
+
+	var TimerEContract_;
+
+	function TimerEContract() {
+		clearTimeout(TimerEContract_);
+		TimerEContract_ = setTimeout(UpdateCountProgress, 3000000)
+		// 1000 milisec = 1 sec
+	}
+
+	document.onload = TimerEContract();
+
+	window.addEventListener("focus", function (event) {
+		UpdateCountProgress();
+		//TimerEContract();
+	}, false);
+
+	
+
+</script>

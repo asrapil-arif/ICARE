@@ -1,0 +1,124 @@
+﻿@using I_Care.Models;
+@{
+
+    ViewBag.Title = "Request List";
+    ViewBag.Parent = "IT Equipment";
+    ViewBag.Child = "Request List";
+    ViewBag.Child_Caption = "Request List";
+    ViewBag.Icon = "<i class='menu-icon fa fa-th-large'></i>";
+
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    string[] SSO_ALLOW = ROLES.GetRolesForUser(User.Identity.Name.ToString());
+    FMSEntities db = new FMSEntities();
+    var Item = (from m in db.m_item where m.ItemGroup == 1 select m);
+    int H_W = Request.Browser.ScreenPixelsHeight + 15;
+
+}
+
+<div id="gridRequest" style="height:@{<text>@H_W</text>}px;border-left:none;border-bottom:none;border-radius:0px;"></div>
+
+@Html.Partial("Modal/SubmissionDetail")
+
+<script>
+
+
+    var height = Number(window.innerHeight)-132;
+    $('#gridRequest').height(height);
+
+
+    var UserLogin = '@User.Identity.Name.ToString()';
+    var FinalApp = '@ViewBag.UserFinalApp';
+    var UserRealisasi = '@ViewBag.UserRealisasi';
+
+  $('#gridRequest').w2grid({
+        name: 'gridRequest',
+        textSearch: 'contains',
+        show: {
+        footer: true,
+        toolbar: true,
+        footer        : true,
+        lineNumbers    : true,
+        selectColumn: true,
+        toolbarSearch:false,
+        toolbarAdd :true,
+        toolbarDelete :true,
+        },
+        toolbar: {
+        items: [
+                { type: 'break' },
+                { type: 'button', id: 'pengajuan', caption: '<i class="fa fa-upload" aria-hidden="true"></i> Submit My Request',disabled:true },
+                        { type: 'break' },
+                ],
+                onClick: function (target,data) {
+
+                        switch (target) {
+                                case 'pengajuan':
+                                    var sel = w2ui.gridRequest.getSelection();
+                                    var record = w2ui.gridRequest.get(sel[0]);
+                                    detail_submission('ADD',record);
+
+                                break;
+                                    }
+                }
+        },
+        columns: [
+            { field: 'GroupName', caption: 'Category', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+            { field: 'ReqTypeName', caption: 'Request Type', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+            { field: 'ItemName', caption: 'Item', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+            { field: 'ReqQty', caption: 'Qty', size: '50px', sortable: true, resizable: true, searchable: 'text',render:'number'},
+            { field: 'PartName', caption: 'Part', size: '80px', sortable: true, resizable: true ,searchable: 'text' },
+            { field: 'ReqKeterangan', caption: 'Remark', size: '200px', sortable: true, resizable: true ,searchable: 'text' },
+            { field: 'ReqReason', caption: 'Reason', size: '200px', sortable: true, resizable: true, searchable: 'text' },
+            { field: 'CreateUser', caption: 'Request By', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+            { field: 'CreateDate', caption: 'Request Date', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+        ],
+        onAdd: function (event) {
+           window.location.href = URL_PTR + '/ItEquipment/Request';
+        },
+        onReload: function (event) {
+            refresh_list_request();
+        },
+        onDblClick:function (event) {
+            var record = this.get(event.recid);
+            master_item_form('edit',record);
+        },
+        onSelect: function(event) {
+                event.onComplete = function () {
+                w2ui['gridRequest'].toolbar.enable('pengajuan');
+                }
+
+        },
+        onUnselect: function(event) {
+                event.onComplete = function () {
+                disable_button();
+                var request = w2ui.gridRequest.getSelection();
+
+                    if (request.length > 0 ){
+                            var record = this.get(event.recid);
+                            switch (record.Process) {
+                                case 1:
+                                w2ui['gridRequest'].toolbar.enable('pengajuan');
+                                break;
+
+                            }
+
+                        }
+                }
+        }
+        });
+
+
+refresh_list_request();
+
+
+function refresh_list_request(){
+    w2ui['gridRequest'].load(URL_PTR + '/ItEquipment/RequestListData');
+}
+
+function disable_button(){
+    w2ui['gridRequest'].toolbar.disable('pengajuan');
+}
+
+
+
+</script>

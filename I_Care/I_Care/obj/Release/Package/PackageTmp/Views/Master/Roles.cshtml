@@ -1,0 +1,332 @@
+﻿@using I_Care.Models;
+@{
+    ViewBag.Title = "Roles";
+    ViewBag.Parent = "Master Data";
+    ViewBag.Child = "Roles";
+    ViewBag.Child_Caption = "Roles";
+    ViewBag.Icon = "<i class='menu-icon fa fa-pencil-square-o'></i>";
+
+
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    string[] SSO_ALLOW = ROLES.GetRolesForUser(User.Identity.Name.ToString());
+    
+
+    FMSEntities db = new FMSEntities();
+    var Item = (from m in db.m_item where m.ItemGroup == 1 select m);
+    int H_W = Request.Browser.ScreenPixelsHeight + 15;
+
+}
+
+
+<div style="margin-left:0px;">
+
+    <input id="temp_unit" value="" readonly hidden /><input id="temp_unit_name" value="" readonly hidden />
+    <div id="gridRoles" style="height:@{<text>@H_W</text>}px;border-left:none;border-bottom:none;border-radius:0px;" class="responsive"></div>
+
+</div>
+
+
+<script>
+
+    var height = Number(window.innerHeight)-132;
+    $('#gridRoles').height(height);
+
+    $('#gridRoles').w2grid({
+        name: 'gridRoles',
+        header: 'List of Roles',
+        show: {
+            header: false,
+            toolbar: true,
+            footer: true,
+            lineNumbers: true,
+            selectColumn: true,
+            toolbarAdd: false,
+        },
+        toolbar: {
+                items: [
+                        //{ type: 'break' },
+                        @if (SSO_ALLOW.Contains("pic_delete") || SSO_ALLOW.Contains("administrator") )
+                        {
+                        <text>//{ type: 'button', id: 'delete', caption: 'Delete',disabled:true },</text>
+                        <text>{ type: 'button', id: 'edit', caption: '<i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit',disabled:true },</text>
+                        }
+                ],
+                onClick: function (target,data) {
+
+                      switch (target) {
+
+                                case 'edit':
+                                    var sel = w2ui.gridRoles.getSelection();
+                                    var record = w2ui.gridRoles.get(sel[0]);
+                                    FlagOpr = "Update"
+
+                                    if (record.PicName != 'fms.system'){
+                                        formPIC('Detail',record);
+                                    }
+                                    else{
+
+                                        w2alert("Role ini dilakukan oleh system sehigga tidak dapat Anda ubah !");
+                                    }
+
+                                break;
+
+
+                                    }
+
+				}
+        	},
+        columns: [
+            { field: 'TagHtml', caption: '', size: '40px', sortable: true, resizable: true,style:'text-align:center'},
+            { field: 'Id', caption: 'ID', size: '40px', sortable: true, resizable: true,searhable:true},
+            { field: 'GroupName', caption: 'RoleGroup', size: '170px', sortable: true, resizable: true,searhcable:true },
+            { field: 'Step', caption: '<div style="text-align:right;">Step</div>', size: '50px', sortable: true, resizable: true,render:'number',searhable:true },
+            { field: 'RoleName', caption: 'Role', size: '150px', sortable: true, resizable: true,searhable:true } ,
+            { field: 'PicName', caption: 'Pic', size: '100px', sortable: true, resizable: true,searhcable:true },
+            { field: 'PicAD', caption: 'Active Dirictory', size: '180px', sortable: true, resizable: true,searhable:true },
+            { field: 'PicMail', caption: 'Email', size: '180px', sortable: true, resizable: true,searhable:true },
+            { field: 'UpdateUser', caption: 'Update By.', size: '100px', sortable: true, resizable: true,searhable:true },
+            { field: 'UpdateDate', caption: 'Last Update', size: '100px', sortable: true, resizable: true,searhable:true }
+        ],
+        onReload: function (event) {
+            reload_grid_roles();
+        },
+        onAdd: function (event) {
+           formPIC('Add')
+        },
+        onDblClick: function(event) {
+            var record = this.get(event.recid);
+            FlagOpr = "Update"
+
+            if (record.PicName != 'fms.system'){
+                   formPIC('Detail',record);
+            }
+            else{
+
+                w2alert("Role ini dilakukan oleh system sehigga tidak dapat Anda ubah !");
+            }
+
+        },
+        onSelect: function(event) {
+            event.onComplete = function () {
+                disable_button();
+                var tcr = w2ui.gridRoles.getSelection();
+                    if (tcr.length == 1){
+                        w2ui['gridRoles'].toolbar.enable('edit');
+                        }
+            }
+         },
+        onUnselect: function(event) {
+            event.onComplete = function () {
+                disable_button();
+                var tcr = w2ui.gridRoles.getSelection();
+                    if (tcr.length == 1){
+                        w2ui['gridRoles'].toolbar.enable('edit');
+                        }
+            }
+         },
+
+
+
+    });
+
+    reload_grid_roles();
+
+    function disable_button(){
+
+        w2ui['gridRoles'].toolbar.disable('edit');
+
+    }
+
+    function reload_grid_roles() {
+
+        w2ui['gridRoles'].load(URL_PTR + '/MasterData/RolesData');
+    }
+
+
+    function formPIC(_flag,record){
+
+              var resStep = $.ajax({
+                    type: "GET",
+                    url: URL_PTR + '/template/form_pic.htm',
+                    cache: false,
+                    async: false
+                    });
+
+
+               var button_opr = "";
+
+               if (_flag == "Edit"){
+
+                     button_opr = '<button class="w2ui-btn" onclick="save_pic()">Save</button>';
+               }
+               else{
+
+                     button_opr = '<button class="w2ui-btn" onclick="update_roles()">Change</button>';
+               }
+
+                    w2popup.open({
+                    title     : 'Asset Management System',
+                    body      : '<div id="main" style="position: absolute; left: 0px; top: 0px; right: 0px; bottom: 0px;background:white;textalign:center;">'+resStep.responseText+'</div>',
+                    buttons   : button_opr + '<button class="w2ui-btn" onclick="w2popup.close();">Cancel</button>',
+                    width     : 600,
+                    height    : 400,
+                    overflow  : 'hidden',
+                    color     : '#333',
+                    speed     : '0.3',
+                    opacity   : '0.8',
+                    modal     : true,
+                    showClose : true,
+                    showMax   : false,
+                    onOpen    : function (event) {
+
+                                event.onComplete = function () {
+
+                                        if (_flag == "Detail") {
+                                            $("#role_id").val(record.Id);
+                                            $("#role_group").val(record.GroupName);
+                                            $("#role_name").val(record.RoleName);
+                                            $("#pic_name").val(record.PicName);
+                                            $("#active_directory").val(record.PicAD);
+                                            $("#email").val(record.PicMail);
+                                        }
+
+                                }
+
+                    },
+                    onClose   : function (event) { console.log('close'); },
+                    onMax     : function (event) { console.log('max'); },
+                    onMin     : function (event) { console.log('min'); },
+                    onKeydown : function (event) { console.log('keydown'); }
+                    });
+
+
+
+    }
+
+    function save_pic(){
+
+                if ($("#process").val() == ""){
+                $("#process").attr("placeholder", "Process tidak boleh kosong !");
+                document.getElementById("process").focus();
+                return ;
+                }
+
+
+                if ($("#pic_name").val() == ""){
+                $("#pic_name").attr("placeholder", "Nama PIC tidak boleh kosong !");
+                document.getElementById("pic_name").focus();
+                return ;
+                }
+                if ($("#user_id").val() == ""){
+                $("#pic_name").attr("placeholder", "UserId tidak boleh kosong !");
+                document.getElementById("user_id").focus();
+                return ;
+                }
+
+                if ($("#email").val() == ""){
+                $("#email").attr("placeholder", "Email tidak boleh kosong !");
+                document.getElementById("email").focus();
+                return ;
+                }
+
+
+                var DataRole = new FormData();
+                DataPic.append('user_id',$("#user_id").val());
+                DataPic.append('pic_name',$("#pic_name").val());
+                DataPic.append('email',$("#email").val());
+                DataPic.append('process',$("#process").val());
+
+                $("#w2ui-popup").hide();
+                render_wait();
+
+                var Simpan =   $.ajax({
+                url: URL_PTR + '/MasterData/SavePIC',
+                type: 'POST',
+                data: DataRole,
+                dataType: "json",
+                cache: false,
+                async: false,
+                contentType: false,
+                processData: false,
+                });
+
+                if (Simpan.responseJSON["Result"] != "Error"){
+                    w2popup.close();
+                    clear_wait();
+                    w2alert("Pengajuan Usulan Mutasi success !");
+                    reload_grid_pic()
+
+                }
+                else{
+                    $("#w2ui-popup").show();
+                    w2alert("Process fail try again !");
+                    clear_wait();
+
+
+                }
+
+
+        }
+
+    function update_roles(){
+
+
+                if ($("#pic_name").val() == ""){
+                $("#pic_name").attr("placeholder", "Nama PIC tidak boleh kosong !");
+                document.getElementById("pic_name").focus();
+                return ;
+                }
+                if ($("#active_directory").val() == ""){
+                $("#active_directory").attr("placeholder", "Active directory tidak boleh kosong !");
+                document.getElementById("user_id").focus();
+                return ;
+                }
+
+                if ($("#email").val() == ""){
+                $("#email").attr("placeholder", "Email tidak boleh kosong !");
+                document.getElementById("email").focus();
+                return ;
+                }
+
+
+                var DataRole = new FormData();
+                DataRole.append('role_id',$("#role_id").val());
+                DataRole.append('pic_name',$("#pic_name").val());
+                DataRole.append('active_directory',$("#active_directory").val());
+                DataRole.append('email',$("#email").val());
+
+
+                $("#w2ui-popup").hide();
+                render_wait();
+
+                var Simpan =   $.ajax({
+                url: URL_PTR + '/MasterData/UpdateRoles',
+                type: 'POST',
+                data: DataRole,
+                dataType: "json",
+                cache: false,
+                async: false,
+                contentType: false,
+                processData: false,
+                });
+
+                if (Simpan.responseJSON["Result"] != "Error"){
+                    w2popup.close();
+                    clear_wait();
+                    w2alert("Update Role success !");
+                    reload_grid_roles()
+
+                }
+                else{
+                    $("#w2ui-popup").show();
+                    w2alert("Process fail try again !");
+                    clear_wait();
+
+
+                }
+
+
+        }
+
+
+</script>

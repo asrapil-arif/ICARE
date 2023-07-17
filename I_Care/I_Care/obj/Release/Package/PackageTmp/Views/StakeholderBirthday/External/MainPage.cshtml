@@ -1,0 +1,412 @@
+﻿@{
+	Layout = null;
+}
+
+<style>
+
+	.page-content {
+		padding: 0px;
+	}
+
+
+	.box_info {
+		text-align: center;
+		padding-top: 4%;
+		border: 0px dashed #dedede;
+		margin: 0px auto;
+		margin-top: 0%;
+		width: 80%;
+		border-radius: 5px;
+	}
+
+	#box_info_icon {
+		text-align: center;
+		padding-top: 25px;
+		padding-bottom: 25px;
+		border-top: 1px dashed #dedede;
+		margin-top: 10px;
+	}
+
+
+
+		#box_info_icon .icon_short_cut {
+			border: 1px dashed #dedede;
+			padding: 8px;
+			width: 100px;
+			height: 120px;
+			border-radius: 2%;
+			display: inline-table;
+			margin-left: 2px;
+			font-size: 10px;
+			cursor: pointer;
+			transition: 0.3s;
+			margin-bottom: 1%;
+			background-color: none;
+			cursor: pointer;
+		}
+
+			#box_info_icon .icon_short_cut:hover {
+				opacity: 0.50;
+				border: 1px solid #1a8cff;
+			}
+
+			#box_info_icon .icon_short_cut i {
+				font-size: 25px;
+				margin-bottom: 10px;
+			}
+
+	.logo_menu_head {
+		width: 150px;
+	}
+
+	.logo_menu {
+		width: 35px;
+	}
+
+	.list_title {
+		font-weight: normal;
+		font-size: 13px;
+		color: #3279a8;
+	}
+
+	.list_title_2 {
+		font-weight: normal;
+		font-size: 11px;
+		color: #3279a8;
+	}
+
+	.non_aktif {
+		filter: grayscale(90%);
+		border: 1px dashed #dedede !important;
+		background-color: whitesmoke;
+		cursor: not-allowed !important;
+	}
+
+</style>
+
+
+
+
+<div id="page_panel">
+
+
+	<div class="row box_info" style="background-color:White;" id="search_external_stakeholder">
+
+		<div class="col-sm-3" style="padding-top:4%;">
+			<img src="../../../Content/img/kado.gif" class="logo_menu_head" style="width:80%;">
+		</div>
+
+		<div class="col-sm-7">
+
+			<div style="text-align:left;font-size:13px;margin-bottom:30px;">
+				<span style="font-size:25px;color:#739339;font-weight:bold;">Give Your External Stakeholder Appreciation</span><br />
+				<ul style="list-style-type:circle;color:#4d4d00;">
+					<li>Automasi apresiasi hari jadi external stakeholder Anda agar tidak terlewat</li>
+					<li>Setiap external stakeholder yang Anda setting akan mendapatkan email ucapan hari ulang tahun mereka sebagai sebuah bentuk apresiasi dari Pertamina Retail</li>
+				</ul>
+			</div>
+
+			<div style="width:100%;">
+
+				<select class="form-control select2 wajib3" id="param_field" data-placeholder="Cari Berdasarkan">
+					<option value="All">All</option>
+					<option value="NamaInstitusi">Nama Institusi</option>
+					<option value="NamaIndividual">Nama Individual</option>
+				</select>
+
+				<input class="form-control" id="key_word" placeholder="Enter Keyword" type="text" autocomplete="off" style="text-align:center;margin-top:5px;margin-bottom:10px;border-left:1px solid red;" onkeypress="if (event.keyCode == 13){find_ext_stakeholder_search(0);}">
+				<button type="button" class="btn btn-sm btn-default" onclick="clear_search()" ondblclick="clear_search()"><i class="fa fa-undo" aria-hidden="true"></i> Clear</button>
+				<button type="button" class="btn btn-sm btn-info" onclick="find_ext_stakeholder_search()" ondblclick="find_ext_stakeholder_search()"><i class="fa fa-search" aria-hidden="true"></i> Search</button>
+
+			</div>
+		</div>
+
+	</div>
+
+	<div id="box_info_icon">
+
+		<div class="icon_short_cut" onclick="add_external_stakeholder()" id="shortcut_add">
+			<i class="fa fa-plus-square-o" aria-hidden="true" style="color:dodgerblue;"></i>
+			<br />
+			<span class="lbl bigger-100">Create New</span> <br /><br />
+		</div>
+
+		<div class="icon_short_cut" onclick="find_ext_stakeholder('1',this.className);" id="count_ultah_today_">
+			<i class="fa fa-birthday-cake" aria-hidden="true" style="color: #e2330f;"></i>
+			<br />
+			<span class="lbl bigger-100">Berulang Tahun Hari Ini</span> <br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_ultah_today">0</span>
+		</div>
+
+		<div class="icon_short_cut" onclick="find_ext_stakeholder('2',this.className);" id="count_ultah_thismonth_">
+			<i class="fa fa-birthday-cake" aria-hidden="true" style="color: dodgerblue;"></i>
+			<br />
+			<span class="lbl bigger-100">Berulang Tahun Bulan Ini</span> <br /><br />
+			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_ultah_thismonth">0</span>
+		</div>
+
+	</div>
+
+</div>
+
+<div id="page_result" hidden>
+	<div id="gridExtStakeHolder" style="border-radius:0px;border:none;border-top:1px solid #ccc;" class="responsive"></div>
+</div>
+
+<script>
+	
+	$('#gridExtStakeHolder').css('height', Number(window.innerHeight) - 133);
+	$(window).resize(function () {
+		$('#gridExtStakeHolder').css('height', Number(window.innerHeight) - 133);
+	});
+
+	function find_ext_stakeholder_search() {
+
+		global_status = 0;
+		StatusSearch = 1;
+
+		if ($("#param_field").val() != "All") {
+
+			if ($("#param_field").val() == "") {
+
+				w2alert("Harap pilih percarian berdasarkan apa ... !");
+				$("#param_field").focus();
+				return;
+
+			}
+			if ($("#key_word").val() == "") {
+				$("#key_word").focus();
+				w2alert("Enter your keyword !");
+				return;
+
+			}
+		}
+
+		field_search = $("#param_field").val();
+		key_search = $("#key_word").val();
+
+		$("#page_panel").hide();
+
+		$("#page_result").show(function () {
+			render_grid_ext_stakeholder();
+			refresh_ext_stakeholder_list();
+		});
+		
+	}
+
+	function find_ext_stakeholder(status, class_name) {
+
+		
+		StatusSearch = 0;
+		global_status = status;
+		if (class_name.toLocaleLowerCase().indexOf("non_aktif") != -1) { return false; }
+
+		$("#page_panel").hide();
+
+		$("#page_result").show(function () {
+			render_grid_ext_stakeholder();
+			refresh_ext_stakeholder_list();
+		});
+
+		
+	}
+
+
+	function render_grid_ext_stakeholder() {
+
+		if (w2ui['gridExtStakeHolder'] != null) { w2ui['gridExtStakeHolder'].destroy(); }
+		call_back = 0;
+
+		$('#gridExtStakeHolder').w2grid({
+			name: 'gridExtStakeHolder',
+			textSearch: 'contains',
+			show: {
+				header: false,
+				toolbar: true,
+				footer: true,
+				lineNumbers: false,
+				selectColumn: true,
+				toolbarSearch: false,
+				toolbarAdd: false
+			},
+			toolbar: {
+				items: [
+					{ type: 'break' },
+					{ type: 'spacer' },
+					{ type: 'button', id: 'view_detail', text: '<i class="fa fa-eye" aria-hidden="true"></i> View Detail', disabled: true },
+					{ type: 'break' },
+					{ type: 'button', id: 'close_button', text: '<i class="fa fa-times" aria-hidden="true" style="color:red;"></i> Close' },
+				],
+				onClick: function (target, data) {
+					call_back = 1;
+					switch (target) {
+						case 'view_detail':
+							var sel = w2ui.gridExtStakeHolder.getSelection();
+							var record = w2ui.gridExtStakeHolder.get(sel[0]);
+							current_data = record;
+							flagCrud = "VIEW";
+							form_ext_stakeholder_detail();
+							break;
+						case 'excel_report':
+							download_report("EXCEL");
+							break;
+						case 'close_button':
+							back_search();
+							break;
+					}
+				}
+			},
+			columns: [
+				{ field: 'NamaInstitusi', text: 'Nama Institusi', size: '200px', sortable: true, searchable: 'text', resizable: true, info: true },
+				{ field: 'Jabatan', text: 'Jabatan', size: '300px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'NamaIndividualSH', text: 'Nama Individual', size: '300px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'Alamat', text: 'Alamat', size: '200px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'TanggalLahir', text: 'Tanggal Lahir', size: '100%', resizable: true, sortable: true, searchable: 'text', style: 'word-wrap:break-word;' },
+				
+			],
+			searches: [
+				{ type: 'text', field: 'NamaInstitusi', label: 'Nama Institusi' },
+				{ type: 'text', field: 'Jabatan', label: 'Jabatan' },
+				{ type: 'text', field: 'NamaIndividualSH', label: 'Nama Individual' },
+				{ type: 'date', field: 'TanggalLahir', label: 'Tgl. Lahir' },
+			],
+			onDblClick: function (event) {
+
+				var record = this.get(event.recid);
+				if (record != null) {
+
+					current_data = record;
+					flagCrud = "VIEW";
+					form_ext_stakeholder_detail();
+				}
+
+			},
+			onReload: function (event) {
+				refresh_ext_stakeholder_list();
+			},
+			onSelect: function (event) {
+				event.onComplete = function () {
+
+					var contract = w2ui.gridExtStakeHolder.getSelection();
+					if (contract.length == 1) {
+						var record = this.get(event.recid);
+						w2ui['gridExtStakeHolder'].toolbar.enable('view_detail');
+					}
+				}
+			},
+			onUnselect: function (event) {
+				event.onComplete = function () {
+				
+					var contract = w2ui.gridExtStakeHolder.getSelection();
+					if (contract.length == 1) {
+						var record = this.get(event.recid);
+						w2ui['gridExtStakeHolder'].toolbar.enable('view_detail');
+					}
+				}
+			},
+			onRefresh: function (event) {
+				
+			},
+		});
+	}
+
+
+	function refresh_ext_stakeholder_list() {
+
+
+		if (StatusSearch == 1) {
+
+			key_word = key_search;
+			field_ = field_search;
+
+			if (field_ == "") {
+				field_ = "All";
+			}
+
+			w2ui['gridExtStakeHolder'].load(URL_PTPR + '/StakeholderBirthday/FindExternalStakeholder?KeyWords=' + key_word + '&Field=' + field_);
+		}
+		else {
+
+			if (global_status == 1) {
+				w2ui['gridExtStakeHolder'].load(URL_PTPR + '/StakeholderBirthday/FindExternalStakeholderToday');
+			}
+			if (global_status == 2) {
+				w2ui['gridExtStakeHolder'].load(URL_PTPR + '/StakeholderBirthday/FindExternalStakeholderThisMonth');
+			}
+		}
+	}
+
+
+	function form_ext_stakeholder_detail() {
+
+		load_page("#PageContainer", URL_PTPR + "/StakeholderBirthday/ExternalDetail", function () { $('.select2').css('width', '100%').select2(); });
+	}
+
+	function back_search() {
+
+		field_search = "";
+		key_search = "";
+		global_status = null;
+
+		$("#page_result").hide(function () { $("#page_panel").show("fade"); });
+
+
+	}
+
+
+	function add_external_stakeholder() {
+
+		flagCrud = "ADD";
+		load_page("#PageContainer", URL_PTPR + "/StakeholderBirthday/ExternalDetail", function () { $('.select2').css('width', '100%').select2(); });
+	}
+
+
+	function UpdateCountProgress() {
+
+		var CountUltah = $.ajax({
+			type: "GET",
+			url: URL_PTPR + '/StakeholderBirthday/GetCountExtStakeHolderBirthDay',
+			dataType: 'json',
+			cache: false,
+			async: false,
+		});
+
+		CountUltah_ = CountUltah.responseJSON[0];
+	
+
+		if (CountUltah_.Today != 0) {
+
+			$("#count_ultah_today").html(CountUltah_.Today); $("#count_ultah_today_").removeClass("non_aktif");
+		}
+		else {
+			$("#count_ultah_today").html(""); $("#count_ultah_today_").addClass("non_aktif");
+		}
+
+		if (CountUltah_.ThisMonth != 0) {
+
+			$("#count_ultah_thismonth").html(CountUltah_.ThisMonth); $("#count_ultah_thismonth_").removeClass("non_aktif");
+		}
+		else {
+			$("#count_ultah_thismonth").html(""); $("#count_ultah_thismonth_").addClass("non_aktif");
+		}
+
+		
+	}
+
+	UpdateCountProgress();
+
+	window.addEventListener("focus", function (event) {
+		UpdateCountProgress();
+	}, false);
+
+
+	$('#search_external_stakeholder #param_field').select2({
+	}).on("change", function (e) {
+		$("#search_external_stakeholder #key_word").val("");
+
+	});
+
+	$('#search_external_stakeholder #param_field').on('select2:select', function (e) {
+		$("#search_external_stakeholder #key_word").focus();
+	});
+</script>

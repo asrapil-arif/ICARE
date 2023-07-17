@@ -1,0 +1,202 @@
+﻿@using I_Care.Models
+@{
+	/**/
+
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Title = "Contract";
+	ViewBag.Parent = "Contract";
+	ViewBag.Child = "EContract";
+	ViewBag.Parent_Caption = "<a href='" + @Request.Url.GetLeftPart(UriPartial.Authority) + "/Contract'>Contract</a>";
+	ViewBag.Child_Caption = "<a href='" + @Request.Url.GetLeftPart(UriPartial.Authority) + "/Contract/EContract'>EContract</a>";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-file-text-o\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+
+}
+
+
+<script>
+
+	var current_contract = [];
+	var filter_global = 0;
+	var global_status = null;
+	var call_back = 0;
+	var callback = 0;
+	var LastGet = new Date();
+	var is_search = 0;
+	var is_grid = 0;
+	var LastGetDate = new Date();
+
+	var StatusRef = "";
+	var lsting_stat = "";
+	var selected_contract_id = 0;
+	var height = Number(window.innerHeight) - 133;
+	var StatusSearch = 0;
+	var flagCrud = "";
+	var flagRouting = "";
+
+	var GetContractGroup_ = [];
+	var ContractType_ = [];
+	var ContractSigningOfficer_ = [];
+	var FungsiName_ = [];
+	var ContractVendor_ = [];
+	var DocumentType_ = [];
+	var SuscribeType_ = [];
+
+	var field_search = "";
+	var key_search = "";
+
+	var List_Mail_Alert = [];
+	var ListAttachment_For_Routing = [];
+	var current_contract_snooze = 0;
+
+</script>
+
+<style>
+	.page-content {
+		padding: 0px;
+	}
+</style>
+
+
+<div id="PageContainer"></div>
+
+
+<script>
+
+
+	function back_main_page() {
+
+		isMainPage = true;
+		set_sub_child_breadcrumb("");
+		callback = 0;
+
+		if (is_grid == 1) {
+
+			if (is_search == 1) {
+				load_page("#PageContainer", URL_PTPR + "/Contract/EContractMainPage", function () { $("#page_panel").hide(); $('.select2').css('width', '100%').select2(); find_contract_search(); });
+			}
+			else {
+				load_page("#PageContainer", URL_PTPR + "/Contract/EContractMainPage", function () { $("#page_panel").hide(); $('.select2').css('width', '100%').select2(); find_contract_search_by_status(global_status,""); });
+			}
+		
+		}
+		else {
+
+			FLAG_VIEW = "";
+			load_page("#PageContainer", URL_PTPR + "/Contract/EContractMainPage", function () { $('.select2').css('width', '100%').select2() });
+		}
+
+	}
+	$(document).ready(function () {
+
+		isMainPage = true;
+		load_page("#PageContainer", URL_PTPR + "/Contract/EContractMainPage", function () { $('.select2').css('width', '100%').select2(); });
+
+	});
+
+
+
+	function fill_data() {
+
+		if (ContractSigningOfficer_.length == 0) {
+			var ContractSigningOfficer = $.ajax({
+				url: URL_PTPR + '/Contract/GetOfficer',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			ContractSigningOfficer_ = ContractSigningOfficer.responseJSON;
+		}
+
+		if (FungsiName_.length == 0) {
+			var FungsiName = $.ajax({
+				url: URL_PTPR + '/Contract/GetFungsi',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+			FungsiName_ = FungsiName.responseJSON;
+		}
+
+		if (ContractVendor_.length == 0) {
+			var ContractVendor = $.ajax({
+				url: URL_PTPR + '/Contract/GetVendor',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			ContractVendor_ = ContractVendor.responseJSON;
+		}
+
+		if (DocumentType_.length == 0) {
+			var DocumentType = $.ajax({
+				url: URL_PTPR + '/Contract/GetCustomerContractDocType',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			DocumentType_ = DocumentType.responseJSON;
+		}
+
+		if (SuscribeType_.length == 0) {
+			var SuscribeType = $.ajax({
+				url: URL_PTPR + '/Contract/GetCustomerSubscribeType',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+			SuscribeType_ = SuscribeType.responseJSON;
+		}
+
+	}
+
+
+
+	function OpenWindowWithPost(url, windowoption, name, params) {
+		var form = document.createElement("form");
+
+		form.setAttribute("method", "post");
+		form.setAttribute("action", url);
+		form.setAttribute("target", name);
+
+		for (var i in params) {
+			if (params.hasOwnProperty(i)) {
+				var input = document.createElement('input');
+				input.type = 'hidden';
+				input.name = i;
+				input.value = params[i];
+				form.appendChild(input);
+			}
+		}
+
+		document.body.appendChild(form);
+		form.submit();
+		document.body.removeChild(form);
+
+
+	}
+
+	
+
+	fill_data();
+
+
+</script>	

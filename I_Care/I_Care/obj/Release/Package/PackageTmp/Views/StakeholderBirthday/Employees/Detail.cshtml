@@ -1,0 +1,285 @@
+﻿
+@{
+	Layout = null;
+}
+
+
+
+
+<style>
+
+	#employee_detail {
+		margin: 2% auto;
+		padding: 5%;
+		padding-top: 0%;
+		padding-bottom: 0%;
+		margin-top: 1%;
+		margin-bottom: 0%;
+		border: 0px solid #dedede;
+		width: 80%;
+	}
+
+		#employee_detail .control-label {
+			font-size: 12px;
+			padding-top: 0px !important;
+			text-align: right;
+			font-weight:bold;
+			
+		}
+
+	.form-control {
+		text-align: left !important;
+		border: none !important;
+		border-bottom: 1px solid #dedede !important;
+		padding:0px !important;
+	}
+
+	.form_header, .form_footer {
+		text-align: center;
+	}
+
+	.form_footer {
+		margin-top: 10px;
+		border-top: 1px dashed #dedede;
+		padding-top: 10px;
+		margin-bottom: 10px;
+	}
+
+	.icon_process {
+		font-size: 25px;
+		margin-bottom: 10px;
+		font-weight: bold;
+	}
+
+	.header_wording {
+		font-size: 14px;
+		font-weight: normal;
+	}
+
+	.foto_employee {
+		text-align: center;
+		padding: 1%;
+		border:0px solid #dedede;
+		
+	}
+	#phas_foto {
+		border: 2px solid #dedede;
+		width:250px;
+		height:250px;
+		margin:2% auto;
+		background-size:95%;
+		background-repeat:no-repeat;
+		background-position:center;
+		background-position-y:1px;
+		border-radius:50%;
+		
+
+	}
+	@@media screen and (max-width: 800px) {
+
+		.form_footer {
+			border-top: none;
+		}
+
+	}
+	@@media screen and (max-width: 600px) {
+		#employee_detail {
+			margin: 1% auto;
+			padding: 2%;
+			width: 90%;
+		}
+
+		.form_header {
+			text-align: justify;
+		}
+
+		.icon_process {
+			font-size: 18px;
+			text-align: center;
+			width: 100%;
+		}
+
+		.header_wording {
+			font-size: 12px;
+			font-weight: normal;
+		}
+
+		.form_mandatory {
+		
+			border-top:1px dashed #dedede;
+			border-bottom:none;
+			margin-top:10px;
+			padding-top:10px;
+
+		
+		}
+		.form_footer {
+			border-top: none;
+		}
+	}
+</style>
+
+<div id="employee_detail" class="row">
+
+	<div class="row form_header" style="margin-bottom:15px;border-bottom:1px dashed #dedede;padding-bottom:5px;" id="next_process_header">
+		<div class="icon_process" id="icon_process"><i class="fa fa-user" style="color:#808080;"></i> Employee Detail</div>
+	</div>
+
+	<div class="row">
+
+		<div class="row foto_employee col-sm-4">
+
+			<div id="phas_foto">
+
+			</div>
+			<br />
+			<button type="button" class="btn btn-info btn-sm" onclick="$('#foto_uploader').click();"><i class="fa fa-pencil" aria-hidden="true"></i> Update Foto</button>
+			<div hidden>
+				<input type="file" id="foto_uploader" required accept=".png,.jpeg,.jpg" hidden />
+			</div>
+		</div>
+
+		<div class="row form_mandatory col-sm-8">
+			<form class="form-horizontal">
+				<div class="box-body">
+
+
+
+					<div class="form-group">
+						<label for="inputName" class="col-sm-4 control-label">Nip.</label>
+						<div class="col-sm-8">
+							<span id="snap_Nip" style="font-weight:bold;" class="form-control"></span>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label for="inputName" class="col-sm-4 control-label">Nama</label>
+						<div class="col-sm-8">
+							<span id="snap_Nama" class="form-control" style=" white-space: nowrap; overflow: hidden;text-overflow: ellipsis;"></span>
+						</div>
+					</div>
+
+
+					<div class="form-group">
+						<label for="inputName" class="col-sm-4 control-label">Tanggal Lahir</label>
+						<div class="col-sm-8">
+							<span id="snap_TglLahir" class="form-control"></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputName" class="col-sm-4 control-label">Gender</label>
+						<div class="col-sm-8">
+							<span id="snap_Gender" class="form-control"></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputName" class="col-sm-4 control-label">Agama</label>
+						<div class="col-sm-8">
+							<span id="snap_Agama" class="form-control"></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputName" class="col-sm-4 control-label">Fungsi</label>
+						<div class="col-sm-8">
+							<span id="snap_Fungsi" class="form-control"></span>
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="inputName" class="col-sm-4 control-label">Jabatan</label>
+						<div class="col-sm-8">
+							<span id="snap_Jabatan" class="form-control"></span>
+						</div>
+					</div>
+
+
+				</div>
+			</form>
+		</div>
+
+	</div>
+	
+
+	
+	<div class="row form_footer">
+		<button type="button" class="btn btn-gray btn-sm" onclick="back_main_page()">Close</button>
+	</div>
+
+</div>
+
+
+<script>
+
+	function form_employee_detail() {
+
+		var imageUrl = 'https://icare.pertaminaretail.com/File/ViewAttachment/' + current_employee.FileId;
+		$('#phas_foto').css('background-image', 'url("' + imageUrl + '")');
+
+		$("#snap_Nip").html(current_employee.Nip);
+		$("#snap_Nama").html(current_employee.NamaPegawai);
+		$("#snap_TglLahir").html(current_employee.TglLahir);
+		$("#snap_Gender").html(current_employee.Gender);
+		$("#snap_Agama").html(current_employee.Agama);
+		$("#snap_Fungsi").html(current_employee.Fungsi);
+		$("#snap_Jabatan").html(current_employee.Jabatan);
+	}
+
+
+
+	$('#foto_uploader').change(function () {
+
+		var file = this.files[0];
+		var file_name = file.name;
+		var DataSave = new FormData();
+		
+		DataSave.append('FileCategory', "STAKE_HOLDER_FILE");
+		DataSave.append('UPLOAD_FILE', file);
+		DataSave.append('Source', 'I-CARE');
+		DataSave.append('Key1', 'EMPLOYEE_IMAGE');
+		DataSave.append('Key2', current_employee.Nip);
+		
+		$("#Saving_Load").show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTPR + '/StakeholderBirthday/SaveEployeeFoto',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+					w2alert("Upload File Gagal !");
+					$("#Saving_Load").hide("fade");
+				}
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+				w2alert("Upload File Gagal !");
+				$("#Saving_Load").hide("fade");
+			}
+			else {
+				var recid = Simpan.responseJSON["Result"];
+				$("#foto_uploader").val("");
+				w2alert("Upload File Berhasil !");
+				var imageUrl = 'https://icare.pertaminaretail.com/File/ViewAttachment/' + recid;
+				$('#phas_foto').css('background-image', 'url("' + imageUrl + '")');
+				$("#Saving_Load").hide("fade");
+			
+			}
+
+		});
+
+	})
+
+
+	form_employee_detail();
+
+
+
+</script>

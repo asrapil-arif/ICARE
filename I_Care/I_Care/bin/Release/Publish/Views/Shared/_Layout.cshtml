@@ -1,0 +1,399 @@
+﻿@using I_Care.Models
+@{
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    string[] SSO_ALLOW = ROLES.GetRolesForUser(User.Identity.Name.ToString());
+    int H_W = Request.Browser.ScreenPixelsHeight + 24;
+
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta charset="utf-8" />
+    <title>Pertamina Retail | I-Care </title>
+    <link rel="icon" href="../../Content/img/logo_ptm.png" type="image/x-icon">
+    <meta name="description" content="overview &amp; stats" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+
+    <!-- bootstrap & fontawesome -->
+    <link rel="stylesheet" href="../../Content/assets/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+    <!-- page specific plugin styles -->
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet" />
+    <![endif]-->
+    <link rel="stylesheet" href="../../Content/assets/css/ace-skins.min.css" />
+    <link rel="stylesheet" href="../../Content/assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="../../Content/plugins/datatables/dataTables.bootstrap.css">
+    <link rel="stylesheet" href="../../Content/plugins/datepicker/datepicker3.css">
+    <link rel="stylesheet" href="../../Content/assets/css/jquery-ui.custom.min.css" />
+
+    <link rel="stylesheet" href="../../Content/assets/css/chosen.min.css" />
+
+    <link rel="stylesheet" href="../../Content/assets/css/ace-skins.min.css" />
+    <link rel="stylesheet" href="../../Content/assets/css/ace-rtl.min.css" />
+    <link rel="stylesheet" href="../../Content/assets/css/Addtional.css" />
+
+
+
+    <!-- text fonts -->
+    <link rel="stylesheet" href="../../Content/assets/css/fonts.googleapis.com.css" />
+
+    <!-- ace styles -->
+    <link rel="stylesheet" href="../../Content/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+    <link rel="stylesheet" href="../../Content/assets/css/select2.min.css" />
+
+
+
+    <script src="../../Content/assets/js/jquery-2.1.4.min.js"></script>
+    <script src="../../Content/assets/js/ace-extra.min.js"></script>
+
+
+
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='<?php echo base_url()?>assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+    <script src="../../Content/assets/js/bootstrap.min.js"></script>
+
+
+    <script src="../../Content/assets/js/jquery-ui.custom.min.js"></script>
+    <script src="../../Content/assets/js/jquery.ui.touch-punch.min.js"></script>
+    <script src="../../Content/assets/js/chosen.jquery.min.js"></script>
+    <script src="../../Content/assets/js/select2.min.js"></script>
+    <script src="../../Content/assets/js/spinbox.min.js"></script>
+
+
+    <script src="../../Content/assets/js/jquery.easypiechart.min.js"></script>
+    <script src="../../Content/assets/js/jquery.sparkline.index.min.js"></script>
+    <script src="../../Content/assets/js/jquery.flot.min.js"></script>
+    <script src="../../Content/assets/js/jquery.flot.pie.min.js"></script>
+    <script src="../../Content/assets/js/jquery.flot.resize.min.js"></script>
+
+    <script src="../../Content/assets/js/jquery.inputlimiter.min.js"></script>
+    <script src="../../Content/assets/js/jquery.maskedinput.min.js"></script>
+    <script src="../../Content/assets/js/bootstrap-tag.min.js"></script>
+
+
+
+    <script src="../../Content/assets/js/moment.min.js"></script>
+    <script src="../../Content/assets/js/bootstrap-datepicker.min.js"></script>
+    <script src="../../Content/assets/js/daterangepicker.min.js"></script>
+
+
+    <!-- ace scripts -->
+    <script src="../../Content/assets/js/ace-elements.min.js"></script>
+    <script src="../../Content/assets/js/ace.min.js"></script>
+
+
+
+
+    <script src="../../Content/plugins/highchart/highcharts.js"></script>
+    <script src="../../Content/plugins/highchart/highcharts-3d.js"></script>
+    <script src="../../Scripts/FmsEngine.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="../../Content/assets/w2ui/w2ui-1.5.rc1.min.css" />
+    <script type="text/javascript" src="../../Content/assets/w2ui/w2ui-1.5.rc1.min.js"></script>
+
+
+
+    <script>
+		var URL_PTR = "@Request.Url.GetLeftPart(UriPartial.Authority)";
+		var URL_PTPR = "@Request.Url.GetLeftPart(UriPartial.Authority)";
+    </script>
+
+    <style type="text/css">
+        .panel {
+            border-radius: 0px;
+        }
+
+        .panel-heading {
+            border-radius: 0px;
+            background-color: yellowgreen;
+        }
+
+        .fomr-control-mod {
+            padding: 5px;
+        }
+
+        #table-panel td {
+            padding: 2px;
+        }
+
+        #logo-ptpr {
+            width: 100px;
+        }
+
+		.icon_image {
+			width: 34px;
+		}
+
+		.icon_image_side {
+			width: 25px;
+			margin-left: 5px;
+		}
+
+    </style>
+    <script>
+
+
+        function clear_wait() {
+
+            //$('#' + tab_name + "_wait").remove();
+            $('#Modal_load').modal("hide");
+            $(".info-wait").html("Please Wait ...");
+
+        }
+
+
+        window.onload = function (e) {
+            //render_wait();
+
+
+        }
+
+
+        window.document.onload = function (e) {
+            clear_wait();
+        }
+
+
+        var t;
+        window.onload = resetTimer;
+        // DOM Events
+        document.onmousemove = resetTimer;
+        document.onkeypress = resetTimer;
+
+        function logout() {
+
+            alert('Session timeout you must login again !');
+            location.href = URL_PTR + '/User/Logout';
+        }
+
+        function resetTimer() {
+            clearTimeout(t);
+            t = setTimeout(logout, 1500000)
+            // 1000 milisec = 1 sec
+        }
+
+
+        document.onload = resetTimer;
+        document.onmousemove = resetTimer;
+        document.onmousedown = resetTimer; // touchscreen presses
+        document.ontouchstart = resetTimer;
+        document.onclick = resetTimer;     // touchpad clicks
+        document.onscroll = resetTimer;    // scrolling with arrow keys
+        document.onkeypress = resetTimer
+
+    </script>
+
+</head>
+
+<body class="no-skin">
+    <div id="navbar" class="navbar navbar-default ace-save-state navbar-fixed-top">
+        <div class="navbar-container ace-save-state" id="navbar-container">
+            <button type="button" class="navbar-toggle menu-toggler pull-left" id="menu-toggler" data-target="#sidebar">
+                <span class="sr-only">Toggle sidebar</span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+
+                <span class="icon-bar"></span>
+            </button>
+
+            <div class="navbar-header pull-left" id="nav-ptpr">
+                <div class="navbar-brand" style="padding:0px;padding-top:8px;padding-left:2px;text-align:center;">
+                    <img src="../../Content/img/logo_ptpr_putih.PNG" id="logo-ptpr" />
+                </div>
+                <div class="navbar-brand">
+                    <small>I-Care <span style="font-size:11px;">(v.1.1)</span></small>
+                </div>
+            </div>
+
+            <div class="navbar-buttons navbar-header pull-right" role="navigation">
+                <ul class="nav ace-nav">
+                    <li class="light-green dropdown-modal">
+                        <a data-toggle="dropdown" href="#" class="dropdown-toggle">
+
+                            <span class="user-info">
+                                <small>Welcome,</small>
+                                @User.Identity.Name
+                            </span>
+
+                            <i class="ace-icon fa fa-caret-down"></i>
+                        </a>
+
+                        <ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+
+
+                            <li>
+                                <a href="#">
+                                    <i class="ace-icon fa fa-user"></i>
+                                    Profile
+                                </a>
+                            </li>
+
+                            <li class="divider"></li>
+
+                            <li>
+                                <a href="@Url.Content("~/User/Logout")">
+                                    <i class="ace-icon fa fa-power-off"></i>
+                                    Logout
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div><!-- /.navbar-container -->
+    </div>
+
+    <div class="main-container ace-save-state " id="main-container">
+        <script type="text/javascript">
+            try { ace.settings.loadState('main-container') } catch (e) { }
+        </script>
+
+       	
+             @if ( ViewBag.TopMenuAce == "Yes")
+            { 
+            
+                    @Html.Partial("_TopMenuAce")
+            
+            }
+            
+
+
+
+        <div class="main-content">
+            <div class="main-content-inner">
+                <div class="breadcrumbs ace-save-state" id="breadcrumbs">
+                    <ul class="breadcrumb">
+                        <li>
+                            @Html.Raw(ViewBag.Icon)
+                            @ViewBag.Parent
+                        </li>
+                        <li class="active">@ViewBag.Child_Caption</li>
+
+                    </ul><!-- /.breadcrumb -->
+
+                </div>
+
+                <div class="">
+
+
+                    @RenderBody()
+
+
+                </div><!-- /.page-content -->
+            </div>
+        </div><!-- /.main-content -->
+
+        <div class="footer">
+            <div class="footer-inner">
+                <div class="footer-content">
+                    <span class="bigger-120">
+                        <span style="color:#5D8AA5;font-size:13px;">Pertamina Retail IT Team &copy; 2016-2017</span>
+                    </span>
+
+
+                </div>
+            </div>
+        </div>
+
+        <a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+            <i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
+        </a>
+    </div><!-- /.main-container -->
+
+
+    <script type="text/javascript">
+        if ('ontouchstart' in document.documentElement) document.write("<script src='../../Content/assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+    </script>
+    <![endif]-->
+	<script type="text/javascript">
+
+
+		function render_wait() {
+			$('#Modal_load').modal({
+				backdrop: 'static',
+				keyboard: false
+			})
+
+		}
+
+
+		$('.select2').css('width', '100%').select2()
+
+		function numberWithCommas(x) {
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+		}
+
+
+		
+		function open_shortcut(Menu) {render_wait(); window.location.replace(URL_PTPR + "/" + Menu); }
+
+
+    </script>
+
+
+
+
+</body>
+
+
+<!-- Modal Filter -->
+<div id="Modal_load" class="modal" role="dialog">
+    <div class="modal-dialog" style="text-align: center;padding-top:10%;">
+        <i class="fa fa-cog fa-spin fa-3x fa-fw" style="font-size:50px;"></i>
+        <br />
+        Please Wait....
+
+    </div>
+
+</div>
+
+
+
+
+<!-- Modal Filter -->
+<div id="Modal_Info" class="modal" role="dialog">
+    <div class="modal-dialog" style="text-align: center;padding-top:10%;">
+        <span style="color:white;position:absolute;left:39.5%;" class="info-wait">Please Wait ...</span>
+    </div>
+
+</div>
+
+<!-- Modal -->
+<div id="myModal_Unit" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">List Unit</h4>
+            </div>
+            <div class="modal-body" id="tab-unit-list" style="padding:0px;">
+
+                <div id="PopUpUnit" style="height:300px;border-left:none;border-bottom:1px dotted #dedede;border-radius:0px;" class="responsive"></div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-info" onclick="select_unit_1()">select</button>
+                <button type="button" class="btn btn-info" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+
+</html>
+
+

@@ -1,0 +1,141 @@
+﻿@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	//ViewBag.Title = "E-Contract";
+	ViewBag.Parent = "E-Contract";
+	ViewBag.Child = "E-Contract";
+	//ViewBag.Child_Caption = "E-Contract";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-list\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+}
+
+
+
+<style>
+	.page-content {
+		padding: 0px;
+	}
+
+	.box_info {
+		text-align: center;
+		padding-top: 0%;
+		border: 0px dashed #dedede;
+		margin: 0px auto;
+		margin-top: 0%;
+		width: 80%;
+		border-radius: 5px;
+	}
+
+	#box_info_icon_top {
+		text-align: right;
+		padding: 3px;
+		border: 0px solid #dedede;
+		margin-top: 0px;
+	}
+
+
+		#box_info_icon_top .icon_short_cut {
+			border: 1px solid #dedede;
+			padding: 4px;
+			width: 65px;
+			height: 50px;
+			border-radius: 2%;
+			display: inline-table;
+			font-size: 9px;
+			cursor: pointer;
+			transition: 0.3s;
+			background-color: none;
+			text-align: center;
+			margin: 0px;
+			border-radius: 2px;
+			cursor: pointer;
+		}
+
+			#box_info_icon_top .icon_short_cut i {
+				font-size: 19px;
+				margin-bottom: 10px;
+			}
+
+
+
+			#box_info_icon_top .icon_short_cut:hover {
+				opacity: 0.50;
+				border: 1px dashed #1a8cff;
+			}
+
+	#box_info_icon {
+		text-align: center;
+		padding-top: 10px;
+		border-top: 2px dashed #dedede;
+		margin-top: 10px;
+	}
+
+
+
+		#box_info_icon .icon_short_cut {
+			border: 1px solid #dedede;
+			padding: 8px;
+			width: 100px;
+			height: 90px;
+			border-radius: 2%;
+			display: inline-table;
+			margin-left: 2px;
+			font-size: 10px;
+			cursor: pointer;
+			transition: 0.3s;
+			margin-bottom: 1%;
+			background-color: none;
+			cursor: pointer;
+		}
+
+			#box_info_icon .icon_short_cut:hover {
+				border-color: yellowgreen;
+				opacity: 0.50;
+				border: 1px solid #dedede;
+			}
+
+			#box_info_icon .icon_short_cut i {
+				font-size: 25px;
+				margin-bottom: 10px;
+			}
+
+</style>
+
+
+
+
+<div class="row box_info" style="margin-top:2%;">
+
+	<div class="col-sm-3" style="padding-top:0%;">
+		<img src="../../../Content/images/baw_e_contract.jpg" class="logo_menu_head" style="width:80%;">
+	</div>
+	<div class="col-sm-9">
+		<div style="text-align:left;font-size:12px;padding-top:5%">
+			<span style="font-size:20px;">E-Kontrak</span><br />
+			<span style="font-size:12px;">( Kelola Proses Kontrak Secara Lebih Termonitor )</span><br />
+			Pilih tipe kontrak yang tersedia dibawah ini, untuk masuk ke menu proses e-kontrak, lakukan action terhadap kontrak yang sedang progress sesuai otoritas yang diberikan kepada Anda.<br />
+			Dengan E-Kontrak proses pembuatan kontrak menjadi lebih termonitor progres pengerjaannya.
+
+			<br />
+
+		</div>
+	</div>
+</div>
+
+
+<div id="box_info_icon">
+
+	<div class="icon_short_cut" @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2021110006", 1) == true) { <text> onclick="open_shortcut('EContract/Procurement');" </text>  } else { <text> onclick="w2alert('Your not allow for this menu');" </text> }>
+		<img src="../../../Content/images/e_contract2.jpg" class="logo_menu" id="logo_database" style="width:80px;height:60px;">
+		<br /><br />
+		<span class="lbl bigger-100">Procurement</span>
+	</div>
+
+	<div class="icon_short_cut" @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2022030001", 1) == true) { <text> onclick="open_shortcut('EContract/General');" </text>  } else { <text> onclick="w2alert('Your not allow for this menu');" </text> }>
+		<img src="../../../Content/images/e_contract.jpg" class="logo_menu" id="logo_database" style="width:80px;height:60px;">
+		<br /><br />
+			  <span class="lbl bigger-100">General</span>
+	</div>
+
+</div>
+

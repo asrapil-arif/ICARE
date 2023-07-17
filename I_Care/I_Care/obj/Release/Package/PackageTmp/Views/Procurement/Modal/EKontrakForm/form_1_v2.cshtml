@@ -1,0 +1,1464 @@
+﻿<style>
+
+	.outer_template {
+		overflow-y: scroll;
+		margin: 5% auto;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		width: 100%;
+		padding: 2%;
+		padding-top: 0px;
+		border-radius: 0px;
+		text-align: justify;
+		border: none;
+		border-bottom: 1px solid #dedede;
+		background-color: whitesmoke;
+		display: inline-grid;
+		position: relative;
+	}
+
+	.inner_template {
+		background-color: white;
+		padding: 6%;
+		border: 1px solid #dedede;
+		width: 80%;
+		margin: 2% auto;
+		margin-top: 1%;
+		margin-bottom: 1%;
+		height: 1240px;
+		width: 874px;
+		position: relative;
+		box-shadow: 13px 16px 13px -9px rgba(0,0,0,0.21);
+		-webkit-box-shadow: 13px 16px 13px -9px rgba(0,0,0,0.21);
+		-moz-box-shadow: 13px 16px 13px -9px rgba(0,0,0,0.21);
+	}
+
+		.inner_template td {
+			font-size: 12px !important;
+		}
+
+	.footer_inner_template {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		font-style: italic;
+		padding: 5px;
+		font-size: 11px;
+		color: gray;
+		width: 100%;
+		text-align: right;
+	}
+
+	.footer_inner_template_sub {
+		border-top: 1px solid #dedede;
+		padding: 5px;
+		margin: 2% auto;
+		width: 90%;
+	}
+
+	.header_inner_template {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		padding: 5px;
+		font-size: 15px;
+		color: gray;
+		width: 100%;
+		text-align: right;
+	}
+
+	.header_inner_template_sub {
+		border-top: 0px solid #dedede;
+		padding: 5px;
+		margin: 1% auto;
+		width: 90%;
+	}
+
+
+	.button_box {
+		border: 0px solid #dedede;
+		width: 100%;
+		text-align: center;
+		padding-top: 1%;
+	}
+
+	#pokok_perjanjian_table td {
+		font-family: Arial;
+		font-size: 15px;
+		text-align: justify;
+	}
+
+	.sub_page_doc {
+		text-align: justify;
+	}
+
+	.baris_center {
+		text-align: center !important;
+	}
+
+	.harap_input {
+		padding: 1px;
+		border: none !important;
+		border-bottom: 1px dotted #000000 !important;
+		background-color: #caecff !important;
+		margin: 1px auto !important;
+		width: 20%;
+	}
+
+	#template_1 .harap_input:focus {
+		border-bottom: 1px solid red !important;
+		width: 30%;
+	}
+
+
+	#template_1 .text_pasal {
+		resize: none;
+		width: 90%;
+		height: 50px;
+		background-color: #caecff !important;
+		margin: 1px auto !important;
+		border: none !important;
+		border-bottom: 1px dotted #000000 !important;
+	}
+
+		#template_1 .text_pasal:focus {
+			resize: none;
+			width: 100%;
+			height: 50px;
+			background-color: #caecff !important;
+			margin: 1px auto !important;
+			border-bottom: 1px solid red !important;
+		}
+
+	#nama_bank  .input {
+		
+		width: 60%;
+	
+	}
+
+	#nama_bank .input:focus {
+		width: 80%;
+	}
+
+	.inner_template td {
+		vertical-align: top;
+	}
+
+	#template_1 .footer_signed .harap_input {
+		width: 80% !important;
+	}
+
+	#template_1 .footer_signed .harap_input:focus {
+		width: 90% !important;
+	}
+
+	#pihak_kedua_lamp_g .input {
+	width:80%;
+	}
+	#pihak_kedua_lamp_g .input:focus{
+		width: 90%;
+	}
+
+
+	
+</style>
+
+
+<div id="template_1" hidden>
+
+	<div class="template_header"><div class="header_button"><button type="button" class="btn btn-danger btn-sm full_screen_btn" onclick="full_screen('#template_1');"><i class="fa fa-arrows-alt" aria-hidden="true"></i> Maximize</button></div></div>
+	<div class="outer_template" id="outer_template_form1">
+		
+
+		<div class="inner_template pokok_perjanjian">
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+				<tr><td class="baris_center"><span style="font-weight:bold;">POKOK-POKOK PERJANJIAN</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;"><input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="judul_ppp" style="width:70%;" autocomplete="off" /></span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">No : <input type="text" placeholder="* No - Kontrak" class="harap_input wajib input" id="no_kontrak_from_1" autocomplete="off" /> </span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<span>
+							Perjanjian ini <b>("KONTRAK")</b> dibuat dan ditandatangani pada tanggal <input type="text" placeholder="* Tanggal" class="harap_input wajib input" id="tgl_kontrak_ppp" autocomplete="off" /> bulan <input type="text" placeholder="* Bulan" class="harap_input wajib input" id="bulan_kontrak_ppp" autocomplete="off" />  tahun
+							<input type="text" placeholder="* Tahun" class="harap_input wajib input" id="tahun_kontrak_ppp" autocomplete="off" /> <b>("TANGGAL KONTRAK")</b>, oleh:
+						</span>
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table class="sub_page_doc">
+							<tr>
+								<td valign="top" width="5%">I.</td>
+								<td>
+									<b>PT. PERTAMINA RETAIL</b>, suatu perusahaan yang didirikan berdasarkan hukum Indonesia,
+									berkedudukan dan berkantor pusat di Gedung Grha Pertamina Lantai 10-11 Jalan Medan Merdeka Timur No.11-13, Jakarta Pusat
+									Jakarta - Indonesia<br />
+									dalam hal ini diwakili oleh <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="wakil_pihak_1" autocomplete="off" /> selaku <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="jabatan_wakil_pihak_1" autocomplete="off" />
+									<br />selanjutnya dalam <b>KONTRAK</b> ini disebut <b>"PIHAK PERTAMA"</b>, dan
+								</td>
+							</tr>
+							<tr><td colspan="2">&nbsp;</td></tr>
+							<tr><td colspan="2">&nbsp;</td></tr>
+							<tr>
+								<td valign="top" width="5%">II.</td>
+								<td>
+									<input type="text" placeholder="* Nama Pihak Ke 2 Harap diisi" class="harap_input wajib nama_pt input" id="pihak_1_name_ppp" autocomplete="off" /> ,suatu perusahaan yang didirikan berdasarkan hukum <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="pihak_1_hukum_ppp" autocomplete="off" />,
+									berkedudukan dan berkantor pusat di <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="pihak_2_ppp" autocomplete="off" />,<br />
+									dalam hal ini diwakili oleh <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="wakil_2_ppp" autocomplete="off" />
+									selaku <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="wakil_jabatan_2_ppp" autocomplete="off" />,
+									<br />selanjutnya dalam <b>KONTRAK</b> ini disebut <b>"PIHAK KEDUA".</b>
+								</td>
+							</tr>
+
+						</table>
+
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						Selanjutnya <b>PIHAK PERTAMA</b> dan <b>PIHAK KEDUA</b> secara sendiri-sendiri disebut <b>"PIHAK"</b> dan secara bersama-sama disebut <b>"PARA PIHAK"</b>.
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><b>BAHWASANYA :</b></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<b>PIHAK PERTAMA</b> mempunyai kegiatan usaha dibidang retail pengelolaan Stasiun Pengisian Bahan Bakar Minyak Untuk Umum (SPBU) dan bidang usaha terkait lainnya,
+						dan dalam kaitannya dengan hal tersebut <b>PIHAK PERTAMA</b> memerlukan dilakukannya pekerjaan sebagaimana diatur
+						dalam <b>KONTRAK</b> ini; dan <b>PIHAK KEDUA</b> adalah perusahaan yang mempunyai kemampuan
+						dan pengalaman serta sanggup untuk melaksanakan pekerjaan yang diperlukan oleh <b>PIHAK PERTAMA.</b>
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">BERDASARKAN PERTIMBANGAN DI ATAS, PARA PIHAK MENYEPAKATI HAL-HAL BERIKUT : </span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table class="sub_page_doc" width="100%">
+							<tr>
+								<td valign="top" width="5%">1.</td>
+								<td>
+									Dokumen-dokumen yang disebut dibawah merupakan bagian yang tidak terpisahkan dari  KONTRAK ini:
+									<table>
+										<tr><td colspan="4">&nbsp;</td></tr>
+										<tr><td>A.</td><td>Lampiran A</td><td>:</td><td>Syarat-syarat dan Ketentuan-ketentuan Umum.</td></tr>
+										<tr><td>B.</td><td>Lampiran B</td><td>:</td><td>Lingkup Pekerjaan.</td></tr>
+										<tr><td>C.</td><td>Lampiran C</td><td>:</td><td>Harga Kontrak dan Ketentuan Pembayaran.</td></tr>
+										<tr><td>D.</td><td>Lampiran D</td><td>:</td><td>Jangka Waktu dan Jadwal Pelaksanaan Pekerjaan.</td></tr>
+										<tr><td>E.</td><td>Lampiran E</td><td>:</td><td>Health, Safety, Environment (HSE) dan Contractor Safety Management System (CSMS).</td></tr>
+										<tr><td>F.</td><td>Lampiran F</td><td>:</td><td>Asuransi.</td></tr>
+										<tr><td>G.</td><td>Lampiran G</td><td>:</td><td>Lain-lain.</td></tr>
+									</table>
+								</td>
+							</tr>
+							<tr><td colspan="2">&nbsp;</td></tr>
+							<tr>
+								<td valign="top" width="5%">2.</td>
+								<td>
+									Pekerjaan yang harus dilaksanakan oleh <b>PIHAK KEDUA</b> adalah <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="pekerjaan_ppp" autocomplete="off" /> dengan ruang lingkup sebagaimana diuraikan dalam Lampiran B
+									dan harus diselesaikan sesuai dengan jadwal yang diuraikan dalam Lampiran D <b>("PEKERJAAN").</b>
+								</td>
+							</tr>
+
+						</table>
+
+					</td>
+				</tr>
+			</table>
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Pokok Perjanjian ] [ Hal. #1 ]</div>
+			</div>
+		</div>
+
+		<div class="inner_template pokok_perjanjian">
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+				<tr>
+					<td>
+						<table class="sub_page_doc" width="100%">
+							<tr>
+								<td valign="top" width="5%">3.</td>
+								<td>
+									Nilai PEKERJAAN yang harus dibayar oleh <b>PIHAK PERTAMA</b> kepada <b>PIHAK KEDUA</b> adalah sebesar <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="nilai_kontrak_ppp_temp" autocomplete="off" hidden /> <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="nilai_kontrak_ppp" autocomplete="off" onkeyup="format_currencyproc('nilai_kontrak_ppp', 'nilai_kontrak_ppp_temp');" onselect="format_currencyproc('nilai_kontrak_ppp', 'nilai_kontrak_ppp_temp');" onmouseup="format_currencyproc('nilai_kontrak_ppp', 'nilai_kontrak_ppp_temp');" />
+									dengan tata cara pembayaran sebagaimana diuraikan dalam Lampiran C (<b>"HARGA KONTRAK"</b>).
+								</td>
+							</tr>
+
+							<tr><td colspan="2">&nbsp;</td></tr>
+							<tr>
+								<td valign="top" width="5%">4.</td>
+								<td>
+									KONTRAK ini mulai berlaku pada <b>TANGGAL KONTRAK</b> atau jangka waktu lain yang disepakati PARA PIHAK  dan akan tetap berlaku sampai dengan <input type="text" placeholder="* Harap diisi" class="harap_input wajib tgl_form1 input" id="jangka_waktu_kontrak_ppp" autocomplete="off" />.
+									(<b>"JANGKA WAKTU KONTRAK"</b>) kecuali diakhiri lebih awal sesuai dengan ketentuan <b>KONTRAK</b> ini.
+
+								</td>
+							</tr>
+
+						</table>
+
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<b>KONTRAK</b> ini dibuat dalam rangkap 2 (dua), masing-masing mempunyai kekuatan hukum yang sama,
+						dan ditandatangani di atas meterai cukup oleh <b>PARA PIHAK</b>.
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" border="0" class="footer_signed">
+							<tr>
+								<td width="50%"><b>PIHAK PERTAMA</b></td>
+								<td width="50%"><b>PIHAK KEDUA</b></td>
+							</tr>
+
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><div class="e_materai_pihak_2"><div class="e_materai"><span class="materai_sub">E-Materai &</span> <br>Tanda Tangan</div></div></td>
+								<td><div class="e_materai_pihak_1"><div class="e_materai"><span class="materai_sub">E-Materai &</span> <br>Tanda Tangan</div></div></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+
+							<tr>
+								<td valign="bottom">
+									<input type="text" placeholder="* Nama Pihak Ke 1" class="harap_input wajib input" id="nama_pihak_1_ppp" autocomplete="off" />
+								</td>
+								<td valign="bottom">
+									<input type="text" placeholder="* Nama Pihak Ke 2" class="harap_input wajib input" id="nama_pihak_2_ppp" autocomplete="off" />
+								</td>
+							</tr>
+
+							<tr>
+								<td valign="bottom">
+									<input type="text" placeholder="* Jabatan Pihak Ke 1" class="harap_input wajib input" id="jabatan_pihak_1_ppp" autocomplete="off" />
+								</td>
+								<td valign="bottom">
+									<input type="text" placeholder="* Jabatan Pihak Ke 2" class="harap_input wajib input" id="jabatan_pihak_2_ppp" autocomplete="off" />
+								</td>
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+			</table>
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Pokok Perjanjian ] [ Hal. #2 ]</div>
+			</div>
+
+		</div>
+
+		<div class="inner_template syarat_dan_ketentuan_umum lampiran_A ">
+
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran A ]</div>
+			</div>
+
+			<h4>SYARAT-SYARAT DAN KETENTUAN-KETENTUAN UMUM</h4>
+			<h5>[Terlampir dalam attachment]</h5>
+			<h5 class="attachment_lampiran"><a href="#" target="_blank" onclick="download_lampiran('403657')"><i class="fa fa-cloud-download" aria-hidden="true"></i> Silahkan Download file ini untuk melihat dokumen dalam format PDF kemudian baca dan pahami</a></h5>
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[Syarat-Syarat Dan Ketentuan-Ketentuan Umum] [Hal. #1]</div>
+			</div>
+		</div>
+
+		<div class="inner_template lampiran_B">
+
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran B ]</div>
+			</div>
+
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+				<tr><td class="baris_center"><span style="font-weight:bold;">LINGKUP PEKERJAAN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 1</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">DASAR PELAKSANAAN PEKERJAAN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>Dasar pelaksaan PEKERJAAN dalam KONTRAK ini adalah :</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+				<td>
+
+				<button class="btn btn-primary btn-sm btn_custom_text" onclick="rich_text('dasar_pelaksanaan_lamp_b')" style="margin-bottom:10px;"> Jelaskan</button>
+				<button class="btn btn-grey btn-sm btn_custom_text" onclick="$('#dasar_pelaksanaan_lamp_b').html('');" style="margin-bottom:10px;"> Clear </button>
+				<div id="dasar_pelaksanaan_lamp_b"></div>
+				
+				</td>
+				</tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 2</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">RUANG LINGKUP PEKERJAAN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>PIHAK KEDUA setuju untuk melaksanakan PEKERJAAN sebagaimana diatur dalam KONTRAK ini dengan ruang lingkup PEKERJAAN termasuk namun tidak terbatas pada :</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+					<button class="btn btn-primary btn-sm btn_custom_text" onclick="rich_text('rincian_pekerjaan_lamp_b')" style="margin-bottom:10px;"> Jelaskan</button>
+					<button class="btn btn-grey btn-sm btn_custom_text" onclick="$('#rincian_pekerjaan_lamp_b').html('');" style="margin-bottom:10px;"> Clear </button>
+					<div id="rincian_pekerjaan_lamp_b"></div>
+
+					</td>
+				</tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 3</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">HAK DAN KEWAJIBAN PIHAK PERTAMA</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>Tanpa mengesampingkan hak-hak dan kewajiban-kewajiban PIHAK PERTAMA lainnya di dalam KONTRAK ini, PIHAK PERTAMA mempunyai hak dan kewajiban sebagai berikut :</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr><td width="5%">3.1</td><td>Hak PIHAK PERTAMA :</td></tr>
+							<tr><td>&nbsp;</td><td><textarea placeholder="* Jelaskan" class="text_pasal wajib input" id="hak_pihak_1_lamp_b" autocomplete="off"></textarea></td></tr>
+
+							<tr><td>3.2</td><td>Kewajiban  PIHAK PERTAMA :</td></tr>
+							<tr><td>&nbsp;</td><td><textarea placeholder="* Jelaskan" class="text_pasal wajib input" id="kewajiban_pihak_1_lamp_b" autocomplete="off"></textarea></td></tr>
+
+						</table>
+					</td>
+				</tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 4</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">HAK DAN KEWAJIBAN PIHAK KEDUA</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>Tanpa mengesampingkan hak-hak dan kewajiban-kewajiban PIHAK KEDUA lainnya di dalam KONTRAK ini, PIHAK PERTAMA mempunyai hak dan kewajiban sebagai berikut :</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr><td width="5%">3.1</td><td>Hak PIHAK KEDUA :</td></tr>
+							<tr><td>&nbsp;</td><td><textarea placeholder="* Jelaskan" class="text_pasal wajib input" id="hak_pihak_2_lamp_b" autocomplete="off"></textarea></td></tr>
+
+							<tr><td>3.2</td><td>Kewajiban  PIHAK KEDUA :</td></tr>
+							<tr><td>&nbsp;</td><td><textarea placeholder="* Jelaskan" class="text_pasal wajib input" id="kewajiban_pihak_2_lamp_b" autocomplete="off"></textarea></td></tr>
+
+						</table>
+					</td>
+				</tr>
+
+			</table>
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Lingkup Pekerjaan ] [ Hal. #1 ]</div>
+			</div>
+
+		</div>
+
+		<div class="inner_template lampiran_B">
+
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran B ]</div>
+			</div>
+
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 5</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">LOKASI & TEMPAT PENYERAHAN PEKERJAAN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td><textarea placeholder="* Jelaskan" class="text_pasal wajib input" id="lokasi_dan_tempat_lamp_b" autocomplete="off"></textarea></td></tr>
+
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 6</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">INFORMASI DAN SARANA YANG DISEDIAKAN OLEH PIHAK PERTAMA</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr><td width="5%">6.1</td><td>PIHAK PERTAMA akan menyediakan informasi, sarana, akses yang berkaitan dengan pelaksanaan PEKERJAAN oleh PIHAK KEDUA.</td></tr>
+							<tr><td width="5%">6.2</td><td>Jika disyaratkan oleh peraturan yang berlaku, PIHAK PERTAMA akan memberikan bantuan atau rekomendasi yang sewajarnya diperlukan dalam rangka pengurusan izin atau formalitas lain yang berkaitan dengan pelaksanaan PEKERJAAN.</td></tr>
+							<tr><td width="5%">6.3</td><td>Dengan tetap tunduk pada peraturan internal PIHAK PERTAMA, PIHAK PERTAMA akan memberikan akses bagi PERSONIL PIHAK KEDUA untuk masuk ke LOKASI PEKERJAAN.</td></tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+
+				<tr class="catatan_">
+					<td>
+
+						<button class="btn btn-primary btn-sm btn_custom_text" onclick="rich_text('catatan_linkup_pekerjaan')" style="margin-bottom:10px;"> Tambahkan catatan </button> <button class="btn btn-grey btn-sm btn_custom_text" onclick="$('#catatan_linkup_pekerjaan').html('');" style="margin-bottom:10px;"> Clear </button>
+						<div id="catatan_linkup_pekerjaan"></div>
+
+
+					</td>
+				</tr>
+
+			</table>
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Lingkup Pekerjaan ] [ Hal. #2 ]</div>
+			</div>
+		</div>
+
+		<div class="inner_template lampiran_C">
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran C ]</div>
+			</div>
+
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+				<tr><td class="baris_center"><span style="font-weight:bold;">HARGA KONTRAK DAN KETENTUAN PEMBAYARAN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 1</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">HARGA KONTRAK</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr>
+								<td width="5%">1.1</td>
+								<td>
+
+									<button class="btn btn-primary btn-sm btn_custom_text" onclick="rich_text('detail_harga_kontrak_dan_tata_cara_pembayaran')" style="margin-bottom:10px;"> Tambahkan Detail Harga & Tata Cara Pembayaran </button> <button class="btn btn-grey btn-sm btn_custom_text" onclick="$('#detail_harga_kontrak_dan_tata_cara_pembayaran').html('');" style="margin-bottom:10px;"> Clear </button>
+									<div id="detail_harga_kontrak_dan_tata_cara_pembayaran"></div>
+
+
+								</td>
+							</tr>
+							
+							<tr>
+								<td>&nbsp;</td>
+								<td>
+
+									<div class="form-group uploder_button">
+										<label for="inputName" class="col-sm-3 control-label" style="font-size:12px;" >Tambahkan Attachment Harga:</label>
+										<div class="col-sm-10">
+											<input type="file" multiple="" id="uploader_attachment" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" />
+										</div>
+									</div>
+
+								</td>
+							</tr>
+
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td>1.2</td>
+								<td>
+									HARGA KONTRAK sebagaimana dimaksud dalam Pasal 1.1 di atas merupakan harga yang tetap dan pasti.
+									Apabila terdapat perubahan HARGA KONTRAK yang diakibatkan oleh penambahan atau perubahan lingkup
+									PEKERJAAN harus mendapat persetujuan PIHAK PERTAMA yang selanjutnya akan dituangkan dalam Adendum yang ditandatangani oleh PARA PIHAK.
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td><textarea placeholder="* Jelaskan" class="text_pasal wajib input" id="rincian_adendum_lamp_b" autocomplete="off"></textarea></td></tr>
+
+						</table>
+					</td>
+				</tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 2</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">TATA CARA PEMBAYARAN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr><td width="5%">2.1</td><td>
+									<button class="btn btn-primary btn-sm btn_custom_text" onclick="rich_text('tata_cara_pembayaran')" style="margin-bottom:10px;"> Tambahkan Tata Cara Pembayaran </button> <button class="btn btn-grey btn-sm btn_custom_text" onclick="$('#tata_cara_pembayaran').html('');" style="margin-bottom:10px;"> Clear </button>
+									<div id="tata_cara_pembayaran"></div>
+								</td>
+
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr><td>2.2</td><td>Dokumen penagihan pembayaran sebagaimana dimaksud pada Pasal ini, harus disertai atau dilampiri dengan :</td></tr>
+							<tr>
+								<td>&nbsp;</td>
+								<td>
+									
+
+									<ol type="a">
+										<li>Asli Invoice</li>
+										<li>Asli Kwitansi bermeterai cukup</li>
+										<li>Copy Surat Perjanjian Kerjasama untuk setiap penagihan</li>
+										<li>Copy Purchase Order (PO)</li>
+										<li>Asli Service Acceptance ( SA ) atau Good Receipt ( GR ) </li>
+										<li>Faktur Pajak standard (bila menagih PPN)</li>
+										<li>Berita Acara Penyelesaian Pekerjaan</li>
+									</ol>
+
+
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td width="5%">2.3</td>
+								<td>
+									PIHAK PERTAMA dengan ini akan membayarkan kepada PIHAK KEDUA atas tagihan tersebut paling lambat 
+									21 (dua puluh satu) Hari Kerja setelah dokumen  diterima secara lengkap dan benar oleh
+									Bagian Keuangan PIHAK PERTAMA melalui transfer ke rekening PIHAK KEDUA sebagai berikut :
+									<br />
+									<br />
+									<table width="100%" id="nama_bank_group">
+										<tr><td width="20%">Nama Bank</td><td width="2%">:</td><td><input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="nama_bank" autocomplete="off" /></td></tr>
+										<tr><td width="20%">Nomor Rekening</td><td width="2%">:</td><td><input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="nomor_rekening" autocomplete="off" /></td></tr>
+										<tr><td width="20%">Atas Nama Rekening</td><td width="2%">:</td><td><input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="nama_rekening" autocomplete="off" /></td></tr>
+									</table>
+
+									<br />
+									Apabila terjadi perubahan nama dan nomor rekening bank PIHAK KEDUA sebagaimana dimaksud di atas,
+									maka PIHAK KEDUA akan memberitahukan secara tertulis kepada PIHAK PERTAMA dan disetujui oleh PIHAK PERTAMA tanpa dibuatkan adendum KONTRAK ini.
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+						</table>
+					</td>
+				</tr>
+
+			</table>
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Harga Kontrak & Ketentuan Pembayaran ] [ Hal. #1 ]</div>
+			</div>
+
+		</div>
+
+		<div class="inner_template lampiran_C">
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran C ]</div>
+			</div>
+
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+
+
+
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+
+							<tr>
+								<td width="5%">2.4</td>
+								<td>
+									Pembayaran HARGA KONTRAK sebagaimana dimaksud dalam Pasal ini akan diperhitungkan dengan sanksi dan denda yang
+									dikenakan kepada PIHAK KEDUA (jika ada) sebagaimana dimaksud pada Pasal 3 Lampiran C.
+								</td>
+							</tr>
+
+
+						</table>
+					</td>
+				</tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 3</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">KETENTUAN DENDA/ SANKSI</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr>
+								<td width="5%">3.1</td>
+								<td>
+									Apabila PIHAK KEDUA tidak dapat menyelesaikan PEKERJAAN sesuai dengan jadwal pelaksanaan
+									PEKERJAAN maka untuk setiap hari keterlambatan, PIHAK KEDUA akan dikenakan denda keterlambatan
+									sebesar 1‰ (satu permil) per HARI KALENDER dari HARGA KONTRAK dengan nilai maksimum denda
+									adalah sebesar 5% (lima persen) dari HARGA KONTRAK dan pelaksanaan pembayarannya akan diperhitungkan
+									dengan kewajiban pembayaran PIHAK PERTAMA kepada PIHAK KEDUA
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td>3.2</td>
+								<td>
+									Pelaksanaan sanksi dan denda akan diperhitungkan dengan kewajiban pembayaran PIHAK PERTAMA kepada PIHAK KEDUA dalam hal :<br /><br />
+									<table width="100%">
+										<tr><td width="5%">a)</td><td>Apabila PIHAK KEDUA terlambat melaksanakan PEKERJAAN sesuai waktu yang disepakati, kecuali apabila keterlambatan tersebut disebabkan oleh KEADAAN KAHAR atau hal-hal lain yang disebabkan oleh tindakan dan keputusan PIHAK PERTAMA,</td></tr>
+										<tr><td width="5%">b)</td><td>PIHAK KEDUA tidak dapat melaksanakan salah satu atau seluruh PEKERJAAN (ruang lingkup pekerjaan dan tahapan pelaksanaan PEKERJAAN), atau</td></tr>
+										<tr><td width="5%">c)</td><td>PIHAK KEDUA tidak dapat melaksanakan dan/atau menyelesaikan PEKERJAAN sesuai dengan MASA PENYELESAIAN PEKERJAAN.</td></tr>
+									</table>
+
+								</td>
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 4</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PAJAK DAN PUNGUTAN LAIN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr>
+								<td width="5%">4.1</td>
+								<td>
+									Semua pajak, bea, iuran, retribusi berdasarkan ketentuan peraturan perundang-undangan yang
+									berlaku dan atau pungutan lainnya dalam pelaksanaan KONTRAK ini menjadi beban dan tanggung jawab masing-masing
+									PIHAK sesuai dengan ketentuan perundang-undangan yang berlaku.
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td width="5%">4.2</td>
+								<td>
+									PIHAK PERTAMA wajib memungut Pajak Penghasilan (PPh) dari HARGA KONTRAK pada saat pembayaran sesuai dengan
+									ketentuan peraturan perundang-undangan yang berlaku, kecuali terdapat pengecualian /
+									pembebasan pajak dari pihak yang berwenang sehubungan dengan pelaksanaan PEKERJAAN berdasarkan KONTRAK ini.
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td width="5%">4.3</td>
+								<td>
+									Apabila diperlukan oleh salah satu PIHAK atau instansi yang berwenang untuk kepentingan administrasi atau audit,
+									maka baik PIHAK PERTAMA maupun PIHAK KEDUA akan memberikan bukti-bukti pembayaran yang berkaitan dengan pajak, iuran,
+									retribusi dan/atau pungutan lain sebagaimana dimaksud pada Pasal ini.
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr class="catatan_">
+					<td>
+
+						<button class="btn btn-primary btn-sm btn_custom_text" onclick="rich_text('catatan_lampiran_c')" style="margin-bottom:10px;"> Tambahkan catatan </button> <button class="btn btn-grey btn-sm btn_custom_text" onclick="$('#catatan_lampiran_c').html('');" style="margin-bottom:10px;"> Clear </button>
+						<div id="catatan_lampiran_c"></div>
+
+					</td>
+				</tr>
+
+			</table>
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Harga Kontrak & Ketentuan Pembayaran ] [ Hal. #2 ]</div>
+			</div>
+
+		</div>
+
+	
+		<div class="inner_template lampiran_D">
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran D ]</div>
+			</div>
+
+
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+				<tr><td class="baris_center"><span style="font-weight:bold;">JANGKA WAKTU DAN JADWAL PELAKSANAAN PEKERJAAN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 1</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">JANGKA WAKTU</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr>
+								<td width="5%">1.1</td>
+								<td>
+									<button class="btn btn-primary btn-sm btn_custom_text" onclick="rich_text('jangka_waktu_pelaksanaan')" style="margin-bottom:10px;">Tambahkan catatan </button> <button class="btn btn-grey btn-sm btn_custom_text" onclick="$('#jangka_waktu_pelaksanaan').html('');" style="margin-bottom:10px;"> Clear </button>
+									<div id="jangka_waktu_pelaksanaan"></div>
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td>1.2</td>
+								<td>
+									KONTRAK ini berlaku terhitung sejak TANGGAL DIMULAINYA PEKERJAAN sampai dengan seluruh hak dan kewajiban PARA PIHAK terpenuhi secara keseluruhan, ditunjukan dengan suatu Berita Acara yang ditandatangani oleh PARA PIHAK ("JANGKA WAKTU KONTRAK")
+								</td>
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 2</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PERPANJANGAN PELAKSANAAN PEKERJAAN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td><span>Jangka waktu pelaksanaan PEKERJAAN sebagaimana Perjanjian ini dapat diperpanjang sebagaimana persetujuan tertulis dari PIHAK PERTAMA.</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr class="catatan_">
+					<td>
+						<button class="btn btn-primary btn-sm btn_custom_text" onclick="rich_text('catatan_lampiran_d')" style="margin-bottom:10px;"> Tambahkan catatan </button> <button class="btn btn-grey btn-sm btn_custom_text" onclick="$('#catatan_lampiran_d').html('');" style="margin-bottom:10px;"> Clear </button>
+						<div id="catatan_lampiran_d"></div>
+					</td>
+				</tr>
+			</table>
+
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Jangka Waktu & Jadwal Pelaksanaan Pekerjaan ] [ Hal. #1 ]</div>
+			</div>
+
+		</div>
+
+		<div class="inner_template lampiran_E">
+
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran E ]</div>
+			</div>
+
+
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+
+				<tr><td class="baris_center"><span style="font-weight:bold;">HEALTH, SAFETY, ENVIRONMENT (HSE) <br> DAN CONTRACTOR SAFETY MANAGEMENT SYSTEM (CSMS)</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 1</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">KOMITMEN TERHADAP ASPEK HSE</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr>
+								<td width="5%">1.1</td>
+								<td>PARA PIHAK berkomitmen untuk mewujudkan zero incident (tidak ada kecelakaan, kerusakan asset dan lingkungan).</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td>1.2</td>
+								<td>
+									PIHAK KEDUA setiap saat akan melaksanakan PEKERJAAN secara aman dan terlindungi, dan akan mematuhi:<br><br>
+									<table width="100%">
+										<tr>
+											<td>a.</td>
+											<td>&nbsp;</td>
+											<td>Kebijakan, Keselamatan, Kesehatan Kerja dan Lindungan Lingkungan yang ditetapkan sesuai ketentuan yang berlaku di PIHAK PERTAMA.</td>
+										</tr>
+										<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+										<tr>
+											<td>a.</td>
+											<td>&nbsp;</td>
+											<td>Peraturan pemerintah dan MIGAS yang terkait dengan Keselamatan Kesehatan Kerja dan Lindungan Lingkungan di tempat kerja;</td>
+										</tr>
+										<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+										<tr>
+											<td>a.</td>
+											<td>&nbsp;</td>
+											<td>Praktik keselamatan industri yang standar, dan juga kewajiban keselamatan terkait lainnya yang diterapkan atas PIHAK KEDUA berdasarkan ketentuan yang berlaku dan ketentuan PIHAK PERTAMA dan KONTRAK.</td>
+										</tr>
+
+									</table>
+
+								</td>
+
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td width="5%">1.3</td>
+								<td>PIHAK KEDUA akan bekerja sama penuh dalam pemeriksaan berkala yang mungkin dilaksanakan dari waktu ke waktu oleh Pemeritah atau pengawas keselamatan PIHAK PERTAMA untuk menilai pelaksanaan keselamatan kerja ini.</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td width="5%">1.4</td>
+								<td>Dalam hal dimana PIHAK PERTAMA menentukan bahwa PIHAK KEDUA atau subkontraktor dari PIHAK KEDUA tidak melaksanakan PEKERJAAN secara aman, PIHAK PERTAMA dapat, atas pilihannya sendiri, memerintahkan PIHAK KEDUA untuk menghentikan PEKERJAAN sesegera mungkin, memindahkan personil atau material yang tidak sesuai dengan ketentuan dari LOKASI PEKERJAAN dan mengambil tindakan apapun yang dianggap perlu oleh PIHAK PERTAMA untuk memastikan bahwa PIHAK KEDUA melaksanakan PEKERJAAN secara aman. Setiap dan semua biaya atau keterlambatan jadwal yang ditimbulkan dari kegagalan untuk melakukan PEKERJAAN dengan cara yang aman sesuai dengan KONTRAK akan ditanggung oleh PIHAK KEDUA.</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td width="5%">1.5</td>
+								<td>
+									PIHAK KEDUA wajib memenuhi dan melaksanakan seluruh kewajiban PIHAK KEDUA berdasarkan ketentuan sebagai berikut:<br><br>
+									<table width="100%">
+										<tr>
+											<td>a.</td>
+											<td>&nbsp;</td>
+											<td>PIHAK KEDUA wajib untuk menjaga dan mencegah terjadinya bahaya, kerusakan atau pencemaran terhadap lingkungan yang mungkin timbul dalam rangka pelaksanaan PEKERJAAN dan kewajiban dalam KONTRAK ini.</td>
+										</tr>
+										<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+										<tr>
+											<td>a.</td>
+											<td>&nbsp;</td>
+											<td>PIHAK KEDUA wajib mematuhi ketentuan HSE di LOKASI PEKERJAANPEKERJAAN sesuai ketentuan yang berlaku dan ketentuan PIHAK PERTAMA.</td>
+										</tr>
+										<tr><td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td></tr>
+										<tr>
+											<td>a.</td>
+											<td>&nbsp;</td>
+											<td>PIHAK KEDUA wajib mematuhi dan melaksanakan seluruh ketentuan HSE Plan dan revisinya (jika ada) yang telah disepakati dan ditandatangani PARA PIHAK.</td>
+										</tr>
+
+									</table>
+
+
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td width="5%">1.6</td>
+								<td>
+									PIHAK KEDUA akan bekerja sama penuh dalam pemeriksaan berkala yang mungkin dilaksanakan dari waktu ke waktu oleh Pemeritah atau pengawas keselamatan PIHAK PERTAMA untuk menilai pelaksanaan keselamatan kerja ini.<br><br>
+									<table width="100%">
+
+										<tr>
+											<td>a.</td>
+											<td>&nbsp;</td>
+											<td>Rencana mitigasi risiko atau potensi bahaya terhadap PEKERJAAN </td>
+										</tr>
+										<tr>
+											<td>b.</td>
+											<td>&nbsp;</td>
+											<td>Prosedur operasi dan standard keselamatan yang disyaratkan dalam PEKERJAAN </td>
+										</tr>
+										<tr>
+											<td>c.</td>
+											<td>&nbsp;</td>
+											<td>HSE performance indicator/KPI</td>
+										</tr>
+										<tr>
+											<td>d.</td>
+											<td>&nbsp;</td>
+											<td>Struktur organisasi proyek yang mengakomodir posisi personil HSE PIHAK KEDUA</td>
+										</tr>
+										<tr>
+											<td>e.</td>
+											<td>&nbsp;</td>
+											<td>Pemenuhan kompetensi HSE yang disyaratkan terhadap seluruh pekerja</td>
+										</tr>
+										<tr>
+											<td>f.</td>
+											<td>&nbsp;</td>
+											<td>HSE police dan HSE objective PIHAK KEDUA terhadap PEKERJAAN</td>
+										</tr>
+										<tr>
+											<td>g.</td>
+											<td>&nbsp;</td>
+											<td>Audit dan inspeksi terhadap pemenuhan persyaratan HSE</td>
+										</tr>
+										<tr>
+											<td>h.</td>
+											<td>&nbsp;</td>
+											<td>Accident, incident dan investigation report</td>
+										</tr>
+										<tr>
+											<td>i.</td>
+											<td>&nbsp;</td>
+											<td>HSE communication</td>
+										</tr>
+										<tr>
+											<td>j.</td>
+											<td>&nbsp;</td>
+											<td>Pemeriksaan kesehatan </td>
+										</tr>
+									</table>
+
+
+								</td>
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+
+
+			</table>
+
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ HSSE & CSMS ] [ Hal. #1 ]</div>
+			</div>
+
+		</div>
+
+		<div class="inner_template lampiran_E">
+
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran E ]</div>
+			</div>
+
+
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+				<tr>
+					<td>
+						<table>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td width="5%">1.7</td>
+								<td>PIHAK PERTAMA sewaktu-waktu berhak melakukan pengawasan kepatuhan PIHAK KEDUA terhadap  HSE Plan dan berhak menghentikan PEKERJAAN yang dilaksanakan PIHAK KEDUA berdasarkan KONTRAK apabila dinilai tidak memenuhi keselamatan dan keamanan kerja.</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td width="5%">1.8</td>
+								<td>PIHAK PERTAMA melakukan evaluation atas kepatuhan terhadap aspek HSE pada setiap periode tertentu yang ditentukan PIHAK PERTAMA dan final evaluation atas kepatuhan terhadap aspek HSE oleh PIHAK KEDUA pada akhir KONTRAK.</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td width="5%">1.9</td>
+								<td>PIHAK KEDUA harus  memenuhi ketentuan keselamatan dan kesehatan kerja serta pelindungan lingkungan sesuai ketentuan yang berlaku, ketentuan PIHAK PERTAMA dan KONTRAK.</td>
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+			</table>
+
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ HSSE & CSMS ] [ Hal. #1 ]</div>
+			</div>
+
+		</div>
+
+		<div class="inner_template lampiran_F">
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran F ]</div>
+			</div>
+
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+				<tr><td class="baris_center"><span style="font-weight:bold;">ASURANSI</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 1</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">ASURANSI</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td><b>PIHAK KEDUA</b> wajib menutup asuransi atas beban dan biaya <b>PIHAK KEDUA</b> serta membebaskan <b>PIHAK PERTAMA</b> sepenuhnya terhadap semua risiko kerugian dan kerusakan yang mungkin dihadapi selama <b>JANGKA WAKTU KONTRAK</b> yang meliputi :</td></tr>
+				<tr><td>&nbsp;</td></tr>
+
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0" id="tbl_point_asuransi">
+							<tr>
+								<td width="5%">1.1</td>
+								<td>
+									<b>PIHAK KEDUA</b> wajib menutup asuransi atas beban dan biaya <b>PIHAK KEDUA</b> serta membebaskan <b>PIHAK PERTAMA	</b> sepenuhnya terhadap semua risiko kerugian dan kerusakan yang mungkin dihadapi selama <b>JANGKA WAKTU KONTRAK</b> 		yang meliputi :
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td>1.2</td>
+								<td>
+									<b>PIHAK KEDUA</b> wajib untuk menutup asuransi pembangunan (Construction All Risk) yang mencakup semua risiko, meliputi kehilangan, kerusakan, kebakaran, peledakan, musnah oleh bencana alam, dan lain-lain risiko terhadap bangunan, instalasi, peralatan, dan barang selama <b>MASA PENYELESAIAN PEKERJAAN.</b>
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td>1.3</td>
+								<td>
+									Asuransi Tanggung Jawab kepada <b>PIHAK KETIGA</b> (Comprehensive General Liability Insurance). Apabila diperlukan, PIHAK KEDUA dapat diminta untuk menutup asuransi terhadap kerusakan harta benda milik <b>PIHAK KETIGA</b>, luka badan, atau <b>PIHAK KETIGA</b> meninggal dunia
+								</td>
+							</tr>
+
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr class="btn_custom_point">
+								<td colspan="2">
+									<button class="btn btn-primary btn-sm btn_custom_text" onclick="custom_point('tbl_point_asuransi')" style="margin-bottom:10px;"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Tambahkan Point Asuransi </button> <button class="btn btn-grey btn-sm btn_custom_text" onclick="clear_last_point('tbl_point_asuransi')" style="margin-bottom:10px;"> Clear Last Point </button>
+
+								</td>
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+			</table>
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Asuransi ] [ Hal. #1 ]</div>
+			</div>
+
+		</div>
+
+		<div class="inner_template lampiran_G">
+
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran G ]</div>
+			</div>
+
+
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+
+				<tr><td class="baris_center"><span style="font-weight:bold;">LAIN-LAIN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 1</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">DIREKSI PEKERJAAN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr>
+								<td width="5%">1.1</td>
+								<td>
+									<b>PIHAK PERTAMA</b> menunjuk seorang Direksi Pekerjaan yaitu <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="direksi_pekerjaan_pihak_1" autocomplete="off" /> yang berhak, berkewajiban dan mempunyai wewenang untuk memberikan instruksi dan memeriksa pelaksanaan atau hasil <b>PEKERJAAN berdasarkan ketentuan <b>KONTRAK</b> ini, dan setiap saat <b>PIHAK KEDUA</b> dapat menghubungi untuk mengadakan komunikasi, konsultasi dan penyampaian laporan-laporan kepada <b>PIHAK PERTAMA.</b>
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td>1.2</td>
+								<td>
+									<b>PIHAK KEDUA</b> mempunyai wewenang dan bertanggungjawab penuh atas pelaksanaan dan penyelesaian <b>PEKERJAAN</b> berdasarkan ketentuan <b>KONTRAK</b> ini dan setiap waktu dapat dihubungi untuk membicarakan hal-hal yang dianggap perlu sehubungan dengan <b>KONTRAK ini.</b>
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 2</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">KETENTUAN LAIN-LAIN</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr>
+								<td width="5%">2.1</td>
+								<td>
+									<b>Perjanjian Tambahan (Adendum)</b> Segala sesuatu yang tidak dan/atau belum cukup diatur dalam <b>KONTRAK</b> ini berikut perubahan-perubahan akan diatur lebih lanjut oleh <b>PARA PIHAK</b> dalam suatu Adendum yang merupakan bagian tidak terpisahkan dari <b>KONTRAK</b> ini.
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td>2.2</td>
+								<td>
+									<b>Keseluruhan Perjanjian</b><br> <b>KONTRAK</b> ini menggantikan semua korespondensi yang dibuat oleh <b>PARA PIHAK</b> sebelumnya baik berupa pembicaraan lisan, rapat-rapat, memorandum dan surat.
+								</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+							<tr>
+								<td>2.3</td>
+								<td>
+									<b>Penunjuk Pasal (Heading)</b><br> Penunjuk Pasal ditambahkan semata-mata hanya berdasarkan pertimbangan praktis saja dan sama sekali tidak dapat dipergunakan untuk menafsirkan pasal dalam <b>KONTRAK</b> ini.
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">PASAL 3</span></td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">KORESPONDENSI</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>Segala surat menyurat, komunikasi atau korespondensi dalam pelaksanaan <b>KONTRAK</b> akan diberitahukan atau disampaikan melalui alamat seperti tertera di bawah ini :</td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+							<tr>
+								<td width="5%">3.1</td>
+								<td>
+									<b>PIHAK PERTAMA :</b> <br>
+									<b>PT PERTAMINA RETAIL</b><br>
+									<b>Attn</b>. <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="atas_nama_pihak_1" autocomplete="off" /> <br>
+									Gedung Grha Pertamina <br />
+									Lantai 10-11 Jalan Medan Merdeka Timur No.11-13, Jakarta Pusat<br />
+									Jakarta - Indonesia <br />
+
+									<input type="text" placeholder="* Nomor Telpon." class="harap_input wajib input" id="phone_pihak_1" autocomplete="off" /><br />
+									<input type="text" placeholder="* Fax" class="harap_input wajib input" id="fax_pihak_1" autocomplete="off" /><br>
+								</td>
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+			</table>
+
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Lain-Lain ] [ Hal. #1 ]</div>
+			</div>
+
+
+		</div>
+
+		<div class="inner_template lampiran_G">
+
+			<div class="header_inner_template">
+				<div class="header_inner_template_sub">[ Lampiran G ]</div>
+			</div>
+
+
+			<table border="0" width="100%" id="pokok_perjanjian_table" align="center">
+				<tr>
+					<td>
+						<table width="100%" align="center" border="0">
+
+							<tr>
+								<td width="5%">3.2</td>
+								<td>
+
+									<b>PIHAK KEDUA:</b><br>
+
+									<table width="100%" border="0" id="pihak_kedua_lamp_g">
+										<tr><td><input type="text" placeholder="* Nama Pihak Ke 2" class="harap_input wajib input nama_pt " id="nama_pihak_2" autocomplete="off" /></td></tr>
+										<tr><td><input type="text" placeholder="* Attn" class="harap_input wajib input" id="atas_nama_pihak_2" autocomplete="off" /></td></tr>
+										<tr><td><input type="text" placeholder="* Alamat" class="harap_input wajib input" id="gedung_pihak_2" autocomplete="off" /></td></tr>
+										<tr><td><input type="text" placeholder="* Nomor Telpon." class="harap_input wajib input" id="phone_pihak_2" autocomplete="off" /></td></tr>
+										<tr><td><input type="text" placeholder="* Nomor Faksimile." class="harap_input wajib input" id="fax_pihak_2" autocomplete="off" /></td></tr>
+									</table>
+
+								</td>
+							</tr>
+						</table>
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td>Setiap <b>PIHAK</b> terkait akan segera memberitahukan secara tertulis kepada <b>PIHAK</b> lainnya dalam hal ada perubahan alamat atau tempat pemberitahuan sebagaimana tersebut di atas.</td></tr>
+			</table>
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Lain-Lain ] [ Hal. #2 ]</div>
+			</div>
+
+		</div>
+
+
+	</div>
+
+	<div class="button_box">
+
+		<button type="button" class="btn btn-default btn-sm" onclick="batal_template_1()" ondblclick="batal_template_1()"><i class="fa fa-arrow-left aria-hidden="true"></i> Kembali</button>
+		<button type="button" class="btn btn-info btn-sm" onclick="save_form1()" ondblclick="save_form1()">Proses <i class="fa fa-arrow-right aria-hidden="true"></i> </button>
+	
+	</div>
+
+</div>
+
+<div id="page_proses_load" hidden>
+	
+	<img src="~/Content/images/loading_images/roket.gif" style="width:30%;"/>
+	<br />
+	<span>Loading ...</span>
+
+</div> 
+
+
+<script>
+
+
+
+	
+	
+	function save_form1() {
+
+		var last_empty_id = "";
+		var xcount = 1; 
+		var validate_save = true;
+		var json_field = [];
+
+		try {
+
+			$("#template_1 .wajib").each(function () {
+				var element = $(this);
+				if (element.val() == "" && element[0].id != "harga_kontrak_lamp_b_temp" && element[0].id != "nilai_kontrak_ppp_temp") {
+
+					isValid = false;
+					var fill_placeholder = element[0].attributes["placeholder"];
+					var placeHolderText = fill_placeholder.nodeValue;
+					placeHolderText = placeHolderText.replace("Harap diisi", "").trim().replace("[ Wajib diisi ! ]", "").trim();
+					$("#" + element[0].id).attr("placeholder", placeHolderText + " [ Wajib diisi ! ]");
+					if (xcount == 1) last_empty_id = element[0].id;
+
+					xcount = xcount + 1;
+					validate_save = false;
+
+				}
+			});
+
+			if (validate_save == false) {
+
+				$("#" + last_empty_id).focus();
+				return;
+			}
+			else {
+
+				$("#template_1").hide();
+				$("#page_proses_load").show("fade", function () { 
+
+					var feed = {};
+					$("#template_1 .input").each(function () {
+						var element = $(this);
+						if (element.val() != "") {
+
+							isValid = false;
+							value_ = $("#" + element[0].id).val();
+							$("#" + element[0].id).after("<span class='value_'>" + value_ + "<span>");
+							var field_name = element[0].id.toString();
+							feed[field_name] = value_;
+						}
+					});
+
+					json_field.push(feed);
+
+					$("#template_1").after("<div id='template_1_temp' hidden>" + $("#template_1").html() + "<div>");
+					$("#template_1_temp").find("input,textarea").remove();
+					$("#template_1_temp").find(".richText,.btn_custom_text,btn_custom_point,.attachment_lampiran,.uploder_button,.custom_text").remove();
+
+					var CaptureDiv = $("#template_1_temp .outer_template").html();
+					$("#template_1").find(".value_").remove();
+					var CaptureDivEdit = $("#template_1 .outer_template").html();
+
+					var DataSave = new FormData();
+					DataSave.append('ProcId', current_proc.Id)
+					DataSave.append('FormField', JSON.stringify(json_field))
+					DataSave.append('FormCapture', CaptureDiv)
+					DataSave.append('FormCaptureEdit', CaptureDivEdit)
+					DataSave.append('ContractId', '')
+					DataSave.append('FlagCrud', 'ADD')
+					DataSave.append('FormId', '1')
+
+
+					var uploader_attachment = $('#uploader_attachment').get(0).files;
+
+					if (uploader_attachment.length > 0) {
+
+				
+						for (var i = 0; i < uploader_attachment.length; i++) {
+
+							DataSave.append("Lampiran_C_Daftar_Harga", uploader_attachment[i]);
+
+
+						}
+					}
+
+
+					var Simpan = $.ajax({
+						url: URL_PTPR + '/EContract/SaveEContractPengadaan',
+						type: 'POST',
+						data: DataSave,
+						dataType: "json",
+						cache: false,
+						async: false,
+						contentType: false,
+						processData: false,
+						error: function (request, status, error) {
+
+							$("#page_proses_load").hide();
+							$("#template_1").show();
+							w2alert("Error, try again or contact our administrator please !", "Save E-Kontrak");
+
+						}
+					});
+
+					$(".template_1_temp").remove();
+
+					if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+						w2alert(Simpan.responseJSON["Result"]);
+						$("#page_proses_load").hide();
+						$("#template_1").show();
+					}
+					else {
+
+						w2alert("Pengajuan E-Kontrak untuk proses pengadaan ini berhasil, silahkan tunggu sampai E-Kontrak ini direview dan disetujui !", "Save E-Kontrak");
+						UpdateCountProcProgress();
+						refresh_procurementt_list();
+						$("#page_proses_load").hide();
+						$("#template_1").hide();
+						$("#page_result").show();
+					}
+
+				});
+
+			}
+
+		}
+		catch (err) {
+
+			w2alert(err.message);
+			$("#page_proses_load").hide();
+			$("#template_1").show();
+
+		}
+		
+
+	}
+
+
+	function download_lampiran(Id) {
+
+		var param = { 'Id': Id, };
+		OpenWindowWithPost(URL_PTPR + '/EContract/File', "width=730,height=345,left=100,top=100,resizable=yes,scrollbars=yes",
+			"Id", param);
+
+
+	}
+
+
+	jQuery.extend(jQuery.expr[':'], {
+		focusable: function (el, index, selector) {
+			return $(el).is('a, button, :input, [tabindex]');
+		}
+	});
+
+
+	$(document).on('keypress', 'input,select', function (e) {
+		if (e.which == 13) {
+			e.preventDefault();
+			// Get all focusable elements on the page
+			var $canfocus = $(':focusable');
+			var index = $canfocus.index(this) + 1;
+			if (index >= $canfocus.length) index = 0;
+			$canfocus.eq(index).focus();
+		}
+	});
+
+	$('#uploader_attachment').ace_file_input({
+		style: 'well',
+		btn_choose: 'Tambahakan File Attacment',
+		btn_change: null,
+		no_icon: 'ace-icon fa fa-cloud-upload',
+		droppable: true,
+		thumbnail: 'small'
+	}).on('change', function () {
+		
+	});
+
+
+
+
+
+</script>

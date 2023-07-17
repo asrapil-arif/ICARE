@@ -1,0 +1,155 @@
+﻿@using I_Care.Models;
+@{
+    ViewBag.Title = "Create New Contract";
+    ViewBag.Parent = "Contract";
+    ViewBag.Child = "CreateContract";
+    ViewBag.Child_Caption = "Create New Contract";
+    ViewBag.Icon = "<i class='menu-icon fa fa-pencil-square-o'></i>";
+
+
+    FMSEntities db = new FMSEntities();
+    var Item = (from m in db.m_item where m.ItemGroup == 1 select m);
+    int H_W = Request.Browser.ScreenPixelsHeight + 24;
+
+
+}
+
+
+
+<div class="page-content">
+
+
+    <div class="page-header">
+        <h1>
+            Contract
+            <small>
+                <i class="ace-icon fa fa-angle-double-right"></i>
+                Create remainder for contract
+            </small>
+        </h1>
+    </div><!-- /.page-header -->
+
+    <div class="row">
+        <div class="col-xs-12">
+            <!-- PAGE CONTENT BEGINS -->
+            <form class="form-horizontal" role="form" action="@Url.Content("~/Contract/SaveNewContract")" enctype="multipart/form-data">
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1"> Contract No. </label>
+
+                    <div class="col-sm-9">
+                        <input id="contract_no" name="contract_no" placeholder="Contract No." class="col-xs-10 col-sm-6" type="text" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-1-1"> No. PR </label>
+
+                    <div class="col-sm-9">
+                        <input id="pr_no" name="pr_no" placeholder="No. PR" class="col-xs-10 col-sm-6" required type="text">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-field-2"> No. PO</label>
+
+                    <div class="col-sm-9">
+                        <input id="po_no" name="po_no" placeholder="No. PO" class="col-xs-10 col-sm-6" required type="text">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Contract Title </label>
+
+                    <div class="col-sm-9">
+                        <input id="contract_title" name="contract_title" placeholder="Contract Title" class="col-xs-10 col-sm-6" required type="text">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Contract Value </label>
+
+                    <div class="col-sm-9">
+                        <input id="contrcat_value" name="contrcat_value" placeholder="Contract Value" class="col-xs-10 col-sm-6" required type="text">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Begin Date </label>
+
+                    <div class="col-sm-9">
+                        <input id="begin_date" name="begin_date" placeholder="Begin Date" class="col-xs-10 col-sm-6" required type="text">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> End Date </label>
+
+                    <div class="col-sm-9">
+                        <input id="end_date" placeholder="End Date" class="col-xs-10 col-sm-6" required type="text">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Contract Date </label>
+
+                    <div class="col-sm-9">
+                        <input id="contract_date" placeholder="Contract Date" class="col-xs-10 col-sm-6" required type="text">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Contract Type</label>
+
+                    <div class="col-sm-9">
+                        <input id="contract_type" placeholder="Username" class="col-xs-10 col-sm-6" required type="text">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Vendor</label>
+
+                    <div class="col-sm-9">
+                        <input id="vendor" placeholder="Vendor" class="col-xs-10 col-sm-6" required type="text">
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <label class="col-sm-3 control-label no-padding-right" for="form-input-readonly"> Keterangan</label>
+
+                    <div class="col-sm-9">
+                        <input id="Keterangan" placeholder="Keterangan" class="col-xs-10 col-sm-6" required type="text">
+                    </div>
+                </div>
+
+
+                <div class="clearfix form-actions">
+                    <div class="col-md-offset-3 col-md-9">
+                        <button class="btn btn-info" type="submit">
+                            <i class="ace-icon fa fa-check bigger-50"></i>
+                            Submit
+                        </button>
+
+                        &nbsp; &nbsp; &nbsp;
+                        <button class="btn" type="reset">
+                            <i class="ace-icon fa fa-undo bigger-50"></i>
+                            Reset
+                        </button>
+                    </div>
+                </div>
+
+
+            </form>
+
+
+
+
+            <!-- PAGE CONTENT ENDS -->
+        </div><!-- /.col -->
+    </div><!-- /.row -->
+</div>

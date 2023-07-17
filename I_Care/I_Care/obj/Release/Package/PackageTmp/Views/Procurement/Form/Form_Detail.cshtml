@@ -1,0 +1,2450 @@
+
+@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+
+}
+
+
+
+<div id="ModProcurement" class="modal fade" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" style="color:White;">&times;</button>
+				<div class="modal-title" style="font-size:14px;">...</div>
+			</div>
+			<div class="modal-body" style="padding:0px;padding-top:10px;">
+				<div class="tabbable">
+					<ul class="nav nav-tabs" id="myTabProc">
+
+						<li class="active">
+							<a data-toggle="tab" href="#info_Proc" aria-expanded="true" style="border-left:none;">
+								<i class="fa fa-desktop"></i>
+								Main Info.
+							</a>
+						</li>
+
+						<li class="" id="tab_upload_captionProc">
+							<a data-toggle="tab" href="#tab_uploadProc" aria-expanded="true">
+								<i class="fa fa-file"></i>
+								Upload File
+							</a>
+						</li>
+						<li class="" id="tab_upload_list_captionProc">
+							<a data-toggle="tab" href="#tab_upload_listProc" aria-expanded="true">
+								<i class="fa fa-file"></i>
+								Upload File List
+							</a>
+						</li>
+
+						<li class="" id="tab_list_invitation_caption">
+							<a data-toggle="tab" href="#tab_list_invitation" aria-expanded="true">
+								<i class="fa fa-paper-plane-o"></i>  Invitation List
+							</a>
+						</li>
+
+						<li class="" id="tab_rpp_caption">
+							<a data-toggle="tab" href="#tab_rpp" aria-expanded="true">
+								<i class="fa fa-file-text" "></i>  Hasil Rapat Penjelasan
+							</a>
+						</li>
+
+						<li class="" id="tab_nego_caption">
+							<a data-toggle="tab" href="#tab_nego" aria-expanded="true">
+								<i class="fa fa-file-text" "></i>  Hasil Negosiasi
+							</a>
+						</li>
+
+						<li class="" id="tab_tunjuk_caption">
+							<a data-toggle="tab" href="#tab_tunjuk" aria-expanded="true">
+								<i class="fa fa-file-text" "></i>  Summary BA Penunjukan
+							</a>
+						</li>
+
+
+						<li class="" id="tab_sanggup_caption">
+							<a data-toggle="tab" href="#tab_sanggup" aria-expanded="true">
+								<i class="fa fa-file-text" "></i>  Summary BA Kesanggupan
+							</a>
+						</li>
+
+
+						<li id="tab_contract_proc_caption">
+							<a data-toggle="tab" href="#tab_contract_proc" aria-expanded="true">
+								<i class="fa fa-list"></i>  Contract List
+							</a>
+						</li>
+
+						<li class="" id="tab_historyProc">
+							<a data-toggle="tab" href="#list_historyProc" aria-expanded="false">
+								<i class="fa fa-history"></i>
+								History
+							</a>
+						</li>
+
+					</ul>
+
+					<div class="tab-content" style="min-height:300px;border-bottom:none;border-left:none;border-right:none;padding:0px;">
+						<div id="info_Proc" class="tab-pane fade active in" style="padding:10px;">
+
+							<form class="form-horizontal">
+								<div class="box-body">
+
+									<div class="form-group" id="group_procId">
+										<label for="inputName" class="col-sm-2 control-label input">Procurement Id. :</label>
+										<div class="col-sm-4">
+											<input class="form-control" id="ProcId" placeholder="Procurement Id. Will be generate by system" type="text" readonly style="background-color:whitesmoke;">
+										</div>
+									</div>
+
+
+									<div class="form-group">
+
+										<label for="inputName" class="col-sm-2 control-label input">Metode Penunjukan <mandatory>*</mandatory>:</label>
+										<div class="col-sm-10">
+
+
+
+											<select class="form-control select2 wajib" id="MetodePenunjukan" placeholder="Pilih Metode Penunjukan">
+												<option value="" selected>-- Pilih Metode Penunjukan --</option>
+											</select>
+
+											<script>
+
+												var GetMetodePenunjukanList = $.ajax({
+													url: URL_PTPR + '/Procurement/GetMetodePenunjukanList',
+													type: 'GET',
+													dataType: "json",
+													cache: false,
+													async: false,
+													contentType: false,
+													processData: false,
+												});
+
+												GetMetodePenunjukanList_ = GetMetodePenunjukanList.responseJSON;
+
+												$.each(GetMetodePenunjukanList_, function (i, item) {
+
+													$("#MetodePenunjukan").append('<option value="' + GetMetodePenunjukanList_[i].MetodeCode + '" >' + GetMetodePenunjukanList_[i].MetodeName + '</option>');
+
+
+												});
+
+
+
+
+											</script>
+
+										</div>
+									</div>
+
+
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Title <mandatory>*</mandatory>:</label>
+										<div class="col-sm-10">
+											<input class="form-control input" id="Title" type="text" placeholder="Disarankan judul sama dengan judul pada memo pengadaan !" onkeypress="if (event.keyCode == 13){$('#Descriptions').focus();}" autocomplete="off">
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Descriptions <mandatory>*</mandatory> :</label>
+										<div class="col-sm-10">
+											<textarea class="form-control input" id="Descriptions" placeholder="Tinggalkan keterangan yang lengkap" onkeypress="if (event.keyCode == 13){$('#RiskAssesmentKategori').focus();}" autocomplete="off" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:80px;"> </textarea>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Risk Assesment <mandatory>*</mandatory>:</label>
+										<div class="col-sm-10">
+
+											<select class="form-control select2 wajib" id="RiskAssesmentKategori" placeholder="Pilih Level Risk Assesment">
+												<option value="" selected>-- Pilih Level Risk Assesment --</option>
+												<option value="Low">Low</option>
+												<option value="Medium">Medium</option>
+												<option value="High">High</option>
+											</select>
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">PR No. :</label>
+										<div class="col-sm-4">
+											<input class="form-control" id="PrNo" placeholder="PR No." type="text" onkeypress="if (event.keyCode == 13){$('#ProcurementValue').focus();}" autocomplete="off">
+										</div>
+										<label for="inputName" class="col-sm-2 control-label">Total Value <mandatory>*</mandatory> :</label>
+										<div class="col-sm-4">
+											<input type="text" id="temp_ProcurementValue" hidden />
+
+											<input style="font-weight:bold;" class="form-control input" id="ProcurementValue" placeholder="Total Value." type="text" onselect="format_currencyproc('ProcurementValue','temp_ProcurementValue')" onkeyup="format_currencyproc('ProcurementValue','temp_ProcurementValue')" onmouseup="format_currencyproc('ProcurementValue','temp_ProcurementValue')" onkeypress="if (event.keyCode == 13){$('#ExpectedDate').focus();}" autocomplete="off">
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Expected Date <mandatory>*</mandatory> :</label>
+										<div class="col-sm-4">
+											@*<input id="ExpectedDate" class="form-control date-picker" type="date" placeholder="Expected Date">*@
+											<input id="ExpectedDate" class="form-control input" type="text" style="height:28px;" placeholder="Perkiraan tanggal pengadaan" onkeypress="if (event.keyCode == 13){$('#FungsiName').focus();}" autocomplete="off">
+
+
+										</div>
+										<label for="inputName" class="col-sm-2 control-label">Fungsi Name <mandatory>*</mandatory> :</label>
+										<div class="col-sm-4">
+
+											<select class="form-control select2 input" id="FungsiName" onchange="$('#ProcurementDate').focus()">
+												<option value="" selected>-- Select Fungsi Type --</option>
+
+												@foreach (var item in ViewBag.LookUpFungsi)
+												{
+
+													<option value="@item.LookId">@item.LookName</option>
+
+												}
+
+											</select>
+
+										</div>
+									</div>
+
+									<div class="form-group">
+										<label for="inputName" class="col-sm-2 control-label">Remark :</label>
+										<div class="col-sm-10">
+
+											<textarea class="form-control input" placeholder="Dapata Anda abaikan jika keterangan / deskripsi diatas sudah cukup." id="Remark" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:80px;" autocomplete="off"></textarea>
+
+										</div>
+									</div>
+
+
+								</div>
+							</form>
+
+						</div>
+
+
+
+
+						<div id="tab_uploadProc" class="tab-pane fade" style="padding:10px;">
+
+
+							<table class="table table-responsive" id="table_mandatory_file">
+								@*<tr><td>Memo Permohonan <span style="color:red;">*</span></td><td width="2px">:</td><td width="80%"><input type="file" id="proc_file_1" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" /></td></tr>*@
+								<tr><td>Termn of Reference <span style="color:red;">*</span></td><td width="2px">:</td><td width="80%"><input type="file" id="proc_file_2" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" /></td></tr>
+								<tr><td>Risk Assesment <span style="color:red;">*</span></td><td>:</td><td><input type="file" id="proc_file_3" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" /></td></tr>
+								<tr><td>OE <span style="color:red;">*</span></td><td>:</td><td><input type="file" id="proc_file_5" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" /></td></tr>
+								<tr><td>TKDN <span style="color:red;">*</span></td><td>:</td><td><input type="file" id="proc_file_tkdn" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" /></td></tr>
+								<tr id="ip_upload"><td>Izin Prinsip <span style="color:red;">*</span></td><td>:</td><td><input type="file" id="proc_file_6" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" /></td></tr>
+								<tr id="bq_upload"><td>BQ <span style="color:red;">*</span></td><td>:</td><td><input type="file" id="proc_file_7" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" /></td></tr>
+								<tr><td>PR <span style="color:red;">&nbsp;</span></td><td>:</td><td><input type="file" id="proc_file_4" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" /></td></tr>
+
+							</table>
+
+
+						</div>
+
+						<div id="tab_upload_listProc" class="tab-pane fade" style="padding:0px;padding-top:0px;">
+
+							<table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
+								<tr>
+									<td width="50%" valign="top" style="padding-top:1px;">
+										<div id="gridUploadProc" style="height:297px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+									</td>
+									<td valign="middle" style="border-left:1px solid #ccc;">
+										<div id="preview_fileProc" style="text-align:center;">
+											<iframe src="" scrolling="no" id="frame_prevviewProc" frameborder="0" style="width:100%;height:290px;border:1px;"></iframe>
+										</div>
+									</td>
+
+								</tr>
+							</table>
+
+						</div>
+
+						<div id="tab_list_invitation" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+							<div id="gridInvitation" style="height:299px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+						</div>
+
+						<div id="tab_rpp" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+							<div id="rpp_fill" style="border:1px solid #dedede;margin:10px;padding:10px;height:250px;overflow-y:scroll;background-color:#fdfde9;">
+
+
+							</div>
+
+						</div>
+						<div id="tab_nego" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+							<div id="nego_fill" style="border:1px solid #dedede;margin:10px;padding:10px;height:250px;overflow-y:scroll;background-color:#fdfde9;">
+
+
+							</div>
+
+						</div>
+
+						<div id="tab_tunjuk" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+							<div id="tunjuk_fill" style="border:1px solid #dedede;margin:10px;padding:10px;height:250px;overflow-y:scroll;background-color:#fdfde9;">
+
+
+							</div>
+
+						</div>
+
+						<div id="tab_sanggup" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+							<div id="sanggup_fill" style="border:1px solid #dedede;margin:10px;padding:10px;height:250px;overflow-y:scroll;background-color:#fdfde9;">
+
+
+							</div>
+
+						</div>
+
+						<div id="tab_alert_configProc" class="tab-pane fade" style="padding:0px;padding-top:0px;">
+
+
+
+							<table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
+
+								<tr>
+									<td width="60%" valign="top" style="padding-top:1px;">
+										<div id="gridEmailProc" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+									</td>
+									<td valign="top" style="border-left:1px solid #ccc;">
+										<div id="setting_boxProc" style="padding:10px;padding-top:30px;">
+
+
+
+											<div style="font-size:20px;padding-left:10px;">Alert Setting</div><br />
+
+											<div class="form-group">
+												<label for="inputName" class="col-sm-4 control-label">Enabled Alert</label>
+												<div class="col-sm-6">
+
+
+													<div class="col-xs-2">
+
+														<label>
+															<input name="switch-field-1" class="ace ace-switch" type="checkbox" id="Snooze" />
+															<span class="lbl"></span>
+														</label>
+													</div>
+
+												</div>
+											</div>
+
+											<div class="form-group">
+												<label for="inputName" class="col-sm-4 control-label">Start From</label>
+												<div class="col-sm-6">
+
+													<input type="text" id="AlertDay" readonly />
+
+													<span class="lbl" style="font-size:11px;">Day before contract expire</span>
+
+												</div>
+											</div>
+
+										</div>
+									</td>
+
+								</tr>
+							</table>
+
+						</div>
+
+						<div id="tab_contract_proc" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+							<div id="gridContractProc" style="height:299px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+						</div>
+
+						<div id="list_historyProc" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+							<div id="gridHitoryProc" style="height:299px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+						</div>
+
+
+					</div>
+				</div>
+
+			</div>
+			<div class="modal-footer" id="fot_form_procurement">
+
+
+
+			</div>
+		</div>
+
+	</div>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalInvitation" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title"><i class="fa fa-paper-plane-o" aria-hidden="true" style="color:dodgerblue;"></i> Tambah Undangan</h4>
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Tujuan Undangan <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+
+								<div class="input-group">
+
+									<input class="form-control inv_field" id="inv_to" placeholder="Disarankan untuk diisi dengan nama calon vendor !" type="text" onkeypress="if (event.keyCode == 13){$('#inv_contact_person').focus();}" autocomplete="off">
+
+									<span class="input-group-addon" id="isi_manual" style="cursor:pointer;" onclick="isi_manual_vendor();">
+										<i class="fa fa-pencil-square-o"></i> <span style="font-size:11px;">Isi Manual</span>
+									</span>
+
+									<span class="input-group-addon" id="find_vendor" style="cursor:pointer;" onclick="find_vendor();">
+										<i class="fa fa-search bigger-110"></i> <span style="font-size:11px;">Cari Dari I-Vend</span>
+									</span>
+
+								</div>
+
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Contact Person <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input class="form-control inv_field" id="inv_contact_person" type="text" placeholder="" onkeypress="if (event.keyCode == 13){$('#inv_phone').focus();}" autocomplete="off">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Phone <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input class="form-control inv_field" id="inv_phone" type="text" placeholder="" onkeypress="if (event.keyCode == 13){$('#inv_email').focus();}" autocomplete="off">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Alamat Email <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input class="form-control inv_field" id="inv_email" type="text" placeholder="Disarankan untuk diisi dengan alamat email calon vendor" onkeypress="if (event.keyCode == 13){$('#inv_alamat').focus();}" autocomplete="off">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Alamat <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<textarea class="form-control inv_field" id="inv_alamat" placeholder="Disarankan untuk diisi dengan ikhtisar undangan" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:100px;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label">Descriptions &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="inv_description" placeholder="Disarankan untuk diisi dengan ikhtisar undangan" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:50px;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Upload File Pendukung <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input type="file" id="proc_file_undangan" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" multiple />
+							</div>
+						</div>
+					</div>
+				</form>
+
+			</div>
+			<div class="modal-footer">
+
+				<button type="button" class="btn btn-info btn-sm" onclick="save_invitation()">Add</button>
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalReject" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Tinggalkan alasan, kenapa pengajuan ini direject !</h4>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+							<div class="col-sm-12">
+								<textarea class="form-control" id="proc_rejct_reason" placeholder="* Tinggalkan keterangan kenapa pengajuan ini direject !" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:100px;background-color:#faffbc;font-size:14px;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+
+			<button type="button" class="btn btn-danger btn-sm" onclick="save_procurement('REJECT')">Reject</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalRpp" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Update Rapat Penjelasan</h4>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Summary <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="proc_rpp_reason" placeholder="* Tinggalkan summary dari hasil rapat penjelasan !" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:150px;background-color:#faffbc;font-size:14px;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Upload File Pendukung &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input type="file" id="proc_file_rpp" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" multiple />
+							</div>
+						</div>
+
+					</div>
+				</form>
+
+			</div>
+
+
+
+
+		</div>
+		<div class="modal-footer">
+
+			<button type="button" class="btn btn-primary btn-sm" onclick="save_procurement('RPP')">Ok</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalNego" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Update Hasil Negosiasi</h4>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Summary <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="proc_nego_reason" placeholder="* Tinggalkan summary dari hasil negosiasi !" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:150px;background-color:#faffbc;font-size:14px;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Nilai Negosiasi <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input type="text" id="temp_negotiation_value" hidden />
+								<input class="form-control" type="text" id="negotiation_value" placeholder="* Nilai yang disepakati setelah dilakukan negosiasi " autocomplete="off" onkeyup="format_currency('negotiation_value','temp_negotiation_value')" onmouseup="format_currency('negotiation_value','temp_negotiation_value')">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Upload File Pendukung &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input type="file" id="proc_file_nego" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" multiple/>
+							</div>
+						</div>
+
+					</div>
+				</form>
+			</div>
+
+		</div>
+		<div class="modal-footer">
+			<button type="button" class="btn btn-primary btn-sm" onclick="save_procurement('NEGO')">Ok</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalTunjuk" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Update BA Penunjukan</h4>
+
+			</div>
+
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Summary <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="proc_tunjuk_reason" placeholder="* Tinggalkan keterangan penunjukan !" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:150px;background-color:#faffbc;font-size:14px;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Upload File Pendukung  &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input type="file" id="proc_file_tunjuk" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" multiple />
+							</div>
+						</div>
+
+					</div>
+
+				</form>
+			</div>
+
+
+		</div>
+		<div class="modal-footer">
+
+			<button type="button" class="btn btn-primary btn-sm" onclick="save_procurement('PENUNJUKAN')">Ok</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalSanggup" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Update BA Kesanggupan</h4>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Summary <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="proc_sanggup_reason" placeholder="* Tinggalkan keterangan kesanggupan !" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:150px;background-color:#faffbc;font-size:14px;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Upload File Pendukung  &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input type="file" id="proc_file_sanggup" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" multiple />
+							</div>
+						</div>
+
+					</div>
+			</div>
+			</form>
+
+
+
+		</div>
+		<div class="modal-footer">
+
+			<button type="button" class="btn btn-primary btn-sm" onclick="save_procurement('KESANGGUPAN')">Ok</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+		</div>
+	</div>
+</div>
+
+
+<div class="modal fade" id="ModalUploadFile" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">Uploda File Pendukung</h4>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Pilih Tipe Dokumen<mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<select class="form-control select2" id="proc_file_pendukung_doc_type" onchange="$('#proc_file_pendukung_upload').focus()">
+									<option value="" selected>-- Pilih Tipe Dokumen--</option>
+
+									@foreach (var item in ViewBag._DocTypeList)
+									{
+
+										<option value="@item.Id">@item.DocType</option>
+
+									}
+									<option value="12" selected>File Lain-Lain</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Upload File Pendukung <mandatory>*</mandatory> &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<input type="file" id="proc_file_pendukung_upload" required accept=".jpg,.jpeg,.pdf,.png,.xls" class="uploader" />
+							</div>
+						</div>
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-2 control-label mandatory">Keterangan  &nbsp;&nbsp;:</label>
+							<div class="col-sm-10">
+								<textarea class="form-control" id="proc_file_pendukung_desc" placeholder="Tinggalkan keterangan jika perlu !" style="color:#333;resize:none;font-size:11px;padding-left:3px;height:150px;background-color:#faffbc;font-size:14px;" autocomplete="off"></textarea>
+							</div>
+						</div>
+
+					</div>
+			</div>
+			</form>
+
+
+
+		</div>
+		<div class="modal-footer">
+
+			<button type="button" class="btn btn-primary btn-sm" onclick="save_upload_file()">Ok</button>
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalVendor" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Pilih Vendor</h4>
+				<span style="font-size:11px;">Double click on item or select an item and click select button  !</span>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="gridVendor" style="height:390px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>
+				<button type="button" class="btn btn-info btn-sm" " onclick="select_vendor()">Select</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="ModalInvAttactment" role="dialog">
+	<div class="modal-dialog modal-lg">
+		<div class="modal-content" style="border:none;">
+			<div class="modal-header">
+				<h4 class="modal-title">List Attachment For Invited Vendor !</h4>
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="gridAttachmentIvitedVendor" style="border-radius:0px;border:none;border-top:1px solid #ccc;height:299px;" class="responsive"></div>
+
+			</div>
+
+		</div>
+		<div class="modal-footer">
+
+			<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+
+		</div>
+	</div>
+</div>
+
+
+
+<script>
+
+	var SelectedInvId = 0;
+	var curr_count_winner = 0;
+
+	function procurement_detail_form(FLAG) {
+
+		$('a[href="#info_Proc"]').tab('show');
+		$('#ExpectedDate').w2field('date', { format: 'yyyy/mm/dd' });
+		$("#proc_rejct_reason").val("");
+		$("#proc_rpp_reason").val("");
+		$("#proc_tunjuk_reason").val("");
+		$("#tab_rpp_caption").hide();
+		$("#tab_nego_caption").hide();
+		$("#tab_tunjuk_caption").hide();
+		$("#tab_sanggup_caption").hide();
+		$("#tab_contract_proc_caption").hide();
+		$("#ip_upload").hide();
+		$("#frame_prevviewProc").attr("src", "");
+	
+
+		var file_input = $('.uploader');
+		file_input.ace_file_input('reset_input');
+
+		switch (FLAG) {
+
+			case "ADD":
+
+				$('#ModProcurement .form-control').prop('readonly', false);
+				$('#ModProcurement .select2').prop('disabled', false);
+
+				current_proc = [];
+
+				$("#ModProcurement #group_procId").hide();
+				$("#ModProcurement .modal-title").html("Add New Procurement");
+				button = '<button type="button" class="btn btn-info btn-sm" onclick="save_procurement(\'ADD\')">Save</button><button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>'
+				$("#fot_form_procurement").html(button);
+
+				$("#tab_historyProc").hide();
+				$("#tab_upload_list_captionProc").hide();
+				$("#tab_list_invitation_caption").hide();
+				$("#tab_upload_captionProc").show();
+				$("#frame_prevviewProc").attr("src", "");
+
+				form_default();
+				$('#ModProcurement').on('shown.bs.modal', function () {
+					$("#Title").focus();
+				});
+
+				break;
+
+			case "VIEW":
+
+				form_filling(current_proc);
+
+				var DataSummary = new FormData();
+				DataSummary.append('ProcId', current_proc.Id);
+
+				var DataSummary_Get = $.ajax({
+					url: URL_PTPR + '/Procurement/GetSummary',
+					type: 'POST',
+					data: DataSummary,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+				});
+
+				//responseJSON
+				rec_summary = DataSummary_Get.responseJSON[0];
+				curr_count_winner = rec_summary.CountWinner;
+			
+				$('#ModProcurement .form-control').prop('readonly', true);
+				$('#ModProcurement .select2').prop('disabled', true);
+
+				$("#ModProcurement #group_procId").show();
+				$("#tab_upload_captionProc").hide();
+				$("#tab_upload_list_captionProc").show();
+				$("#tab_historyProc").show();
+					
+				if (current_proc.Status != 1 && current_proc.Status != 0 && current_proc.Status != 12) { $("#tab_list_invitation_caption").show(); render_grid_invitation(); } else { $("#tab_list_invitation_caption").hide() }
+
+				if (current_proc.Status > 3 && current_proc.Status != 12) { $("#tab_rpp_caption").show(); $("#rpp_fill").html(rec_summary.RppSummary); }
+				if (current_proc.Status > 4 && current_proc.Status != 12) { $("#tab_nego_caption").show(); $("#nego_fill").html(rec_summary.NegotiationSummary); }
+				if (current_proc.Status > 8 && current_proc.Status != 12) { $("#tab_tunjuk_caption").show(); $("#tunjuk_fill").html(rec_summary.PenunjukanSummary); }
+				if (current_proc.Status > 9 && current_proc.Status != 12) { $("#tab_sanggup_caption").show(); $("#sanggup_fill").html(rec_summary.KesanggupanSummary); }
+				if (current_proc.Status > 10 && current_proc.Status != 12) { $("#tab_contract_proc_caption").show(); render_grid_contract_proc(); }
+
+				if (current_proc.Status == 12) {
+
+					$('#ModProcurement .form-control').prop('readonly', false);
+					$('#ModProcurement .select2').prop('disabled', false);
+				}
+
+				render_grid_upload();
+
+				$("#ModProcurement .modal-title").html( '<i class="fa fa-list-ul" aria-hidden="true"></i> ' + "Detail Pengajuan : #" + current_proc.Id + "<i class='fa fa-arrow-right' aria-hidden='true'></i> #" + current_proc.StatusName + "<i class='fa fa-arrow-right' aria-hidden='true'></i> #Create By: " + current_proc.CreateUser + " On " + current_proc.CreateDate);
+
+				var DataSave = new FormData();
+				DataSave.append('Id', current_proc.Id);
+				var allow_button = $.ajax({
+					url: URL_PTPR + '/Button/Procurement_AllowButton',
+					type: 'POST',
+					data: DataSave,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+					processData: false,
+				});
+
+				button_cancel = '</button><button type="button" class="btn tn-default btn-sm" data-dismiss="modal">Cancel</button>';
+				button_action = allow_button.responseText;
+
+				$("#fot_form_procurement").html(button_action + button_cancel)
+
+
+				$('#ModProcurement').on('shown.bs.modal', function () {
+					$("#Title").focus();
+				});
+
+				break;
+
+
+
+		}
+
+
+		$('#ProcId').prop('disabled', true);
+
+		$('#ModProcurement').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+	}
+
+	function form_default() {
+
+
+
+		$("#ProcId").val("");
+		$("#Title").val("");
+		$("#Descriptions").val("");
+		$("#FungsiName").val("").trigger('change');
+		$("#PrNo").val("");
+		$("#ExpectedDate").val("");
+		$("#ProcurementDate").val("");
+		$("#Remark").val("");
+		$("#temp_ProcurementValue").val("");
+		$("#ProcurementValue").val("");
+		$("#MetodePenunjukan").val("").trigger('change');
+
+
+	}
+
+	function form_filling(record) {
+
+		$("#ProcId").val(record.recid);
+		$("#Title").val(record.Title);
+		$("#Descriptions").val(record.Descriptions);
+		$("#FungsiName").val(record.Function).trigger('change');
+		$("#PrNo").val(record.NoPR);
+		$("#ExpectedDate").val(record.ExpectedDate);
+		$("#Remark").val(record.Remark);
+		$("#ProcurementValue").val(record.Value);
+		$("#ProcurementValue").val(record.Value);
+
+		$("#MetodePenunjukan").val(record.MetodePenunjukan).trigger('change');
+		format_currencyproc("ProcurementValue", "temp_ProcurementValue")
+
+
+
+
+	}
+
+
+	function render_grid_upload() {
+
+		if (w2ui['gridUploadProc'] != null) {
+
+			w2ui['gridUploadProc'].destroy();
+
+		}
+
+		toolModif = false;
+
+		if ((current_proc.Status == 12)) {
+			toolModif = true;
+		}
+
+
+		$('#gridUploadProc').w2grid({
+			name: 'gridUploadProc',
+			show: {
+				footer: true,
+				lineNumbers: true,
+				toolbarAdd: true,
+				toolbarDelete: true,
+				toolbarInput: false,
+				toolbarReload: false,
+				toolbarColumns: false,
+				toolbar: toolModif,
+			},
+			columns: [
+				{ field: 'DocType', caption: 'Document Type', size: '200px' },
+				{ field: 'FileName', caption: 'File Name', size: '100px' },
+				{
+					field: 'FileName', caption: '', size: '100%',
+					render: function (record) {
+						debugger
+						var download = '<a href="' + URL_PTR + '/Procurement/File?id=' + record.Id + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> View Full Page</a>';
+						return download;
+					}
+				},
+
+			],
+			onAdd: function (event) {
+
+				$("#proc_file_pendukung_doc_type").val("").trigger('change');
+				$("#proc_file_pendukung_desc").val("");
+				var file_ = $('#proc_file_pendukung_upload');
+				file_.ace_file_input('reset_input');
+
+				$('#ModalUploadFile').on('shown.bs.modal', function () {
+				});
+
+				$('#ModalUploadFile').modal(
+					{
+						backdrop: 'static',
+						keyboard: false
+					}
+				);
+
+			},
+			onReload: function (event) {
+				//refresh_upload_Proc($("#ProcId").val());
+			},
+			onSelect: function (event) {
+
+				if (event.recid != undefined) {
+					var record = this.get(event.recid);
+					var file_url = URL_PTR + "/Procurement/File/" + record.Id;
+					$("#frame_prevviewProc").attr("src", file_url);
+
+				}
+
+			},
+			onUnselect: function (event) {
+
+				$("#frame_prevviewProc").attr("src", "");
+			},
+			onDelete: function (event) {
+
+				var sel = this.getSelection();
+				if (event.force == true) {
+
+					render_wait();
+
+					sel.forEach(function (entry) {
+
+						var record = w2ui.gridUploadProc.get(entry);
+
+						var Delete = $.ajax({
+							url: URL_PTR + '/Procurement/DeleteFilePendukung/' + record.recid,
+							type: 'POST',
+							dataType: "json",
+							cache: false,
+							async: false,
+							contentType: false,
+							processData: false,
+						});
+
+
+					});
+
+
+					clear_wait();
+					$('#modal_uploadProc').modal("hide");
+
+				}
+
+			},
+
+		});
+
+		refresh_upload_Proc();
+		render_grid_history();
+	}
+
+	function refresh_upload_Proc() {
+
+		Id = current_proc.recid;
+		w2ui['gridUploadProc'].load(URL_PTR + '/Procurement/ProcurementFile/' + Id);
+
+
+	}
+
+
+	function render_grid_history() {
+
+		if (w2ui['gridHitoryProc'] != null) {
+			w2ui['gridHitoryProc'].destroy();
+		}
+
+		$('#gridHitoryProc').w2grid({
+			name: 'gridHitoryProc',
+			url: URL_PTR + '/Procurement/LogProcess/' + current_proc.Id,
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: false,
+				toolbarAdd: true,
+				toolbarDelete: true,
+			},
+			columns: [
+				{ field: 'FromName', caption: 'From', size: '200px' ,info:true},
+				{ field: 'ToName', caption: 'To', size: '200px' },
+				{ field: 'Descriptions', caption: 'Note', size: '300px' },
+				{ field: 'Executor', caption: 'Executor', size: '100%' },
+			]
+		});
+
+	}
+
+
+
+
+	function render_grid_invitation() {
+
+
+		toolModif = false;
+
+
+		@if (ROLES.CheckAllowExtendAccess(User.Identity.Name.ToString(), 99) == true) {
+
+		<text>
+
+			if (current_proc.Status == 2) {
+				toolModif = true;
+			}
+
+		</text>
+
+		}
+
+
+
+		if (w2ui['gridInvitation'] != null) {
+			w2ui['gridInvitation'].destroy();
+		}
+
+		$('#gridInvitation').w2grid({
+			name: 'gridInvitation',
+			url: URL_PTR + '/Procurement/InvitationList/' + current_proc.Id,
+			show: {
+				header: false,
+				footer: true,
+				toolbarAdd: toolModif,
+				toolbarDelete: toolModif,
+				lineNumbers: true,
+				selectColumn: true,
+				toolbar: toolModif,
+			},
+			columns: [
+				{ field: 'InvToName', caption: 'Nama Tujuan', size: '200px' ,info:true},
+				{ field: 'InvContactPerson', caption: 'Contact Person', size: '100px' },
+				{ field: 'InvPhone', caption: 'Phone', size: '100px' },
+				{ field: 'InvMail', caption: 'Email', size: '100px' },
+				{ field: 'InvAddress', caption: 'Address', size: '100px' },
+				{ field: 'InvDescription', caption: 'Description', size: '100px' },
+				{ field: 'UsulanPemenangName', caption: 'Usulan', size: '250px' },
+				{
+					field: 'FileName', caption: 'Attachment', size: '100%',
+					render: function (record) {
+						debugger
+						var download = '<a href="#" onclick="list_attachment_inv(\'' + record.Id + '\')"><i class="fa fa-list" aria-hidden="true" ></i> Attachment List</a>';
+						return download;
+					}
+				},
+			],
+			onAdd: function (event) {
+
+				var file_inv = $('#proc_file_undangan');
+				file_inv.ace_file_input('reset_input');
+				$(".inv_field").prop('readonly', false);
+				$("#isi_manual").hide();
+				$("#inv_to").val("");
+				$("#inv_email").val("");
+				$("#inv_description").val("");
+				$("#inv_contact_person").val("");
+				$("#inv_phone").val("");
+				$("#inv_alamat").val("");
+
+				InvVendorId = "0";
+
+				$('#ModalInvitation').on('shown.bs.modal', function () {
+					$("#inv_to").focus();
+				});
+
+				$('#ModalInvitation').modal(
+					{
+						backdrop: 'static',
+						keyboard: false
+					}
+				);
+
+
+
+			},
+			onDelete: function (event) {
+
+
+				var sel = this.getSelection();
+				if (event.force == true) {
+
+
+
+					sel.forEach(function (entry) {
+
+						var record = w2ui.gridInvitation.get(entry);
+
+						var Simpan = $.ajax({
+							url: URL_PTR + '/Procurement/DeleteInvitation/' + record.Id,
+							type: 'POST',
+							dataType: "json",
+							cache: false,
+							async: false,
+							contentType: false,
+							processData: false,
+						});
+
+					});
+
+
+
+
+				}
+
+			},
+		});
+
+	}
+
+	function list_attachment_inv(Id) {
+
+		//ModalInvAttactment
+		//gridAttachmentIvitedVendor
+		SelectedInvId = Id;
+		
+		if (w2ui['gridAttachmentIvitedVendor'] != null) { w2ui['gridAttachmentIvitedVendor'].destroy(); }
+
+		$('#ModalInvAttactment').on('shown.bs.modal', function () {
+
+			$('#gridAttachmentIvitedVendor').w2grid({
+
+				name: 'gridAttachmentIvitedVendor',
+				url: URL_PTPR + '/Procurement/AttachmentInvitedVendorList?Id=' + SelectedInvId + '&ProcId=' + current_proc.Id,
+				show: {
+					header: false,
+					footer: true,
+					lineNumbers: true,
+					toolbarAdd: false,
+					toolbarDelete: false,
+					toolbar: true,
+					toolbarSearch: false,
+				},
+				toolbar: {
+					items: [
+						//{ type: 'button', id: 'view_attachment', caption: '<i class="fa fa-folder-open" aria-hidden="true" style="color:orange;"></i> View Attachment Beside of Draft', disabled: true },
+						//{ type: 'break' },
+						{ type: 'button', id: 'view_in_new_tab', caption: '<i class="fa fa-external-link" aria-hidden="true" style="color:green;"></i> Lihat File', disabled: true },
+					],
+					onClick: function (target, data) {
+
+						switch (target) {
+
+							case 'view_in_new_tab':
+								var sel = w2ui.gridAttachmentIvitedVendor.getSelection();
+								var record = w2ui.gridAttachmentIvitedVendor.get(sel[0]);
+								var file_url = "";
+								if (record.API == "DocMan") {
+									file_url = URL_PTPR + "/EContract/ViewAttachment?Id=" + record.ID;
+								}
+								else {
+									file_url = URL_PTPR + '/File_Contract/' + record.FileName_org;
+								}
+
+								window.open(file_url, '_blank');
+								break;
+
+						}
+
+					}
+				},
+				columns: [
+
+					{ field: 'DocType', caption: 'Tipe Dokumen', size: '200px', searchable: 'text' },
+					{ field: 'FileName', caption: 'File Name', size: '100%', searchable: 'text' }
+
+				],
+				onDblClick: function (event) {
+
+					var record = this.get(event.recid);
+					var file_url = "";
+					if (record.API == "DocMan") {
+						file_url = URL_PTPR + "/EContract/ViewAttachment?Id=" + record.ID;
+					}
+					else {
+						file_url = URL_PTPR + '/File_Contract/' + record.FileName_org;
+					}
+
+					window.open(file_url, '_blank');
+				},
+				onSelect: function (event) {
+
+					event.onComplete = function () {
+						var contract = w2ui.gridAttachmentIvitedVendor.getSelection();
+						//w2ui['gridLampiran'].toolbar.disable('view_attachment');
+						w2ui['gridAttachmentIvitedVendor'].toolbar.disable('view_in_new_tab');
+
+						if (contract.length == 1) {
+							var record = this.get(event.recid);
+							//w2ui['gridLampiran'].toolbar.enable('view_attachment');
+							w2ui['gridAttachmentIvitedVendor'].toolbar.enable('view_in_new_tab');
+
+						}
+					}
+
+				},
+				onUnselect: function (event) {
+
+					event.onComplete = function () {
+						var contract = w2ui.gridAttachmentIvitedVendor.getSelection();
+						//w2ui['gridLampiran'].toolbar.disable('view_attachment');
+						w2ui['gridAttachmentIvitedVendor'].toolbar.disable('view_in_new_tab');
+
+						if (contract.length == 1) {
+
+							var record = this.get(event.recid);
+							//w2ui['gridLampiran'].toolbar.enable('view_attachment');
+							w2ui['gridAttachmentIvitedVendor'].toolbar.enable('view_in_new_tab');
+
+						}
+					}
+				}
+
+
+			});
+		})
+
+		$('#ModalInvAttactment').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+	}
+
+	function render_grid_contract_proc() {
+
+		if (w2ui['gridContractProc'] != null) {
+			w2ui['gridContractProc'].destroy();
+		}
+
+		$('#gridContractProc').w2grid({
+			name: 'gridContractProc',
+			textSearch: 'contains',
+			url: URL_PTR + '/Contract/FindContractByProcId/' + current_proc.Id,
+			show: {
+
+				header: false,
+				toolbar: false,
+				footer: true,
+				lineNumbers: true,
+				selectColumn: true,
+				toolbarSearch: false,
+				toolbarAdd: false
+			},
+
+			columns: [
+
+				{ field: 'DayAlert', caption: 'Info.', size: '200px', sortable: true, searchable: 'text', resizable: true, info: true },
+				{ field: 'ContractId', caption: 'Contract Id.', size: '150px', sortable: true, searchable: 'text', resizable: true, },
+				{ field: 'ContractNo', caption: 'Contract No.', size: '150px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'ContractTitle', caption: 'Title', size: '300px', resizable: true, sortable: true, searchable: 'text', style: 'word-wrap:break-word;' },
+				{ field: 'BeginDate', caption: 'Start Date', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'EndDate', caption: 'End Date', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'Files', caption: 'Attachment', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'AlertDestination', caption: 'Mail Destination', size: '150px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'ContractValue', caption: '<div style="text-align:right;">Value (Rp.)</div>', size: '100px', resizable: true, sortable: true, searchable: 'text', render: 'number' },
+				{ field: 'ContractTypeName', caption: 'Contract Type', size: '100px', resizable: true, sortable: true, searchable: 'text' },
+				{ field: 'PenanggungJawabPihak1', caption: 'Contract Signing Officer', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'FungsiName', caption: 'Fungsi', size: '100px', sortable: true, searchable: 'text', resizable: true },
+				{ field: 'Creator', caption: 'Creator', size: '100px', resizable: true, sortable: true, searchable: 'text', max: '400px' },
+				{ field: 'Updater', caption: 'Updater', size: '100%', resizable: true, sortable: true, searchable: 'text', max: '400px' },
+
+			],
+
+		});
+
+	}
+
+
+	function save_procurement(FLAG) {
+
+		var MetodePenunjukan = $("#MetodePenunjukan").val();
+		//var RiskAssesmentKategori_ = $("#RiskAssesmentKategori").val(); 
+		var DocTypeCode = 0;
+
+		if ($("#Title").val() == "") {
+
+			$('a[href="#info_Proc"]').tab('show');
+			$("#Title").focus();
+			w2alert("Title No may not be empty !");
+			return;
+
+		}
+		//if ($("#RiskAssesmentKategori").val() == "") {
+
+		//	$('a[href="#info_Proc"]').tab('show');
+		//	$("#RiskAssesmentKategori").focus();
+		//	w2alert('Select risk assesment level !');
+
+		//	return;
+
+
+		//}
+
+		if ($("#Title").val() == "") {
+
+			$('a[href="#info_Proc"]').tab('show');
+			$("#Title").focus();
+			w2alert("Title No may not be empty !");
+			return;
+
+		}
+
+
+
+		if ($("#Descriptions").val() == "") {
+
+			$('a[href="#info_Proc"]').tab('show');
+			$("#Descriptions").focus();
+			w2alert("Descriptions No may not be empty !");
+
+			return;
+
+		}
+
+
+
+		if ($("#PrNo").val() == "") {
+
+			$('a[href="#info_Proc"]').tab('show');
+			$("#PrNo").focus();
+			w2alert("PR may not be empty !");
+
+			return;
+
+		}
+
+
+		if ($("#ProcurementValue").val() == "") {
+
+			$('a[href="#info_Proc"]').tab('show');
+			$("#ProcurementValue").focus();
+			w2alert("Contract Value may not be empty !");
+
+			return;
+
+		}
+
+
+
+
+		if ($("#ExpectedDate").val() == "") {
+
+			$('a[href="#info_Proc"]').tab('show');
+			$("#ExpectedDate").focus();
+			alert("ExpectedDate Date is empty!");
+
+			return;
+
+		}
+
+
+
+		if (FLAG == "INVITE") {
+
+			var ListInvite = w2ui['gridInvitation'].records;
+
+			if (ListInvite.length < 1) {
+				w2alert("Anda tidak dapat menandai pengajuan ini telah diinvite karena list invitation masih kosong, silahkan diisi terlebih dahulu !");
+				$('a[href="#tab_list_invitation"]').tab('show');
+				return;
+			}
+
+		}
+
+
+
+		if (FLAG == "REJECT") {
+
+			if ($("#proc_rejct_reason").val() == "") {
+				$('#ModalReject').on('shown.bs.modal', function () {
+					$("#proc_rejct_reason").focus();
+				});
+
+				$('#ModalReject').modal(
+					{
+						backdrop: 'static',
+						keyboard: false
+					}
+				);
+
+				$("#proc_rejct_reason").focus();
+
+				return;
+			}
+
+		}
+
+
+		if (FLAG == "RPP") {
+
+			if ($("#proc_rpp_reason").val() == "") {
+				$('#ModalRpp').on('shown.bs.modal', function () {
+					$("#proc_rpp_reason").focus();
+				});
+
+				$('#ModalRpp').modal(
+					{
+						backdrop: 'static',
+						keyboard: false
+					}
+				);
+
+				$("#proc_rpp_reason").focus();
+
+				return;
+			}
+
+		}
+
+
+		if (FLAG == "NEGO") {
+
+			if ($("#proc_nego_reason").val() == "") {
+
+				$('#ModalNego').on('shown.bs.modal', function () {
+					$("#proc_nego_reason").focus();
+				});
+
+				$('#ModalNego').modal(
+					{
+						backdrop: 'static',
+						keyboard: false
+					}
+				);
+
+				$("#proc_nego_reason").focus();
+
+				return;
+			}
+
+
+			if ($("#negotiation_value").val() == "") {
+
+				$('#ModalNego').on('shown.bs.modal', function () {
+					$("#negotiation_value").focus();
+				});
+
+				$('#ModalNego').modal(
+					{
+						backdrop: 'static',
+						keyboard: false
+					}
+				);
+
+				$("#negotiation_value").focus();
+
+				return;
+			}
+
+		}
+
+		if (FLAG == "USUL") {
+
+
+			var ListUsul = w2ui['gridInvitation'].getSelection();
+
+
+			if (ListUsul.length < 1) {
+				w2alert("Harap check list 1 atau lebih  usulan pemenang pada list undangan !");
+				$('a[href="#tab_list_invitation"]').tab('show');
+				return;
+			}
+
+
+		}
+
+
+		if (FLAG == "PENGUMUMAN") {
+
+
+			var ListUsul = w2ui['gridInvitation'].getSelection();
+
+
+
+			if (ListUsul.length < 1) {
+				w2alert("Harap check list 1  pemenang saja pada list undangan !");
+				$('a[href="#tab_list_invitation"]').tab('show');
+				return;
+			}
+
+			//if (ListUsul.length > 1) {
+			//	w2alert("Harap check list 1  pemenang saja pada list undangan !");
+			//	$('a[href="#tab_list_invitation"]').tab('show');
+			//	return;
+			//}
+
+
+			if (ListUsul.length == 1) {
+
+				rec_inv = w2ui['gridInvitation'].get(ListUsul[0]);
+
+				if (rec_inv.Status == 0) {
+
+					w2alert("Harap pilih pemenang yang telah diusulkan !");
+					$('a[href="#tab_list_invitation"]').tab('show');
+					return;
+
+				}
+			}
+
+		}
+
+		if (FLAG == "PENUNJUKAN") {
+
+			if ($("#proc_tunjuk_reason").val() == "") {
+				$('#ModalTunjuk').on('shown.bs.modal', function () {
+					$("#proc_tunjuk_reason").focus();
+				});
+
+				$('#ModalTunjuk').modal(
+					{
+						backdrop: 'static',
+						keyboard: false
+					}
+				);
+
+				$("#proc_tunjuk_reason").focus();
+
+				return;
+			}
+
+		}
+
+		if (FLAG == "KESANGGUPAN") {
+
+			if ($("#proc_sanggup_reason").val() == "") {
+				$('#ModalSanggup').on('shown.bs.modal', function () {
+					$("#proc_sanggup_reason").focus();
+				});
+
+				$('#ModalSanggup').modal(
+					{
+						backdrop: 'static',
+						keyboard: false
+					}
+				);
+
+				$("#proc_sanggup_reason").focus();
+
+				return;
+			}
+
+		}
+
+
+
+		//var file_memo = $("#proc_file_1").get(0).files;
+		var file_tor = $("#proc_file_2").get(0).files;
+		var file_ra = $("#proc_file_3").get(0).files;
+		var file_pr = $("#proc_file_4").get(0).files;
+		var file_oe = $("#proc_file_5").get(0).files;
+		var file_ip = $("#proc_file_6").get(0).files;
+		var file_bq = $("#proc_file_7").get(0).files;
+		var file_tkdn = $("#proc_file_tkdn").get(0).files;
+
+
+
+
+		if (FLAG == "ADD") {
+
+			//if (file_memo.length == 0) {
+
+			//	w2alert("Harap sertakan file memo permohonan !");
+			//	$('a[href="#tab_uploadProc"]').tab('show');
+			//	return;
+
+			//}
+
+			if (file_tor.length == 0) {
+
+				w2alert("Harap sertakan file term of reference !");
+				$('a[href="#tab_uploadProc"]').tab('show');
+				return;
+
+			}
+
+			if (file_ra.length == 0) {
+
+				w2alert("Harap sertakan file risk assesment !");
+				$('a[href="#tab_uploadProc"]').tab('show');
+				return;
+
+			}
+
+			if (file_pr.length == 0) {
+
+				w2alert("Harap sertakan file PR !");
+				$('a[href="#tab_uploadProc"]').tab('show');
+				return;
+
+			}
+
+			//if (file_oe.length == 0) {
+
+			//	w2alert("Harap sertakan file OE !");
+			//	$('a[href="#tab_uploadProc"]').tab('show');
+			//	return;
+
+			//}
+
+			if (file_tkdn.length == 0) {
+
+				w2alert("Harap sertakan file TKDN !");
+				$('a[href="#tab_uploadProc"]').tab('show');
+				return;
+
+			}
+
+			if (MetodePenunjukan == 3) {
+
+				if (file_ip.length == 0) {
+
+					w2alert("Harap sertakan file Izin Prinsip !");
+					$('a[href="#tab_uploadProc"]').tab('show');
+					return;
+
+				}
+			}
+
+			if (file_bq.length == 0) {
+
+				w2alert("Harap sertakan file BQ !");
+				$('a[href="#tab_uploadProc"]').tab('show');
+				return;
+
+			}
+
+		}
+
+
+
+		var DataSave = new FormData();
+
+		DataSave.append('FlagCrud', FLAG);
+		DataSave.append('ProcId', $("#ProcId").val());
+		DataSave.append('Title', $("#Title").val());
+		DataSave.append('Descriptions', $("#Descriptions").val());
+		DataSave.append('Function', $("#FungsiName").val());
+		DataSave.append('PrNo', $("#PrNo").val());
+		DataSave.append('ExpectedDate', $("#ExpectedDate").val());
+		DataSave.append('ProcurementDate', $("#ProcurementDate").val());
+		DataSave.append('Value', $("#temp_ProcurementValue").val());
+		DataSave.append('Vendor', "");
+		DataSave.append('Remark', $("#Remark").val());
+		DataSave.append('NegotiationValue', "0");
+		DataSave.append('MetodePenunjukan', MetodePenunjukan);
+		DataSave.append('RiskAssesmentKategori', $("#RiskAssesmentKategori").val());
+		//RiskAssesmentKategori
+
+		switch (FLAG) {
+			case "REJECT":
+				DataSave.append('Reason', $("#proc_rejct_reason").val());
+				break;
+			case "RPP":
+
+				var upload_file = $("#proc_file_rpp").get(0).files;
+				DocTypeCode = 8;
+
+				if (upload_file.length > 0) {
+
+					//DataSave.append("8", file_rpp[0]);
+					for (var i = 0; i < upload_file.length; i++) {
+
+						DataSave.append(upload_file[i].name, upload_file[i]);
+					}
+				
+				}
+
+				DataSave.append('Reason', $("#proc_rpp_reason").val());
+				break;
+
+			case "NEGO":
+
+				var upload_file = $("#proc_file_nego").get(0).files;
+				DocTypeCode = 9;
+				if (upload_file.length > 0) {
+
+					//DataSave.append("9", file_rpp[0]);
+					for (var i = 0; i < upload_file.length; i++) {
+
+						DataSave.append(upload_file[i].name, upload_file[i]);
+					}
+				}
+
+				DataSave.append('Reason', $("#proc_nego_reason").val());
+				DataSave.append('NegotiationValue', $("#temp_negotiation_value").val());
+
+				break;
+
+			case "USUL":
+
+				var ListUsul = w2ui['gridInvitation'].getSelection();
+				var recordUsul = [];
+
+				ListUsul.forEach(function (entry) {
+					var feed = { "Id": entry };
+					recordUsul.push(feed);
+
+				});
+
+				DataSave.append('Reason', JSON.stringify(recordUsul));
+				break;
+
+			case "PENGUMUMAN":
+
+				var ListUsul = w2ui['gridInvitation'].getSelection();
+				var recordUsul = [];
+
+				ListUsul.forEach(function (entry) {
+					var feed = { "Id": entry };
+					recordUsul.push(feed);
+
+				});
+
+				DataSave.append('Reason', JSON.stringify(recordUsul));
+				break;
+
+			case "PENUNJUKAN":
+				var upload_file = $("#proc_file_tunjuk").get(0).files;
+				DocTypeCode = 10
+				if (upload_file.length > 0) {
+
+					//DataSave.append("8", file_rpp[0]);
+					for (var i = 0; i < upload_file.length; i++) {
+
+						DataSave.append(upload_file[i].name, upload_file[i]);
+					}
+
+				}
+				DataSave.append('Reason', $("#proc_tunjuk_reason").val());
+				break;
+
+			case "KESANGGUPAN":
+			
+				var upload_file = $("#proc_file_sanggup").get(0).files;
+				DocTypeCode = 11;
+				if (upload_file.length > 0) {
+
+					for (var i = 0; i < upload_file.length; i++) {
+
+						DataSave.append(upload_file[i].name, upload_file[i]);
+					}
+
+				}
+
+
+				DataSave.append('Reason', $("#proc_sanggup_reason").val());
+				break;
+
+			default:
+				DataSave.append('Reason', "-");
+
+		}
+
+	
+		if (file_tor.length > 0) {
+			DataSave.append("2", file_tor[0]);
+		}
+		if (file_ra.length > 0) {
+			DataSave.append("3", file_ra[0]);
+		}
+		if (file_pr.length > 0) {
+			DataSave.append("4", file_pr[0]);
+		}
+		if (file_oe.length > 0) {
+			DataSave.append("5", file_oe[0]);
+		}
+		if (file_ip.length > 0) {
+			DataSave.append("6", file_ip[0]);
+		}
+
+		if (file_bq.length > 0) {
+			DataSave.append("13", file_bq[0]);
+		}
+
+
+		if (file_tkdn.length > 0) {
+			DataSave.append("14", file_tkdn[0]);
+		}
+
+		DataSave.append('DocTypeCode', DocTypeCode);
+
+		$('#Modal_load').show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTR + '/Procurement/SaveProcurement',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				$('#Modal_load').hide();
+				w2alert(Simpan.responseJSON["Result"]);
+			}
+			else {
+
+				UpdateCountProcProgress();
+				if (FLAG != "ADD") refresh_procurementt_list();
+				w2alert("Save data success !");
+				$('#Modal_load').hide();
+				$("#ModProcurement").modal("hide");
+				$("#ModalReject").modal("hide");
+				$("#ModalRpp").modal("hide");
+				$("#ModalNego").modal("hide");
+				$("#ModalTunjuk").modal("hide");
+				$("#ModalSanggup").modal("hide");
+
+
+			}
+
+
+		});
+
+
+
+
+	}
+
+
+
+	function save_invitation() {
+
+
+
+
+		if ($("#inv_to").val() == "") {
+			$("#inv_to").focus();
+			w2alert("Tujuan undangan harus diinput !");
+			return;
+
+		}
+
+		if ($("#inv_contact_person").val() == "") {
+			$("#inv_contact_person").focus();
+			w2alert("Contact person harus diinput !");
+			return;
+
+		}
+
+		if ($("#inv_phone").val() == "") {
+			$("#inv_phone").focus();
+			w2alert("Phone harus diinput !");
+			return;
+
+		}
+
+		if ($("#inv_email").val() == "") {
+			$("#inv_email").focus();
+			w2alert("Email undangan harus diinput !");
+			return;
+
+		}
+
+		if ($("#inv_alamat").val() == "") {
+			$("#inv_alamat").focus();
+			w2alert("Alamat harus diinput !");
+			return;
+
+		}
+
+
+		var file_undangan = $("#proc_file_undangan").get(0).files;
+		if (file_undangan.length == 0) {
+
+			w2alert("Harap sertakan file undangan !");
+			return;
+
+		}
+
+		var DataSave = new FormData();
+		DataSave.append('FlagCrud', 'ADD');
+		DataSave.append('ProcId', $("#ProcId").val());
+		DataSave.append('InvTo', $("#inv_to").val());
+		DataSave.append('InvMail', $("#inv_email").val());
+		DataSave.append('InvDescription', $("#inv_description").val());
+		DataSave.append('InvContactPerson', $("#inv_contact_person").val());
+		DataSave.append('InvPhone', $("#inv_phone").val());
+		DataSave.append('InvAlamat', $("#inv_alamat").val());
+		DataSave.append('InvVendorId', InvVendorId);
+
+
+		if (file_undangan.length > 0) {
+
+			for (var i = 0; i < file_undangan.length; i++) {
+
+				DataSave.append(file_undangan[i].name, file_undangan[i]);
+			}
+
+		}
+
+		$('#Modal_load').show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTR + '/Procurement/SaveInvitation',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				$('#Modal_load').hide();
+				w2alert(Simpan.responseJSON["Result"]);
+			}
+			else {
+
+				w2alert("Undangan berhasil ditambahakan");
+				w2ui['gridInvitation'].reload();
+				$('#Modal_load').hide();
+				$("#ModalInvitation").modal("hide");
+			}
+
+
+		});
+
+
+	}
+
+
+	function save_upload_file() {
+
+		if ($("#proc_file_pendukung_doc_type").val() == "") {
+			$("#proc_file_pendukung_doc_type").focus();
+			w2alert("Tipe Dokumen harus dipilih !");
+			return;
+
+		}
+
+		var file_pendukung = $("#proc_file_pendukung_upload").get(0).files;
+		if (file_pendukung.length == 0) {
+			w2alert("Harap sertakan file pendukung yang akan diupload !");
+			return;
+
+		}
+
+		var DocType_ = $("#proc_file_pendukung_doc_type").val();
+		var DocTypeRec = w2ui['gridUploadProc'].find({ DocTypeId: DocType_ });
+
+
+		if (DocType_ != 12) {
+			//check double file
+			if (DocTypeRec.length > 0) {
+				w2alert("Ops Dokumen degan tipe ini sudah pernah diupload, hapus terlebih dahulu file sebelumnya atau pilih tipe dokumen lain-lain !");
+				return;
+			}
+		}
+
+
+		var DataSave = new FormData();
+		DataSave.append('FlagCrud', 'ADD');
+		DataSave.append('ProcId', $("#ProcId").val());
+		DataSave.append('DocType', $("#proc_file_pendukung_doc_type").val());
+		DataSave.append('Descriptions', $("#proc_file_pendukung_desc").val());
+
+
+		if (file_pendukung.length > 0) {
+			DataSave.append("fiependukung", file_pendukung[0]);
+		}
+
+		$('#Modal_load').show("fade", function () {
+
+			var Simpan = $.ajax({
+				url: URL_PTR + '/Procurement/SaveFilePendukung',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+				$('#Modal_load').hide();
+				w2alert(Simpan.responseJSON["Result"]);
+			}
+			else {
+
+				w2alert("Upload file pendukung berhasil !");
+				refresh_upload_Proc();
+				$('#Modal_load').hide();
+				$("#ModalUploadFile").modal("hide");
+			}
+
+
+		});
+
+
+	}
+
+	function isi_manual_vendor() {
+
+		InvVendorId = "0";
+		$("#inv_to").val("");
+		$("#inv_contact_person").val("");
+		$("#inv_phone").val("");
+		$("#inv_email").val("");
+		$("#inv_alamat").val("");
+		$("#inv_to").focus();
+		$('.inv_field').prop('readonly', false);
+
+	}
+
+
+	function find_vendor() {
+
+
+
+		if (w2ui['gridVendor'] != null) {
+			w2ui['gridVendor'].destroy();
+		}
+
+
+		$('#ModalVendor').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+		$('#ModalVendor').on('shown.bs.modal', function () {
+
+			
+
+			$('#gridVendor').w2grid({
+
+				name: 'gridVendor',
+				multiSelect: false,
+				header: 'Daftar Contract',
+				textSearch: 'contains',
+				show: {
+					header: false,
+					toolbar: true,
+					footer: true,
+					toolbarSearch: false,
+				},
+				columns: [
+					{ field: 'Id', caption: 'Id', size: '60px', sortable: true, searchable: 'text' },
+					{ field: 'VendorId', caption: 'Vendor Id.', size: '100px', sortable: true, searchable: 'text' },
+					{ field: 'VendorName', caption: 'Name', size: '250px', sortable: true, searchable: 'text' },
+					{ field: 'Phone1', caption: 'Phone', size: '250px', sortable: true, searchable: 'text' },
+					{ field: 'Email1', caption: 'Mail', size: '250px', sortable: true, searchable: 'text' },
+					{ field: 'ContactName', caption: 'Contact Person', size: '250px', sortable: true, searchable: 'text' },
+					{ field: 'Alamat', caption: 'Alamat', size: '100%', sortable: true, searchable: 'text' },
+				],
+				onDblClick: function (event) {
+					select_vendor();
+				},
+				onLoad: function (event) {
+					
+				},
+				onReload: function (event) {
+					refresh_vendor();
+				}
+
+			});
+
+
+			refresh_vendor();
+		})
+	}
+
+	function refresh_vendor() {
+
+		w2ui['gridVendor'].load(URL_PTR + '/Procurement/FindVendor');
+
+
+	}
+
+	function select_vendor() {
+
+		var sel = w2ui.gridVendor.getSelection();
+		var record = w2ui.gridVendor.get(sel[0]);
+		InvVendorId = record.Id;
+
+		$("#inv_to").val(record.VendorName);
+		$("#inv_contact_person").val(record.ContactName);
+		$("#inv_phone").val(record.Phone1);
+		$("#inv_email").val(record.Email1);
+		$("#inv_alamat").val(record.Alamat);
+		$("#inv_description").focus();
+		$('.inv_field').prop('readonly', true);
+		$("#isi_manual").show();
+
+		$('#ModalVendor').modal("hide");
+
+
+
+	}
+
+	//not fucntional core business sytem code ..............***
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+		var target = $(e.target).attr("href");
+
+		if ((target == '#list_historyProc')) {
+			w2ui['gridHitoryProc'].refresh();
+		}
+		if ((target == '#tab_alert_configProc')) {
+			debugger
+			w2ui['gridEmailProc'].refresh();
+
+		}
+		if ((target == '#tab_alert_configProcVendor')) {
+			debugger
+			w2ui['gridSugestVendorProc'].refresh();
+
+		}
+		if ((target == '#tab_upload_listProc')) {
+			w2ui['gridUploadProc'].refresh();
+		}
+
+		if ((target == '#tab_list_invitation')) {
+			w2ui['gridInvitation'].refresh();
+		}
+
+		if ((target == '#tab_contract_proc')) {
+			w2ui['gridContractProc'].refresh();
+		}
+	});
+
+
+
+	$('#AlertDay').ace_spinner({ value: 0, min: 0, max: 30, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+		.closest('.ace-spinner')
+		.on('changed.fu.spinbox', function () {
+		});
+
+	$('.date-picker').datepicker({
+		autoclose: true,
+		todayHighlight: true,
+		format: 'yyyy-mm-dd'
+	})
+
+
+	function format_currencyproc(Field_ID, temp_field) {
+
+		if ($("#" + Field_ID).val() != "") {
+
+			var Nominal = $("#" + Field_ID).val();
+			Nominal = Nominal.replace(/,/g, "");
+			$("#" + temp_field).val(Nominal);
+			var fix_num = numberWithCommas(Nominal);
+
+			$("#" + Field_ID).val(fix_num);
+
+		}
+		else {
+
+			$("#" + temp_field).val("");
+
+		}
+
+	}
+
+
+	function format_currencyprocitem(Field_ID, temp_field) {
+
+		if ($("#" + Field_ID).val() != "") {
+
+			var Nominal = $("#" + Field_ID).val();
+			Nominal = Nominal.replace(/,/g, "");
+			$("#" + temp_field).val(Nominal);
+			var fix_num = numberWithCommas(Nominal);
+
+			$("#" + Field_ID).val(fix_num);
+
+		}
+		else {
+
+			$("#" + temp_field).val("");
+
+		}
+
+	}
+	function get_volume() {
+
+		var volume = Number($('#temp_nominal').val() / Number($('#price').val())).toFixed(2);
+		$('#Volume').val(volume);
+		format_currencyproc("Volume", "temp_volume");
+		//$('#temp_volume').val(volume);
+
+
+
+	}
+	function send_alert() {
+
+		var DataSave = new FormData();
+		DataSave.append('ProcId', $("#ProcId").val());
+		render_wait();
+
+		var Simpan = $.ajax({
+			url: URL_PTR + '/Alert/SendAlerProcurement',
+			type: 'POST',
+			data: DataSave,
+			dataType: "json",
+			cache: false,
+			async: false,
+			contentType: false,
+			processData: false,
+		});
+
+		if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+			clear_wait();
+			alert(Simpan.responseJSON["Result"]);
+
+		}
+		else {
+
+			alert('Send Alert Success !');
+			clear_wait();
+
+		}
+
+	}
+
+
+
+
+
+
+	$('#proc_file_2,#proc_file_3,#proc_file_4,#proc_file_5,#proc_file_6,#proc_file_7,#proc_file_undangan,#proc_file_rpp,#proc_file_nego').ace_file_input({
+		btn_choose: 'Upload File',
+		btn_change: null,
+		no_icon: 'ace-icon fa fa-cloud-upload',
+		droppable: true,
+		thumbnail: 'small',
+		preview_error: function (filename, error_code) {
+		}
+
+	}).on('change', function () {
+	});
+
+
+	$("#ModalRpp").on("hidden.bs.modal", function () {
+		$("#proc_rpp_reason").val("");
+		var file_ = $('#proc_file_rpp');
+		file_.ace_file_input('reset_input');
+	});
+
+	$("#ModalNego").on("hidden.bs.modal", function () {
+		$("#proc_nego_reason").val("");
+		var file_ = $('#proc_file_nego');
+		file_.ace_file_input('reset_input');
+	});
+
+	$("#ModalTunjuk").on("hidden.bs.modal", function () {
+		$("#proc_tunjuk_reason").val("");
+		var file_ = $('#proc_file_tunjuk');
+		file_.ace_file_input('reset_input');
+	});
+
+	$("#ModalSanggup").on("hidden.bs.modal", function () {
+		$("#proc_sanggup_reason").val("");
+		var file_ = $('#proc_file_sanggup');
+		file_.ace_file_input('reset_input');
+	});
+
+	$("#ModalUploadFile").on("hidden.bs.modal", function () {
+
+		$("#proc_file_pendukung_desc").val("");
+		var file_ = $('#proc_file_pendukung_upload');
+		file_.ace_file_input('reset_input');
+
+	});
+
+
+	$('#MetodePenunjukan').on("select2:select", function (e) {
+
+		var opsi = $('#MetodePenunjukan').val();
+
+		if (opsi == 3 ) {
+
+			$("#ip_upload").show();
+		}
+		else {
+
+			$("#ip_upload").hide();
+		}
+
+	});
+
+</script>

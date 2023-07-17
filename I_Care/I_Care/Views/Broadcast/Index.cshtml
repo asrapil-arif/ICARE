@@ -1,0 +1,104 @@
+﻿@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Parent = "Broadcast";
+	ViewBag.Parent_Caption = "<a href='" + @Request.Url.GetLeftPart(UriPartial.Authority) + "/Broadcast'>Broadcast</a>";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-bullhorn\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+}
+
+<script>
+
+	var current_data = [];
+	var is_search = 0;
+	var is_param = "";
+	var filter_global = 0;
+	var global_status = null;
+	var call_back = 0;
+	var callback = 0;
+	var LastGet = new Date();
+	var is_grid = 0;
+
+	var StatusRef = "";
+	var lsting_stat = "";
+	var selected_contract_id = 0;
+	var height = Number(window.innerHeight) - 133;
+	var StatusSearch = 0;
+	var flagCrud = "";
+	var flagRouting = "";
+
+	var GetContractGroup_ = [];
+	var ContractType_ = [];
+	var ContractSigningOfficer_ = [];
+	var FungsiName_ = [];
+	var ContractVendor_ = [];
+	var DocumentType_ = [];
+	var SuscribeType_ = [];
+
+	var field_search = "";
+	var key_search = "";
+
+	var List_Mail_Alert = [];
+	var ListAttachment_For_Routing = [];
+	var current_contract_snooze = 0;
+
+</script>
+
+
+
+<div id="PageContainer"></div>
+
+<script>
+
+	function back_main_page() {
+
+		isMainPage = true ;
+		set_sub_child_breadcrumb("");
+		callback = 0;
+
+		if (is_grid == 1) {
+
+			if (is_search == 1) {
+				load_page("#PageContainer", URL_PTPR + "/Broadcast/MainPage", function () { $("#page_panel").hide(); $('.select2').css('width', '100%').select2(); find_broadcast_search(); });
+			}
+			else {
+				load_page("#PageContainer", URL_PTPR + "/Broadcast/MainPage", function () { $("#page_panel").hide(); $('.select2').css('width', '100%').select2(); find_broadcast_search_by_status(global_status, ""); });
+			}
+		}
+		else {
+
+			FLAG_VIEW = "";
+			load_page("#PageContainer", URL_PTPR + "/Broadcast/MainPage", function () { $('.select2').css('width', '100%').select2() });
+		}
+	}
+
+
+	function fill_data() {
+
+		if (FungsiName_.length == 0) {
+			var FungsiName = $.ajax({
+				url: URL_PTPR + '/Broadcast/getFungsi',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			FungsiName_ = FungsiName.responseJSON;
+			//console.log(FungsiName_);
+		}
+	}
+
+
+	fill_data();
+
+	$(document).ready(function () {
+
+		isMainPage = true;
+		load_page("#PageContainer", URL_PTPR + "/Broadcast/MainPage", function () { $('.select2').css('width', '100%').select2(); });
+
+	});
+
+</script>

@@ -1,0 +1,822 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FMSModelStoreContainer" CdmEntityContainer="FMSEntities">
+    <EntitySetMapping Name="m_contract_owner">
+      <EntityTypeMapping TypeName="FMSModel.m_contract_owner">
+        <MappingFragment StoreEntitySet="m_contract_owner">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="owner_nip" ColumnName="owner_nip" />
+          <ScalarProperty Name="owner_name" ColumnName="owner_name" />
+          <ScalarProperty Name="sam" ColumnName="sam" />
+          <ScalarProperty Name="owner_jabatan" ColumnName="owner_jabatan" />
+          <ScalarProperty Name="max_contract_value_allowed" ColumnName="max_contract_value_allowed" />
+          <ScalarProperty Name="user_name_approval" ColumnName="user_name_approval" />
+          <ScalarProperty Name="kode_sub" ColumnName="kode_sub" />
+          <ScalarProperty Name="create_user" ColumnName="create_user" />
+          <ScalarProperty Name="create_date" ColumnName="create_date" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_contract_receiver">
+      <EntityTypeMapping TypeName="FMSModel.m_contract_receiver">
+        <MappingFragment StoreEntitySet="m_contract_receiver">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="UserName" ColumnName="UserName" />
+          <ScalarProperty Name="Sam" ColumnName="Sam" />
+          <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_contract_type">
+      <EntityTypeMapping TypeName="FMSModel.m_contract_type">
+        <MappingFragment StoreEntitySet="m_contract_type">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_customer_contract_Type">
+      <EntityTypeMapping TypeName="FMSModel.m_customer_contract_Type">
+        <MappingFragment StoreEntitySet="m_customer_contract_Type">
+          <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+          <ScalarProperty Name="ContractName" ColumnName="ContractName" />
+          <ScalarProperty Name="ContractDesc" ColumnName="ContractDesc" />
+          <ScalarProperty Name="CraeteDate" ColumnName="CraeteDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_group_item">
+      <EntityTypeMapping TypeName="FMSModel.m_group_item">
+        <MappingFragment StoreEntitySet="m_group_item">
+          <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+          <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+          <ScalarProperty Name="GroupLink" ColumnName="GroupLink" />
+          <ScalarProperty Name="GroupImage" ColumnName="GroupImage" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="Publish" ColumnName="Publish" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_item">
+      <EntityTypeMapping TypeName="FMSModel.m_item">
+        <MappingFragment StoreEntitySet="m_item">
+          <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemGroup" ColumnName="ItemGroup" />
+          <ScalarProperty Name="ItemImage" ColumnName="ItemImage" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="Publish" ColumnName="Publish" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_part_item">
+      <EntityTypeMapping TypeName="FMSModel.m_part_item">
+        <MappingFragment StoreEntitySet="m_part_item">
+          <ScalarProperty Name="PartId" ColumnName="PartId" />
+          <ScalarProperty Name="PartParent" ColumnName="PartParent" />
+          <ScalarProperty Name="PartName" ColumnName="PartName" />
+          <ScalarProperty Name="PartImage" ColumnName="PartImage" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_pengajuan_process">
+      <EntityTypeMapping TypeName="FMSModel.m_pengajuan_process">
+        <MappingFragment StoreEntitySet="m_pengajuan_process">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="HtmlTag" ColumnName="HtmlTag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_pic_process">
+      <EntityTypeMapping TypeName="FMSModel.m_pic_process">
+        <MappingFragment StoreEntitySet="m_pic_process">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="ProcessName" ColumnName="ProcessName" />
+          <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="ProcessGroup" ColumnName="ProcessGroup" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_process_contract">
+      <EntityTypeMapping TypeName="FMSModel.m_process_contract">
+        <MappingFragment StoreEntitySet="m_process_contract">
+          <ScalarProperty Name="ProcId" ColumnName="ProcId" />
+          <ScalarProperty Name="ProcName" ColumnName="ProcName" />
+          <ScalarProperty Name="ProcTag" ColumnName="ProcTag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_request_process">
+      <EntityTypeMapping TypeName="FMSModel.m_request_process">
+        <MappingFragment StoreEntitySet="m_request_process">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="HtmlTag" ColumnName="HtmlTag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_request_type">
+      <EntityTypeMapping TypeName="FMSModel.m_request_type">
+        <MappingFragment StoreEntitySet="m_request_type">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_Role">
+      <EntityTypeMapping TypeName="FMSModel.m_Role">
+        <MappingFragment StoreEntitySet="m_Role">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="RoleGroup" ColumnName="RoleGroup" />
+          <ScalarProperty Name="Step" ColumnName="Step" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="PicName" ColumnName="PicName" />
+          <ScalarProperty Name="PicMail" ColumnName="PicMail" />
+          <ScalarProperty Name="PicAD" ColumnName="PicAD" />
+          <ScalarProperty Name="TagHtml" ColumnName="TagHtml" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="ActiveYN" ColumnName="ActiveYN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_RoleGroup">
+      <EntityTypeMapping TypeName="FMSModel.m_RoleGroup">
+        <MappingFragment StoreEntitySet="m_RoleGroup">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="ActiveYN" ColumnName="ActiveYN" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_attachtment">
+      <EntityTypeMapping TypeName="FMSModel.t_attachtment">
+        <MappingFragment StoreEntitySet="t_attachtment">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="CandidateId_1" ColumnName="CandidateId_1" />
+          <ScalarProperty Name="CandidateId_2" ColumnName="CandidateId_2" />
+          <ScalarProperty Name="CandidateId_3" ColumnName="CandidateId_3" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_config_contract_list">
+      <EntityTypeMapping TypeName="FMSModel.t_config_contract_list">
+        <MappingFragment StoreEntitySet="t_config_contract_list">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Setting" ColumnName="Setting" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_cont_alert_dest_mail">
+      <EntityTypeMapping TypeName="FMSModel.t_cont_alert_dest_mail">
+        <MappingFragment StoreEntitySet="t_cont_alert_dest_mail">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Jabatan" ColumnName="Jabatan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_contract">
+      <EntityTypeMapping TypeName="FMSModel.t_contract">
+        <MappingFragment StoreEntitySet="t_contract">
+          <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+          <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+          <ScalarProperty Name="NoPR" ColumnName="NoPR" />
+          <ScalarProperty Name="NoPO" ColumnName="NoPO" />
+          <ScalarProperty Name="ContractTitle" ColumnName="ContractTitle" />
+          <ScalarProperty Name="ContractValue" ColumnName="ContractValue" />
+          <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+          <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+          <ScalarProperty Name="RenewalDate" ColumnName="RenewalDate" />
+          <ScalarProperty Name="IdVendor" ColumnName="IdVendor" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Done" ColumnName="Done" />
+          <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="ActiveYn" ColumnName="ActiveYn" />
+          <ScalarProperty Name="AlertDay" ColumnName="AlertDay" />
+          <ScalarProperty Name="Snooze" ColumnName="Snooze" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_contract_file">
+      <EntityTypeMapping TypeName="FMSModel.t_contract_file">
+        <MappingFragment StoreEntitySet="t_contract_file">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+          <ScalarProperty Name="UploadUser" ColumnName="UploadUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_contracts">
+      <EntityTypeMapping TypeName="FMSModel.t_contracts">
+        <MappingFragment StoreEntitySet="t_contracts">
+          <ScalarProperty Name="ProcurementId" ColumnName="ProcurementId" />
+          <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+          <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+          <ScalarProperty Name="CandidateId_1" ColumnName="CandidateId_1" />
+          <ScalarProperty Name="CandidateId_2" ColumnName="CandidateId_2" />
+          <ScalarProperty Name="CandidateId_3" ColumnName="CandidateId_3" />
+          <ScalarProperty Name="ContractGroup" ColumnName="ContractGroup" />
+          <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+          <ScalarProperty Name="NoPR" ColumnName="NoPR" />
+          <ScalarProperty Name="NoPO" ColumnName="NoPO" />
+          <ScalarProperty Name="ContractTitle" ColumnName="ContractTitle" />
+          <ScalarProperty Name="ContractValue" ColumnName="ContractValue" />
+          <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+          <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+          <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+          <ScalarProperty Name="DocType" ColumnName="DocType" />
+          <ScalarProperty Name="RenewalDate" ColumnName="RenewalDate" />
+          <ScalarProperty Name="IdVendor" ColumnName="IdVendor" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="Done" ColumnName="Done" />
+          <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
+          <ScalarProperty Name="AlertDay" ColumnName="AlertDay" />
+          <ScalarProperty Name="Snooze" ColumnName="Snooze" />
+          <ScalarProperty Name="CorpNamePihak1" ColumnName="CorpNamePihak1" />
+          <ScalarProperty Name="PenanggungJawabPihak1" ColumnName="PenanggungJawabPihak1" />
+          <ScalarProperty Name="JabatanPihak1" ColumnName="JabatanPihak1" />
+          <ScalarProperty Name="AlamatPihak1" ColumnName="AlamatPihak1" />
+          <ScalarProperty Name="PhonePihak1" ColumnName="PhonePihak1" />
+          <ScalarProperty Name="FaxPihak1" ColumnName="FaxPihak1" />
+          <ScalarProperty Name="EmailPihak1" ColumnName="EmailPihak1" />
+          <ScalarProperty Name="CorpNamePihak2" ColumnName="CorpNamePihak2" />
+          <ScalarProperty Name="PenanggungJawabPihak2" ColumnName="PenanggungJawabPihak2" />
+          <ScalarProperty Name="JabatanPihak2" ColumnName="JabatanPihak2" />
+          <ScalarProperty Name="AlamatPihak2" ColumnName="AlamatPihak2" />
+          <ScalarProperty Name="PhonePihak2" ColumnName="PhonePihak2" />
+          <ScalarProperty Name="FaxPihak2" ColumnName="FaxPihak2" />
+          <ScalarProperty Name="EmailPihak2" ColumnName="EmailPihak2" />
+          <ScalarProperty Name="StrDay" ColumnName="StrDay" />
+          <ScalarProperty Name="StrMonth" ColumnName="StrMonth" />
+          <ScalarProperty Name="StrYear" ColumnName="StrYear" />
+          <ScalarProperty Name="InProcess" ColumnName="InProcess" />
+          <ScalarProperty Name="ApproverPic" ColumnName="ApproverPic" />
+          <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+          <ScalarProperty Name="ReceiverPic" ColumnName="ReceiverPic" />
+          <ScalarProperty Name="ReceiveDate" ColumnName="ReceiveDate" />
+          <ScalarProperty Name="BankName" ColumnName="BankName" />
+          <ScalarProperty Name="VaNo" ColumnName="VaNo" />
+          <ScalarProperty Name="VaName" ColumnName="VaName" />
+          <ScalarProperty Name="StrDate" ColumnName="StrDate" />
+          <ScalarProperty Name="Fungsi" ColumnName="Fungsi" />
+          <ScalarProperty Name="StartProject" ColumnName="StartProject" />
+          <ScalarProperty Name="EndProject" ColumnName="EndProject" />
+          <ScalarProperty Name="AddendumContractNo" ColumnName="AddendumContractNo" />
+          <ScalarProperty Name="IsAddendum" ColumnName="IsAddendum" />
+          <ScalarProperty Name="ActiveYn" ColumnName="ActiveYn" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_DocumentCat">
+      <EntityTypeMapping TypeName="FMSModel.T_DocumentCat">
+        <MappingFragment StoreEntitySet="T_DocumentCat">
+          <ScalarProperty Name="DocumentCatID" ColumnName="DocumentCatID" />
+          <ScalarProperty Name="ParentCatID" ColumnName="ParentCatID" />
+          <ScalarProperty Name="DocumentCatName" ColumnName="DocumentCatName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_DocumentFile">
+      <EntityTypeMapping TypeName="FMSModel.T_DocumentFile">
+        <MappingFragment StoreEntitySet="T_DocumentFile">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Source" ColumnName="Source" />
+          <ScalarProperty Name="Key1" ColumnName="Key1" />
+          <ScalarProperty Name="Key2" ColumnName="Key2" />
+          <ScalarProperty Name="Key3" ColumnName="Key3" />
+          <ScalarProperty Name="Key4" ColumnName="Key4" />
+          <ScalarProperty Name="DocumentCatID" ColumnName="DocumentCatID" />
+          <ScalarProperty Name="Revision" ColumnName="Revision" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="EntryUser" ColumnName="EntryUser" />
+          <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="DeleteUser" ColumnName="DeleteUser" />
+          <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+          <ScalarProperty Name="Flag" ColumnName="Flag" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Hist_Submissions_IT">
+      <EntityTypeMapping TypeName="FMSModel.T_Hist_Submissions_IT">
+        <MappingFragment StoreEntitySet="T_Hist_Submissions_IT">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SubmissionId" ColumnName="SubmissionId" />
+          <ScalarProperty Name="FlowFrom" ColumnName="FlowFrom" />
+          <ScalarProperty Name="FlowTo" ColumnName="FlowTo" />
+          <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Hist_Submissions_Negotiation_Proc">
+      <EntityTypeMapping TypeName="FMSModel.T_Hist_Submissions_Negotiation_Proc">
+        <MappingFragment StoreEntitySet="T_Hist_Submissions_Negotiation_Proc">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SubmissionId" ColumnName="SubmissionId" />
+          <ScalarProperty Name="FlowFrom" ColumnName="FlowFrom" />
+          <ScalarProperty Name="FlowTo" ColumnName="FlowTo" />
+          <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Hist_Submissions_Proc">
+      <EntityTypeMapping TypeName="FMSModel.T_Hist_Submissions_Proc">
+        <MappingFragment StoreEntitySet="T_Hist_Submissions_Proc">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="SubmissionId" ColumnName="SubmissionId" />
+          <ScalarProperty Name="FlowFrom" ColumnName="FlowFrom" />
+          <ScalarProperty Name="FlowTo" ColumnName="FlowTo" />
+          <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="T_Log_Contract">
+      <EntityTypeMapping TypeName="FMSModel.T_Log_Contract">
+        <MappingFragment StoreEntitySet="T_Log_Contract">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+          <ScalarProperty Name="FlowFrom" ColumnName="FlowFrom" />
+          <ScalarProperty Name="FlowTo" ColumnName="FlowTo" />
+          <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_mapping_employee_user">
+      <EntityTypeMapping TypeName="FMSModel.t_mapping_employee_user">
+        <MappingFragment StoreEntitySet="t_mapping_employee_user">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Nip" ColumnName="Nip" />
+          <ScalarProperty Name="UserId" ColumnName="UserId" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="alt_email" ColumnName="alt_email" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_pengajuan">
+      <EntityTypeMapping TypeName="FMSModel.t_pengajuan">
+        <MappingFragment StoreEntitySet="t_pengajuan">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="DestLocation" ColumnName="DestLocation" />
+          <ScalarProperty Name="DestPengguna" ColumnName="DestPengguna" />
+          <ScalarProperty Name="Keterangan" ColumnName="Keterangan" />
+          <ScalarProperty Name="Process" ColumnName="Process" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="ActiveYn" ColumnName="ActiveYn" />
+          <ScalarProperty Name="GroupPengajuan" ColumnName="GroupPengajuan" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_pengajuan_detail">
+      <EntityTypeMapping TypeName="FMSModel.t_pengajuan_detail">
+        <MappingFragment StoreEntitySet="t_pengajuan_detail">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Pengajuan" ColumnName="Pengajuan" />
+          <ScalarProperty Name="Item" ColumnName="Item" />
+          <ScalarProperty Name="RealAsset" ColumnName="RealAsset" />
+          <ScalarProperty Name="RealDate" ColumnName="RealDate" />
+          <ScalarProperty Name="RealUser" ColumnName="RealUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_procurement">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_procurement">
+        <MappingFragment StoreEntitySet="t_proc_procurement">
+          <ScalarProperty Name="KesanggupanSummary" ColumnName="KesanggupanSummary" />
+          <ScalarProperty Name="PenunjukanSummary" ColumnName="PenunjukanSummary" />
+          <ScalarProperty Name="NegotiationSummary" ColumnName="NegotiationSummary" />
+          <ScalarProperty Name="RppSummary" ColumnName="RppSummary" />
+          <ScalarProperty Name="NegotiationValue" ColumnName="NegotiationValue" />
+          <ScalarProperty Name="ProcurementDate" ColumnName="ProcurementDate" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+          <ScalarProperty Name="Function" ColumnName="Function" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="Remark" ColumnName="Remark" />
+          <ScalarProperty Name="IsCompleteDoc" ColumnName="IsCompleteDoc" />
+          <ScalarProperty Name="Status" ColumnName="Status" />
+          <ScalarProperty Name="Winner" ColumnName="Winner" />
+          <ScalarProperty Name="Spmp" ColumnName="Spmp" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="NoPR" ColumnName="NoPR" />
+          <ScalarProperty Name="ExpectedDate" ColumnName="ExpectedDate" />
+          <ScalarProperty Name="Snooze" ColumnName="Snooze" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_procurement_detail">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_procurement_detail">
+        <MappingFragment StoreEntitySet="t_proc_procurement_detail">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProcId" ColumnName="ProcId" />
+          <ScalarProperty Name="Item" ColumnName="Item" />
+          <ScalarProperty Name="Value" ColumnName="Value" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_request">
+      <EntityTypeMapping TypeName="FMSModel.t_request">
+        <MappingFragment StoreEntitySet="t_request">
+          <ScalarProperty Name="ReqId" ColumnName="ReqId" />
+          <ScalarProperty Name="ReqItem" ColumnName="ReqItem" />
+          <ScalarProperty Name="ReqType" ColumnName="ReqType" />
+          <ScalarProperty Name="ReqQty" ColumnName="ReqQty" />
+          <ScalarProperty Name="ReqPart" ColumnName="ReqPart" />
+          <ScalarProperty Name="ReqKeterangan" ColumnName="ReqKeterangan" />
+          <ScalarProperty Name="ReqReason" ColumnName="ReqReason" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="Process" ColumnName="Process" />
+          <ScalarProperty Name="ReqGroup" ColumnName="ReqGroup" />
+          <ScalarProperty Name="ActiveYn" ColumnName="ActiveYn" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_siganature">
+      <EntityTypeMapping TypeName="FMSModel.t_siganature">
+        <MappingFragment StoreEntitySet="t_siganature">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="Siganture" ColumnName="Siganture" />
+          <ScalarProperty Name="CandidateId_1" ColumnName="CandidateId_1" />
+          <ScalarProperty Name="CandidateId_2" ColumnName="CandidateId_2" />
+          <ScalarProperty Name="SourceData" ColumnName="SourceData" />
+          <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tmp_DocSrc">
+      <EntityTypeMapping TypeName="FMSModel.Tmp_DocSrc">
+        <MappingFragment StoreEntitySet="Tmp_DocSrc">
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Key2" ColumnName="Key2" />
+          <ScalarProperty Name="Src" ColumnName="Src" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Tmp_Document_Recovery_1">
+      <EntityTypeMapping TypeName="FMSModel.Tmp_Document_Recovery_1">
+        <MappingFragment StoreEntitySet="Tmp_Document_Recovery_1">
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_contract">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_contract">
+        <MappingFragment StoreEntitySet="t_proc_contract">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+          <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_document_invitation">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_document_invitation">
+        <MappingFragment StoreEntitySet="t_proc_document_invitation">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+          <ScalarProperty Name="DocType" ColumnName="DocType" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_penawaran">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_penawaran">
+        <MappingFragment StoreEntitySet="t_proc_penawaran">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+          <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+          <ScalarProperty Name="PenawaranValue" ColumnName="PenawaranValue" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_rapat_penjelasan">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_rapat_penjelasan">
+        <MappingFragment StoreEntitySet="t_proc_rapat_penjelasan">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+          <ScalarProperty Name="ReftID" ColumnName="ReftID" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Summary" ColumnName="Summary" />
+          <ScalarProperty Name="EventDay" ColumnName="EventDay" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_spmp">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_spmp">
+        <MappingFragment StoreEntitySet="t_proc_spmp">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_suggestion_vendor">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_suggestion_vendor">
+        <MappingFragment StoreEntitySet="t_proc_suggestion_vendor">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+          <ScalarProperty Name="Mail" ColumnName="Mail" />
+          <ScalarProperty Name="Phone" ColumnName="Phone" />
+          <ScalarProperty Name="Address" ColumnName="Address" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_usulan_pemenang">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_usulan_pemenang">
+        <MappingFragment StoreEntitySet="t_proc_usulan_pemenang">
+          <ScalarProperty Name="Id" ColumnName="Id" />
+          <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+          <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+          <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="temp_item">
+      <EntityTypeMapping TypeName="FMSModel.temp_item">
+        <MappingFragment StoreEntitySet="temp_item">
+          <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+          <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+          <ScalarProperty Name="ItemGroup" ColumnName="ItemGroup" />
+          <ScalarProperty Name="ItemImage" ColumnName="ItemImage" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="Publish" ColumnName="Publish" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="temp_user_ad">
+      <EntityTypeMapping TypeName="FMSModel.temp_user_ad">
+        <MappingFragment StoreEntitySet="temp_user_ad">
+          <ScalarProperty Name="NIP" ColumnName="NIP" />
+          <ScalarProperty Name="NAMA" ColumnName="NAMA" />
+          <ScalarProperty Name="USER_AD" ColumnName="USER_AD" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_attachtment_stakeholder">
+      <EntityTypeMapping TypeName="FMSModel.t_attachtment_stakeholder">
+        <MappingFragment StoreEntitySet="t_attachtment_stakeholder">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="CandidateId_3" ColumnName="CandidateId_3" />
+          <ScalarProperty Name="CandidateId_2" ColumnName="CandidateId_2" />
+          <ScalarProperty Name="CandidateId_1" ColumnName="CandidateId_1" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_cont_alert_dest_mailStakeHolder">
+      <EntityTypeMapping TypeName="FMSModel.t_cont_alert_dest_mailStakeHolder">
+        <MappingFragment StoreEntitySet="t_cont_alert_dest_mailStakeHolder">
+          <ScalarProperty Name="Fungsi" ColumnName="Fungsi" />
+          <ScalarProperty Name="Jabatan" ColumnName="Jabatan" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="SHId" ColumnName="SHId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_stakeholder">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_stakeholder">
+        <MappingFragment StoreEntitySet="t_proc_stakeholder">
+          <ScalarProperty Name="AlertDay" ColumnName="AlertDay" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Kedudukan" ColumnName="Kedudukan" />
+          <ScalarProperty Name="TypeSH" ColumnName="TypeSH" />
+          <ScalarProperty Name="TanggalLahir" ColumnName="TanggalLahir" />
+          <ScalarProperty Name="Alamat" ColumnName="Alamat" />
+          <ScalarProperty Name="NamaIndividualSH" ColumnName="NamaIndividualSH" />
+          <ScalarProperty Name="Jabatan" ColumnName="Jabatan" />
+          <ScalarProperty Name="NamaInstitusi" ColumnName="NamaInstitusi" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_kedudukan">
+      <EntityTypeMapping TypeName="FMSModel.m_kedudukan">
+        <MappingFragment StoreEntitySet="m_kedudukan">
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="KedudukanName" ColumnName="KedudukanName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_stakeholder_type">
+      <EntityTypeMapping TypeName="FMSModel.m_stakeholder_type">
+        <MappingFragment StoreEntitySet="m_stakeholder_type">
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="StakeholderName" ColumnName="StakeholderName" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_attachtment_employeemanagement">
+      <EntityTypeMapping TypeName="FMSModel.t_attachtment_employeemanagement">
+        <MappingFragment StoreEntitySet="t_attachtment_employeemanagement">
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="FileName" ColumnName="FileName" />
+          <ScalarProperty Name="CandidateId_3" ColumnName="CandidateId_3" />
+          <ScalarProperty Name="CandidateId_2" ColumnName="CandidateId_2" />
+          <ScalarProperty Name="CandidateId_1" ColumnName="CandidateId_1" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_cont_alert_dest_mailEmployeeManagement">
+      <EntityTypeMapping TypeName="FMSModel.t_cont_alert_dest_mailEmployeeManagement">
+        <MappingFragment StoreEntitySet="t_cont_alert_dest_mailEmployeeManagement">
+          <ScalarProperty Name="Fungsi" ColumnName="Fungsi" />
+          <ScalarProperty Name="Jabatan" ColumnName="Jabatan" />
+          <ScalarProperty Name="Email" ColumnName="Email" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="t_proc_employeemanagement">
+      <EntityTypeMapping TypeName="FMSModel.t_proc_employeemanagement">
+        <MappingFragment StoreEntitySet="t_proc_employeemanagement">
+          <ScalarProperty Name="AlertDay" ColumnName="AlertDay" />
+          <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="Kedudukan" ColumnName="Kedudukan" />
+          <ScalarProperty Name="TanggalLahir" ColumnName="TanggalLahir" />
+          <ScalarProperty Name="LevelJabatan" ColumnName="LevelJabatan" />
+          <ScalarProperty Name="Jabatan" ColumnName="Jabatan" />
+          <ScalarProperty Name="NamaPekerja" ColumnName="NamaPekerja" />
+          <ScalarProperty Name="Nopek" ColumnName="Nopek" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_level_jabatan">
+      <EntityTypeMapping TypeName="FMSModel.m_level_jabatan">
+        <MappingFragment StoreEntitySet="m_level_jabatan">
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="LevelJabatan" ColumnName="LevelJabatan" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="m_proc_document_type">
+      <EntityTypeMapping TypeName="FMSModel.m_proc_document_type">
+        <MappingFragment StoreEntitySet="m_proc_document_type">
+          <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+          <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+          <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+          <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+          <ScalarProperty Name="DocType" ColumnName="DocType" />
+          <ScalarProperty Name="Id" ColumnName="Id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

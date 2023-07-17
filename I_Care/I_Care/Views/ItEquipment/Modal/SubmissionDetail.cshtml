@@ -1,0 +1,1138 @@
+﻿@using I_Care.Models;
+@{
+
+
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    string[] SSO_ALLOW = ROLES.GetRolesForUser(User.Identity.Name.ToString());
+    FMSEntities db = new FMSEntities();
+    var Item = (from m in db.m_item where m.ItemGroup == 1 select m);
+    var RequestType = (from r in db.m_request_type select r);
+
+}
+
+
+<div id="ModSubmissionDetails" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg" style="width:80%;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">...</h4>
+            </div>
+            <div class="modal-body" style="padding:0px;padding-top:10px;">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTab">
+                        <li class="active">
+                            <a data-toggle="tab" href="#info_submission" aria-expanded="true" style="border-left:none;">
+                                Main Info.
+                            </a>
+                        </li>
+
+                        <li class="">
+                            <a data-toggle="tab" href="#detail_submission" aria-expanded="true">
+                                Item Requested
+                            </a>
+                        </li>
+
+                        <li class="" id="tab_history">
+                            <a data-toggle="tab" href="#list_history" aria-expanded="false">
+                                Log. Process
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content" style="min-height:300px;border-bottom:none;border-left:none;border-right:none;padding:0px;">
+                        <div id="info_submission" class="tab-pane fade active in" style="padding:10px;">
+
+                            <form class="form-horizontal">
+                                <div class="box-body">
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Id</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="SubmissionId" placeholder="Id. Will be generate by system" type="text" readonly style="background-color:whitesmoke;">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Location</label>
+                                        <div class="col-sm-10">
+                                            <input id="LocationId" type="text" hidden>
+                                            <div class="input-group" disable>
+                                                <input class="form-control" id="Location" placeholder="Location" type="text" readonly>
+                                                <span class="input-group-addon tombol_cari" id="check_card" style="cursor:pointer;" onclick="find_location()">
+                                                    <i class="fa fa-search bigger-110"></i>
+                                                </span>
+                                            </div>
+
+                                        </div>
+                                    </div>
+
+
+
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">User</label>
+                                        <div class="col-sm-10">
+                                            <input id="UserId" type="text" hidden>
+                                            <div class="input-group">
+                                                <input class="form-control" id="User" placeholder="User" type="text" readonly>
+                                                <span class="input-group-addon tombol_cari" id="check_card" style="cursor:pointer;" onclick="find_user();">
+                                                    <i class="fa fa-search bigger-110"></i>
+                                                </span>
+                                            </div>
+
+
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Remark</label>
+                                        <div class="col-sm-10">
+                                            <textarea class="form-control" placeholder="Write some description" id="Remark" style="resize:none;font-size:12px;padding:3px;"></textarea>
+
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <div id="detail_submission" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+                            <div id="gridSubmissionDetail" style="height:297px;border-left:none;border-right:none;border-bottom:none;border-radius:0px;" class="responsive"></div>
+                        </div>
+
+
+                        <div id="list_history" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+                            <div id="gridHitory" style="height:297px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer" id="fot_form_submission">
+
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div id="ModLocation" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:whitesmoke;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Select Location</h4>
+            </div>
+            <div class="modal-body" style="padding:0px;">
+
+                <div id="gridLocation" style="height:300px;border:none;border-radius:0px;border-top:none;"></div>
+
+            </div>
+            <div class="modal-footer" id="fot_form_accg">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-info" onclick="select_location()">Select</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div id="ModUser" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:whitesmoke;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Select User</h4>
+            </div>
+            <div class="modal-body" style="padding:0px;">
+                <div id="gridUser" style="height:300px;border:none;border-radius:0px;border-top:none;"></div>
+            </div>
+            <div class="modal-footer" id="fot_form_accg">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-info" onclick="select_user()">Select</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div id="ModAsset" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:whitesmoke;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Select Item Realization</h4>
+            </div>
+            <div class="modal-body" style="padding:0px;">
+                <div id="gridAssets" style="height:350px;border:none;border-radius:0px;border-top:none;"></div>
+            </div>
+            <div class="modal-footer" id="fot_form_asset">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="ModReason" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:whitesmoke;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Enter your reason</h4>
+            </div>
+            <div class="modal-body" style="padding:10px;">
+
+                <textarea class="form-control" placeholder="Write some description" id="Reason" style="resize:none;font-size:12px;padding:3px;height:200px;"></textarea>
+
+            </div>
+            <div class="modal-footer" id="fot_form_reason">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<!-- Modal -->
+<div id="ModAddRequest" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header" style="background:whitesmoke;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Select Item Request</h4>
+            </div>
+            <div class="modal-body" style="padding:0px;">
+                <div id="gridAddRequest" style="height:350px;border:none;border-radius:0px;border-top:none;"></div>
+            </div>
+            <div class="modal-footer" id="fot_form_add_request">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-info" onclick="add_other_request()">Add</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+<script>
+
+
+var allow_finder = false;
+
+function refresh_list_Pengajuan(){
+
+     @if ((ROLES.CheckAccGroupIstrue(User.Identity.Name.ToString(), "ACCG2018010003") == true)){
+
+         <text>w2ui['gridPengajuanHeader'].load(URL_PTR + '/ItEquipment/PengajuanListData_Unfilter');</text>
+
+    }
+    else
+    {
+
+        <text>w2ui['gridPengajuanHeader'].load(URL_PTR + '/ItEquipment/PengajuanListData');</text>
+    }
+
+}
+
+
+function detail_submission(Flag_View,record){
+
+    var button ="";
+    $("#Reason").val("");
+    allow_finder = false;
+
+    $('a[href="#info_submission"]').tab('show'); //first focus....
+
+                if (Flag_View == 'VIEW' || Flag_View =='REPOSTING' || Flag_View == 'APPROVE_ATASAN' || Flag_View == 'FINAL_APPROVEMENT' || Flag_View == 'REALISASI_PRKT_IT' || Flag_View == 'PENDING' || Flag_View == 'RESUME'){
+
+                    $("#ModSubmissionDetails .modal-title").html("Submission Detail : " + record.recid);
+                    $("#ModSubmissionDetails .modal-title").html("<div style=\"font-size:12px;color:green;\">Submission of : " + record.recid + " <i class=\"fa fa-arrow-right\" aria-hidden=\"true\"></i> <span style=\"font-size:12px;\">Status : " + record.HtmlTag + " " + record.ProcessName   + "  </span></div><div style=\"font-size:11px;color:green;\">Create By." + record.CreateUser + " on " + record.CreateDate + " Last Update By. " + record.UpdateUser + "</div>" );
+                    $("#SubmissionId").val(record.recid);
+                    $("#LocationId").val(record.DestLocation);
+                    $("#Location").val(record.DestLocation + " - " + record.NamaUnit);
+                    $("#UserId").val(record.DestPengguna);
+                    $("#User").val(record.DestPengguna + " - "+ record.NamaPengguna);
+                    $("#Remark").val(record.Keterangan);
+                    $('#ModSubmissionDetails select').attr("disabled",true);
+                    $("#tab_history").show();
+
+                    //button condition:
+                    switch (Flag_View) {
+
+                        case 'VIEW':
+
+                            if (UserLogin == record.CreateUser && (record.Process == 1 || record.Process == 0)){
+
+                            $('#Remark').attr("readonly",false);
+
+                            button = '<button  type="button" class="btn btn-info" onclick="save_pengajuan(\'UPDATE\')">Update</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+                            allow_finder = true;
+                            }
+                            else{
+
+                            $('#Remark').attr("readonly",true);
+                            button = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+                            }
+
+                        break;
+                        case 'REPOSTING':
+
+                            if (UserLogin == record.CreateUser && (record.Process == 1 || record.Process == 0)){
+
+                            $('#Remark').attr("readonly",false);
+
+                            button = '<button class="btn btn-info" onclick="save_pengajuan(\'REPOSTING\')">Resubmit</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+
+                            }
+                            else{
+
+                                button = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+
+                            }
+
+                        break;
+                        case 'APPROVE_ATASAN':
+
+                            $('#Remark').attr("readonly",true);
+                            button = '<button class="btn btn-danger" onclick="save_pengajuan(\'REJECT_BY_ATASAN\')">Reject</button><button class="btn btn-info" onclick="save_pengajuan(\'APPROVE_ATASAN\')">Approve</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+
+                        break;
+                        case 'FINAL_APPROVEMENT':
+
+                            $('#Remark').attr("readonly",true);
+                            button = '<button class="btn btn-danger" onclick="save_pengajuan(\'REJECT_BY_FINAL\')">Reject</button><button class="btn btn-info" onclick="save_pengajuan(\'FINAL_APPROVEMENT\')">Approve</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+
+                        break;
+
+                        case 'REALISASI_PRKT_IT':
+
+                            $('#Remark').attr("readonly",true);
+                            button = '<button class="btn btn-info" onclick="save_pengajuan(\'REALISASI_PRKT_IT\')">Save Realization</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+
+                        break;
+
+                        case 'PENDING':
+
+                            $('#Remark').attr("readonly",true);
+                            button = '<button class="btn btn-info" onclick="save_pengajuan(\'PENDING\')">Pending</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+
+                        break;
+                        case 'RESUME':
+
+                            $('#Remark').attr("readonly",true);
+                            button = '<button class="btn btn-info" onclick="save_pengajuan(\'RESUME\')">Resume</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+
+                        break;
+
+                        default:
+                                button = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+
+
+                    }
+
+                    /*-----------*/
+
+                    $("#fot_form_submission").html(button);
+                    render_item_submission_detail(record,Flag_View);
+                    view_history_process();
+
+                    $('#ModSubmissionDetails').modal(
+                    {
+                    backdrop: 'static',
+                    keyboard: false
+                    }
+                    );
+
+                    $('#ModSubmissionDetails').on('shown.bs.modal', function () {
+
+                        $('#Category_Combo', this).chosen({ allow_single_deselect: true });
+                        $("#Category_Combo").trigger("chosen:updated");
+                        $("#Category_Combo").val(record.GroupPengajuan).trigger('change');
+
+                    });
+
+                }
+                else{
+
+                    allow_finder = true;
+                    $('#ModSubmissionDetails select').attr("disabled",true);
+                    $("#ModSubmissionDetails .modal-title").html("Create Submission");
+                    $("#tab_history").hide();
+
+                    $("#User").val("");
+                    $("#UserId").val("");
+                    $("#Location").val("");
+                    $("#LocationId").val("");
+                    $("#Remark").val("");
+
+
+                    render_item_submission_detail(record,Flag_View);
+
+                    button = '<button  type="button" class="btn btn-info" onclick="save_pengajuan(\'ADD\')">Submit</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>';
+                    $("#fot_form_submission").html(button);
+
+                    $('#ModSubmissionDetails').modal(
+                    {
+                    backdrop: 'static',
+                    keyboard: false
+                    }
+                    );
+
+                    $('#ModSubmissionDetails').on('shown.bs.modal', function () {
+
+                        $('#Category_Combo', this).chosen({ allow_single_deselect: true });
+                        $("#Category_Combo").trigger("chosen:updated");
+                        $("#Category_Combo").val(record.GroupPengajuan).trigger('change');
+
+
+                    });
+
+
+                }
+
+
+}
+
+
+function   swicth_content(active){
+
+    $("#pengajuan_info").hide();
+    $("#pengajuan_item").hide();
+    $("#"+active).show();
+}
+
+
+function render_item_submission_detail(record,flag){
+
+        if (w2ui['gridSubmissionDetail'] != null) { w2ui['gridSubmissionDetail'].destroy();}
+        /*--------------*/
+
+        var _toolbar_   = false;
+        var flag_add    = true;
+        var flag_delete = true;
+
+
+        if (UserLogin == record.CreateUser && ( record.Process == 0 || record.Process == 1) && ( flag == 'VIEW') ){
+
+            _toolbar_ = true;
+        }
+
+        if (flag == 'REALISASI_PRKT_IT'){
+            _toolbar_ = true;
+            flag_add = false;
+            flag_delete = false;
+        }
+
+
+        $('#gridSubmissionDetail').w2grid({
+            name: 'gridSubmissionDetail',
+            textSearch: 'contains',
+            fixedBody: true,
+            show: {
+            footer          : true,
+            toolbar         : _toolbar_,
+            toolbarSearch   : false,
+            toolbarReload   : true,
+            toolbarInput    : false,
+            toolbarColumns  : false,
+            toolbarDelete   : flag_delete,
+            toolbarAdd      : flag_add,
+            lineNumbers     :true,
+            footer          : true,
+            toolbarReload   : true,
+            },
+            toolbar: {
+            items: [
+
+                    { type: 'button', id: 'relasasi', caption: '<i class="fa fa-download" aria-hidden="true"></i> Add item for realization',disabled:true },
+
+                    ],
+                    onClick: function (target,data) {
+
+                            switch (target) {
+                                    case 'relasasi':
+                                        var sel = w2ui.gridSubmissionDetail.getSelection();
+                                        var record = w2ui.gridSubmissionDetail.get(sel[0]);
+                                        find_asset_realization(record,'gridSubmissionDetail');
+                                    break;
+                                        }
+                    }
+            },
+            columnGroups: [
+            { caption: 'Request', span: 6 },
+            { caption: 'Realization', span: 6 }
+            ],
+            columns: [
+                    { field: 'ReqType', caption: 'Request', size: '80px', sortable: false, resizable: true ,searchable: 'text', },
+                    { field: 'ItemName', caption: 'Name', size: '150px', sortable: false, resizable: true ,searchable: 'text', },
+                    { field: 'PartName', caption: 'Part', size: '100px', sortable: false, resizable: true ,searchable: 'text' },
+                    { field: 'ReqQty', caption: 'Qty', size: '50px', sortable: false, resizable: true ,searchable: 'text',render:'number' },
+                    { field: 'ReqKeterangan', caption: 'Remark', size: '100px', sortable: false, resizable: true ,searchable: 'text' },
+                    { field: 'ReqReason', caption: 'Reason', size: '150px', sortable: false, resizable: true ,searchable: 'text' },
+                    { field: 'RealisasiId', caption: 'Id.', size: '50px', sortable: false, resizable: true ,searchable: 'text',style:'text-align:right' },
+                    { field: 'NamaAsset', caption: 'Asset Name', size: '150px', sortable: false, resizable: true ,searchable: 'text' },
+                    { field: 'KodeBarcode', caption: 'Barcode', size: '100px', sortable: false, resizable: true ,searchable: 'text' },
+                    { field: 'ServiceTag', caption: 'Service Tag', size: '100px', sortable: false, resizable: true ,searchable: 'text' },
+                    { field: 'NoSeri', caption: 'No. Seri', size: '100px', sortable: false, resizable: true ,searchable: 'text' },
+                    { field: 'RealDate', caption: 'Date', size: '200px', sortable: false, resizable: true ,searchable: 'text' },
+            ],
+            onAdd: function (event) {
+                find_add_reqeust();
+            },
+            onReload: function (event) {
+
+                if (flag != 'ADD'){
+                    refresh_list_pengajuan_detail(record);
+                    $("#temp_delete_detail").val("");
+                }
+
+            },
+            onSelect: function(event) {
+                event.onComplete = function () {
+
+                    w2ui['gridSubmissionDetail'].toolbar.disable('relasasi');
+                    var pengajuan = w2ui.gridSubmissionDetail.getSelection();
+
+                    if (pengajuan.length == 1 && flag == 'REALISASI_PRKT_IT'){
+                        var record = this.get(event.recid);
+                        w2ui['gridSubmissionDetail'].toolbar.enable('relasasi');
+
+                    }
+
+
+
+                }
+
+        },
+        onUnselect: function(event) {
+                event.onComplete = function () {
+
+                    w2ui['gridSubmissionDetail'].toolbar.disable('relasasi');
+                    var pengajuan = w2ui.gridSubmissionDetail.getSelection();
+
+                    if (pengajuan.length == 1 && flag == 'REALISASI_PRKT_IT'){
+                        var record = this.get(event.recid);
+                        w2ui['gridSubmissionDetail'].toolbar.enable('relasasi');
+
+                    }
+                 }
+
+        }
+        });
+
+
+        if (flag != 'ADD'){
+
+            refresh_list_pengajuan_detail(record);
+        }
+
+        if (flag == 'ADD'){
+
+
+            var sel = w2ui.gridRequest.getSelection();
+            sel.forEach(function(entry) {
+
+            var record = w2ui.gridRequest.get(entry);
+
+                w2ui['gridSubmissionDetail'].add([{  recid: record.recid
+                , ReqId: record.ReqId
+                , ReqType : record.ReqTypeName
+                , PartName : record.PartName
+                , ItemName: record.ItemName
+                , ReqItem: record.ReqItem
+                , ReqQty : record.ReqQty
+                , ReqKeterangan :record.ReqKeterangan
+                , ReqReason : record.ReqReason
+                }]);
+
+
+        });
+
+
+
+        }
+
+        if (flag != 'REALISASI_PRKT_IT' && record.Process != 4){
+
+          w2ui['gridSubmissionDetail'].hideColumn('RealisasiId','NamaAsset','ServiceTag','KodeBarcode','NamaAsset','RealDate','NoSeri');
+          w2ui['gridSubmissionDetail'].toolbar.hide('relasasi');
+
+        }
+
+
+
+
+}
+
+
+
+/*---refresh list detail submission ---*/
+function refresh_list_pengajuan_detail(record){
+
+     w2ui['gridSubmissionDetail'].load(URL_PTR + '/ItEquipment/PengajuanDetailList?PengajuanId='+ record.Id)
+
+}
+
+
+function save_pengajuan(FLAG){
+
+
+        var reason = FLAG ;
+        if (FLAG == 'REJECT_BY_ATASAN' || FLAG == 'REJECT_BY_FINAL' || FLAG == 'PENDING'){
+
+
+                var button_reason = '';
+                if (FLAG == 'REJECT_BY_ATASAN' ){  button_reason = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-info" onclick="save_pengajuan(\'REJECT_BY_ATASAN\')">Next</button>';}
+                if (FLAG == 'REJECT_BY_FINAL' ){  button_reason = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-info" onclick="save_pengajuan(\'REJECT_BY_FINAL\')">Next</button>';}
+                if (FLAG == 'PENDING' ){  button_reason = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-info" onclick="save_pengajuan(\'PENDING\')">Next</button>';}
+
+                $("#fot_form_reason").html(button_reason);
+
+                if ($("#Reason").val()== ''){
+
+                        $('#ModReason').modal(
+                            {
+                            backdrop: 'static',
+                            keyboard: false
+                            }
+                        );
+
+                    alert('Enter a reason please !');
+                    return;
+                }
+
+
+
+                reason = $("#Reason").val();
+        }
+
+
+        if ($("#Location").val()== ""){
+
+            $('a[href="#info_submission"]').tab('show');
+            alert('Location may not be empty !');
+            $("#Location").focus();
+
+            return;
+        }
+
+        if ($("#User").val()== ""){
+
+            $('a[href="#info_submission"]').tab('show');
+            alert('User may not be empty !');
+            $("#User").focus();
+
+            return;
+        }
+
+        if ($("#Remark").val()== ""){
+
+            $('a[href="#info_submission"]').tab('show');
+            alert('Write some description on remark field please !');
+            $("#User").focus();
+
+            return;
+        }
+
+        var GgridItemPengajuan = w2ui['gridSubmissionDetail'].records;
+        var PengajuanItem   = [];
+        var RealisasiItem   = [];
+        var RealisasiItem_real   = [];
+
+
+        if ( GgridItemPengajuan.length == 0){
+
+            alert('Submission item my not be empty !');
+            $('a[href="#detail_submission"]').tab('show'); //first focus....
+            return;
+
+        }
+
+
+        for(x = 0 ; x <= GgridItemPengajuan.length -1 ;x++ ){
+                PengajuanItem.push(GgridItemPengajuan[x].ReqId);
+                RealisasiItem.push({recid:GgridItemPengajuan[x].recid,RealisasiId:GgridItemPengajuan[x].RealisasiId})
+
+                if (GgridItemPengajuan[x].RealisasiId  != null){
+
+                    RealisasiItem_real.push( GgridItemPengajuan[x].RealisasiId)
+
+                }
+
+
+            }
+
+
+        if (FLAG == 'REALISASI_PRKT_IT'){
+
+
+            if (RealisasiItem_real.length == 0){
+
+                alert('You not do realize anything for this submission !');
+                $('a[href="#detail_submission"]').tab('show'); //first focus....
+                //detail_submission
+                return;
+
+
+            }
+
+
+        }
+
+
+
+        var DataPeng = new FormData();
+        DataPeng.append('id_pengajuan',$("#SubmissionId").val());
+        DataPeng.append('lokasi_id',$("#LocationId").val());
+        DataPeng.append('pengguna_id',$("#UserId").val());
+        DataPeng.append('keterangan',$("#Remark").val());
+        DataPeng.append('process',"1");
+        DataPeng.append('flag_save',FLAG);
+        DataPeng.append('PengajuanItem',PengajuanItem);
+        DataPeng.append('RealisasiItem',JSON.stringify(RealisasiItem));
+        DataPeng.append('reason',reason);
+
+        render_wait();
+
+        var Simpan =   $.ajax({
+        url: URL_PTR + '/ItEquipment/SavePengajuan',
+        type: 'POST',
+        data: DataPeng,
+        dataType: "json",
+        cache: false,
+        async: false,
+        contentType: false,
+        processData: false,
+        });
+
+        if (Simpan.responseJSON["Result"] != "Error"){
+
+            clear_wait();
+            alert("Process Success");
+            $("#ModSubmissionDetails").modal("hide");
+            $("#ModReason").modal("hide");
+            $("#Reason").val("");
+
+            if (FLAG == 'ADD'){
+
+                refresh_list_request();
+            }
+            else{
+
+                refresh_list_Pengajuan();
+            }
+
+
+        }
+        else{
+            alert("Process fail, please try again !");
+            clear_wait();
+        }
+
+       disable_button();
+
+
+}
+
+
+
+function find_location(){
+
+    if ( allow_finder == false) {return};
+
+    if (w2ui['gridLocation'] != null) { w2ui['gridLocation'].destroy();}
+
+    $('#ModLocation').modal(
+    {
+    backdrop: 'static',
+    keyboard: false
+    }
+    );
+
+    $('#ModLocation').on('shown.bs.modal', function () {
+
+        $('#gridLocation').w2grid({
+            name: 'gridLocation',
+            multiSelect     : false,
+            header: 'Location List',
+            textSearch: 'contains',
+            show: {
+            toolbar         : true,
+            header          : false,
+            footer          : true,
+            lineNumbers     : true,
+            toolbarSearch   : false
+            },
+            columns: [
+            { field: 'KodeUnit', caption: 'Id.', size: '100px',sortable: true ,searchable: 'text' },
+            { field: 'NamaUnit', caption: 'Name', size: '240px',sortable: true ,searchable: 'text' },
+            { field: 'TipeUnit', caption: 'Category', size: '140px',sortable: true ,searchable: 'text'},
+            { field: 'JenisUnit', caption: 'Type', size: '100px',sortable: true ,searchable: 'text' },
+
+            ],
+            onReload: function (event) {
+            refresh_location_list();
+            },
+            onDblClick: function (event) {
+            select_location();
+            }
+        });
+
+        refresh_location_list();
+
+    });
+
+
+
+
+}
+
+function refresh_location_list(){
+
+    w2ui['gridLocation'].load(URL_PTR + '/MasterData/ListUnit');
+
+}
+
+function select_location(){
+
+    var sel = w2ui.gridLocation.getSelection()
+    var record  = w2ui.gridLocation.get(sel[0]);
+    $("#LocationId").val(record.KodeUnit);
+    $("#Location").val(record.KodeUnit + " - " + record.NamaUnit);
+    $("#ModLocation").modal("hide");
+
+}
+
+
+
+
+function find_user(){
+
+    if ( allow_finder == false) {return};
+
+    if (w2ui['gridUser'] != null) { w2ui['gridUser'].destroy();}
+
+    $('#ModUser').modal(
+        {
+            backdrop: 'static',
+            keyboard: false
+        }
+    );
+
+    $('#ModUser').on('shown.bs.modal', function () {
+
+        $('#gridUser').w2grid({
+                name: 'gridUser',
+                multiSelect     : false,
+                header: 'List User',
+                textSearch: 'contains',
+                show: {
+                header         : true,
+                toolbar     : true,
+                footer        : true,
+                lineNumbers    : true,
+                },
+                searches: [
+                { field: 'KodePengguna', caption: 'Nip', type: 'text' },
+                { field: 'NamaPengguna', caption: 'Nama', type: 'text' },
+                { field: 'Posisi', caption: 'Posisi', type: 'text' },
+                { field: 'Fungsi', caption: 'Fungsi', type: 'text' },
+                ],
+                columns: [
+                { field: 'KodePengguna', caption: 'Nip', size: '100px',sortable: true },
+                { field: 'NamaPengguna', caption: 'Nama', size: '240px',sortable: true },
+                { field: 'Posisi', caption: 'Posisi', size: '240px',sortable: true },
+                { field: 'Fungsi', caption: 'Fungsi', size: '240px',sortable: true } //
+                ],
+                onReload: function (event) {
+                refresh_user_list();
+                },
+                onDblClick: function (event) {
+                           select_user();
+                 }
+            });
+
+            refresh_user_list();
+
+    });
+
+
+
+
+}
+
+function refresh_user_list(){
+
+    w2ui['gridUser'].load(URL_PTR + '/MasterData/ListPengguna');
+
+}
+
+function select_user(){
+
+    var sel = w2ui.gridUser.getSelection()
+    var record  = w2ui.gridUser.get(sel[0]);
+    $("#UserId").val(record.KodePengguna);
+    $("#User").val(record.KodePengguna + " - " + record.NamaPengguna);
+    $("#ModUser").modal("hide");
+
+}
+
+
+function view_history_process(){
+
+
+            if (w2ui['gridHitory'] != null) {
+                w2ui['gridHitory'].destroy();
+            }
+
+            var SubmissionId = $("#SubmissionId").val();
+
+            $('#gridHitory').w2grid({
+            name: 'gridHitory',
+            url : URL_PTR + '/ItEquipment/ListHistory?SubmissionId=' +SubmissionId,
+            show: {
+            header          :false,
+            footer          : true,
+            lineNumbers     : true,
+            toolbarAdd      : true,
+            toolbarDelete   : true,
+            },
+            columns: [
+                { field: 'FromName', caption: 'From', size: '200px' },
+                { field: 'ToName', caption: 'To', size: '200px' },
+                { field: 'Descriptions', caption: 'Note', size: '300px' },
+                { field: 'Executor', caption: 'Executor', size: '100%' },
+            ]
+            });
+
+}
+
+function find_asset_realization(record,grid){
+
+    if (w2ui['gridAssets'] != null) { w2ui['gridAssets'].destroy();}
+
+    Id_real = record.recid;
+
+    _button = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-info" onclick="select_asset_realization(\''+record.recid+'\')">Select</button>';
+    $("#fot_form_asset").html(_button);
+
+    $('#ModAsset').modal(
+        {
+            backdrop: 'static',
+            keyboard: false
+        }
+    );
+
+    $('#ModAsset').on('shown.bs.modal', function () {
+
+        $('#gridAssets').w2grid({
+                name: 'gridAssets',
+                multiSelect     : false,
+                textSearch: 'contains',
+                show: {
+                header         : false,
+                toolbar     : true,
+                footer        : true,
+                lineNumbers    : true,
+                toolbarSearch : true,
+                toolbarInput : true,
+                },
+                columns: [
+                { field: 'NamaKategori', caption: 'Category', size: '100px',sortable: true,searchable:'text' },
+                { field: 'NamaAsset', caption: 'Name', size: '200px',sortable: true,searchable:'text' },
+                { field: 'ServiceTag', caption: 'Servive Tag', size: '100px',sortable: true,searchable:'text' },
+                { field: 'NoSeri', caption: 'No.Seri', size: '100px',sortable: true,searchable:'text' },
+                ],
+                onReload: function (event) {
+                   refresh_list_assets_realization();
+                },
+                onDblClick: function (event) {
+                         event.onComplete = function () {
+
+                            select_asset_realization(Id_real);
+
+                         }
+
+                 }
+            });
+
+            refresh_list_assets_realization();
+    });
+
+
+}
+
+function refresh_list_assets_realization(){
+
+    w2ui['gridAssets'].load(URL_PTR + '/ItEquipment/ListAssetData');
+
+}
+
+function select_asset_realization(Id){
+
+    var sel = w2ui.gridAssets.getSelection();
+    var record_  = w2ui.gridAssets.get(sel[0]);
+
+    if (record_ == null){
+
+        alert('Select an item please !');
+    }
+    else{
+
+        w2ui['gridSubmissionDetail'].set(Id, { RealisasiId: record_.AssetId,NamaAsset :record_.NamaAsset,ServiceTag :record_.ServiceTag,NoSeri :record_.NoSeri,KodeBarcode :record_.KodeBarcode});
+        $("#ModAsset").modal("hide");
+
+    }
+
+}
+
+
+
+function find_add_reqeust(){
+
+    $('#ModAddRequest').modal(
+        {
+            backdrop: 'static',
+            keyboard: false
+        }
+    );
+
+    $('#ModAddRequest').on('shown.bs.modal', function () {
+
+        $('#gridAddRequest').w2grid({
+                name: 'gridAddRequest',
+                multiSelect     : false,
+                textSearch: 'contains',
+                show: {
+                header         : false,
+                toolbar     : true,
+                footer        : true,
+                lineNumbers    : true,
+                toolbarSearch : false,
+                toolbarInput : true,
+                },
+                columns: [
+                    { field: 'GroupName', caption: 'Category', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+                    { field: 'ReqTypeName', caption: 'Request Type', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+                    { field: 'ItemName', caption: 'Item', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+                    { field: 'ReqQty', caption: 'Qty', size: '50px', sortable: true, resizable: true, searchable: 'text',render:'number'},
+                    { field: 'PartName', caption: 'Part', size: '80px', sortable: true, resizable: true ,searchable: 'text' },
+                    { field: 'ReqKeterangan', caption: 'Remark', size: '200px', sortable: true, resizable: true ,searchable: 'text' },
+                    { field: 'ReqReason', caption: 'Reason', size: '200px', sortable: true, resizable: true, searchable: 'text' },
+                    { field: 'CreateUser', caption: 'Request By', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+                    { field: 'CreateDate', caption: 'Request Date', size: '100px', sortable: true, resizable: true, searchable: 'text' },
+                ],
+                onReload: function (event) {
+
+                },
+                onDblClick: function (event) {
+
+                         add_other_request();
+                }
+            });
+
+            refresh_list_add_request();
+
+    });
+
+}
+
+function refresh_list_add_request(){
+    w2ui['gridAddRequest'].load(URL_PTR + '/ItEquipment/RequestListData');
+}
+
+
+function add_other_request(){
+
+
+    var sel = w2ui.gridAddRequest.getSelection();
+
+    if (sel == null ){
+
+        alert('Pilih item terlebih dahulu !');
+        return;
+    }
+    else{
+
+        sel.forEach(function(entry) {
+
+                var record = w2ui.gridAddRequest.get(entry);
+                var cehck_rec =   w2ui['gridSubmissionDetail'].get(record.recid);
+
+                if (cehck_rec == null){
+
+                    w2ui["gridSubmissionDetail"].add([{ recid          : record.recid
+                        ,ReqId              : record.ReqId
+                        ,ReqType            : record.ReqTypeName
+                        ,ItemName           : record.ItemName
+                        ,PartName           : record.PartName
+                        ,ReqQty             : record.ReqQty
+                        ,ReqKeterangan      : record.ReqKeterangan
+                        ,ReqReason          : record.ReqReason
+                    }]);
+                }
+
+            });
+
+            w2ui['gridSubmissionDetail'].refresh();
+            $("#ModAddRequest").modal("hide");
+
+    }
+
+}
+
+
+
+function pending_submission(){
+
+
+
+
+}
+
+
+/*-------------------refresh grid on tab focu -----*/
+$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+var target = $(e.target).attr("href");
+
+if ((target == '#detail_submission')) {
+    w2ui['gridSubmissionDetail'].refresh();
+}
+if ((target == '#list_history')) {
+    w2ui['gridHitory'].refresh();
+}
+
+});
+
+
+
+</script>

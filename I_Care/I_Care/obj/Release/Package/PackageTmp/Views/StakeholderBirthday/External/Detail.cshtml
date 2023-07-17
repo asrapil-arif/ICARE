@@ -1,0 +1,735 @@
+﻿
+@{
+	Layout = null;
+}
+
+
+<style>
+	#external_stake_holder_detail {
+		padding: 0px !important;
+	}
+
+		#external_stake_holder_detail label {
+			font-size: 12px;
+		}
+
+		#external_stake_holder_detail .form_footer {
+			text-align: center;
+			padding: 12px;
+		}
+
+	#tab_main_info {
+		padding: 20px;
+	}
+
+
+	#ModalInputMail .form-control {
+		height: 25px !important;
+	}
+		#ModalInputMail .form-control:active, #ModalInputMail .form-control:hover, #ModalInputMail .form-control:focus {
+			border-color: #6eaff0;
+		}
+
+	#ModalInputMail .control-label {
+		font-size: 12px;
+		padding-top: 0px !important;
+	}
+
+
+	#ModalInputMail .modal-dialog, #ModalListUser .modal-dialog{
+		margin: 0 auto;
+		margin-top: 8%;
+	}
+</style>
+
+
+<div id="external_stake_holder_detail">
+
+	<div class="wording_header" style="margin-bottom:10px;">
+		<span style="font-size:14px;padding-left:5px;" id="form_title">
+			Create New External Stakeholder
+		</span>
+	</div>
+
+	<div class="tabbable">
+		<ul class="nav nav-tabs" id="myTab">
+
+			<li class="active">
+				<a data-toggle="tab" href="#tab_main_info" aria-expanded="true" style="border-left:none;">
+					<i class="fa fa-user"></i> Main Info
+				</a>
+			</li>
+
+			<li>
+				<a data-toggle="tab" href="#tab_alert_config" aria-expanded="true">
+					<i class="fa fa-bell"></i>  Alert Configuration
+				</a>
+			</li>
+
+
+			<li class="" id="log_info">
+				<a data-toggle="tab" href="#tab_log" aria-expanded="true">
+					<i class="fa fa-paperclip"></i> Log
+				</a>
+			</li>
+
+		</ul>
+
+		<div class="tab-content" id="tab_employee_detail" style="padding:0px !important;">
+
+			<div id="tab_main_info" class="tab-pane fade active in">
+				<form class="form-horizontal">
+					<div class="box-body">
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-4 control-label">Name Institusi</label>
+							<div class="col-sm-6">
+								<input class="form-control wajib" id="InstitutionName" placeholder="Nama Institusi" type="text" autocomplete="off" caption="Nama Institusi">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-4 control-label">Nama Individu</label>
+							<div class="col-sm-6">
+								<input class="form-control wajib" id="IndividuName" placeholder="Nama Individu" type="text" autocomplete="off" caption="Nama Individu">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-4 control-label">Tanggal Lahir</label>
+							<div class="col-sm-6">
+								<input class="form-control date-picker wajib" id="TglLahir" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="Tanggal Lahir" autocomplete="off" caption="Tgl. Lahir">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-4 control-label">Jabatan</label>
+							<div class="col-sm-6">
+								<input class="form-control wajib" id="Jabatan" placeholder="Jabatan" type="text" autocomplete="off" caption="Jabatan">
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-4 control-label">Alamat</label>
+							<div class="col-sm-6">
+								<textarea class="form-control wajib" id="Alamat" placeholder="Alamat" type="text" style="color:#333;resize:both;font-size:11px;padding-left:3px;height:70px !important;" autocomplete="off" caption="Alamat"></textarea>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-4 control-label">Type Stakeholder</label>
+							<div class="col-sm-6">
+								<select class="form-control select2 wajib3" id="TypeSh" data-placeholder="Type Sh" caption="Type Stakeholder">
+									<option value="0" selected>-- Pilih Type Stakeholder--</option>
+								</select>
+							</div>
+						</div>
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-4 control-label">Kedudukan</label>
+							<div class="col-sm-6">
+								<select class="form-control select2 wajib" id="Kedudukan" caption="Kedudukan">
+									<option value="0" selected>-- Pilih Kedudukan --</option>
+								</select>
+							</div>
+						</div>
+
+
+					</div>
+				</form>
+			</div>
+
+			<div id="tab_alert_config" class="tab-pane fade" style="padding:0px;padding-top:0px;">
+
+				<table border="0" align="center" cellpadding="0" cellspacing="0" style="width:100%;">
+
+					<tr>
+						<td width="60%" valign="top" style="padding-top:1px;">
+							<div id="gridEmail" class="data_grid" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+						</td>
+						<td valign="top" style="border-left:1px solid #ccc;">
+							<div id="setting_box" style="padding:10px;padding-top:30px;">
+
+
+
+								<div style="font-size:20px;padding-left:10px;">Alert Setting</div><br />
+
+								@*<div class="form-group">
+									<label for="inputName" class="col-sm-4 control-label">Enabled Alert</label>
+									<div class="col-sm-6" style="text-align:left;">
+
+
+										<div class="col-xs-2">
+											<label>
+												<input name="switch-field-1" class="ace ace-switch" type="checkbox" id="Snooze" />
+												<span class="lbl"></span>
+											</label>
+										</div>
+
+									</div>
+								</div>*@
+
+								<div class="form-group">
+									<label for="inputName" class="col-sm-4 control-label">Alert Send Start From</label>
+									<div class="col-sm-6">
+
+										<input type="text" id="AlertDay" readonly />
+
+										<span class="lbl" style="font-size:11px;">Day before contract expire</span>
+
+									</div>
+								</div>
+
+
+								<div class="form-group test_send_alert">
+
+									<label for="inputName" class="col-sm-4 control-label">Test Send Alert</label>
+									<div class="col-sm-6" style="padding-top:5px;">
+
+										<button type="button" class="btn btn-danger btn-sm" onclick="send_alert()"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
+									</div>
+
+								</div>
+
+
+							</div>
+						</td>
+
+					</tr>
+				</table>
+
+			</div>
+
+
+			<div id="tab_log" class="tab-pane fade">
+				<div id="gridLog" class="data_grid" style="border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+			</div>
+
+		</div>
+	</div>
+
+	<div class="form_footer">
+
+	</div>
+
+</div>
+
+<div class="modal fade" id="ModalInputMail" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content" style="none;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Input Email Alert</h4>
+
+			</div>
+			<div class="modal-body" style="padding:10px;">
+
+				<form class="form-horizontal">
+					<div class="box-body">
+
+
+						<div class="form-group">
+							<label for="inputName" class="col-sm-3 control-label mandatory">Tujuan Undangan <mandatory>*</mandatory></label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control wajib" id="penerima_email" placeholder="Nama" type="text" onkeypress="if (event.keyCode == 13){$('#alamat_email').focus();}" autocomplete="off" />
+							</div>
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Alamat Email <mandatory>*</mandatory></label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control wajib" id="alamat_email" placeholder="Email" autocomplete="off" onkeypress="if (event.keyCode == 13){$('#jabatan_penerima').focus();}">
+							</div>
+
+						</div>
+
+
+						<div class="form-group">
+
+							<label for="inputName" class="col-sm-3 control-label">Jabatan <mandatory>*</mandatory></label>
+							<div class="col-sm-8">
+								<input type="text" class="form-control wajib" id="jabatan_penerima" placeholder="Jabatan" autocomplete="off" onkeypress="if (event.keyCode == 13) { add_mail('ÁDD');}">
+							</div>
+
+						</div>
+
+
+					</div>
+				</form>
+
+
+
+			</div>
+			<div class="modal-footer">
+
+
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<div class="modal fade" id="ModalListUser" role="dialog">
+	<div class="modal-dialog modal-lg">
+
+		<div class="modal-content" style="none;">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">&times;</button>
+				<h4 class="modal-title">Daftar Email Tujuan</h4>
+
+			</div>
+			<div class="modal-body" style="padding:0px;">
+
+				<div id="gridUser" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-sm" onclick="select_mail()">Pilih</button>
+				<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Close</button>
+			</div>
+
+		</div>
+	</div>
+</div>
+
+<script>
+
+	var is_customer_contract = 0;
+	attachment_tools_contract_file = [];
+	var screen_width = Number(window.innerWidth) * (3 / 4);
+	var allow_action = [];
+	var Upload_File_Main_Draft = [];
+	var Delete_File_Main_Draft = [];
+
+	$('.data_grid').css('height', Number(window.innerHeight) - 282);
+	$('#external_stake_holder_detail .tab-content').css('min-height', Number(window.innerHeight) - 280);
+
+	function form_ext_stakeholder_detail() {
+
+		$("#log_info").hide();
+
+		if (flagCrud == "ADD") {
+			set_sub_child_breadcrumb("Create New External Stakeholder");
+			var button_action = '<button type="button" class="btn btn-primary btn-sm" onclick="save_external_stake_holder()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Save</button> '
+				+ ' <button type = "button" class="btn btn-default btn-sm" onclick = "back_main_page()" > Cancel</button > ';
+			$("#external_stake_holder_detail .form_footer").html(button_action);
+			render_gridMail();
+		}
+
+		if (flagCrud == "VIEW") {
+
+			//set_sub_child_breadcrumb("View Detail External Stakeholder : #" + current_data.NamaIndividualSH);
+			$("#form_title").html("View Detail External Stakeholder : #" + current_data.NamaIndividualSH);
+			var button_action = '<button type="button" class="btn btn-primary btn-sm" onclick="save_external_stake_holder()"><i class="fa fa-floppy-o" aria-hidden="true"></i> Update</button> '
+				+ ' <button type = "button" class="btn btn-default btn-sm" onclick = "back_main_page()" > Cancel</button > ';
+			$("#external_stake_holder_detail .form_footer").html(button_action);
+			$("#log_info").show();
+			fill_form();
+			render_gridMail();
+			refresh_mail_alert();
+			render_grid_log();
+			refresh_log();
+		}
+
+	}
+
+
+	function fill_form() {
+
+		$("#InstitutionName").val(current_data.NamaInstitusi);
+		$("#IndividuName").val(current_data.NamaIndividualSH);
+		$("#TglLahir").val(current_data.TanggalLahir);
+		$("#Alamat").val(current_data.Alamat);
+		$("#Jabatan").val(current_data.Jabatan);
+		$("#TypeSh").val(current_data.TypeSH).trigger("change");
+		$("#Kedudukan").val(current_data.Kedudukan).trigger("change");
+		$("#AlertDay").val(current_data.AlertDay);
+
+	}
+
+	function render_grid_log() {
+
+		if (w2ui['gridLog'] != null) { w2ui['gridLog'].destroy(); }
+		$('#gridLog').w2grid({
+			name: 'gridLog',
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: false,
+				toolbarAdd: true,
+				toolbarDelete: true,
+			},
+			columns: [
+				{ field: 'remark', text: 'Remark', size: '200px' },
+				{ field: 'created_by', text: 'Update By.', size: '200px' },
+				{ field: 'created_date', text: 'Update Date', size: '100%' },
+			]
+		});
+	}
+
+	function render_gridMail() {
+
+
+		if (w2ui['gridEmail'] != null) { w2ui['gridEmail'].destroy(); }
+		allow_add_mail = true;
+		//allow_add_mail = Number(allow_action.AllowAddMail);
+
+		if (flagCrud == "ADD" || flagCrud == "ADDENDUM") { allow_add_mail = 1; }
+		$('#gridEmail').w2grid({
+			name: 'gridEmail',
+			show: {
+				header: false,
+				footer: true,
+				lineNumbers: true,
+				toolbarAdd: false,
+				toolbarDelete: true,
+				toolbar: allow_add_mail,
+				toolbarSearch: false,
+			},
+			columns: [
+
+				{ field: 'Email', text: 'Mail Destination', size: '200px', searchable: 'text', editable: { type: 'text' } },
+				{ field: 'Name', text: 'Name', size: '200px', searchable: 'text', editable: { type: 'text' } },
+				{ field: 'Jabatan', text: 'Jabatan', size: '200px', searchable: 'text', editable: { type: 'text' } },
+			],
+			toolbar: {
+				items: [
+					{ id: 'add', type: 'button', text: 'Add Mail', icon: 'w2ui-icon-plus' },
+					{ type: 'break' },
+					{ id: 'add_from_list', type: 'button', text: 'Add Mail From List', icon: 'w2ui-icon-plus' }
+				],
+				onClick: function (event) {
+					if (event.target == 'add') {
+						input_mail_grid();
+					}
+					if (event.target == 'add_from_list') {
+						find_mail();
+					}
+				}
+			},
+
+
+		});
+
+	}
+
+	function refresh_mail_alert() {
+		w2ui['gridEmail'].load(URL_PTR + '/StakeholderBirthday/GetExternalShMailAlertList/' + current_data.Id);
+	}
+
+	function refresh_log() {
+		w2ui['gridLog'].load(URL_PTR + '/StakeholderBirthday/GetExternalShLog/' + current_data.Id);
+	}
+
+	function input_mail_grid() {
+
+		$("#penerima_email").val("");
+		$("#alamat_email").val("");
+		$("#jabatan_penerima").val("");
+
+
+		button = '<button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>';
+		button = button + '<button type="button" class="btn btn-info btn-sm" onclick="add_mail(\'ADD\')">Add</button>';
+
+
+
+		$("#ModalInputMail .modal-footer").html(button);
+		$("#ModalInputMail").modal({ backdrop: 'static', keyboard: false });
+		$("#ModalInputMail").on('shown.bs.modal', function (e) {
+			$("#penerima_email").focus();
+		});
+	}
+
+	function add_mail() {
+
+		var flag = "ADD";
+		var isValid = true;
+
+		$("#ModalInputMail .wajib_diisi").each(function () {
+
+			var element = $(this);
+
+			if (element.val() == "") {
+
+				isValid = false;
+				var fill_placeholder = element[0].attributes["placeholder"];
+				var placeHolderText = fill_placeholder.nodeValue;
+				placeHolderText = placeHolderText.replace("Wajib Diisi", "").trim() + " Wajib Diisi";
+
+				$("#" + element[0].id).attr("placeholder", placeHolderText);
+
+			}
+
+		});
+
+		if (isValid == true) {
+
+
+			w2ui.gridEmail.save();
+
+
+			if (flag == 'ADD') {
+
+
+				var list_Rec = w2ui['gridEmail'].records;
+				var new_rec = new Array();
+
+				if (list_Rec.length > 0) {
+
+					for (x = 0; x < list_Rec.length; x++) {
+
+						new_rec.push(list_Rec[x].recid);
+
+					}
+
+					var new_recid = Math.max.apply(Math, new_rec);
+					w2ui['gridEmail'].add({
+						recid: new_recid + 1
+						, Email: $('#alamat_email').val()
+						, Name: $('#penerima_email').val()
+						, Jabatan: $('#jabatan_penerima').val()
+
+
+					});
+
+				}
+				else {
+
+					w2ui['gridEmail'].add({
+						recid: 1
+						, Email: $('#alamat_email').val()
+						, Name: $('#penerima_email').val()
+						, Jabatan: $('#jabatan_penerima').val()
+
+					});
+
+				}
+
+
+			}
+			else {
+				w2ui['gridEmail'].set(IdSelect, { Email: $('#alamat_email').val(), Name: $('#penerima_email').val(), Jabatan: $('#jabatan_penerima').val() });
+			}
+
+
+
+			$("#ModalInputMail").modal("hide");
+
+		}
+	}
+
+	function find_mail() {
+
+		if (w2ui['gridUser'] != null) {
+			w2ui['gridUser'].destroy();
+		}
+
+
+		$('#ModalListUser').modal(
+			{
+				backdrop: 'static',
+				keyboard: false
+			}
+		);
+
+		$('#ModalListUser').on('shown.bs.modal', function () {
+
+			$('#gridUser').w2grid({
+
+				name: 'gridUser',
+				multiSelect: false,
+				header: 'List Mail',
+				textSearch: 'contains',
+				show: {
+					header: false,
+					toolbar: true,
+					footer: true,
+					toolbarSearch: false,
+				},
+				columns: [
+					{ field: 'NM_PEG', text: 'Nama Penerima', size: '200px', sortable: true, searchable: 'text' },
+					{ field: 'NM_JABATAN_STR', text: 'Jabatan', size: '200px', sortable: true, searchable: 'text' },
+					{ field: 'EMAIL', text: 'Email', size: '100%', sortable: true, searchable: 'text' },
+				],
+				onDblClick: function (event) {
+					select_mail();
+				},
+				onReload: function (event) {
+					refresh_list_user();
+				}
+			});
+
+			refresh_list_user();
+		})
+
+
+
+	}
+
+	function refresh_list_user() {
+		w2ui['gridUser'].load(URL_PTR + '/StakeholderBirthday/GetUserList');
+	}
+
+	function select_mail() {
+
+		var sel = w2ui.gridUser.getSelection();
+		var record = w2ui.gridUser.get(sel[0]);
+
+		var cek_mail = 0;
+		var ListDest = w2ui['gridEmail'].records;
+
+		for (var i = 0; i < ListDest.length; i++) {
+			var obj = ListDest[i];
+			if (obj["Email"].toLowerCase() == record.EMAIL.toLowerCase()) {
+				cek_mail = cek_mail + 1;
+			}
+		}
+
+		if (cek_mail == 0) {
+			w2ui['gridEmail'].add({
+				recid: record.recid
+				, Email: record.EMAIL
+				, Name: record.NM_PEG
+				, Jabatan: record.NM_JABATAN_STR
+				, FlagStat: 'new'
+
+			});
+			//$('#ModalListUser').modal("hide");
+		}
+		else {
+			w2alert("Alamat email : <b>" + record.EMAIL + "</b> <br> Sudah ada pada list !");
+		}
+
+	}
+
+	function save_external_stake_holder() {
+
+		var valid = form_validation2("tab_main_info", "wajib", function () { $('a[href="#tab_main_info"]').tab('show'); });
+		if (valid == false) { return; }
+		w2ui['gridEmail'].save();
+		var ListDest = w2ui['gridEmail'].records;
+
+		if (ListDest.length < 1) {
+			w2alert("Input minimal 1 alamat email untuk alert !");
+			$('a[href="#tab_alert_config"]').tab('show');
+			return;
+		}
+
+		var DataSave = new FormData();
+		DataSave.append('FlagCrud', flagCrud);
+
+		if (flagCrud == "ADD") {
+
+			DataSave.append('Id',"0" );
+		}
+		else {
+			DataSave.append('Id', current_data.Id);
+		}
+		
+		DataSave.append('InstitutionName', $("#InstitutionName").val());
+		DataSave.append('IndividuName', $("#IndividuName").val());
+		DataSave.append('TglLahir', $("#TglLahir").val());
+		DataSave.append('Jabatan', $("#Jabatan").val());
+		DataSave.append('Alamat', $("#Alamat").val());
+		DataSave.append('TypeSh', $("#TypeSh").val());
+		DataSave.append('Kedudukan', $("#Kedudukan").val());
+		DataSave.append('AlertDay', $("#AlertDay").val());
+		DataSave.append('MailDestinations', JSON.stringify(ListDest));
+
+		$("#Saving_Load").show("fade", function () {
+			var Simpan = $.ajax({
+				url: URL_PTR + '/StakeholderBirthday/SaveExternalStakeholder',
+				type: 'POST',
+				data: DataSave,
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+				error: function (request, status, error) {
+					w2alert("Error, try again or contact our administrator please !", "Saving Contract Archive");
+					$('#Saving_Load').hide();
+				}
+			});
+
+			if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+				$('#Saving_Load').hide();
+				w2alert(Simpan.responseJSON["Result"]);
+			}
+			else {
+				w2alert("Save data success !");
+				$('#Saving_Load').hide();
+				back_main_page();
+			}
+		});
+
+
+	}
+
+
+	$("#AlertDay").val("10");
+	$('#AlertDay').ace_spinner({ value: 0, min: 0, max: 30, step: 1, btn_up_class: 'btn-info', btn_down_class: 'btn-info' })
+		.closest('.ace-spinner')
+		.on('changed.fu.spinbox', function () {
+		});
+
+	$('.date-picker').w2field('date', { format: 'yyyy/mm/dd' });
+	$('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+		var target = $(e.target).attr("href");
+		if ((target == '#tab_log')) {
+			w2ui['gridLog'].refresh();
+		}
+		if ((target == '#tab_alert_config')) {
+			w2ui['gridEmail'].refresh();
+		}
+	});
+
+
+	function render_stakeholder_type() {
+
+		$.each(stakeholder_type, function (i, item) {
+			$("#TypeSh").append('<option value="' + stakeholder_type[i].Id + '">' + stakeholder_type[i].StakeholderName + '</option>');
+		});
+		$("#TypeSh").trigger("change");
+	}
+
+	function render_stakeholder_kedudukan() {
+
+		$.each(stakeholder_kedudukan_, function (i, item) {
+			$("#Kedudukan").append('<option value="' + stakeholder_kedudukan_[i].Id + '">' + stakeholder_kedudukan_[i].KedudukanName + '</option>');
+		});
+		$("#Kedudukan").trigger("change");
+	}
+
+
+	$('#tab_main_info').on('keydown', 'input, select, textarea', function (e) {
+		if (e.which === 13) {
+			var self = $(this), form = self.parents('form:eq(0)'), focusable, next;
+			focusable = form.find('input,select, textarea').filter(':visible');
+			next = focusable.eq(focusable.index(this) + 1);
+			if (next.length) {
+				id = next[0].id;
+				var e = document.getElementById(id);
+				if (e instanceof HTMLSelectElement) {
+					$('#' + id).select2('open');
+				}
+				else {
+					next.focus();
+				}
+
+			}
+			return false;
+		}
+	});
+
+	render_stakeholder_type();
+	render_stakeholder_kedudukan();
+	form_ext_stakeholder_detail();
+
+
+
+
+</script>

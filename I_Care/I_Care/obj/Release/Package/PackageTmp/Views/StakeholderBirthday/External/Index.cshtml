@@ -1,0 +1,115 @@
+﻿@using I_Care.Models
+@{
+	var ROLES = new I_Care.Classes.UserRoleProvider();
+	ViewBag.Title = "StakeholderBirthday";
+	ViewBag.Parent = "StakeholderBirthday";
+	ViewBag.Child = "External";
+	ViewBag.Parent_Caption = "<a href='" + @Request.Url.GetLeftPart(UriPartial.Authority) + "/StakeholderBirthday'>Stakeholder Birthday</a>";
+	ViewBag.Child_Caption = "<a href='" + @Request.Url.GetLeftPart(UriPartial.Authority) + "/StakeholderBirthday/External'>External</a>";
+	ViewBag.Icon = "<i class=\"ace-icon fa fa-file-text-o\"></i>";
+	ViewBag.TopMenuAce = "Yes";
+
+}
+
+<script>
+
+	var current_data = [];
+	var filter_global = 0;
+	var global_status = 0;
+	var call_back = 0;
+
+
+	var StatusRef = "";
+	var lsting_stat = "";
+	var selected_employee_id = 0;
+	var height = Number(window.innerHeight) - 133;
+	var StatusSearch = 0;
+	var flagCrud = "";
+
+
+	var field_search = "";
+	var key_search = "";
+
+	var stakeholder_type = [];
+	var stakeholder_kedudukan = []
+
+
+	if (stakeholder_type.length == 0) {
+		var stakeholder_type_ = $.ajax({
+			url: URL_PTPR + '/StakeholderBirthday/GetExternalStakeholderType',
+			type: 'GET',
+			dataType: "json",
+			cache: false,
+			async: false,
+			contentType: false,
+			processData: false,
+		});
+
+		stakeholder_type = stakeholder_type_.responseJSON;
+	}
+
+
+	if (stakeholder_kedudukan.length == 0) {
+		var stakeholder_kedudukan_ = $.ajax({
+			url: URL_PTPR + '/StakeholderBirthday/GetExternalStakeholderKedudukan',
+			type: 'GET',
+			dataType: "json",
+			cache: false,
+			async: false,
+			contentType: false,
+			processData: false,
+		});
+
+		stakeholder_kedudukan_ = stakeholder_kedudukan_.responseJSON;
+	}
+
+
+</script>
+
+<style>
+	.page-content {
+		padding: 0px;
+	}
+</style>
+
+
+<div id="PageContainer"></div>
+
+
+<script>
+
+	function back_main_page() {
+
+		isMainPage = true;
+		set_sub_child_breadcrumb("");
+
+
+
+		if (StatusSearch == 1) {
+
+			load_page("#PageContainer", URL_PTPR + "/StakeholderBirthday/ExternalMainPage", function () { $('.select2').css('width', '100%').select2(); $("#param_field").val(field_search).trigger("change"); $("#key_word").val(key_search);find_External_search(global_status); });
+		}
+		else {
+
+			if (global_status != 0) {
+				load_page("#PageContainer", URL_PTPR + "/StakeholderBirthday/ExternalMainPage", function () { $('.select2').css('width', '100%').select2(); find_ultah(global_status,''); });
+			}
+			else {
+
+				FLAG_VIEW = "";
+				load_page("#PageContainer", URL_PTPR + "/StakeholderBirthday/ExternalMainPage", function () { $('.select2').css('width', '100%').select2() });	
+			}
+
+		}
+
+	}
+
+	
+	$(document).ready(function () {
+
+		isMainPage = true;
+		load_page("#PageContainer", URL_PTPR + "/StakeholderBirthday/ExternalMainPage", function () { $('.select2').css('width', '100%').select2() });
+
+	});
+
+</script>

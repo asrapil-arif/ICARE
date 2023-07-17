@@ -1,0 +1,589 @@
+﻿<style>
+
+	#template_spk_v2 .outer_template {
+		overflow-y: scroll;
+		margin: 5% auto;
+		margin-top: 0px;
+		margin-bottom: 0px;
+		width: 100%;
+		height: 500px;
+		padding: 3%;
+		padding-top: 0px;
+		border-radius: 0px;
+		text-align: justify;
+		border: none;
+		border-bottom: 1px solid #dedede;
+		background-color: whitesmoke;
+		display: inline-grid;
+		position: relative;
+	}
+
+	#template_spk_v2 .inner_template {
+		background-color: white;
+		padding: 6%;
+		border: 1px solid #dedede;
+		width: 80%;
+		margin: 2% auto;
+		margin-top: 1% !important;
+		margin-bottom: 1% !important;
+		height: 1300px !important;
+		width: 874px;
+		position: relative;
+		box-shadow: 13px 16px 13px -9px rgba(0,0,0,0.21);
+		-webkit-box-shadow: 13px 16px 13px -9px rgba(0,0,0,0.21);
+		-moz-box-shadow: 13px 16px 13px -9px rgba(0,0,0,0.21);
+	}
+
+		#template_spk_v2 .inner_template td {
+			font-size: 12px !important;
+		}
+
+	#template_spk_v2 .footer_inner_template {
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		left: 0;
+		font-style: italic;
+		padding: 5px;
+		font-size: 11px;
+		color: gray;
+		width: 100%;
+		text-align: right;
+	}
+
+	#template_spk_v2 .footer_inner_template_sub {
+		border-top: 1px solid #dedede;
+		padding: 5px;
+		margin: 3% auto;
+		width: 90%;
+	}
+
+	#template_spk_v2 .header_inner_template {
+		position: absolute;
+		top: 0;
+		right: 0;
+		left: 0;
+		padding: 5px;
+		font-size: 15px;
+		color: gray;
+		width: 100%;
+		text-align: right;
+		
+	}
+
+	#template_spk_v2 .header_inner_template_sub {
+		border-top: 0px solid #dedede;
+		padding: 5px;
+		margin: 1% auto;
+		width: 90%;
+	}
+
+
+	#template_spk_v2  .button_box {
+		border: 0px solid #dedede;
+		width: 100%;
+		text-align: center;
+		padding-top: 1%;
+	}
+
+
+	#template_spk_v2  .sub_page_doc {
+		text-align: justify;
+	}
+
+	#template_spk_v2  .baris_center {
+		text-align: center !important;
+	}
+
+	#template_spk_v2 .harap_input {
+		padding: 1px;
+		border: none !important;
+		border-bottom: 1px dotted #000000 !important;
+		background-color: #caecff !important;
+		margin: 1px auto !important;
+		width: 20%;
+	}
+
+
+		#template_spk_v2 .harap_input:focus {
+			border-bottom: 1px solid red !important;
+			width: 30%;
+		}	
+
+
+	#template_spk_v2 .text_pasal {
+		resize: none;
+		width: 90%;
+		height: 50px;
+		background-color: #caecff !important;
+		margin: 1px auto !important;
+		border: none !important;
+		border-bottom: 1px dotted #000000 !important;
+	}
+		#template_spk_v2 .text_pasal:focus {
+			resize: none;
+			width: 100%;
+			height: 50px;
+			background-color: #caecff !important;
+			margin: 1px auto !important;
+			border-bottom: 1px solid red !important;
+		}
+
+	#template_spk_v2  .catatan_ td {
+		color: red;
+		font-style: italic;
+	}
+
+	#template_spk_v2  .inner_template td {
+		vertical-align: top;
+	}
+
+	.nama_pt {
+	
+		font-weight:bold;
+	}
+
+
+	.footer_signed .harap_input {
+		width: 50% !important;
+	}
+
+		.footer_signed .harap_input:focus {
+			width: 60% !important;
+		}
+
+
+</style>
+
+
+<div id="template_spk_v2" hidden>
+	<div class="template_header"><div class="header_button"><button type="button" class="btn btn-danger btn-sm full_screen_btn" onclick="full_screen('#template_spk_v2');"><i class="fa fa-arrows-alt" aria-hidden="true"></i> Maximize</button></div></div>
+	<div class="outer_template" id="outer_template_spk_v2">
+
+		<div class="inner_template form_spk">
+
+			<table border="0" width="100%" id="table_spk_v2_page_1" align="center">
+
+				<tr><td class="baris_center"><span style="font-weight:bold;">SURAT PERINTAH KERJA</span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_center"><span style="font-weight:bold;">No : <input type="text" placeholder="* No." class="harap_input input wajib" id="no_spk" autocomplete="off" /> </span></td></tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr><td class="baris_left"><span style="font-weight:bold;">Kepada Yth,</span></td></tr>
+				<tr><td class="baris_left">( <input type="text" placeholder="* Nama" class="harap_input wajib nama_pt input" id="kepada_nama_pt_spk" autocomplete="off" onkeyup="fill_all_nama_pt(this.value)" /> )</td></tr>
+				<tr><td class="baris_left">( <input type="text" placeholder="* Alamat" class="harap_input wajib input" id="kepada_nama_alamat_spk" autocomplete="off" /> )</td></tr>
+				<tr><td>&nbsp;</td></tr>
+
+				<tr>
+					<td class="baris_left">
+						<span>
+							Berdasarkan Surat Kesanggupan dari  <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="kesanggupan_dari_pt_spk" autocomplete="off" /> No.
+							<input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="no_kesanggupan_spk" autocomplete="off" /> Tanggal <input type="text" placeholder="* Harap diisi" class="harap_input wajib input tanggal" id="tgl_kesanggupan_spk" autocomplete="off" />
+							dan Berita Acara Negosiasi tanggal <input type="text" placeholder="* Harap diisi" class="harap_input wajib input tanggal" id="tgl_negosiasi_spk" autocomplete="off" />
+							untuk Pekerjaan <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="pekerjaan_yg_disanggupi_spk" autocomplete="off" />, dengan nilai Rp. <input type="text" placeholder="* Harap diisi" class="harap_input  wajib input nilai_temp" id="nilai_spk_v2_temp" autocomplete="off" hidden /><input type="text" placeholder="* Harap diisi" class="harap_input  wajib input" id="nilai_spk_v2" autocomplete="off" onkeyup="format_currencyproc('nilai_spk_v2', 'nilai_spk_v2_temp');$('#nilai_spk_v2_terbilang').html(terbilang($('#nilai_spk_v2_temp').val()));" onselect="format_currencyproc('nilai_spk_v2', 'nilai_spk_v2_temp');$('#nilai_spk_v2_terbilang').html(terbilang($('#nilai_spk_v2_temp').val()));" onmouseup="format_currencyproc('nilai_spk_v2', 'nilai_spk_v2_temp');$('#nilai_spk_v2_terbilang').html(terbilang($('#nilai_spk_v2_temp').val()));" />
+							<b>( <span id="nilai_spk_v2_terbilang">...</span> )</b> belum termasuk  PPN 10%. Dengan ini kami minta agar saudara segera melaksanakan pekerjaan tersebut di atas.
+						</span>
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td class="baris_left">
+						<span style="font-weight:bold;">
+							Dengan spesifikasi dan kondisi sebagai berikut :
+						</span>
+					</td>
+				</tr>
+				<tr><td>&nbsp;</td></tr>
+				<tr>
+					<td class="baris_left">
+						<table id="table_spk_v2_page_1_sub">
+
+							<tr>
+								<td width="3%">1.</td>
+								<td>Spesifikasi pekerjaan berdasarkan Bill of Quantity Pekerjaan <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="bq_qty_spk" autocomplete="off" />.</td>
+							</tr>
+
+
+							<tr>
+								<td width="3%">2.</td>
+								<td>Bilamana tidak sesuai dengan ayat 1 di atas dan dinyatakan ditolak oleh <b>PT Pertamina Retail</b> maka segala biaya yang timbul menjadi beban <input type="text" placeholder="* Harap diisi" class="harap_input wajib input nama_pt" id="penanggung_beban_spk" autocomplete="off" />.</td>
+							</tr>
+
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+							<tr>
+								<td width="3%">3.</td>
+								<td>
+									<button class="btn btn-primary btn-sm btn_custom_text" onclick="rich_text('cara_pembayaran_content_spk_v2')" style="margin-bottom:10px;"> Add Custom Text Here </button> <button class="btn btn-grey btn-sm btn_custom_text" onclick="$('#cara_pembayaran_content_spk_v2').html('');" style="margin-bottom:10px;"> Clear </button>
+									<div id="cara_pembayaran_content_spk_v2"></div>
+									<br />Paling lama 21 (dua puluh satu) hari kalender setelah
+									Invoice diterima yang dilengkapi dengan Surat Permohonan pembayaran, Kuitansi bermaterai cukup, Faktur pajak Standar
+									(bila menagih PPN), Copy Purchase Order (PO), Asli Goods Receipt (GR) atau Service Acceptance (SA) dan Berita Acara Penyelesaian Pekerjaan yang ditandatangani oleh Pihak <b>PT Pertamina Retail </b>dan
+									Pihak <input type="text" placeholder="* Harap diisi" class="harap_input wajib input nama_pt" id="ba_pihak_ke2_name_spk" autocomplete="off" />, serta di transfer ke nomor rekening <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="no_rekening_spk" autocomplete="off" />
+									dengan Bank <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="nama_bank_spk" autocomplete="off" />
+									atas nama              <input type="text" placeholder="* Harap diisi" class="harap_input wajib input nama_pt" id="atas_nama_rekening_spk" autocomplete="off" />.
+								</td>
+							</tr>
+
+
+
+							<tr>
+								<td width="3%">4.</td>
+								<td>Semua pajak dan pungutan-pungutan lain merupakan beban <input type="text" placeholder="* Harap diisi" class="harap_input wajib input nama_pt" id="penanggung_pajak_spk" autocomplete="off" /> kecuali PPN 10% (sepuluh persen) merupakan beban <b>PT Pertamina Retail.</b></td>
+							</tr>
+
+
+
+							<tr>
+								<td width="3%">6.</td>
+								<td>Mengikuti peraturan yang ditentukan oleh PT Pertamina Retail dan memperhatikan keselamatan kerja.</td>
+							</tr>
+
+
+
+							<tr>
+								<td width="3%">7.</td>
+								<td>Melindungi dan mencegah seluruh pekerja kontraktor serta pekerja <b>PT Pertamina Retail</b> dari bahaya pekerjaan, melengkapi APD dan alat penanggulangan keadaan darurat.</td>
+							</tr>
+
+
+							<tr>
+								<td width="3%">8.</td>
+								<td>Memperhatikan kebersihan dan ketertiban lokasi pekerjaan serta pemasangan rambu-rambu yang berkaitan dengan pekerjaan.</td>
+							</tr>
+
+
+							<tr>
+								<td width="3%">9.</td>
+								<td>Waktu pelaksanaan pekerjaan <input type="text" placeholder="* Hari,Minggu,Bulan ( Hari Kerja )" class="harap_input wajib input" id="jumlah_hari_kerja_spk" autocomplete="off" />   terhitung sejak tanggal <input type="text" placeholder="* Harap diisi" class="harap_input wajib input tanggal" id="tgl_mulai_kerja_spk" autocomplete="off" /> sampai dengan tanggal <input type="text" placeholder="* Harap diisi" class="harap_input wajib input tanggal" id="tgl_akhir_kerja_spk" autocomplete="off" />.</td>
+							</tr>
+
+
+							<tr>
+								<td width="3%">10.</td>
+								<td><b>PT Pertamina Retail</b> menunjuk <input type="text" placeholder="* Harap diisi" class="harap_input wajib input" id="nama_yang_ditunjuk_spk" autocomplete="off" />  atau Pejabat terkait untuk mengawasi dan memeriksa hasil pekerjaan.</td>
+							</tr>
+
+
+							<tr>
+								<td width="3%">11.</td>
+								<td>Keterlambatan pekerjaan dikenakan denda sebesar 1‰ (satu permil) dari Harga Kesepakatan per hari dan jumlah keseluruhan maksimal 5% dari nilai harga pekerjaan.</td>
+							</tr>
+							<tr><td>&nbsp;</td><td>&nbsp;</td></tr>
+
+							<tr class="btn_custom_point">
+								<td colspan="2">
+
+									<button class="btn btn-primary btn-sm btn_custom_text" onclick="custom_point('table_spk_v2_page_1_sub')" style="margin-bottom:10px;"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Custom Point </button>
+									<button class="btn btn-grey btn-sm btn_custom_text" onclick="clear_last_point('table_spk_v2_page_1_sub')" style="margin-bottom:10px;"> Clear Last Point </button>
+
+								</td>
+
+							</tr>
+
+
+
+						</table>
+					</td>
+				</tr>
+
+			</table>
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Surat Perintah Kerja ] [ Hal. #1 ]</div>
+			</div>
+		</div>
+
+		<div class="inner_template form_spk">
+
+
+			<table border="0" width="100%" id="table_spk_v2_page_2_after" align="center">
+
+				<tr class="btn_custom_point">
+					<td colspan="2">
+
+						<button class="btn btn-primary btn-sm btn_custom_text" onclick="custom_point('table_spk_v2_page_2_after')" style="margin-bottom:10px;"> <i class="fa fa-plus-circle" aria-hidden="true"></i> Add Custom Point </button> <button class="btn btn-grey btn-sm btn_custom_text" onclick="clear_last_point('table_spk_v2_page_2_after')" style="margin-bottom:10px;"> Clear Last Point </button>
+
+					</td>
+
+				</tr>
+
+			</table>
+
+			<table border="0" width="100%" id="table_spk_v2_page_2" align="center">
+
+
+				<tr><td>&nbsp;</td></tr>
+
+
+				<tr><td><input type="text" placeholder="* Jakarta ...." class="harap_input wajib input" id="tempat_ditanda_tangani" autocomplete="off" /></td></tr>
+				<tr>
+					<td>
+						<table width="100%" border="0" class="footer_signed">
+							<tr id="header_sign">
+								<td width="50%">
+
+									<b><input type="text" placeholder="* Harap diisi" class="harap_input wajib input nama_pt" id="nama_pt_diberi_tugas_footer_spk" autocomplete="off" /></b><br />Menyetujui & Menyanggupi
+
+
+
+								</td>
+								<td>
+
+									<b>PT. Pertamina Retail<br /></b>Pemberi Tugas<br />
+
+
+								</td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><div class="e_materai_pihak_2"><div class="e_materai"><span class="materai_sub">E-Materai &</span> <br>Tanda Tangan</div></div></td>
+								<td><div class="e_materai_pihak_1"><div class="e_materai"><span class="materai_sub">E-Materai &</span> <br>Tanda Tangan</div></div></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+								<td><b>&nbsp;</b></td>
+								<td><b>&nbsp;</b></td>
+							</tr>
+							<tr>
+
+								<td>
+
+
+									<input type="text" placeholder="* Nama Harap diisi" class="harap_input wajib input" id="nama_pejabat_diberi_tugas_footer_spk" autocomplete="off" style="width:80%" />
+
+
+								</td>
+								<td>
+
+
+									<input type="text" placeholder="* Nama Harap diisi" class="harap_input wajib input" id="nama_pejabat_ptpr_footer_spk" autocomplete="off" />
+
+
+								</td>
+
+							</tr>
+
+
+							<tr>
+								<td>
+
+									<input type="text" placeholder="* Jabatan Harap diisi" class="harap_input wajib input" id="jabatan_diberi_tugas_footer_spk" autocomplete="off" />
+
+								</td>
+								<td>
+
+									<input type="text" placeholder="* Jabatan Harap diisi" class="harap_input wajib input" id="jabatan_ptpr_footer_spk" autocomplete="off" />
+
+								</td>
+
+							</tr>
+
+						</table>
+					</td>
+				</tr>
+
+			</table>
+
+			<div class="footer_inner_template">
+				<div class="footer_inner_template_sub">[ Surat Perintah Kerja ] [ Hal. #2 ]</div>
+			</div>
+		</div>
+
+
+
+	</div>
+
+	<div class="button_box">
+
+		<button type="button" class="btn btn-default btn-sm" onclick="batal_spk_v2()" ondblclick="batal_spk_v2()"><i class="fa fa-arrow-left aria-hidden="true"></i> Kembali</button>
+		<button type="button" class="btn btn-primary btn-sm" onclick="save_spk_v2()" ondblclick="save_spk_v2()">Proses <i class="fa fa-arrow-right aria-hidden="true"></i> </button>
+
+	</div>
+
+</div>
+
+<div id="page_proses_load_spk_v2" hidden>
+
+	<img src="~/Content/images/loading_images/roket.gif" style="width:30%;" />
+	<br />
+	<span>Loading ...</span>
+
+</div>
+
+<script>
+
+	function save_spk_v2() {
+
+		var last_empty_id = "";
+		var xcount = 1;
+		var validate_save = true;
+		var json_field = [];
+
+		$("#template_spk_v2 .wajib").each(function () {
+			var element = $(this);
+			if (element.val() == "" && element[0].id != "nilai_spk_v2_temp") {
+
+				isValid = false;
+				var fill_placeholder = element[0].attributes["placeholder"];
+				var placeHolderText = fill_placeholder.nodeValue;
+				placeHolderText = placeHolderText.replace("Harap diisi", "").trim().replace(" [ Wajib diisi ! ]", "");
+				$("#template_spk_v2 #" + element[0].id).attr("placeholder", placeHolderText + " [ Wajib diisi ! ]");
+				if (xcount == 1) last_empty_id = element[0].id;
+
+				xcount = xcount + 1;
+				validate_save = false;
+
+			}
+		});
+
+		if (validate_save == false) {
+
+			$("#template_spk_v2 #" + last_empty_id).focus();
+			return;
+		}
+		else {
+
+			$("#template_spk_v2").hide();
+
+			$("#page_proses_load_spk_v2").show("fade", function () {
+
+				var feed = {};
+				$("#template_spk_v2 .input").each(function () {
+
+					var element = $(this);
+
+					if (element.val() != "") {
+
+						isValid = false;
+						value_ = $("#template_spk_v2 #" + element[0].id).val();
+
+						if (element[0].id != "nilai_spk_v2_temp") {
+
+
+							if ($("#template_spk_v2 #" + element[0].id).hasClass("nama_pt")) {
+
+								$("#template_spk_v2 #" + element[0].id).after("<span class='value_ nama_pt'>" + value_ + "<span>");
+							}
+							else {
+
+								$("#template_spk_v2 #" + element[0].id).after("<span class='value_'>" + value_ + "<span>");
+
+							}
+
+						}
+
+						if (element[0].id == "cara_pembayaran_spk_v2") {
+
+							$("#template_spk_v2 #cara_pembayaran_content").html(value_);
+
+						}
+
+						var field_name = element[0].id.toString();
+						feed[field_name] = value_;
+					}
+				});
+
+				json_field.push(feed);
+
+				$("#template_spk_v2").after("<div id='template_spk_v2_temp' hidden>" + $("#template_spk_v2").html() + "<div>");
+				$("#template_spk_v2_temp").find("input,textarea").remove();
+				$("#template_spk_v2_temp").find(".richText,.btn_custom_text,.btn_custom_point").remove();
+
+				var CaptureDiv = $("#template_spk_v2_temp .outer_template").html();
+				$("#template_spk_v2").find(".value_").remove();
+				var CaptureDivEdit = $("#template_spk_v2 .outer_template").html();
+
+				var DataSave = new FormData();
+				DataSave.append('ProcId', current_proc.Id)
+				DataSave.append('FormField', JSON.stringify(json_field))
+				DataSave.append('FormCapture', CaptureDiv)
+				DataSave.append('FormCaptureEdit', CaptureDivEdit)
+				DataSave.append('ContractId', '')
+				DataSave.append('FlagCrud', 'ADD')
+				DataSave.append('FormId', '2')
+
+				var Simpan = $.ajax({
+					url: URL_PTPR + '/EContract/SaveEContractPengadaan',
+					type: 'POST',
+					data: DataSave,
+					dataType: "json",
+					cache: false,
+					async: false,
+					contentType: false,
+					processData: false,
+					error: function (request, status, error) {
+
+						$("#page_proses_load_spk_v2").hide();
+						$("#template_1").show();
+						w2alert("Error, try again or contact our administrator please !", "Save E-Kontrak");
+
+					}
+				});
+
+
+				$("#template_spk_v2_temp").remove();
+
+
+				if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+
+					w2alert(Simpan.responseJSON["Result"]);
+					$("#page_proses_load_spk_v2").hide();
+					$("#template_spk_v2").show();
+				}
+				else {
+
+					w2alert("Pengajuan E-Kontrak untuk proses pengadaan ini berhasil, silahkan tunggu sampai E-Kontrak ini direview dan disetujui !", "Save E-Kontrak");
+					UpdateCountProcProgress();
+					refresh_procurementt_list();
+					$("#page_proses_load_spk_v2").hide();
+					$("#template_spk_v2").hide();
+					$("#page_result").show();
+				}
+
+			});
+
+		}
+
+	}
+
+
+	function batal_spk_v2() {
+
+
+		$("#template_spk_v2").hide("fade", function () {
+			$("#prepared_page_e_contract").show();
+		});
+
+	}
+
+
+	function fill_all_nama_pt(nama_pt) {
+
+		$(".nama_pt").val(nama_pt);
+
+	}
+	
+
+
+</script>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="bb2d387c1baa49fba9008843d70d91d1" Name="Diagram1">
+        <EntityTypeShape EntityType="FMSModel.m_contract_owner" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_contract_receiver" Width="1.5" PointX="2.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_contract_type" Width="1.5" PointX="2.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_customer_contract_Type" Width="1.5" PointX="4.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_group_item" Width="1.5" PointX="4.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_item" Width="1.5" PointX="6.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_part_item" Width="1.5" PointX="0.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_pengajuan_process" Width="1.5" PointX="6.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_pic_process" Width="1.5" PointX="6.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_process_contract" Width="1.5" PointX="8.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_request_process" Width="1.5" PointX="2.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_request_type" Width="1.5" PointX="8.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_Role" Width="1.5" PointX="8.75" PointY="6.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.m_RoleGroup" Width="1.5" PointX="10.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_attachtment" Width="1.5" PointX="10.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_config_contract_list" Width="1.5" PointX="10.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_cont_alert_dest_mail" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_contract" Width="1.5" PointX="2.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_contract_file" Width="1.5" PointX="4.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_contracts" Width="1.5" PointX="6.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.T_DocumentCat" Width="1.5" PointX="8.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.T_DocumentFile" Width="1.5" PointX="10.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.T_Hist_Submissions_IT" Width="1.5" PointX="12.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.T_Hist_Submissions_Negotiation_Proc" Width="1.5" PointX="12.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.T_Hist_Submissions_Proc" Width="1.5" PointX="12.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.T_Log_Contract" Width="1.5" PointX="12.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_mapping_employee_user" Width="1.5" PointX="14.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_pengajuan" Width="1.5" PointX="14.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_pengajuan_detail" Width="1.5" PointX="14.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_procurement" Width="1.5" PointX="14.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_procurement_detail" Width="1.5" PointX="16.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_request" Width="1.5" PointX="16.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_siganature" Width="1.5" PointX="16.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.Tmp_DocSrc" Width="1.5" PointX="16.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.Tmp_Document_Recovery_1" Width="1.5" PointX="16.75" PointY="16.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_contract" Width="1.5" PointX="0.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_document_invitation" Width="1.5" PointX="10.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_penawaran" Width="1.5" PointX="18.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_rapat_penjelasan" Width="1.5" PointX="18.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_spmp" Width="1.5" PointX="18.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_suggestion_vendor" Width="1.5" PointX="18.75" PointY="12.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_usulan_pemenang" Width="1.5" PointX="14.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.temp_item" Width="1.5" PointX="16.75" PointY="18.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.temp_user_ad" Width="1.5" PointX="18.75" PointY="17.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="FMSModel.t_attachtment_stakeholder" Width="1.5" PointX="19.75" PointY="20.75" />
+        <EntityTypeShape EntityType="FMSModel.t_cont_alert_dest_mailStakeHolder" Width="1.5" PointX="21.75" PointY="0.75" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_stakeholder" Width="1.5" PointX="0.75" PointY="21.75" />
+        <EntityTypeShape EntityType="FMSModel.m_kedudukan" Width="1.5" PointX="2.75" PointY="21.75" />
+        <EntityTypeShape EntityType="FMSModel.m_stakeholder_type" Width="1.5" PointX="21.75" PointY="3.75" />
+        <EntityTypeShape EntityType="FMSModel.t_attachtment_employeemanagement" Width="1.5" PointX="21.375" PointY="6.75" />
+        <EntityTypeShape EntityType="FMSModel.t_cont_alert_dest_mailEmployeeManagement" Width="1.5" PointX="9.375" PointY="21.75" />
+        <EntityTypeShape EntityType="FMSModel.t_proc_employeemanagement" Width="1.5" PointX="21.375" PointY="10.75" />
+        <EntityTypeShape EntityType="FMSModel.m_level_jabatan" Width="1.5" PointX="11.375" PointY="21.75" />
+        <EntityTypeShape EntityType="FMSModel.m_proc_document_type" Width="1.5" PointX="3.375" PointY="17.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

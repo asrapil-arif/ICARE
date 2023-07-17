@@ -1,0 +1,2788 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="FMSModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="m_contract_owner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="owner_nip" Type="varchar" MaxLength="100" />
+          <Property Name="owner_name" Type="varchar" MaxLength="200" />
+          <Property Name="sam" Type="int" />
+          <Property Name="owner_jabatan" Type="varchar" MaxLength="100" />
+          <Property Name="max_contract_value_allowed" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="user_name_approval" Type="varchar" MaxLength="100" />
+          <Property Name="kode_sub" Type="varchar" MaxLength="6" />
+          <Property Name="create_user" Type="varchar" MaxLength="100" />
+          <Property Name="create_date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="m_contract_receiver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserName" Type="varchar" MaxLength="100" />
+          <Property Name="Sam" Type="int" />
+          <Property Name="IsDefault" Type="int" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_contract_type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContractType" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="m_customer_contract_Type">
+          <Key>
+            <PropertyRef Name="ContractId" />
+          </Key>
+          <Property Name="ContractId" Type="int" Nullable="false" />
+          <Property Name="ContractName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ContractDesc" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CraeteDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_group_item">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="GroupName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="GroupLink" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="GroupImage" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Publish" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ItemGroup" Type="int" Nullable="false" />
+          <Property Name="ItemImage" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="Publish" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.m_kedudukan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="m_kedudukan">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="KedudukanName" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="UpdateUser" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="KedudukanName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.m_level_jabatan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="m_level_jabatan">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="LevelJabatan" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="UpdateUser" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="LevelJabatan" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_part_item">
+          <Key>
+            <PropertyRef Name="PartId" />
+          </Key>
+          <Property Name="PartId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PartParent" Type="varchar" MaxLength="13" />
+          <Property Name="PartName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PartImage" Type="varchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="m_pengajuan_process">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="HtmlTag" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="m_pic_process">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProcessName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ActionName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="ProcessGroup" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.m_proc_document_type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="m_proc_document_type">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DocType" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="UpdateUser" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="DocType" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_process_contract">
+          <Key>
+            <PropertyRef Name="ProcId" />
+          </Key>
+          <Property Name="ProcId" Type="int" Nullable="false" />
+          <Property Name="ProcName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ProcTag" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="m_request_process">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+          <Property Name="HtmlTag" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="m_request_type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="m_Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="RoleGroup" Type="int" Nullable="false" />
+          <Property Name="Step" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PicName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PicMail" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PicAD" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="TagHtml" Type="varchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ActiveYN" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_RoleGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ActiveYN" Type="varchar" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.m_stakeholder_type' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="m_stakeholder_type">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="StakeholderName" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="UpdateUser" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="StakeholderName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_attachtment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateId_1" Type="varchar" MaxLength="30" />
+          <Property Name="CandidateId_2" Type="varchar" MaxLength="30" />
+          <Property Name="CandidateId_3" Type="varchar" MaxLength="30" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_attachtment_employeemanagement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateId_1" Type="varchar" MaxLength="30" />
+          <Property Name="CandidateId_2" Type="varchar" MaxLength="30" />
+          <Property Name="CandidateId_3" Type="varchar" MaxLength="30" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_attachtment_stakeholder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CandidateId_1" Type="varchar" MaxLength="30" />
+          <Property Name="CandidateId_2" Type="varchar" MaxLength="30" />
+          <Property Name="CandidateId_3" Type="varchar" MaxLength="30" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+        </EntityType>
+        <EntityType Name="t_config_contract_list">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Setting" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Value" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_cont_alert_dest_mail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContractId" Type="varchar" MaxLength="100" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Jabatan" Type="varchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="t_cont_alert_dest_mailEmployeeManagement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="EmployeeId" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Jabatan" Type="varchar" MaxLength="255" />
+          <Property Name="Fungsi" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="t_cont_alert_dest_mailStakeHolder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SHId" Type="int" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="100" />
+          <Property Name="Jabatan" Type="varchar" MaxLength="255" />
+          <Property Name="Fungsi" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="t_contract">
+          <Key>
+            <PropertyRef Name="ContractId" />
+          </Key>
+          <Property Name="ContractId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ContractNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NoPR" Type="varchar" MaxLength="50" />
+          <Property Name="NoPO" Type="varchar" MaxLength="50" />
+          <Property Name="ContractTitle" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ContractValue" Type="money" />
+          <Property Name="BeginDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="ContractDate" Type="date" Nullable="false" />
+          <Property Name="ContractType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="RenewalDate" Type="date" />
+          <Property Name="IdVendor" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="Done" Type="char" MaxLength="1" />
+          <Property Name="DoneDate" Type="datetime" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="ActiveYn" Type="char" MaxLength="2" />
+          <Property Name="AlertDay" Type="int" />
+          <Property Name="Snooze" Type="int" />
+        </EntityType>
+        <EntityType Name="t_contract_file">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContractId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UploadDate" Type="datetime" Nullable="false" />
+          <Property Name="UploadUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_contracts">
+          <Key>
+            <PropertyRef Name="ContractId" />
+          </Key>
+          <Property Name="ContractId" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ParentId" Type="varchar" MaxLength="20" />
+          <Property Name="CandidateId_1" Type="varchar" MaxLength="30" />
+          <Property Name="CandidateId_2" Type="varchar" MaxLength="30" />
+          <Property Name="CandidateId_3" Type="varchar" MaxLength="30" />
+          <Property Name="ContractGroup" Type="int" />
+          <Property Name="ContractNo" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="NoPR" Type="varchar" MaxLength="50" />
+          <Property Name="NoPO" Type="varchar" MaxLength="50" />
+          <Property Name="ContractTitle" Type="varchar" MaxLength="200" />
+          <Property Name="ContractValue" Type="money" />
+          <Property Name="BeginDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+          <Property Name="ContractDate" Type="date" />
+          <Property Name="ContractType" Type="varchar" MaxLength="20" />
+          <Property Name="DocType" Type="int" />
+          <Property Name="RenewalDate" Type="date" />
+          <Property Name="IdVendor" Type="varchar" MaxLength="100" />
+          <Property Name="Description" Type="varchar" MaxLength="200" />
+          <Property Name="Remark" Type="varchar" MaxLength="300" />
+          <Property Name="Done" Type="char" MaxLength="1" />
+          <Property Name="DoneDate" Type="datetime" />
+          <Property Name="AlertDay" Type="int" />
+          <Property Name="Snooze" Type="int" />
+          <Property Name="CorpNamePihak1" Type="varchar" MaxLength="500" />
+          <Property Name="PenanggungJawabPihak1" Type="varchar" MaxLength="200" />
+          <Property Name="JabatanPihak1" Type="varchar" MaxLength="500" />
+          <Property Name="AlamatPihak1" Type="varchar(max)" />
+          <Property Name="PhonePihak1" Type="varchar(max)" />
+          <Property Name="FaxPihak1" Type="varchar(max)" />
+          <Property Name="EmailPihak1" Type="varchar(max)" />
+          <Property Name="CorpNamePihak2" Type="varchar" MaxLength="500" />
+          <Property Name="PenanggungJawabPihak2" Type="varchar" MaxLength="200" />
+          <Property Name="JabatanPihak2" Type="varchar" MaxLength="500" />
+          <Property Name="AlamatPihak2" Type="varchar(max)" />
+          <Property Name="PhonePihak2" Type="varchar(max)" />
+          <Property Name="FaxPihak2" Type="varchar(max)" />
+          <Property Name="EmailPihak2" Type="varchar(max)" />
+          <Property Name="StrDay" Type="varchar" MaxLength="100" />
+          <Property Name="StrMonth" Type="varchar" MaxLength="100" />
+          <Property Name="StrYear" Type="varchar" MaxLength="100" />
+          <Property Name="InProcess" Type="int" />
+          <Property Name="ApproverPic" Type="varchar" MaxLength="100" />
+          <Property Name="ApproveDate" Type="datetime" />
+          <Property Name="ReceiverPic" Type="varchar" MaxLength="100" />
+          <Property Name="ReceiveDate" Type="datetime" />
+          <Property Name="BankName" Type="varchar" MaxLength="100" />
+          <Property Name="VaNo" Type="varchar" MaxLength="100" />
+          <Property Name="VaName" Type="varchar" MaxLength="300" />
+          <Property Name="StrDate" Type="varchar" MaxLength="100" />
+          <Property Name="Fungsi" Type="varchar" MaxLength="20" />
+          <Property Name="StartProject" Type="date" />
+          <Property Name="EndProject" Type="date" />
+          <Property Name="AddendumContractNo" Type="varchar" MaxLength="50" />
+          <Property Name="IsAddendum" Type="bit" />
+          <Property Name="ActiveYn" Type="char" MaxLength="2" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" />
+          <Property Name="ProcurementId" Type="int" />
+        </EntityType>
+        <EntityType Name="T_DocumentCat">
+          <Key>
+            <PropertyRef Name="DocumentCatID" />
+          </Key>
+          <Property Name="DocumentCatID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ParentCatID" Type="varchar" MaxLength="20" />
+          <Property Name="DocumentCatName" Type="varchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_DocumentFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Source" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Key1" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Key2" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Key3" Type="int" />
+          <Property Name="Key4" Type="int" />
+          <Property Name="DocumentCatID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Revision" Type="int" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="ContentType" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Remark" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="EntryUser" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="EntryDate" Type="datetime" Nullable="false" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+          <Property Name="DeleteUser" Type="varchar" MaxLength="50" />
+          <Property Name="DeleteDate" Type="datetime" />
+          <Property Name="Flag" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Hist_Submissions_IT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubmissionId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="FlowFrom" Type="int" Nullable="false" />
+          <Property Name="FlowTo" Type="int" Nullable="false" />
+          <Property Name="Descriptions" Type="varchar(max)" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Hist_Submissions_Negotiation_Proc">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubmissionId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="FlowFrom" Type="int" Nullable="false" />
+          <Property Name="FlowTo" Type="int" Nullable="false" />
+          <Property Name="Descriptions" Type="varchar(max)" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Hist_Submissions_Proc">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SubmissionId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="FlowFrom" Type="int" Nullable="false" />
+          <Property Name="FlowTo" Type="int" Nullable="false" />
+          <Property Name="Descriptions" Type="varchar(max)" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Log_Contract">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ContractId" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="FlowFrom" Type="int" Nullable="false" />
+          <Property Name="FlowTo" Type="int" Nullable="false" />
+          <Property Name="Descriptions" Type="varchar(max)" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_mapping_employee_user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nip" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="UserId" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="alt_email" Type="varchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="t_pengajuan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="DestLocation" Type="varchar" MaxLength="50" />
+          <Property Name="DestPengguna" Type="varchar" MaxLength="50" />
+          <Property Name="Keterangan" Type="varchar" MaxLength="400" />
+          <Property Name="Process" Type="int" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="ActiveYn" Type="char" MaxLength="2" Nullable="false" />
+          <Property Name="GroupPengajuan" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_pengajuan_detail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Pengajuan" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="Item" Type="int" Nullable="false" />
+          <Property Name="RealAsset" Type="int" />
+          <Property Name="RealDate" Type="datetime" />
+          <Property Name="RealUser" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.t_proc_contract' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="t_proc_contract">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="ContractID" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcID" Type="int" Nullable="false" />
+          <Property Name="ContractID" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.t_proc_document_invitation' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="t_proc_document_invitation">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="DocType" />
+            <PropertyRef Name="FileName" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcID" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="DocType" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="FileName" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_proc_employeemanagement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nopek" Type="int" Nullable="false" />
+          <Property Name="NamaPekerja" Type="varchar" MaxLength="300" />
+          <Property Name="Jabatan" Type="varchar" MaxLength="300" />
+          <Property Name="LevelJabatan" Type="int" Nullable="false" />
+          <Property Name="TanggalLahir" Type="datetime" Nullable="false" />
+          <Property Name="Kedudukan" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+          <Property Name="AlertDay" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.t_proc_penawaran' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="t_proc_penawaran">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="Vendor" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcID" Type="int" Nullable="false" />
+          <Property Name="Vendor" Type="int" Nullable="false" />
+          <Property Name="PenawaranValue" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="Remarks" Type="varchar" MaxLength="300" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_proc_procurement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="Descriptions" Type="varchar" MaxLength="800" Nullable="false" />
+          <Property Name="Function" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="Value" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="NegotiationValue" Type="decimal" Precision="20" Scale="2" />
+          <Property Name="Remark" Type="varchar" MaxLength="800" />
+          <Property Name="IsCompleteDoc" Type="int" Nullable="false" />
+          <Property Name="Winner" Type="varchar" MaxLength="100" />
+          <Property Name="Spmp" Type="int" />
+          <Property Name="NoPR" Type="varchar" MaxLength="100" />
+          <Property Name="ExpectedDate" Type="date" />
+          <Property Name="ProcurementDate" Type="date" />
+          <Property Name="RppSummary" Type="text" />
+          <Property Name="NegotiationSummary" Type="text" />
+          <Property Name="Status" Type="int" Nullable="false" />
+          <Property Name="Snooze" Type="int" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+          <Property Name="PenunjukanSummary" Type="text" />
+          <Property Name="KesanggupanSummary" Type="text" />
+        </EntityType>
+        <EntityType Name="t_proc_procurement_detail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcId" Type="int" Nullable="false" />
+          <Property Name="Item" Type="varchar" MaxLength="300" />
+          <Property Name="Value" Type="decimal" Precision="20" Scale="1" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.t_proc_rapat_penjelasan' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="t_proc_rapat_penjelasan">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="ReftID" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcID" Type="int" Nullable="false" />
+          <Property Name="ReftID" Type="int" Nullable="false" />
+          <Property Name="Title" Type="varchar" MaxLength="300" />
+          <Property Name="Summary" Type="varchar" MaxLength="800" />
+          <Property Name="EventDay" Type="varchar" MaxLength="300" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.t_proc_spmp' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="t_proc_spmp">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcID" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="varchar" MaxLength="300" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_proc_stakeholder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NamaInstitusi" Type="varchar" MaxLength="300" />
+          <Property Name="Jabatan" Type="varchar" MaxLength="300" />
+          <Property Name="NamaIndividualSH" Type="varchar" MaxLength="200" />
+          <Property Name="Alamat" Type="varchar" MaxLength="800" />
+          <Property Name="TanggalLahir" Type="datetime" Nullable="false" />
+          <Property Name="TypeSH" Type="int" Nullable="false" />
+          <Property Name="Kedudukan" Type="int" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+          <Property Name="AlertDay" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.t_proc_suggestion_vendor' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="t_proc_suggestion_vendor">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="ContactPerson" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcID" Type="int" Nullable="false" />
+          <Property Name="Name" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="ContactPerson" Type="int" Nullable="false" />
+          <Property Name="Mail" Type="varchar" MaxLength="300" />
+          <Property Name="Phone" Type="int" />
+          <Property Name="Address" Type="varchar" MaxLength="1" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.t_proc_usulan_pemenang' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="t_proc_usulan_pemenang">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="Vendor" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProcID" Type="int" Nullable="false" />
+          <Property Name="Vendor" Type="int" Nullable="false" />
+          <Property Name="Remarks" Type="varchar" MaxLength="300" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="IsDeleted" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_request">
+          <Key>
+            <PropertyRef Name="ReqId" />
+          </Key>
+          <Property Name="ReqId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ReqItem" Type="varchar" MaxLength="13" />
+          <Property Name="ReqType" Type="int" Nullable="false" />
+          <Property Name="ReqQty" Type="int" Nullable="false" />
+          <Property Name="ReqPart" Type="int" Nullable="false" />
+          <Property Name="ReqKeterangan" Type="varchar" MaxLength="300" Nullable="false" />
+          <Property Name="ReqReason" Type="varchar" MaxLength="200" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" />
+          <Property Name="Process" Type="int" />
+          <Property Name="ReqGroup" Type="int" />
+          <Property Name="ActiveYn" Type="char" MaxLength="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_siganature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Siganture" Type="varchar" MaxLength="8000" Nullable="false" />
+          <Property Name="CandidateId_1" Type="varchar" MaxLength="100" />
+          <Property Name="CandidateId_2" Type="varchar" MaxLength="100" />
+          <Property Name="SourceData" Type="varchar" MaxLength="100" />
+          <Property Name="Descriptions" Type="varchar" MaxLength="8000" />
+          <Property Name="CreateDate" Type="datetime" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.temp_item' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="temp_item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="ItemGroup" />
+            <PropertyRef Name="ItemImage" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="Publish" />
+          </Key>
+          <Property Name="ItemId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ItemName" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="ItemGroup" Type="int" Nullable="false" />
+          <Property Name="ItemImage" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="CreateDate" Type="datetime" Nullable="false" />
+          <Property Name="CreateUser" Type="varchar" MaxLength="100" />
+          <Property Name="UpdateDate" Type="datetime" Nullable="false" />
+          <Property Name="UpdateUser" Type="varchar" MaxLength="100" />
+          <Property Name="Publish" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'FMS.dbo.temp_user_ad' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="temp_user_ad">
+          <Key>
+            <PropertyRef Name="NIP" />
+          </Key>
+          <Property Name="NIP" Type="varchar" MaxLength="32" Nullable="false" />
+          <Property Name="NAMA" Type="varchar" MaxLength="100" />
+          <Property Name="USER_AD" Type="nvarchar" MaxLength="255" />
+        </EntityType>
+        <EntityType Name="Tmp_DocSrc">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Key2" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Src" Type="varchar" MaxLength="250" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tmp_Document_Recovery_1">
+          <Key>
+            <PropertyRef Name="FileName" />
+          </Key>
+          <Property Name="FileName" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityContainer Name="FMSModelStoreContainer">
+          <EntitySet Name="m_contract_owner" EntityType="Self.m_contract_owner" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_contract_receiver" EntityType="Self.m_contract_receiver" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_contract_type" EntityType="Self.m_contract_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_customer_contract_Type" EntityType="Self.m_customer_contract_Type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_group_item" EntityType="Self.m_group_item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_item" EntityType="Self.m_item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_part_item" EntityType="Self.m_part_item" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_pengajuan_process" EntityType="Self.m_pengajuan_process" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_pic_process" EntityType="Self.m_pic_process" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_process_contract" EntityType="Self.m_process_contract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_request_process" EntityType="Self.m_request_process" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_request_type" EntityType="Self.m_request_type" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_Role" EntityType="Self.m_Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_RoleGroup" EntityType="Self.m_RoleGroup" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_attachtment" EntityType="Self.t_attachtment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_attachtment_employeemanagement" EntityType="Self.t_attachtment_employeemanagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_attachtment_stakeholder" EntityType="Self.t_attachtment_stakeholder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_config_contract_list" EntityType="Self.t_config_contract_list" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_cont_alert_dest_mail" EntityType="Self.t_cont_alert_dest_mail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_cont_alert_dest_mailEmployeeManagement" EntityType="Self.t_cont_alert_dest_mailEmployeeManagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_cont_alert_dest_mailStakeHolder" EntityType="Self.t_cont_alert_dest_mailStakeHolder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_contract" EntityType="Self.t_contract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_contract_file" EntityType="Self.t_contract_file" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_contracts" EntityType="Self.t_contracts" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_DocumentCat" EntityType="Self.T_DocumentCat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_DocumentFile" EntityType="Self.T_DocumentFile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Hist_Submissions_IT" EntityType="Self.T_Hist_Submissions_IT" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Hist_Submissions_Negotiation_Proc" EntityType="Self.T_Hist_Submissions_Negotiation_Proc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Hist_Submissions_Proc" EntityType="Self.T_Hist_Submissions_Proc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="T_Log_Contract" EntityType="Self.T_Log_Contract" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_mapping_employee_user" EntityType="Self.t_mapping_employee_user" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_pengajuan" EntityType="Self.t_pengajuan" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_pengajuan_detail" EntityType="Self.t_pengajuan_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_proc_employeemanagement" EntityType="Self.t_proc_employeemanagement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_proc_procurement" EntityType="Self.t_proc_procurement" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_proc_procurement_detail" EntityType="Self.t_proc_procurement_detail" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_proc_stakeholder" EntityType="Self.t_proc_stakeholder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_request" EntityType="Self.t_request" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="t_siganature" EntityType="Self.t_siganature" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tmp_DocSrc" EntityType="Self.Tmp_DocSrc" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Tmp_Document_Recovery_1" EntityType="Self.Tmp_Document_Recovery_1" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="m_kedudukan" EntityType="Self.m_kedudukan" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [m_kedudukan].[Id] AS [Id], 
+    [m_kedudukan].[KedudukanName] AS [KedudukanName], 
+    [m_kedudukan].[CreateDate] AS [CreateDate], 
+    [m_kedudukan].[CreateUser] AS [CreateUser], 
+    [m_kedudukan].[UpdateDate] AS [UpdateDate], 
+    [m_kedudukan].[UpdateUser] AS [UpdateUser]
+    FROM [dbo].[m_kedudukan] AS [m_kedudukan]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="m_level_jabatan" EntityType="Self.m_level_jabatan" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [m_level_jabatan].[Id] AS [Id], 
+    [m_level_jabatan].[LevelJabatan] AS [LevelJabatan], 
+    [m_level_jabatan].[CreateDate] AS [CreateDate], 
+    [m_level_jabatan].[CreateUser] AS [CreateUser], 
+    [m_level_jabatan].[UpdateDate] AS [UpdateDate], 
+    [m_level_jabatan].[UpdateUser] AS [UpdateUser]
+    FROM [dbo].[m_level_jabatan] AS [m_level_jabatan]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="m_proc_document_type" EntityType="Self.m_proc_document_type" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [m_proc_document_type].[Id] AS [Id], 
+    [m_proc_document_type].[DocType] AS [DocType], 
+    [m_proc_document_type].[CreateDate] AS [CreateDate], 
+    [m_proc_document_type].[CreateUser] AS [CreateUser], 
+    [m_proc_document_type].[UpdateDate] AS [UpdateDate], 
+    [m_proc_document_type].[UpdateUser] AS [UpdateUser]
+    FROM [dbo].[m_proc_document_type] AS [m_proc_document_type]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="m_stakeholder_type" EntityType="Self.m_stakeholder_type" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [m_stakeholder_type].[Id] AS [Id], 
+    [m_stakeholder_type].[StakeholderName] AS [StakeholderName], 
+    [m_stakeholder_type].[CreateDate] AS [CreateDate], 
+    [m_stakeholder_type].[CreateUser] AS [CreateUser], 
+    [m_stakeholder_type].[UpdateDate] AS [UpdateDate], 
+    [m_stakeholder_type].[UpdateUser] AS [UpdateUser]
+    FROM [dbo].[m_stakeholder_type] AS [m_stakeholder_type]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="t_proc_contract" EntityType="Self.t_proc_contract" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [t_proc_contract].[Id] AS [Id], 
+    [t_proc_contract].[ProcID] AS [ProcID], 
+    [t_proc_contract].[ContractID] AS [ContractID], 
+    [t_proc_contract].[CreateDate] AS [CreateDate], 
+    [t_proc_contract].[CreateUser] AS [CreateUser], 
+    [t_proc_contract].[UpdateDate] AS [UpdateDate], 
+    [t_proc_contract].[UpdateUser] AS [UpdateUser], 
+    [t_proc_contract].[IsDeleted] AS [IsDeleted]
+    FROM [dbo].[t_proc_contract] AS [t_proc_contract]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="t_proc_document_invitation" EntityType="Self.t_proc_document_invitation" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [t_proc_document_invitation].[Id] AS [Id], 
+    [t_proc_document_invitation].[ProcID] AS [ProcID], 
+    [t_proc_document_invitation].[DocType] AS [DocType], 
+    [t_proc_document_invitation].[FileName] AS [FileName], 
+    [t_proc_document_invitation].[CreateDate] AS [CreateDate], 
+    [t_proc_document_invitation].[CreateUser] AS [CreateUser], 
+    [t_proc_document_invitation].[UpdateDate] AS [UpdateDate], 
+    [t_proc_document_invitation].[UpdateUser] AS [UpdateUser], 
+    [t_proc_document_invitation].[IsDeleted] AS [IsDeleted]
+    FROM [dbo].[t_proc_document_invitation] AS [t_proc_document_invitation]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="t_proc_penawaran" EntityType="Self.t_proc_penawaran" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [t_proc_penawaran].[Id] AS [Id], 
+    [t_proc_penawaran].[ProcID] AS [ProcID], 
+    [t_proc_penawaran].[Vendor] AS [Vendor], 
+    [t_proc_penawaran].[PenawaranValue] AS [PenawaranValue], 
+    [t_proc_penawaran].[Remarks] AS [Remarks], 
+    [t_proc_penawaran].[CreateDate] AS [CreateDate], 
+    [t_proc_penawaran].[CreateUser] AS [CreateUser], 
+    [t_proc_penawaran].[UpdateDate] AS [UpdateDate], 
+    [t_proc_penawaran].[UpdateUser] AS [UpdateUser], 
+    [t_proc_penawaran].[IsDeleted] AS [IsDeleted]
+    FROM [dbo].[t_proc_penawaran] AS [t_proc_penawaran]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="t_proc_rapat_penjelasan" EntityType="Self.t_proc_rapat_penjelasan" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [t_proc_rapat_penjelasan].[Id] AS [Id], 
+    [t_proc_rapat_penjelasan].[ProcID] AS [ProcID], 
+    [t_proc_rapat_penjelasan].[ReftID] AS [ReftID], 
+    [t_proc_rapat_penjelasan].[Title] AS [Title], 
+    [t_proc_rapat_penjelasan].[Summary] AS [Summary], 
+    [t_proc_rapat_penjelasan].[EventDay] AS [EventDay], 
+    [t_proc_rapat_penjelasan].[CreateDate] AS [CreateDate], 
+    [t_proc_rapat_penjelasan].[CreateUser] AS [CreateUser], 
+    [t_proc_rapat_penjelasan].[UpdateDate] AS [UpdateDate], 
+    [t_proc_rapat_penjelasan].[UpdateUser] AS [UpdateUser], 
+    [t_proc_rapat_penjelasan].[IsDeleted] AS [IsDeleted]
+    FROM [dbo].[t_proc_rapat_penjelasan] AS [t_proc_rapat_penjelasan]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="t_proc_spmp" EntityType="Self.t_proc_spmp" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [t_proc_spmp].[Id] AS [Id], 
+    [t_proc_spmp].[ProcID] AS [ProcID], 
+    [t_proc_spmp].[Remarks] AS [Remarks], 
+    [t_proc_spmp].[CreateDate] AS [CreateDate], 
+    [t_proc_spmp].[CreateUser] AS [CreateUser], 
+    [t_proc_spmp].[UpdateDate] AS [UpdateDate], 
+    [t_proc_spmp].[UpdateUser] AS [UpdateUser], 
+    [t_proc_spmp].[IsDeleted] AS [IsDeleted]
+    FROM [dbo].[t_proc_spmp] AS [t_proc_spmp]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="t_proc_suggestion_vendor" EntityType="Self.t_proc_suggestion_vendor" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [t_proc_suggestion_vendor].[Id] AS [Id], 
+    [t_proc_suggestion_vendor].[ProcID] AS [ProcID], 
+    [t_proc_suggestion_vendor].[Name] AS [Name], 
+    [t_proc_suggestion_vendor].[ContactPerson] AS [ContactPerson], 
+    [t_proc_suggestion_vendor].[Mail] AS [Mail], 
+    [t_proc_suggestion_vendor].[Phone] AS [Phone], 
+    [t_proc_suggestion_vendor].[Address] AS [Address], 
+    [t_proc_suggestion_vendor].[CreateDate] AS [CreateDate], 
+    [t_proc_suggestion_vendor].[CreateUser] AS [CreateUser], 
+    [t_proc_suggestion_vendor].[UpdateDate] AS [UpdateDate], 
+    [t_proc_suggestion_vendor].[UpdateUser] AS [UpdateUser], 
+    [t_proc_suggestion_vendor].[IsDeleted] AS [IsDeleted]
+    FROM [dbo].[t_proc_suggestion_vendor] AS [t_proc_suggestion_vendor]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="t_proc_usulan_pemenang" EntityType="Self.t_proc_usulan_pemenang" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [t_proc_usulan_pemenang].[Id] AS [Id], 
+    [t_proc_usulan_pemenang].[ProcID] AS [ProcID], 
+    [t_proc_usulan_pemenang].[Vendor] AS [Vendor], 
+    [t_proc_usulan_pemenang].[Remarks] AS [Remarks], 
+    [t_proc_usulan_pemenang].[CreateDate] AS [CreateDate], 
+    [t_proc_usulan_pemenang].[CreateUser] AS [CreateUser], 
+    [t_proc_usulan_pemenang].[UpdateDate] AS [UpdateDate], 
+    [t_proc_usulan_pemenang].[UpdateUser] AS [UpdateUser], 
+    [t_proc_usulan_pemenang].[IsDeleted] AS [IsDeleted]
+    FROM [dbo].[t_proc_usulan_pemenang] AS [t_proc_usulan_pemenang]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="temp_item" EntityType="Self.temp_item" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [temp_item].[ItemId] AS [ItemId], 
+    [temp_item].[ItemName] AS [ItemName], 
+    [temp_item].[ItemGroup] AS [ItemGroup], 
+    [temp_item].[ItemImage] AS [ItemImage], 
+    [temp_item].[CreateDate] AS [CreateDate], 
+    [temp_item].[CreateUser] AS [CreateUser], 
+    [temp_item].[UpdateDate] AS [UpdateDate], 
+    [temp_item].[UpdateUser] AS [UpdateUser], 
+    [temp_item].[Publish] AS [Publish]
+    FROM [dbo].[temp_item] AS [temp_item]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="temp_user_ad" EntityType="Self.temp_user_ad" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [temp_user_ad].[NIP] AS [NIP], 
+    [temp_user_ad].[NAMA] AS [NAMA], 
+    [temp_user_ad].[USER_AD] AS [USER_AD]
+    FROM [dbo].[temp_user_ad] AS [temp_user_ad]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="FMSModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="m_contract_owner">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="owner_nip" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="owner_name" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="sam" Type="Int32" />
+          <Property Name="owner_jabatan" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="max_contract_value_allowed" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="user_name_approval" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="kode_sub" Type="String" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="create_user" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="create_date" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="m_contract_receiver">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="UserName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Sam" Type="Int32" />
+          <Property Name="IsDefault" Type="Int32" Nullable="false" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="m_contract_type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContractType" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="m_customer_contract_Type">
+          <Key>
+            <PropertyRef Name="ContractId" />
+          </Key>
+          <Property Name="ContractId" Type="Int32" Nullable="false" />
+          <Property Name="ContractName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContractDesc" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CraeteDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_group_item">
+          <Key>
+            <PropertyRef Name="GroupId" />
+          </Key>
+          <Property Name="GroupId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="GroupName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GroupLink" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="GroupImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Publish" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+          </Key>
+          <Property Name="ItemId" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemGroup" Type="Int32" Nullable="false" />
+          <Property Name="ItemImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Publish" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_part_item">
+          <Key>
+            <PropertyRef Name="PartId" />
+          </Key>
+          <Property Name="PartId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PartParent" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="PartName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PartImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="m_pengajuan_process">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HtmlTag" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="m_pic_process">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProcessName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ActionName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="ProcessGroup" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_process_contract">
+          <Key>
+            <PropertyRef Name="ProcId" />
+          </Key>
+          <Property Name="ProcId" Type="Int32" Nullable="false" />
+          <Property Name="ProcName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ProcTag" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="m_request_process">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="HtmlTag" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="m_request_type">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="m_Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="RoleGroup" Type="Int32" Nullable="false" />
+          <Property Name="Step" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PicName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PicMail" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PicAD" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="TagHtml" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ActiveYN" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="m_RoleGroup">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ActiveYN" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_attachtment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateId_1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId_2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId_3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="t_config_contract_list">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Setting" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Value" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+        </EntityType>
+        <EntityType Name="t_cont_alert_dest_mail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContractId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Jabatan" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_contract">
+          <Key>
+            <PropertyRef Name="ContractId" />
+          </Key>
+          <Property Name="ContractId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NoPR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NoPO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContractTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContractValue" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BeginDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ContractDate" Type="DateTime" Nullable="false" Precision="0" />
+          <Property Name="ContractType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="RenewalDate" Type="DateTime" Precision="0" />
+          <Property Name="IdVendor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Done" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DoneDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ActiveYn" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="AlertDay" Type="Int32" />
+          <Property Name="Snooze" Type="Int32" />
+        </EntityType>
+        <EntityType Name="t_contract_file">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContractId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UploadDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UploadUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_contracts">
+          <Key>
+            <PropertyRef Name="ContractId" />
+          </Key>
+          <Property Name="ContractId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParentId" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId_1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId_2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId_3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="ContractGroup" Type="Int32" />
+          <Property Name="ContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NoPR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="NoPO" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="ContractTitle" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="ContractValue" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="BeginDate" Type="DateTime" Precision="0" />
+          <Property Name="EndDate" Type="DateTime" Precision="0" />
+          <Property Name="ContractDate" Type="DateTime" Precision="0" />
+          <Property Name="ContractType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DocType" Type="Int32" />
+          <Property Name="RenewalDate" Type="DateTime" Precision="0" />
+          <Property Name="IdVendor" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Description" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Remark" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Done" Type="String" MaxLength="1" FixedLength="true" Unicode="false" />
+          <Property Name="DoneDate" Type="DateTime" Precision="3" />
+          <Property Name="AlertDay" Type="Int32" />
+          <Property Name="Snooze" Type="Int32" />
+          <Property Name="CorpNamePihak1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PenanggungJawabPihak1" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="JabatanPihak1" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AlamatPihak1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PhonePihak1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FaxPihak1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EmailPihak1" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="CorpNamePihak2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="PenanggungJawabPihak2" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="JabatanPihak2" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+          <Property Name="AlamatPihak2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PhonePihak2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="FaxPihak2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="EmailPihak2" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="StrDay" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StrMonth" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="StrYear" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="InProcess" Type="Int32" />
+          <Property Name="ApproverPic" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ApproveDate" Type="DateTime" Precision="3" />
+          <Property Name="ReceiverPic" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ReceiveDate" Type="DateTime" Precision="3" />
+          <Property Name="BankName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VaNo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="VaName" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="StrDate" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Fungsi" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="StartProject" Type="DateTime" Precision="0" />
+          <Property Name="EndProject" Type="DateTime" Precision="0" />
+          <Property Name="AddendumContractNo" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="IsAddendum" Type="Boolean" />
+          <Property Name="ActiveYn" Type="String" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" />
+          <Property Name="ProcurementId" Type="Int32" />
+        </EntityType>
+        <EntityType Name="T_DocumentCat">
+          <Key>
+            <PropertyRef Name="DocumentCatID" />
+          </Key>
+          <Property Name="DocumentCatID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ParentCatID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" />
+          <Property Name="DocumentCatName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_DocumentFile">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Source" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Key1" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Key2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Key3" Type="Int32" />
+          <Property Name="Key4" Type="Int32" />
+          <Property Name="DocumentCatID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Revision" Type="Int32" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContentType" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Remark" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EntryUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="EntryDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+          <Property Name="DeleteUser" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DeleteDate" Type="DateTime" Precision="3" />
+          <Property Name="Flag" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Hist_Submissions_IT">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubmissionId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FlowFrom" Type="Int32" Nullable="false" />
+          <Property Name="FlowTo" Type="Int32" Nullable="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Hist_Submissions_Negotiation_Proc">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubmissionId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FlowFrom" Type="Int32" Nullable="false" />
+          <Property Name="FlowTo" Type="Int32" Nullable="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Hist_Submissions_Proc">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SubmissionId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FlowFrom" Type="Int32" Nullable="false" />
+          <Property Name="FlowTo" Type="Int32" Nullable="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="T_Log_Contract">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ContractId" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FlowFrom" Type="Int32" Nullable="false" />
+          <Property Name="FlowTo" Type="Int32" Nullable="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_mapping_employee_user">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UserId" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="alt_email" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_pengajuan">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DestLocation" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="DestPengguna" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="Keterangan" Type="String" MaxLength="400" FixedLength="false" Unicode="false" />
+          <Property Name="Process" Type="Int32" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="ActiveYn" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+          <Property Name="GroupPengajuan" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_pengajuan_detail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Pengajuan" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Item" Type="Int32" Nullable="false" />
+          <Property Name="RealAsset" Type="Int32" />
+          <Property Name="RealDate" Type="DateTime" Precision="3" />
+          <Property Name="RealUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_proc_procurement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="800" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Function" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Value" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="Remark" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Name="IsCompleteDoc" Type="Int32" Nullable="false" />
+          <Property Name="Status" Type="Int32" Nullable="false" />
+          <Property Name="Winner" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Spmp" Type="Int32" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+          <Property Name="NoPR" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="ExpectedDate" Type="DateTime" Precision="0" />
+          <Property Name="Snooze" Type="Int32" />
+          <Property Name="ProcurementDate" Type="DateTime" Precision="0" />
+          <Property Name="NegotiationValue" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="RppSummary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="NegotiationSummary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="PenunjukanSummary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Name="KesanggupanSummary" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_proc_procurement_detail">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcId" Type="Int32" Nullable="false" />
+          <Property Name="Item" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Value" Type="Decimal" Precision="20" Scale="1" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_request">
+          <Key>
+            <PropertyRef Name="ReqId" />
+          </Key>
+          <Property Name="ReqId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReqItem" Type="String" MaxLength="13" FixedLength="false" Unicode="false" />
+          <Property Name="ReqType" Type="Int32" Nullable="false" />
+          <Property Name="ReqQty" Type="Int32" Nullable="false" />
+          <Property Name="ReqPart" Type="Int32" Nullable="false" />
+          <Property Name="ReqKeterangan" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ReqReason" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+          <Property Name="Process" Type="Int32" />
+          <Property Name="ReqGroup" Type="Int32" />
+          <Property Name="ActiveYn" Type="String" MaxLength="2" FixedLength="true" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_siganature">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Siganture" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CandidateId_1" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId_2" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="SourceData" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Descriptions" Type="String" MaxLength="8000" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Tmp_DocSrc">
+          <Key>
+            <PropertyRef Name="ID" />
+          </Key>
+          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Key2" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Src" Type="String" MaxLength="250" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Tmp_Document_Recovery_1">
+          <Key>
+            <PropertyRef Name="FileName" />
+          </Key>
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_proc_contract">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="ContractID" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcID" Type="Int32" Nullable="false" />
+          <Property Name="ContractID" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_proc_document_invitation">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="DocType" />
+            <PropertyRef Name="FileName" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcID" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="DocType" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_proc_penawaran">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="Vendor" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcID" Type="Int32" Nullable="false" />
+          <Property Name="Vendor" Type="Int32" Nullable="false" />
+          <Property Name="PenawaranValue" Type="Decimal" Precision="20" Scale="2" />
+          <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_proc_rapat_penjelasan">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="ReftID" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcID" Type="Int32" Nullable="false" />
+          <Property Name="ReftID" Type="Int32" Nullable="false" />
+          <Property Name="Title" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Summary" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Name="EventDay" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_proc_spmp">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcID" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_proc_suggestion_vendor">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="Name" />
+            <PropertyRef Name="ContactPerson" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcID" Type="Int32" Nullable="false" />
+          <Property Name="Name" Type="String" MaxLength="300" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ContactPerson" Type="Int32" Nullable="false" />
+          <Property Name="Mail" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Phone" Type="Int32" />
+          <Property Name="Address" Type="String" MaxLength="1" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="t_proc_usulan_pemenang">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="ProcID" />
+            <PropertyRef Name="Vendor" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="IsDeleted" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProcID" Type="Int32" Nullable="false" />
+          <Property Name="Vendor" Type="Int32" Nullable="false" />
+          <Property Name="Remarks" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="temp_item">
+          <Key>
+            <PropertyRef Name="ItemId" />
+            <PropertyRef Name="ItemName" />
+            <PropertyRef Name="ItemGroup" />
+            <PropertyRef Name="ItemImage" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="Publish" />
+          </Key>
+          <Property Name="ItemId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ItemName" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ItemGroup" Type="Int32" Nullable="false" />
+          <Property Name="ItemImage" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Publish" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="temp_user_ad">
+          <Key>
+            <PropertyRef Name="NIP" />
+          </Key>
+          <Property Name="NIP" Type="String" MaxLength="32" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="NAMA" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="USER_AD" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityContainer Name="FMSEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="m_contract_owner" EntityType="Self.m_contract_owner" />
+          <EntitySet Name="m_contract_receiver" EntityType="Self.m_contract_receiver" />
+          <EntitySet Name="m_contract_type" EntityType="Self.m_contract_type" />
+          <EntitySet Name="m_customer_contract_Type" EntityType="Self.m_customer_contract_Type" />
+          <EntitySet Name="m_group_item" EntityType="Self.m_group_item" />
+          <EntitySet Name="m_item" EntityType="Self.m_item" />
+          <EntitySet Name="m_part_item" EntityType="Self.m_part_item" />
+          <EntitySet Name="m_pengajuan_process" EntityType="Self.m_pengajuan_process" />
+          <EntitySet Name="m_pic_process" EntityType="Self.m_pic_process" />
+          <EntitySet Name="m_process_contract" EntityType="Self.m_process_contract" />
+          <EntitySet Name="m_request_process" EntityType="Self.m_request_process" />
+          <EntitySet Name="m_request_type" EntityType="Self.m_request_type" />
+          <EntitySet Name="m_Role" EntityType="Self.m_Role" />
+          <EntitySet Name="m_RoleGroup" EntityType="Self.m_RoleGroup" />
+          <EntitySet Name="t_attachtment" EntityType="Self.t_attachtment" />
+          <EntitySet Name="t_config_contract_list" EntityType="Self.t_config_contract_list" />
+          <EntitySet Name="t_cont_alert_dest_mail" EntityType="Self.t_cont_alert_dest_mail" />
+          <EntitySet Name="t_contract" EntityType="Self.t_contract" />
+          <EntitySet Name="t_contract_file" EntityType="Self.t_contract_file" />
+          <EntitySet Name="t_contracts" EntityType="Self.t_contracts" />
+          <EntitySet Name="T_DocumentCat" EntityType="Self.T_DocumentCat" />
+          <EntitySet Name="T_DocumentFile" EntityType="Self.T_DocumentFile" />
+          <EntitySet Name="T_Hist_Submissions_IT" EntityType="Self.T_Hist_Submissions_IT" />
+          <EntitySet Name="T_Hist_Submissions_Negotiation_Proc" EntityType="Self.T_Hist_Submissions_Negotiation_Proc" />
+          <EntitySet Name="T_Hist_Submissions_Proc" EntityType="Self.T_Hist_Submissions_Proc" />
+          <EntitySet Name="T_Log_Contract" EntityType="Self.T_Log_Contract" />
+          <EntitySet Name="t_mapping_employee_user" EntityType="Self.t_mapping_employee_user" />
+          <EntitySet Name="t_pengajuan" EntityType="Self.t_pengajuan" />
+          <EntitySet Name="t_pengajuan_detail" EntityType="Self.t_pengajuan_detail" />
+          <EntitySet Name="t_proc_procurement" EntityType="Self.t_proc_procurement" />
+          <EntitySet Name="t_proc_procurement_detail" EntityType="Self.t_proc_procurement_detail" />
+          <EntitySet Name="t_request" EntityType="Self.t_request" />
+          <EntitySet Name="t_siganature" EntityType="Self.t_siganature" />
+          <EntitySet Name="Tmp_DocSrc" EntityType="Self.Tmp_DocSrc" />
+          <EntitySet Name="Tmp_Document_Recovery_1" EntityType="Self.Tmp_Document_Recovery_1" />
+          <EntitySet Name="t_proc_contract" EntityType="Self.t_proc_contract" />
+          <EntitySet Name="t_proc_document_invitation" EntityType="Self.t_proc_document_invitation" />
+          <EntitySet Name="t_proc_penawaran" EntityType="Self.t_proc_penawaran" />
+          <EntitySet Name="t_proc_rapat_penjelasan" EntityType="Self.t_proc_rapat_penjelasan" />
+          <EntitySet Name="t_proc_spmp" EntityType="Self.t_proc_spmp" />
+          <EntitySet Name="t_proc_suggestion_vendor" EntityType="Self.t_proc_suggestion_vendor" />
+          <EntitySet Name="t_proc_usulan_pemenang" EntityType="Self.t_proc_usulan_pemenang" />
+          <EntitySet Name="temp_item" EntityType="Self.temp_item" />
+          <EntitySet Name="temp_user_ad" EntityType="Self.temp_user_ad" />
+          <EntitySet Name="t_attachtment_stakeholder" EntityType="FMSModel.t_attachtment_stakeholder" />
+          <EntitySet Name="t_cont_alert_dest_mailStakeHolder" EntityType="FMSModel.t_cont_alert_dest_mailStakeHolder" />
+          <EntitySet Name="t_proc_stakeholder" EntityType="FMSModel.t_proc_stakeholder" />
+          <EntitySet Name="m_kedudukan" EntityType="FMSModel.m_kedudukan" />
+          <EntitySet Name="m_stakeholder_type" EntityType="FMSModel.m_stakeholder_type" />
+          <EntitySet Name="t_attachtment_employeemanagement" EntityType="FMSModel.t_attachtment_employeemanagement" />
+          <EntitySet Name="t_cont_alert_dest_mailEmployeeManagement" EntityType="FMSModel.t_cont_alert_dest_mailEmployeeManagement" />
+          <EntitySet Name="t_proc_employeemanagement" EntityType="FMSModel.t_proc_employeemanagement" />
+          <EntitySet Name="m_level_jabatan" EntityType="FMSModel.m_level_jabatan" />
+          <EntitySet Name="m_proc_document_type" EntityType="FMSModel.m_proc_document_type" />
+        </EntityContainer>
+        <EntityType Name="t_attachtment_stakeholder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateId_1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId_2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId_3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="t_cont_alert_dest_mailStakeHolder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SHId" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Jabatan" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Fungsi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_proc_stakeholder">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NamaInstitusi" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Jabatan" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="NamaIndividualSH" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Alamat" Type="String" MaxLength="800" FixedLength="false" Unicode="false" />
+          <Property Name="TanggalLahir" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="TypeSH" Type="Int32" Nullable="false" />
+          <Property Name="Kedudukan" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+          <Property Name="AlertDay" Type="Int32" />
+        </EntityType>
+        <EntityType Name="m_kedudukan">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="KedudukanName" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="UpdateUser" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="KedudukanName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="m_stakeholder_type">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="StakeholderName" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="UpdateUser" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StakeholderName" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_attachtment_employeemanagement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CandidateId_1" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId_2" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="CandidateId_3" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
+          <Property Name="FileName" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="t_cont_alert_dest_mailEmployeeManagement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="EmployeeId" Type="Int32" />
+          <Property Name="Name" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Jabatan" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Name="Fungsi" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="t_proc_employeemanagement">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nopek" Type="Int32" Nullable="false" />
+          <Property Name="NamaPekerja" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="Jabatan" Type="String" MaxLength="300" FixedLength="false" Unicode="false" />
+          <Property Name="LevelJabatan" Type="Int32" Nullable="false" />
+          <Property Name="TanggalLahir" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Kedudukan" Type="Int32" Nullable="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="IsDeleted" Type="Int32" Nullable="false" />
+          <Property Name="AlertDay" Type="Int32" />
+        </EntityType>
+        <EntityType Name="m_level_jabatan">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="LevelJabatan" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="UpdateUser" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="LevelJabatan" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="m_proc_document_type">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DocType" />
+            <PropertyRef Name="CreateDate" />
+            <PropertyRef Name="CreateUser" />
+            <PropertyRef Name="UpdateDate" />
+            <PropertyRef Name="UpdateUser" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="DocType" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="CreateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="CreateUser" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="UpdateDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="UpdateUser" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="FMSModelStoreContainer" CdmEntityContainer="FMSEntities">
+          <EntitySetMapping Name="m_contract_owner">
+            <EntityTypeMapping TypeName="FMSModel.m_contract_owner">
+              <MappingFragment StoreEntitySet="m_contract_owner">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="owner_nip" ColumnName="owner_nip" />
+                <ScalarProperty Name="owner_name" ColumnName="owner_name" />
+                <ScalarProperty Name="sam" ColumnName="sam" />
+                <ScalarProperty Name="owner_jabatan" ColumnName="owner_jabatan" />
+                <ScalarProperty Name="max_contract_value_allowed" ColumnName="max_contract_value_allowed" />
+                <ScalarProperty Name="user_name_approval" ColumnName="user_name_approval" />
+                <ScalarProperty Name="kode_sub" ColumnName="kode_sub" />
+                <ScalarProperty Name="create_user" ColumnName="create_user" />
+                <ScalarProperty Name="create_date" ColumnName="create_date" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_contract_receiver">
+            <EntityTypeMapping TypeName="FMSModel.m_contract_receiver">
+              <MappingFragment StoreEntitySet="m_contract_receiver">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="UserName" ColumnName="UserName" />
+                <ScalarProperty Name="Sam" ColumnName="Sam" />
+                <ScalarProperty Name="IsDefault" ColumnName="IsDefault" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_contract_type">
+            <EntityTypeMapping TypeName="FMSModel.m_contract_type">
+              <MappingFragment StoreEntitySet="m_contract_type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_customer_contract_Type">
+            <EntityTypeMapping TypeName="FMSModel.m_customer_contract_Type">
+              <MappingFragment StoreEntitySet="m_customer_contract_Type">
+                <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+                <ScalarProperty Name="ContractName" ColumnName="ContractName" />
+                <ScalarProperty Name="ContractDesc" ColumnName="ContractDesc" />
+                <ScalarProperty Name="CraeteDate" ColumnName="CraeteDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_group_item">
+            <EntityTypeMapping TypeName="FMSModel.m_group_item">
+              <MappingFragment StoreEntitySet="m_group_item">
+                <ScalarProperty Name="GroupId" ColumnName="GroupId" />
+                <ScalarProperty Name="GroupName" ColumnName="GroupName" />
+                <ScalarProperty Name="GroupLink" ColumnName="GroupLink" />
+                <ScalarProperty Name="GroupImage" ColumnName="GroupImage" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="Publish" ColumnName="Publish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_item">
+            <EntityTypeMapping TypeName="FMSModel.m_item">
+              <MappingFragment StoreEntitySet="m_item">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemGroup" ColumnName="ItemGroup" />
+                <ScalarProperty Name="ItemImage" ColumnName="ItemImage" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="Publish" ColumnName="Publish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_part_item">
+            <EntityTypeMapping TypeName="FMSModel.m_part_item">
+              <MappingFragment StoreEntitySet="m_part_item">
+                <ScalarProperty Name="PartId" ColumnName="PartId" />
+                <ScalarProperty Name="PartParent" ColumnName="PartParent" />
+                <ScalarProperty Name="PartName" ColumnName="PartName" />
+                <ScalarProperty Name="PartImage" ColumnName="PartImage" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_pengajuan_process">
+            <EntityTypeMapping TypeName="FMSModel.m_pengajuan_process">
+              <MappingFragment StoreEntitySet="m_pengajuan_process">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HtmlTag" ColumnName="HtmlTag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_pic_process">
+            <EntityTypeMapping TypeName="FMSModel.m_pic_process">
+              <MappingFragment StoreEntitySet="m_pic_process">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="ProcessName" ColumnName="ProcessName" />
+                <ScalarProperty Name="ActionName" ColumnName="ActionName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="ProcessGroup" ColumnName="ProcessGroup" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_process_contract">
+            <EntityTypeMapping TypeName="FMSModel.m_process_contract">
+              <MappingFragment StoreEntitySet="m_process_contract">
+                <ScalarProperty Name="ProcId" ColumnName="ProcId" />
+                <ScalarProperty Name="ProcName" ColumnName="ProcName" />
+                <ScalarProperty Name="ProcTag" ColumnName="ProcTag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_request_process">
+            <EntityTypeMapping TypeName="FMSModel.m_request_process">
+              <MappingFragment StoreEntitySet="m_request_process">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="HtmlTag" ColumnName="HtmlTag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_request_type">
+            <EntityTypeMapping TypeName="FMSModel.m_request_type">
+              <MappingFragment StoreEntitySet="m_request_type">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_Role">
+            <EntityTypeMapping TypeName="FMSModel.m_Role">
+              <MappingFragment StoreEntitySet="m_Role">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="RoleGroup" ColumnName="RoleGroup" />
+                <ScalarProperty Name="Step" ColumnName="Step" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="PicName" ColumnName="PicName" />
+                <ScalarProperty Name="PicMail" ColumnName="PicMail" />
+                <ScalarProperty Name="PicAD" ColumnName="PicAD" />
+                <ScalarProperty Name="TagHtml" ColumnName="TagHtml" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="ActiveYN" ColumnName="ActiveYN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_RoleGroup">
+            <EntityTypeMapping TypeName="FMSModel.m_RoleGroup">
+              <MappingFragment StoreEntitySet="m_RoleGroup">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="ActiveYN" ColumnName="ActiveYN" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_attachtment">
+            <EntityTypeMapping TypeName="FMSModel.t_attachtment">
+              <MappingFragment StoreEntitySet="t_attachtment">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="CandidateId_1" ColumnName="CandidateId_1" />
+                <ScalarProperty Name="CandidateId_2" ColumnName="CandidateId_2" />
+                <ScalarProperty Name="CandidateId_3" ColumnName="CandidateId_3" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_config_contract_list">
+            <EntityTypeMapping TypeName="FMSModel.t_config_contract_list">
+              <MappingFragment StoreEntitySet="t_config_contract_list">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Setting" ColumnName="Setting" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_cont_alert_dest_mail">
+            <EntityTypeMapping TypeName="FMSModel.t_cont_alert_dest_mail">
+              <MappingFragment StoreEntitySet="t_cont_alert_dest_mail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Jabatan" ColumnName="Jabatan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_contract">
+            <EntityTypeMapping TypeName="FMSModel.t_contract">
+              <MappingFragment StoreEntitySet="t_contract">
+                <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+                <ScalarProperty Name="NoPR" ColumnName="NoPR" />
+                <ScalarProperty Name="NoPO" ColumnName="NoPO" />
+                <ScalarProperty Name="ContractTitle" ColumnName="ContractTitle" />
+                <ScalarProperty Name="ContractValue" ColumnName="ContractValue" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="RenewalDate" ColumnName="RenewalDate" />
+                <ScalarProperty Name="IdVendor" ColumnName="IdVendor" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Done" ColumnName="Done" />
+                <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="ActiveYn" ColumnName="ActiveYn" />
+                <ScalarProperty Name="AlertDay" ColumnName="AlertDay" />
+                <ScalarProperty Name="Snooze" ColumnName="Snooze" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_contract_file">
+            <EntityTypeMapping TypeName="FMSModel.t_contract_file">
+              <MappingFragment StoreEntitySet="t_contract_file">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="UploadDate" ColumnName="UploadDate" />
+                <ScalarProperty Name="UploadUser" ColumnName="UploadUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_contracts">
+            <EntityTypeMapping TypeName="FMSModel.t_contracts">
+              <MappingFragment StoreEntitySet="t_contracts">
+                <ScalarProperty Name="ProcurementId" ColumnName="ProcurementId" />
+                <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+                <ScalarProperty Name="ParentId" ColumnName="ParentId" />
+                <ScalarProperty Name="CandidateId_1" ColumnName="CandidateId_1" />
+                <ScalarProperty Name="CandidateId_2" ColumnName="CandidateId_2" />
+                <ScalarProperty Name="CandidateId_3" ColumnName="CandidateId_3" />
+                <ScalarProperty Name="ContractGroup" ColumnName="ContractGroup" />
+                <ScalarProperty Name="ContractNo" ColumnName="ContractNo" />
+                <ScalarProperty Name="NoPR" ColumnName="NoPR" />
+                <ScalarProperty Name="NoPO" ColumnName="NoPO" />
+                <ScalarProperty Name="ContractTitle" ColumnName="ContractTitle" />
+                <ScalarProperty Name="ContractValue" ColumnName="ContractValue" />
+                <ScalarProperty Name="BeginDate" ColumnName="BeginDate" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="ContractDate" ColumnName="ContractDate" />
+                <ScalarProperty Name="ContractType" ColumnName="ContractType" />
+                <ScalarProperty Name="DocType" ColumnName="DocType" />
+                <ScalarProperty Name="RenewalDate" ColumnName="RenewalDate" />
+                <ScalarProperty Name="IdVendor" ColumnName="IdVendor" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="Done" ColumnName="Done" />
+                <ScalarProperty Name="DoneDate" ColumnName="DoneDate" />
+                <ScalarProperty Name="AlertDay" ColumnName="AlertDay" />
+                <ScalarProperty Name="Snooze" ColumnName="Snooze" />
+                <ScalarProperty Name="CorpNamePihak1" ColumnName="CorpNamePihak1" />
+                <ScalarProperty Name="PenanggungJawabPihak1" ColumnName="PenanggungJawabPihak1" />
+                <ScalarProperty Name="JabatanPihak1" ColumnName="JabatanPihak1" />
+                <ScalarProperty Name="AlamatPihak1" ColumnName="AlamatPihak1" />
+                <ScalarProperty Name="PhonePihak1" ColumnName="PhonePihak1" />
+                <ScalarProperty Name="FaxPihak1" ColumnName="FaxPihak1" />
+                <ScalarProperty Name="EmailPihak1" ColumnName="EmailPihak1" />
+                <ScalarProperty Name="CorpNamePihak2" ColumnName="CorpNamePihak2" />
+                <ScalarProperty Name="PenanggungJawabPihak2" ColumnName="PenanggungJawabPihak2" />
+                <ScalarProperty Name="JabatanPihak2" ColumnName="JabatanPihak2" />
+                <ScalarProperty Name="AlamatPihak2" ColumnName="AlamatPihak2" />
+                <ScalarProperty Name="PhonePihak2" ColumnName="PhonePihak2" />
+                <ScalarProperty Name="FaxPihak2" ColumnName="FaxPihak2" />
+                <ScalarProperty Name="EmailPihak2" ColumnName="EmailPihak2" />
+                <ScalarProperty Name="StrDay" ColumnName="StrDay" />
+                <ScalarProperty Name="StrMonth" ColumnName="StrMonth" />
+                <ScalarProperty Name="StrYear" ColumnName="StrYear" />
+                <ScalarProperty Name="InProcess" ColumnName="InProcess" />
+                <ScalarProperty Name="ApproverPic" ColumnName="ApproverPic" />
+                <ScalarProperty Name="ApproveDate" ColumnName="ApproveDate" />
+                <ScalarProperty Name="ReceiverPic" ColumnName="ReceiverPic" />
+                <ScalarProperty Name="ReceiveDate" ColumnName="ReceiveDate" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="VaNo" ColumnName="VaNo" />
+                <ScalarProperty Name="VaName" ColumnName="VaName" />
+                <ScalarProperty Name="StrDate" ColumnName="StrDate" />
+                <ScalarProperty Name="Fungsi" ColumnName="Fungsi" />
+                <ScalarProperty Name="StartProject" ColumnName="StartProject" />
+                <ScalarProperty Name="EndProject" ColumnName="EndProject" />
+                <ScalarProperty Name="AddendumContractNo" ColumnName="AddendumContractNo" />
+                <ScalarProperty Name="IsAddendum" ColumnName="IsAddendum" />
+                <ScalarProperty Name="ActiveYn" ColumnName="ActiveYn" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_DocumentCat">
+            <EntityTypeMapping TypeName="FMSModel.T_DocumentCat">
+              <MappingFragment StoreEntitySet="T_DocumentCat">
+                <ScalarProperty Name="DocumentCatID" ColumnName="DocumentCatID" />
+                <ScalarProperty Name="ParentCatID" ColumnName="ParentCatID" />
+                <ScalarProperty Name="DocumentCatName" ColumnName="DocumentCatName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_DocumentFile">
+            <EntityTypeMapping TypeName="FMSModel.T_DocumentFile">
+              <MappingFragment StoreEntitySet="T_DocumentFile">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Source" ColumnName="Source" />
+                <ScalarProperty Name="Key1" ColumnName="Key1" />
+                <ScalarProperty Name="Key2" ColumnName="Key2" />
+                <ScalarProperty Name="Key3" ColumnName="Key3" />
+                <ScalarProperty Name="Key4" ColumnName="Key4" />
+                <ScalarProperty Name="DocumentCatID" ColumnName="DocumentCatID" />
+                <ScalarProperty Name="Revision" ColumnName="Revision" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="ContentType" ColumnName="ContentType" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="EntryUser" ColumnName="EntryUser" />
+                <ScalarProperty Name="EntryDate" ColumnName="EntryDate" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="DeleteUser" ColumnName="DeleteUser" />
+                <ScalarProperty Name="DeleteDate" ColumnName="DeleteDate" />
+                <ScalarProperty Name="Flag" ColumnName="Flag" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Hist_Submissions_IT">
+            <EntityTypeMapping TypeName="FMSModel.T_Hist_Submissions_IT">
+              <MappingFragment StoreEntitySet="T_Hist_Submissions_IT">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SubmissionId" ColumnName="SubmissionId" />
+                <ScalarProperty Name="FlowFrom" ColumnName="FlowFrom" />
+                <ScalarProperty Name="FlowTo" ColumnName="FlowTo" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Hist_Submissions_Negotiation_Proc">
+            <EntityTypeMapping TypeName="FMSModel.T_Hist_Submissions_Negotiation_Proc">
+              <MappingFragment StoreEntitySet="T_Hist_Submissions_Negotiation_Proc">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SubmissionId" ColumnName="SubmissionId" />
+                <ScalarProperty Name="FlowFrom" ColumnName="FlowFrom" />
+                <ScalarProperty Name="FlowTo" ColumnName="FlowTo" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Hist_Submissions_Proc">
+            <EntityTypeMapping TypeName="FMSModel.T_Hist_Submissions_Proc">
+              <MappingFragment StoreEntitySet="T_Hist_Submissions_Proc">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="SubmissionId" ColumnName="SubmissionId" />
+                <ScalarProperty Name="FlowFrom" ColumnName="FlowFrom" />
+                <ScalarProperty Name="FlowTo" ColumnName="FlowTo" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="T_Log_Contract">
+            <EntityTypeMapping TypeName="FMSModel.T_Log_Contract">
+              <MappingFragment StoreEntitySet="T_Log_Contract">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ContractId" ColumnName="ContractId" />
+                <ScalarProperty Name="FlowFrom" ColumnName="FlowFrom" />
+                <ScalarProperty Name="FlowTo" ColumnName="FlowTo" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_mapping_employee_user">
+            <EntityTypeMapping TypeName="FMSModel.t_mapping_employee_user">
+              <MappingFragment StoreEntitySet="t_mapping_employee_user">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nip" ColumnName="Nip" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="alt_email" ColumnName="alt_email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_pengajuan">
+            <EntityTypeMapping TypeName="FMSModel.t_pengajuan">
+              <MappingFragment StoreEntitySet="t_pengajuan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="DestLocation" ColumnName="DestLocation" />
+                <ScalarProperty Name="DestPengguna" ColumnName="DestPengguna" />
+                <ScalarProperty Name="Keterangan" ColumnName="Keterangan" />
+                <ScalarProperty Name="Process" ColumnName="Process" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="ActiveYn" ColumnName="ActiveYn" />
+                <ScalarProperty Name="GroupPengajuan" ColumnName="GroupPengajuan" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_pengajuan_detail">
+            <EntityTypeMapping TypeName="FMSModel.t_pengajuan_detail">
+              <MappingFragment StoreEntitySet="t_pengajuan_detail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Pengajuan" ColumnName="Pengajuan" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="RealAsset" ColumnName="RealAsset" />
+                <ScalarProperty Name="RealDate" ColumnName="RealDate" />
+                <ScalarProperty Name="RealUser" ColumnName="RealUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_procurement">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_procurement">
+              <MappingFragment StoreEntitySet="t_proc_procurement">
+                <ScalarProperty Name="KesanggupanSummary" ColumnName="KesanggupanSummary" />
+                <ScalarProperty Name="PenunjukanSummary" ColumnName="PenunjukanSummary" />
+                <ScalarProperty Name="NegotiationSummary" ColumnName="NegotiationSummary" />
+                <ScalarProperty Name="RppSummary" ColumnName="RppSummary" />
+                <ScalarProperty Name="NegotiationValue" ColumnName="NegotiationValue" />
+                <ScalarProperty Name="ProcurementDate" ColumnName="ProcurementDate" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="Function" ColumnName="Function" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="Remark" ColumnName="Remark" />
+                <ScalarProperty Name="IsCompleteDoc" ColumnName="IsCompleteDoc" />
+                <ScalarProperty Name="Status" ColumnName="Status" />
+                <ScalarProperty Name="Winner" ColumnName="Winner" />
+                <ScalarProperty Name="Spmp" ColumnName="Spmp" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="NoPR" ColumnName="NoPR" />
+                <ScalarProperty Name="ExpectedDate" ColumnName="ExpectedDate" />
+                <ScalarProperty Name="Snooze" ColumnName="Snooze" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_procurement_detail">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_procurement_detail">
+              <MappingFragment StoreEntitySet="t_proc_procurement_detail">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcId" ColumnName="ProcId" />
+                <ScalarProperty Name="Item" ColumnName="Item" />
+                <ScalarProperty Name="Value" ColumnName="Value" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_request">
+            <EntityTypeMapping TypeName="FMSModel.t_request">
+              <MappingFragment StoreEntitySet="t_request">
+                <ScalarProperty Name="ReqId" ColumnName="ReqId" />
+                <ScalarProperty Name="ReqItem" ColumnName="ReqItem" />
+                <ScalarProperty Name="ReqType" ColumnName="ReqType" />
+                <ScalarProperty Name="ReqQty" ColumnName="ReqQty" />
+                <ScalarProperty Name="ReqPart" ColumnName="ReqPart" />
+                <ScalarProperty Name="ReqKeterangan" ColumnName="ReqKeterangan" />
+                <ScalarProperty Name="ReqReason" ColumnName="ReqReason" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="Process" ColumnName="Process" />
+                <ScalarProperty Name="ReqGroup" ColumnName="ReqGroup" />
+                <ScalarProperty Name="ActiveYn" ColumnName="ActiveYn" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_siganature">
+            <EntityTypeMapping TypeName="FMSModel.t_siganature">
+              <MappingFragment StoreEntitySet="t_siganature">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Siganture" ColumnName="Siganture" />
+                <ScalarProperty Name="CandidateId_1" ColumnName="CandidateId_1" />
+                <ScalarProperty Name="CandidateId_2" ColumnName="CandidateId_2" />
+                <ScalarProperty Name="SourceData" ColumnName="SourceData" />
+                <ScalarProperty Name="Descriptions" ColumnName="Descriptions" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tmp_DocSrc">
+            <EntityTypeMapping TypeName="FMSModel.Tmp_DocSrc">
+              <MappingFragment StoreEntitySet="Tmp_DocSrc">
+                <ScalarProperty Name="ID" ColumnName="ID" />
+                <ScalarProperty Name="Key2" ColumnName="Key2" />
+                <ScalarProperty Name="Src" ColumnName="Src" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tmp_Document_Recovery_1">
+            <EntityTypeMapping TypeName="FMSModel.Tmp_Document_Recovery_1">
+              <MappingFragment StoreEntitySet="Tmp_Document_Recovery_1">
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_contract">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_contract">
+              <MappingFragment StoreEntitySet="t_proc_contract">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_document_invitation">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_document_invitation">
+              <MappingFragment StoreEntitySet="t_proc_document_invitation">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+                <ScalarProperty Name="DocType" ColumnName="DocType" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_penawaran">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_penawaran">
+              <MappingFragment StoreEntitySet="t_proc_penawaran">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+                <ScalarProperty Name="PenawaranValue" ColumnName="PenawaranValue" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_rapat_penjelasan">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_rapat_penjelasan">
+              <MappingFragment StoreEntitySet="t_proc_rapat_penjelasan">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+                <ScalarProperty Name="ReftID" ColumnName="ReftID" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Summary" ColumnName="Summary" />
+                <ScalarProperty Name="EventDay" ColumnName="EventDay" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_spmp">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_spmp">
+              <MappingFragment StoreEntitySet="t_proc_spmp">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_suggestion_vendor">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_suggestion_vendor">
+              <MappingFragment StoreEntitySet="t_proc_suggestion_vendor">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="ContactPerson" ColumnName="ContactPerson" />
+                <ScalarProperty Name="Mail" ColumnName="Mail" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_usulan_pemenang">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_usulan_pemenang">
+              <MappingFragment StoreEntitySet="t_proc_usulan_pemenang">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="ProcID" ColumnName="ProcID" />
+                <ScalarProperty Name="Vendor" ColumnName="Vendor" />
+                <ScalarProperty Name="Remarks" ColumnName="Remarks" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_item">
+            <EntityTypeMapping TypeName="FMSModel.temp_item">
+              <MappingFragment StoreEntitySet="temp_item">
+                <ScalarProperty Name="ItemId" ColumnName="ItemId" />
+                <ScalarProperty Name="ItemName" ColumnName="ItemName" />
+                <ScalarProperty Name="ItemGroup" ColumnName="ItemGroup" />
+                <ScalarProperty Name="ItemImage" ColumnName="ItemImage" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="Publish" ColumnName="Publish" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="temp_user_ad">
+            <EntityTypeMapping TypeName="FMSModel.temp_user_ad">
+              <MappingFragment StoreEntitySet="temp_user_ad">
+                <ScalarProperty Name="NIP" ColumnName="NIP" />
+                <ScalarProperty Name="NAMA" ColumnName="NAMA" />
+                <ScalarProperty Name="USER_AD" ColumnName="USER_AD" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_attachtment_stakeholder">
+            <EntityTypeMapping TypeName="FMSModel.t_attachtment_stakeholder">
+              <MappingFragment StoreEntitySet="t_attachtment_stakeholder">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="CandidateId_3" ColumnName="CandidateId_3" />
+                <ScalarProperty Name="CandidateId_2" ColumnName="CandidateId_2" />
+                <ScalarProperty Name="CandidateId_1" ColumnName="CandidateId_1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_cont_alert_dest_mailStakeHolder">
+            <EntityTypeMapping TypeName="FMSModel.t_cont_alert_dest_mailStakeHolder">
+              <MappingFragment StoreEntitySet="t_cont_alert_dest_mailStakeHolder">
+                <ScalarProperty Name="Fungsi" ColumnName="Fungsi" />
+                <ScalarProperty Name="Jabatan" ColumnName="Jabatan" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="SHId" ColumnName="SHId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_stakeholder">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_stakeholder">
+              <MappingFragment StoreEntitySet="t_proc_stakeholder">
+                <ScalarProperty Name="AlertDay" ColumnName="AlertDay" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Kedudukan" ColumnName="Kedudukan" />
+                <ScalarProperty Name="TypeSH" ColumnName="TypeSH" />
+                <ScalarProperty Name="TanggalLahir" ColumnName="TanggalLahir" />
+                <ScalarProperty Name="Alamat" ColumnName="Alamat" />
+                <ScalarProperty Name="NamaIndividualSH" ColumnName="NamaIndividualSH" />
+                <ScalarProperty Name="Jabatan" ColumnName="Jabatan" />
+                <ScalarProperty Name="NamaInstitusi" ColumnName="NamaInstitusi" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_kedudukan">
+            <EntityTypeMapping TypeName="FMSModel.m_kedudukan">
+              <MappingFragment StoreEntitySet="m_kedudukan">
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="KedudukanName" ColumnName="KedudukanName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_stakeholder_type">
+            <EntityTypeMapping TypeName="FMSModel.m_stakeholder_type">
+              <MappingFragment StoreEntitySet="m_stakeholder_type">
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="StakeholderName" ColumnName="StakeholderName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_attachtment_employeemanagement">
+            <EntityTypeMapping TypeName="FMSModel.t_attachtment_employeemanagement">
+              <MappingFragment StoreEntitySet="t_attachtment_employeemanagement">
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="FileName" ColumnName="FileName" />
+                <ScalarProperty Name="CandidateId_3" ColumnName="CandidateId_3" />
+                <ScalarProperty Name="CandidateId_2" ColumnName="CandidateId_2" />
+                <ScalarProperty Name="CandidateId_1" ColumnName="CandidateId_1" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_cont_alert_dest_mailEmployeeManagement">
+            <EntityTypeMapping TypeName="FMSModel.t_cont_alert_dest_mailEmployeeManagement">
+              <MappingFragment StoreEntitySet="t_cont_alert_dest_mailEmployeeManagement">
+                <ScalarProperty Name="Fungsi" ColumnName="Fungsi" />
+                <ScalarProperty Name="Jabatan" ColumnName="Jabatan" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="EmployeeId" ColumnName="EmployeeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="t_proc_employeemanagement">
+            <EntityTypeMapping TypeName="FMSModel.t_proc_employeemanagement">
+              <MappingFragment StoreEntitySet="t_proc_employeemanagement">
+                <ScalarProperty Name="AlertDay" ColumnName="AlertDay" />
+                <ScalarProperty Name="IsDeleted" ColumnName="IsDeleted" />
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="Kedudukan" ColumnName="Kedudukan" />
+                <ScalarProperty Name="TanggalLahir" ColumnName="TanggalLahir" />
+                <ScalarProperty Name="LevelJabatan" ColumnName="LevelJabatan" />
+                <ScalarProperty Name="Jabatan" ColumnName="Jabatan" />
+                <ScalarProperty Name="NamaPekerja" ColumnName="NamaPekerja" />
+                <ScalarProperty Name="Nopek" ColumnName="Nopek" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_level_jabatan">
+            <EntityTypeMapping TypeName="FMSModel.m_level_jabatan">
+              <MappingFragment StoreEntitySet="m_level_jabatan">
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="LevelJabatan" ColumnName="LevelJabatan" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="m_proc_document_type">
+            <EntityTypeMapping TypeName="FMSModel.m_proc_document_type">
+              <MappingFragment StoreEntitySet="m_proc_document_type">
+                <ScalarProperty Name="UpdateUser" ColumnName="UpdateUser" />
+                <ScalarProperty Name="UpdateDate" ColumnName="UpdateDate" />
+                <ScalarProperty Name="CreateUser" ColumnName="CreateUser" />
+                <ScalarProperty Name="CreateDate" ColumnName="CreateDate" />
+                <ScalarProperty Name="DocType" ColumnName="DocType" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

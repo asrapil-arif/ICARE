@@ -1,0 +1,109 @@
+﻿    img {border:0;}
+    #containerMonthYear 
+    {
+        position:absolute;
+        display:none;
+        width:125px;
+        background-color:#fff;
+        left:135px;
+    }
+    #containerMonth
+    {
+        border:1px solid #000;
+        padding:4px;
+    }
+    #containerMonth:after {
+	    content: "."; 
+	    display: block;
+	    height: 0; 
+	    clear: both; 
+	    visibility: hidden;
+    } 
+    #containerMonth div
+    {
+        float:left;
+        width:30px;
+        padding:4px;
+        text-align:center;
+        cursor:pointer;
+        font-size:0.9em;
+    }
+    #containerMonth div:hover
+    {
+        background-color:#000;
+        color:#fff;
+    }
+    
+    #containerYear 
+    {
+        border:1px solid #000;
+        width:123px;
+        border-bottom:0;
+    }
+    #containerYear:after {
+	    content: "."; 
+	    display: block; 
+	    height: 0; 
+	    clear: both; 
+	    visibility: hidden;
+    } 
+    #containerYear a 
+    {
+        font-size:0.9em;
+        text-decoration:none;
+        color:#000;
+    }
+    #containerYear a:hover
+    {
+        text-decoration:underline;
+    }
+    #containerYear div 
+    {
+
+        font-weight:bolder;
+        vertical-align:text-top;
+        float:left;
+        margin:2px;
+    }
+    
+    #pre 
+    {
+        cursor:pointer;
+        background-image:url('../../content/images/pre.png');
+        background-repeat:no-repeat;
+        width:18px;
+        height:18px;
+        float:left;
+     }
+    #next 
+    {
+        cursor:pointer;
+        background-image:url('../../content/images/next.png');
+        background-repeat:no-repeat;
+        width:18px;
+        height:18px;
+        float:left;
+     }
+
+    #currentYear 
+    {
+        width:75px;
+        text-align:center;
+        padding-top:2px;
+    }
+    
+    .selectedMonth 
+    {
+        background-color:#000;
+        color:#fff;    
+    }
+    
+    #calendarIcon
+    {
+        background-image:url('../../content/images/calendar.png');
+        background-repeat:no-repeat;
+        width:24px;
+        height:24px;
+        float:left;
+        cursor:pointer;
+    }

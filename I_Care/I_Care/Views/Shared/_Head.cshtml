@@ -1,0 +1,748 @@
+﻿
+<head>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+	<meta charset="utf-8" />
+	<title>Pertamina Retail | I-Care </title>
+	<link rel="icon" href="../../Content/img/logo_ptm.png" type="image/x-icon">
+	<meta name="description" content="overview &amp; stats" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+	<meta http-equiv='cache-control' content='no-cache'>
+	<meta http-equiv='expires' content='0'>
+	<meta http-equiv='pragma' content='no-cache'>
+
+	<link rel="stylesheet" href="../../Content/assets/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+
+	<link rel="stylesheet" href="../../Content/assets/css/ace-skins.min.css" />
+	<link rel="stylesheet" href="../../Content/assets/css/ace-rtl.min.css" />
+	<link rel="stylesheet" href="../../Content/assets/datepicker/datepicker3.css">
+	<link rel="stylesheet" href="../../Content/assets/css/bootstrap-timepicker.min.css">
+	<link rel="stylesheet" href="../../Content/assets/css/jquery-ui.custom.min.css" />
+
+	<link rel="stylesheet" href="../../Content/assets/css/chosen.min.css" />
+
+	<link rel="stylesheet" href="../../Content/assets/css/ace-skins.min.css" />
+	<link rel="stylesheet" href="../../Content/assets/css/ace-rtl.min.css" />
+	<link rel="stylesheet" href="../../Content/assets/css/Addtional.css" />
+
+	<link rel="stylesheet" href="../../Content/assets/css/fonts.googleapis.com.css" />
+	<link rel="stylesheet" href="../../Content/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+	<link rel="stylesheet" href="../../Content/assets/css/select2.min.css" />
+
+	<script src="../../Content/assets/js/jquery-2.1.4.min.js"></script>
+	@*<script src="http://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>*@
+	<script src="../../Content/assets/js/jquery-ui.js"></script>
+	<script src="../../Content/assets/js/ace-extra.min.js"></script>
+
+	<script src="../../Content/assets/js/bootstrap.min.js"></script>
+	<script src="../../Content/assets/js/jquery-ui.custom.min.js"></script>
+	<script src="../../Content/assets/js/jquery.ui.touch-punch.min.js"></script>
+	<script src="../../Content/assets/js/chosen.jquery.min.js"></script>
+	<script src="../../Content/assets/js/spinbox.min.js"></script>
+	<script src="../../Content/assets/js/select2.min.js"></script>
+
+	<script src="../../Content/assets/js/jquery.easypiechart.min.js"></script>
+	<script src="../../Content/assets/js/jquery.sparkline.index.min.js"></script>
+	<script src="../../Content/assets/js/jquery.flot.min.js"></script>
+	<script src="../../Content/assets/js/jquery.flot.pie.min.js"></script>
+	<script src="../../Content/assets/js/jquery.flot.resize.min.js"></script>
+
+	<script src="../../Content/assets/js/jquery.inputlimiter.min.js"></script>
+	<script src="../../Content/assets/js/jquery.maskedinput.min.js"></script>
+	<script src="../../Content/assets/js/bootstrap-tag.min.js"></script>
+
+	<script src="../../Content/assets/js/moment.min.js"></script>
+	<script src="../../Content/assets/datepicker/bootstrap-datepicker.js"></script>
+	<script src="../../Content/assets/js/bootstrap-timepicker.min.js"></script>
+	<script src="../../Content/assets/js/daterangepicker.min.js"></script>
+
+
+	<!-- ace scripts -->
+	<script src="../../Content/assets/js/ace-elements.min.js"></script>
+	<script src="../../Content/assets/js/ace.min.js"></script>
+	<script src="../../Content/assets/js/bootstrap-markdown.min.js"></script>
+
+	<link rel="stylesheet" type="text/css" href="../../Content/assets/w2ui-1.5/w2ui-1.5.min.css" />
+	<script type="text/javascript" src="../../Content/assets/w2ui-1.5/w2ui-1.5.min.js"></script>
+
+
+
+	<link rel="stylesheet" href="../../Content/assets/css/richtext.min.css">
+	<script type="text/javascript" src="../../Content/assets/js/jquery.richtext.js"></script>
+
+
+
+
+	<script>
+
+		var URL_PTR = "@Request.Url.GetLeftPart(UriPartial.Authority)";
+		var URL_PTPR = "@Request.Url.GetLeftPart(UriPartial.Authority)";
+		var global_upload_file = [];
+		var global_oFileCount = 0;
+
+		function load_page(target, source, function_param) {
+			try {
+
+				$(target).hide(function () {
+
+					$("#Modal_load_2").show("fade", function () {
+						$(target).load(source, function (responseTxt, statusTxt, jqXHR) {
+							if (statusTxt == "success") {
+
+								$("#Modal_load_2").hide();
+								$(target).show("fade");
+
+								if (function_param != null) {
+
+									function_param();
+								}
+
+							}
+							if (statusTxt == "error") {
+								alert("Error: " + jqXHR.status + " " + jqXHR.statusText);
+								$("#Modal_load_2").hide();
+							}
+						});
+
+					})
+				})
+
+			}
+			catch (err) {
+
+				$(target).show();
+				alert(err.message);
+			}
+
+		}
+
+		function set_sub_child_breadcrumb(las_sub_child) {
+			if (las_sub_child != "" && las_sub_child != null && las_sub_child != undefined) {
+				$(".main-content-inner .breadcrumb").append('<li class="last_set" >' + las_sub_child + '</li>');
+			}
+			else {
+				//$(".main-content-inner .breadcrumb").remove(".last_set");
+				 $('.main-content-inner .breadcrumb li.last_set').remove();
+			}
+		}
+
+
+		window.onerror = function (message, source, lineno, colno, error) {
+			$("#Modal_load_2").hide();
+			//w2alert(error.message,"Error !");
+		}
+
+
+		function isStringNull(x) {
+			if (x == null) { return '-'; }
+			else { return x; }
+		}
+
+
+		function clear_wait() {
+
+			//$('#' + tab_name + "_wait").remove();
+			$('#Modal_load').modal("hide");
+			$(".info-wait").html("Please Wait ...");
+
+		}
+
+
+
+		window.document.onload = function (e) {
+			clear_wait();
+		}
+
+
+		//var t;
+		//window.onload = resetTimer;
+		//// DOM Events
+		//document.onmousemove = resetTimer;
+		//document.onkeypress = resetTimer;
+
+		//function logout() {
+
+		//	w2alert('Session timeout you must login again !');
+		//	location.href = URL_PTR + '/User/Logout';
+		//}
+
+		//function resetTimer() {
+		//	clearTimeout(t);
+		//	t = setTimeout(logout, 3000000)
+		//	// 1000 milisec = 1 sec
+		//}
+
+
+		//document.onload = resetTimer;
+		//document.onmousemove = resetTimer;
+		//document.onmousedown = resetTimer; // touchscreen presses
+		//document.ontouchstart = resetTimer;
+		//document.onclick = resetTimer;     // touchpad clicks
+		//document.onscroll = resetTimer;    // scrolling with arrow keys
+		//document.onkeypress = resetTimer
+
+
+
+		function treatAsUTC(date) {
+			var result = new Date(date);
+			result.setMinutes(result.getMinutes() - result.getTimezoneOffset());
+			return result;
+		}
+
+
+		function daysBetween(startDate, endDate) {
+			var millisecondsPerDay = 24 * 60 * 60 * 1000;
+			return (treatAsUTC(endDate) - treatAsUTC(startDate)) / millisecondsPerDay;
+		}
+
+
+		function format_currency(Field_ID, temp_field) {
+
+			if ($("#" + Field_ID).val() != "") {
+
+				var Nominal = $("#" + Field_ID).val();
+				Nominal = Nominal.replace(/,/g, "");
+				$("#" + temp_field).val(Nominal);
+				var fix_num = numberWithCommas(Nominal);
+
+				$("#" + Field_ID).val(fix_num);
+
+			}
+			else {
+
+				$("#" + temp_field).val("");
+
+			}
+
+		}
+
+
+		function render_wait() {
+
+			$('#Modal_load').modal({
+				backdrop: 'static',
+				keyboard: false
+			})
+
+		}
+
+		function numberWithCommas(x) {
+			if (x != null) {
+				return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+			else {
+				x = 0;
+				return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+			}
+
+		}
+		function open_shortcut(Menu) {
+			render_wait(); window.location.replace(URL_PTPR + "/" + Menu);
+		}
+
+
+		$('#param_field').on('select2:select', function (e) {
+
+			$("#key_word").val("");
+			$("#key_word").focus();
+
+		});
+
+
+		function clear_search() {
+
+			$("#param_field").val("All").trigger('change');
+			$("#key_word").val("");
+		}
+
+
+		function terbilang(bilangan) {
+
+			bilangan = String(bilangan);
+			var angka = new Array('0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0', '0');
+			var kata = new Array('', 'Satu', 'Dua', 'Tiga', 'Empat', 'Lima', 'Enam', 'Tujuh', 'Delapan', 'Sembilan');
+			var tingkat = new Array('', 'Ribu', 'Juta', 'Milyar', 'Triliun');
+
+			var panjang_bilangan = bilangan.length;
+
+			/* pengujian panjang bilangan */
+			if (panjang_bilangan > 15) {
+				kaLimat = "Diluar Batas";
+				return kaLimat;
+			}
+
+			/* mengambil angka-angka yang ada dalam bilangan, dimasukkan ke dalam array */
+			for (i = 1; i <= panjang_bilangan; i++) {
+				angka[i] = bilangan.substr(-(i), 1);
+			}
+
+			i = 1;
+			j = 0;
+			kaLimat = "";
+
+
+			/* mulai proses iterasi terhadap array angka */
+			while (i <= panjang_bilangan) {
+
+				subkaLimat = "";
+				kata1 = "";
+				kata2 = "";
+				kata3 = "";
+
+				/* untuk Ratusan */
+				if (angka[i + 2] != "0") {
+					if (angka[i + 2] == "1") {
+						kata1 = "Seratus";
+					} else {
+						kata1 = kata[angka[i + 2]] + " Ratus";
+					}
+				}
+
+				/* untuk Puluhan atau Belasan */
+				if (angka[i + 1] != "0") {
+					if (angka[i + 1] == "1") {
+						if (angka[i] == "0") {
+							kata2 = "Sepuluh";
+						} else if (angka[i] == "1") {
+							kata2 = "Sebelas";
+						} else {
+							kata2 = kata[angka[i]] + " Belas";
+						}
+					} else {
+						kata2 = kata[angka[i + 1]] + " Puluh";
+					}
+				}
+
+				/* untuk Satuan */
+				if (angka[i] != "0") {
+					if (angka[i + 1] != "1") {
+						kata3 = kata[angka[i]];
+					}
+				}
+
+				/* pengujian angka apakah tidak nol semua, lalu ditambahkan tingkat */
+				if ((angka[i] != "0") || (angka[i + 1] != "0") || (angka[i + 2] != "0")) {
+					subkaLimat = kata1 + " " + kata2 + " " + kata3 + " " + tingkat[j] + " ";
+				}
+
+				/* gabungkan variabe sub kaLimat (untuk Satu blok 3 angka) ke variabel kaLimat */
+				kaLimat = subkaLimat + kaLimat;
+				i = i + 3;
+				j = j + 1;
+
+			}
+
+			/* mengganti Satu Ribu jadi Seribu jika diperlukan */
+			if ((angka[5] == "0") && (angka[6] == "0")) {
+				kaLimat = kaLimat.replace("Satu Ribu", "Seribu");
+			}
+
+			return kaLimat + "Rupiah";
+		}
+
+		function showErrorAlert(reason, detail) {
+			var msg = '';
+			if (reason === 'unsupported-file-type') { msg = "Unsupported format " + detail; }
+			else {
+				//console.log("error uploading file", reason, detail);
+			}
+			$('<div class="alert"> <button type="button" class="close" data-dismiss="alert">&times;</button>' +
+				'<strong>File upload error</strong> ' + msg + ' </div>').prependTo('#alerts');
+		}
+
+		full_screen_stat = 0;
+
+		$(window).resize(function () {
+
+			if (full_screen_stat == 1) {
+
+				$('.outer_page_drafting').css('height', (Number(window.innerHeight) - 39));
+			}
+
+		});
+
+
+		function form_validation(form_name, req_selector, fn) {
+
+			var last_empty_id = "";
+			var isValid = true;
+			var xcount = 1;
+
+			$("#" + form_name + " ." + req_selector).each(function () {
+
+				var element = $(this);
+				if (element.val() == "") {
+
+					isValid = false;
+					var fill_placeholder = element[0].attributes["placeholder"];
+					if (fill_placeholder != undefined) {
+
+						var placeHolderText = fill_placeholder.nodeValue;
+						placeHolderText = placeHolderText.replace("Harap diisi", "").trim().replace("[ Wajib diisi ! ]", "").trim();
+					}
+
+					$("#" + element[0].id).attr("placeholder", placeHolderText + " [ Wajib diisi ! ]");
+					if (xcount == 1) last_empty_id = element[0].id;
+					xcount = xcount + 1;
+					isValid = false;
+
+				}
+
+			});
+
+
+			if (isValid == false) {
+				var e = document.getElementById(last_empty_id);
+				if (fn != null) { fn(); }
+				//if (e instanceof HTMLSelectElement)
+				$("#" + last_empty_id).focus();
+				w2alert(last_empty_id + " Harus diisi !");
+
+				return false;
+			}
+			else {
+				return true
+			}
+
+		}
+
+		function form_validation2(form_name, req_selector, fn) {
+
+			var last_empty_id = "";
+			var isValid = true;
+			var xcount = 1;
+
+			$("#" + form_name + " ." + req_selector).each(function () {
+
+				var element = $(this);
+				if (element.val() == "") {
+
+					isValid = false;
+					var fill_placeholder = element[0].attributes["placeholder"];
+					if (fill_placeholder != undefined) {
+
+						var placeHolderText = fill_placeholder.nodeValue;
+						placeHolderText = placeHolderText.replace("Harap diisi", "").trim().replace("[ Wajib diisi ! ]", "").trim();
+					}
+
+					$("#" + element[0].id).attr("placeholder", placeHolderText + " [ Wajib diisi ! ]");
+					if (xcount == 1) last_empty_id = element[0].id;
+					xcount = xcount + 1;
+					isValid = false;
+
+				}
+
+			});
+
+
+			if (isValid == false) {
+				var e = document.getElementById(last_empty_id);
+				var fill_caption = e.attributes["caption"]; 
+				var captionText = fill_caption.nodeValue;
+				if (fn != null) { fn(); }
+				//if (e instanceof HTMLSelectElement)
+				$("#" + last_empty_id).focus();
+				w2alert(captionText + " Harus diisi !");
+
+				return false;
+			}
+			else {
+				return true
+			}
+
+		}
+
+		function reset_form(form_name, req_selector) {
+
+
+			$("#" + form_name + " ." + req_selector).each(function () {
+
+				var element = $(this);
+				$("#" + element[0].id).val("");
+
+			});
+
+
+
+		}
+
+		(function ($) {
+			// Empty object, we are going to use this as our Queue
+			var ajaxQueue = $({});
+
+			$.ajaxQueue = function (ajaxOpts) {
+				// hold the original complete function
+				var oldComplete = ajaxOpts.complete;
+
+				// queue our ajax request
+				ajaxQueue.queue(function (next) {
+
+					// create a complete callback to fire the next event in the queue
+					ajaxOpts.complete = function () {
+						// fire the original complete if it was there
+						if (oldComplete) oldComplete.apply(this, arguments);
+						next(); // run the next query in the queue
+					};
+
+					// run the query
+					$.ajax(ajaxOpts);
+				});
+			};
+
+		})(jQuery);
+
+
+	</script>
+
+	<style type="text/css">
+
+		.panel {
+			border-radius: 0px;
+		}
+
+		.panel-heading {
+			border-radius: 0px;
+			background-color: yellowgreen;
+		}
+
+		.fomr-control-mod {
+			padding: 5px;
+		}
+
+		#table-panel td {
+			padding: 2px;
+		}
+
+		#logo-ptpr {
+			width: 100px;
+		}
+
+		.icon_image {
+			width: 34px;
+		}
+
+		.icon_image_side {
+			width: 25px;
+			margin-left: 5px;
+		}
+
+		.nav-tabs {
+			border-bottom: none !important;
+		}
+
+			.nav-tabs > li > a {
+				padding: 8px;
+				margin-bottom: 1px;
+			}
+
+			.nav-tabs > li {
+				float: left;
+				margin-bottom: -1px;
+			}
+
+				.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
+					color: #4C8FBD;
+				}
+
+		#Modal_load {
+			background-color: white;
+		}
+
+		#Modal_load_2 .modal-backdrop {
+			opacity: 0.5 !important;
+		}
+
+		#Uploading_Load .modal-backdrop {
+			opacity: 0.5 !important;
+		}
+
+		#Saving_Load, #Deleting_Load {
+			background-color: white;
+		}
+
+			#Saving_Load .modal-dialog, #Deleting_Load .modal-dialog {
+				text-align: center;
+				padding-top: 15%;
+			}
+
+		.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+			background-color: white !important;
+			opacity: 1;
+		}
+
+		/*css form e-kontrak*/
+		.full_screen {
+			position: absolute;
+			z-index: 9999;
+			top: 0;
+			left: 0;
+			bottom: 0;
+			overflow-y: auto;
+			width: 100%;
+			height: 100% !important;
+		}
+
+
+		.template_header {
+			width: 100%;
+			border: 1px solid #dedede;
+			background-color: whitesmoke;
+			text-align: right;
+			padding: 2px;
+		}
+
+
+			.template_header .btn-sm {
+				border-width: 4px;
+				font-size: 10px;
+				padding: 1px;
+				line-height: 1.38;
+			}
+
+
+		.judul_draft {
+			text-align: left;
+			width: 50%;
+			float: left;
+			height: auto;
+			padding: 10px;
+			height: 45px;
+			border-left: 0px !important;
+			border-right: 0px solid #dedede;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+			overflow: hidden;
+			font-weight: bold;
+		}
+
+		.header_button {
+			cursor: pointer;
+			font-weight: bold;
+			/* border-left: 1px solid #b7a9a9; */
+			display: inline-block;
+			padding: 10px;
+		}
+
+
+		.modal_ex {
+			position: absolute;
+			top: 10px;
+			right: 0px;
+			bottom: 0;
+			left: 0;
+			z-index: 10040;
+			overflow: auto;
+			overflow-y: auto;
+		}
+
+		.w2ui-info-bubble {
+			position: absolute;
+		}
+
+		.w2ui-grid-records td {
+			border-right: none !important;
+		}
+
+		.page_progress {
+			text-align: center;
+		}
+
+		.main-content-inner .breadcrumbs {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+
+		.wajib {
+			border-left: 1px solid red !important;
+		}
+
+		.select_wajib .select2-container--default .select2-selection--single {
+			border-left: 1px solid red !important;
+		}
+
+		.upload_wajib .ace-file-input .ace-file-container {
+			border-left: 2px solid red !important;
+		}
+
+		.btn-finder {
+			padding: 5px !important;
+			cursor: pointer !important;
+		}
+
+		mandatory {
+			color: red;
+		}
+
+
+
+		.page_detail .control-label {
+			font-size: 12px;
+		}
+
+		.page_detail .footer_form {
+			text-align: center;
+			border-top: 1px solid #dedede;
+			padding-top: 10px;
+			margin-bottom: 10px;
+		}
+
+		.attachment_tools button {
+			font-size: 12px;
+		}
+
+		.uploading_progress {
+			font-size: 12px;
+			display: inline-block;
+			margin-left: 10px;
+		}
+
+		.btn-tools-attachment {
+			margin-right: 5px;
+			cursor: pointer;
+		}
+
+
+		.w2ui-overlay {
+			box-shadow: 0 2px 10px #564747 !important;
+		}
+
+			.w2ui-overlay > div {
+				border: 3px solid #fff !important;
+			}
+
+			.w2ui-overlay.top-arrow:before {
+				border-bottom: 12px solid #fff !important;
+			}
+
+		.w2ui-even {
+			background-color: whitesmoke !important;
+		}
+
+
+		@@media only screen and (max-width: 1200px) {
+			.tab_progress {
+				padding: 25%;
+			}
+
+			#Saving_Load .modal-dialog, #Deleting_Load .modal-dialog {
+				text-align: center;
+				padding-top: 25%
+			}
+		}
+
+		@@media only screen and (max-width: 800px) {
+			.tab_progress {
+				padding: 25%;
+			}
+
+			#Saving_Load .modal-dialog, #Deleting_Load .modal-dialog {
+				text-align: center;
+				padding-top: 45%;
+			}
+		}
+	</style>
+
+</head>
+

@@ -1,0 +1,92 @@
+﻿@using I_Care.Models;
+@{
+    ViewBag.Title = "Master Item";
+    ViewBag.Parent = "Master Data";
+    ViewBag.Child = "Item Detail";
+    ViewBag.Child_Caption = "Item Detail";
+    ViewBag.Icon = "<i class='menu-icon fa fa-pencil-square-o'></i>";
+
+
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    string[] SSO_ALLOW = ROLES.GetRolesForUser(User.Identity.Name.ToString());
+    
+    FMSEntities db = new FMSEntities();
+    var Item = (from m in db.m_item where m.ItemGroup == 1 select m);
+    int H_W = Request.Browser.ScreenPixelsHeight - 24;
+    int H_W_2 = Request.Browser.ScreenPixelsHeight + 24;
+
+
+}
+
+
+<div style="margin:10px;">
+
+    <div class="my-box">
+        <table border="0px" id="tbl-detail" width="100%">
+            <tr>
+                <td>Name</td>
+                <td>:</td>
+                <td><input type="text" id="item_name" placeholder="Name" class="form-control-mod-dta" /></td>
+            </tr>
+            <tr>
+                <td>Group</td>
+                <td>:</td>
+                <td><input type="text" id="item_name" placeholder="Name" class="form-control-mod-dta" /></td>
+            </tr>
+            <tr>
+                <td>Create By</td>
+                <td>:</td>
+                <td><input type="text" id="item_name" placeholder="Name" class="form-control-mod-dta" /></td>
+            </tr>
+            <tr>
+                <td>Last Update</td>
+                <td>:</td>
+                <td><input type="text" id="item_name" placeholder="Name" class="form-control-mod-dta" /></td>
+            </tr>
+            <tr>
+                <td>Update By</td>
+                <td>:</td>
+                <td><input type="text" id="item_name" placeholder="Name" class="form-control-mod-dta" /></td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <div class="my-box">
+
+        <div id="gridPart" style="height:@{<text>@H_W</text>}px;border-radius:0px;"></div>
+    </div>
+
+</div>
+
+
+<script>
+
+    $('#gridPart').w2grid({
+        name: 'gridPart',
+        header: 'Part of Item',
+        show: {
+            footer: true,
+            toolbar: true,
+            footer        : true,
+            lineNumbers    : true,
+            selectColumn: true,
+            toolbarSearch:false,
+            toolbarAdd :true,
+            toolbarDelete :true,
+            header:true,
+
+        },
+        columns: [
+            { field: 'Id', caption: 'Id', size: '30px' },
+            { field: 'PartName', caption: 'Name', size: '200px' },
+        ]
+    });
+
+</script>
+
+
+
+

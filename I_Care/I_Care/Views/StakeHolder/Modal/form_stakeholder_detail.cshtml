@@ -1,0 +1,1006 @@
+﻿
+@using I_Care.Models
+@{
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+
+}
+
+
+<style>
+
+    #ModStakeHolder .modal-dialog {
+        width: 80%;
+        margin: 0 auto;
+        margin-top: 5%;
+        -webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+        -moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+        box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+    }
+</style>
+
+<div id="ModStakeHolder" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" style="color:White;">&times;</button>
+                <h4 class="modal-title">...</h4>
+            </div>
+            <div class="modal-body" style="padding:0px;padding-top:10px;">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs" id="myTabStakeHolder">
+
+                        <li class="active">
+                            <a data-toggle="tab" href="#info_stakeHolder" aria-expanded="true" style="border-left:none;">
+                                <i class="fa fa-desktop"></i>
+                                Main Info.
+                            </a>
+                        </li>
+                        <li class="" id="tab_upload_captionSH">
+                            <a data-toggle="tab" href="#tab_uploadSH" aria-expanded="true">
+                                <i class="fa fa-file"></i>
+                                Upload File
+                            </a>
+                        </li>
+
+                        <li class="" id="tab_upload_list_captionSH">
+                            <a data-toggle="tab" href="#tab_upload_listSH" aria-expanded="true">
+                                <i class="fa fa-file"></i>
+                                Upload File List
+                            </a>
+                        </li>
+
+                        <li class="">
+                            <a data-toggle="tab" href="#tab_alert_configSH" aria-expanded="true">
+                                <i class="fa fa-bell"></i>  Alert Configuration
+                            </a>
+                        </li>
+
+                    </ul>
+
+                    <div class="tab-content" style="min-height:300px;border-bottom:none;border-left:none;border-right:none;padding:0px;">
+                        <div id="info_stakeHolder" class="tab-pane fade active in" style="padding:10px;">
+
+                            <form class="form-horizontal">
+                                <div class="box-body">
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Id. :</label>
+                                        <div class="col-sm-4">
+                                            <input class="form-control" id="SHId" placeholder="Id. Will be generate by system" type="text" readonly style="background-color:whitesmoke;">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Nama Institusi :</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="NamaInstitusi" type="text" placeholder="input Nama Institusi">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Nama Individual StakeHolder :</label>
+                                        <div class="col-sm-4">
+                                            <input class="form-control" id="NamaIndividualSH" placeholder="input Nama Individual Stake Holder" type="text">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Jabatan</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="Jabatan" type="text" placeholder="input Jabatan terkait">
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Alamat :</label>
+                                        <div class="col-sm-10">
+                                            <input class="form-control" id="Alamat" placeholder="input Alamat" type="text">
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Tanggal Lahir :</label>
+                                        <div class="col-sm-4">
+                                            <input id="TanggalLahir" class="form-control date-picker" type="text" style="height:28px;" readonly placeholder="input tanggal lahir">
+
+
+                                        </div>
+
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Tipe StakeHolder :</label>
+                                        <div class="col-sm-4">
+
+                                            <select class="form-control select2" id="TipeSH">
+                                                <option value="" selected>-- Select Tipe StakeHolder--</option>
+
+                                                @foreach (var item in ViewBag.StakeHolderList)
+                                                {
+
+                                                    <option value="@item.Id">@item.TipeSH</option>
+
+                                                }
+
+                                            </select>
+
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="inputName" class="col-sm-2 control-label">Kedudukan :</label>
+                                        <div class="col-sm-4">
+
+                                            <select class="form-control select2" id="Kedudukan">
+                                                <option value="" selected>-- Select Kedudukan--</option>
+
+                                                @foreach (var item in ViewBag.KedudukanList)
+                                                {
+
+                                                    <option value="@item.Id">@item.Kedudukan</option>
+
+                                                }
+
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <div id="tab_uploadSH" class="tab-pane fade" style="padding:0px;padding-top:10px;">
+
+
+                            <div class="col-sm-12">
+                                <input multiple="" type="file" id="contract_fileSH" required accept=".jpg,.jpeg,.pdf,.png,.xls" />
+                                <span style="font-style:normal;text-align:center;font-size:12px;color:blue;">
+                                    Note : Anda disarankan untuk mengunggah file pendukung yang diperlukan,
+                                </span>
+                                <span style="font-style:normal;text-align:center;font-size:12px;color:red;">
+                                    Jika file yang anda upload terlalu besar disarankan untuk mengupload parsial setelah draft ini tersimpan.
+                                </span>
+                            </div>
+
+
+
+                        </div>
+
+                        <div id="tab_upload_listSH" class="tab-pane fade" style="padding:0px;padding-top:0px;">
+
+                            <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
+                                <tr>
+                                    <td width="50%" valign="top" style="padding-top:1px;">
+                                        <div id="gridUploadSH" style="height:297px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+                                    </td>
+                                    <td valign="middle" style="border-left:1px solid #ccc;">
+                                        <div id="preview_fileSH" style="text-align:center;">
+                                            <iframe src="" scrolling="no" id="frame_previewSH" frameborder="0" style="width:100%;height:290px;border:1px;"></iframe>
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+
+                        <div id="tab_alert_configSH" class="tab-pane fade" style="padding:0px;padding-top:0px;">
+
+
+
+                            <table border="0" width="100%" align="center" cellpadding="0" cellspacing="0">
+
+                                <tr>
+                                    <td width="60%" valign="top" style="padding-top:1px;">
+                                        <div id="gridEmailSH" style="height:298px;border:none;border-radius:0px;border-top:1px solid #ccc;border-right:0px solid #dedede;"></div>
+                                    </td>
+                                    <td valign="top" style="border-left:1px solid #ccc;">
+                                        <div id="setting_box" style="padding:10px;padding-top:30px;">
+
+
+
+                                            <div style="font-size:20px;padding-left:10px;">Alert Setting</div><br />
+
+                                            <div class="form-group">
+                                                <label for="inputName" class="col-sm-4 control-label">Enabled Alert</label>
+                                                <div class="col-sm-6">
+
+
+                                                    <div class="col-xs-2">
+
+                                                        <label>
+                                                            <input name="switch-field-1" class="ace ace-switch" type="checkbox" id="Snooze" />
+                                                            <span class="lbl"></span>
+                                                        </label>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                            <div class="form-group">
+                                                <label for="inputName" class="col-sm-4 control-label">Start From</label>
+                                                <div class="col-sm-6">
+
+                                                    <input type="text" id="AlertDay" readonly />
+
+                                                    <span class="lbl" style="font-size:11px;">Day before contract expire</span>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </td>
+
+                                </tr>
+                            </table>
+
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer" id="fot_form_sh">
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modal_uploadSH" role="dialog" style="margin-top:5%;">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <div class="modal-header" style="background-color:#438EB9;color:White;">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Upload File</h4>
+            </div>
+            <div class="modal-body">
+                <input multiple="" type="file" id="contract_file_otherSH" required accept=".jpg,.jpeg,.pdf,.png,.xls" />
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-info" onclick="upload_file_otherSH()">Upload</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+
+
+
+    var TempDelete = [];
+
+    function stakeholder_detail_form(FLAG, record, Roles) {
+        debugger;
+        $('a[href="#info_stakeHolder"]').tab('show');
+        switch (FLAG) {
+            case "EDIT":
+
+                @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2018020002",3) == true)
+                {
+                <text>
+
+                if (record.CreateUser == '@User.Identity.Name.ToString()') {
+
+                    button = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-info" onclick="save_stakeholder(\'UPDATE\')">UPDATE</button>'
+
+                }
+                else{
+                button = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
+                }
+
+                </text>
+                }
+                else{
+                <text>
+                button = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
+
+                </text>
+                }
+
+
+                @if ((ROLES.CheckAccGroupIstrue(User.Identity.Name.ToString(), "ACCG2018010003") == true) || (ROLES.CheckAccGroupIstrue(User.Identity.Name.ToString(), "ACCG2018010004") == true))
+                {
+
+                <text>
+
+                button = '<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button><button type="button" class="btn btn-info" onclick="save_stakeholder(\'UPDATE\')">UPDATE</button>'
+
+
+                </text>
+
+                }
+
+
+                $("#SHId").val(record.Id);
+                document.getElementById('SHId').disabled = true;
+                $("#NamaInstitusi").val(record.NamaInstitusi);
+                $("#Jabatan").val(record.Jabatan);
+                $("#NamaIndividualSH").val(record.NamaIndividualSH);
+                $("#Alamat").val(record.Alamat);
+                $("#TanggalLahir").val(record.TanggalLahir);
+                $("#TipeSH").val(record.TipeSH).trigger('change');
+                $("#Kedudukan").val(record.Kedudukan).trigger('change');
+                $("#ModStakeHolder .modal-title").html('<div style="font-size:12px;color:green;">Detail of Stake Holder : ' + record.Id + '&nbsp;&nbsp;&nbsp;' + record.CreateUser + '</div>');
+                $("#fot_form_sh").html(button);
+                render_grid_mailSH(record.Id);
+                $("#tab_upload_captionSH").hide();
+                $("#tab_upload_list_captionSH").show();
+                $("#frame_previewSH").attr("src", "");
+                view_uploadSH(Roles, record);
+                break;
+           
+
+            case "ADD":
+                debugger;
+                $("#ModStakeHolder .modal-title").html("Add New Stake Holder");
+                button = '<button type="button" class="btn btn-info" onclick="save_stakeholder(\'ADD\')">Save</button><button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>'
+                $("#fot_form_sh").html(button);
+                $("#tab_upload_list_captionSH").hide();
+                $("#tab_upload_captionSH").show();
+                $("#frame_previewSH").attr("src", "");
+
+                form_default();
+                render_grid_mailSH();
+
+                break;
+
+
+        }
+
+        var file_input = $('#contract_fileSH');
+        file_input.ace_file_input('reset_input');
+
+        $('#ModStakeHolder').modal(
+            {
+                backdrop: 'static',
+                keyboard: false
+            }
+        );
+
+
+    }
+
+
+
+    function render_grid_mailSH(contract) {
+
+        if (w2ui['gridEmailSH'] != null) {
+            w2ui['gridEmailSH'].destroy();
+        }
+
+
+        TempDelete = [];
+
+        $('#gridEmailSH').w2grid({
+            name: 'gridEmailSH',
+            header: 'Mail Destination',
+            show: {
+                header: true,
+                footer: true,
+                lineNumbers: true,
+                toolbarAdd: false,
+                toolbarDelete: true,
+                toolbar: true,
+                toolbarSearch: false,
+            },
+            columns: [
+                { field: 'Email', caption: 'Mail Destination', size: '200px', searchable: 'text', editable: { type: 'text' } },
+                { field: 'Name', caption: 'Name', size: '200px', searchable: 'text', editable: { type: 'text' } },
+                { field: 'Jabatan', caption: 'Jabatan', size: '200px', searchable: 'text', editable: { type: 'text' } },
+                { field: 'Fungsi', caption: 'Fungsi', size: '200px', searchable: 'text', editable: { type: 'text' } },
+
+
+            ],
+            toolbar: {
+                items: [
+                    { id: 'add', type: 'button', caption: 'Add Record', icon: 'w2ui-icon-plus' }
+                ],
+                onClick: function (event) {
+                    if (event.target == 'add') {
+
+                        w2ui.gridEmailSH.save();
+                        var list_Rec = w2ui['gridEmailSH'].records;
+                        var new_rec = new Array();
+
+                        if (list_Rec.length > 0) {
+                            for (x = 0; x < list_Rec.length; x++) {
+
+                                new_rec.push(list_Rec[x].recid);
+
+                            }
+
+                            var new_recid = Math.max.apply(Math, new_rec);
+                            w2ui.gridEmailSH.add({ recid: new_recid + 1 });
+                        }
+                        else {
+
+                            w2ui.gridEmailSH.add({ recid: 1 });
+                        }
+
+                    }
+                }
+            },
+            onDelete: function (event) {
+
+                var sel = this.getSelection();
+                if (event.force == true) {
+
+
+                    sel.forEach(function (entry) {
+
+                        var record = w2ui.gridEmailSH.get(entry);
+
+                        if (record.Flag_Exists = 1) {
+
+                            TempDelete.push({ Id: record.recid });
+
+                        }
+
+                    });
+
+
+
+                }
+
+            }
+
+        });
+
+        refresh_mail_alertSH(contract);
+
+    }
+
+    function refresh_mail_alertSH(Contract) {
+        debugger
+        w2ui['gridEmailSH'].load(URL_PTR + '/StakeHolder/ContractListMailAlert?Contract=' + Contract);
+
+
+    }
+
+    function form_default() {
+        $("#SHId").val("");
+        $("#NamaInstitusi").val("");
+        $("#Jabatan").val("");
+        $("#NamaIndividualSH").val("");
+        $("#Alamat").val("");
+        $("#TanggalLahir").val("");
+        $("#TipeSH").val("").trigger('change');
+        $("#TipeSH").val("").trigger('change');
+    }
+    function AddTextBox() {
+        var div = GetDynamicTextBox("");
+        $("#TextBoxContainer").append(div);
+    }
+    function GetDynamicTextBox(value) {
+        var div = $("<div />");
+
+        var textBox = $("<input />").attr("type", "textbox").attr("name", "DynamicTextBox");
+        textBox.val(value);
+        div.append(textBox);
+
+        var button = $("<input />").attr("type", "button").attr("value", "Remove");
+        button.attr("onclick", "RemoveTextBox(this)");
+        div.append(button);
+
+        return div;
+    }
+    function RemoveTextBox(button) {
+            $(button).parent().remove();
+        }
+
+        $(function () {
+            var values = eval('@Html.Raw(ViewBag.Values)');
+            if (values != null) {
+                $("#TextBoxContainer").html("");
+                $(values).each(function () {
+                    $("#TextBoxContainer").append(GetDynamicTextBox(this));
+                });
+            }
+        });
+
+
+    function download_report(record) {
+
+        var url = URL_PTR + '/Reporting/ReportAllContract?StartDate=' + record.StarDate + '&EndDate=' + record.EndDate;
+        var win = window.open(url, '_blank');
+
+    }
+
+    function upload_file_otherSH() {
+
+        var DataSave = new FormData();
+        var file = $("#contract_file_otherSH").files;
+
+        var fileUploads = $("#contract_file_otherSH").get(0);
+        var files = fileUploads.files;
+
+
+        if (files.length == 0) {
+
+            w2alert("Select an file before pelase !");
+            return;
+
+        }
+
+        for (var i = 0; i < files.length; i++) {
+            DataSave.append(files[i].name, files[i]);
+        }
+
+        DataSave.append('SHId', $("#SHId").val());
+
+        render_wait();
+
+        var Simpan = $.ajax({
+            url: URL_PTR + '/StakeHolder/ProcessUploadFileContract',
+            type: 'POST',
+            data: DataSave,
+            dataType: "json",
+            cache: false,
+            async: false,
+            contentType: false,
+            processData: false,
+        });
+
+
+        clear_wait();
+
+        if (Simpan.responseJSON["Result"] != "Error") {
+
+            alert("Upload new file success !");
+            var ID = $("#ContractId").val();
+            refresh_uploadSH(ID);
+            $('#modal_uploadSH').modal("hide");
+
+        }
+        else {
+            alert("Upload file fail try again !");
+        }
+
+
+
+    }
+
+    function view_uploadSH(Roles,record){
+
+        var ToolBarE = false;
+        var UserOwner = '@User.Identity.Name.ToString()';
+
+        @if (ROLES.CheckAllowModul(User.Identity.Name.ToString(), "MOD2018020002",3) == true)
+        {
+        <text>
+
+        if (record.CreateUser == UserOwner){
+
+            ToolBarE = true;
+        }
+        </text>
+        }
+
+        @if ((ROLES.CheckAccGroupIstrue(User.Identity.Name.ToString(), "ACCG2018010003") == true) || (ROLES.CheckAccGroupIstrue(User.Identity.Name.ToString(), "ACCG2018010004") == true))
+        {
+
+        <text>ToolBarE = true;</text>
+
+        }
+
+        if (w2ui['gridUploadSH'] != null) {
+
+                w2ui['gridUploadSH'].destroy();
+
+        }
+
+
+        $('#gridUploadSH').w2grid({
+                name: 'gridUploadSH',
+                show: {
+                footer          : true,
+                toolbar         : ToolBarE,
+                lineNumbers     : true,
+                toolbarAdd      : true,
+                toolbarDelete   : true,
+                toolbarInput    : false,
+                toolbarReload   : false,
+                toolbarColumns   : false,
+                },
+            columns: [
+                { field: 'FileName', caption: 'File Name', size: '300px' },
+                {
+                    field: 'FileName', caption: '', size: '150px',
+                    render: function (record) {
+
+                        var download
+                        if (record.API == 'Docman') {
+                            download = '<a href="' + URL_PTPR + '/File/' + record.recid + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> View Full Page</a>';
+
+                        }
+                        else {
+                            download = '<a href="' + URL_PTPR + '/File_Contract/' + record.FileName + '" target="_blank"><i class="fa fa-cloud-download" aria-hidden="true" ></i> View Full Page</a>';
+
+                        }
+
+                        return download;
+
+                    }
+                },
+
+            ]
+            , onAdd: function (event) {
+                   debugger
+                   form_upload_fileSH();
+               },
+               onReload: function (event) {
+                   refresh_uploadSH($("#SHId").val());
+               },
+               onSelect: function (event) {
+
+
+                   if (event.recid != undefined) {
+
+                       var record = this.get(event.recid);
+                       var file_url = "";
+
+                       if (record.API == 'Docman') {
+                           var file_url = URL_PTR + "/StakeHolder/File?id=" + record.Id;
+                       }
+                       else {
+                           var file_url = URL_PTPR + "/File_Contract/" + record.FileName;
+                       }
+
+                       $("#frame_previewSH").attr("src", file_url);
+
+                   }
+
+               },
+                onUnselect: function(event) {
+                         $("#frame_previewSH").attr("src", "");
+                },
+                onDelete: function (event) {
+
+                var sel = this.getSelection();
+                if (event.force == true){
+
+                render_wait();
+
+                sel.forEach(function(entry) {
+
+                    var record = w2ui.gridUploadSH.get(entry);
+
+                        var Delete =   $.ajax({
+                        url: URL_PTR + '/StakeHolder/DeleteAttachmentContract?id='+ record.recid,
+                        type: 'POST',
+                        dataType: "json",
+                        cache: false,
+                        async: false,
+                        contentType: false,
+                        processData: false,
+                        });
+
+
+                });
+
+
+                    clear_wait();
+                    $('#modal_uploadSH').modal("hide");
+
+                    }
+
+                },
+
+         });
+
+        var ID = $("#SHId").val();
+        refresh_uploadSH(ID);
+    }
+
+
+    function  refresh_uploadSH(ID){
+
+        w2ui['gridUploadSH'].load(URL_PTR + '/StakeHolder/T_Attacment?ContractId=' + ID);
+    }
+
+
+    function form_upload_fileSH(){
+        debugger
+         var file_input = $('#contract_file_otherSH');
+        file_input.ace_file_input('reset_input');
+
+        $('#modal_uploadSH').modal(
+        {
+        backdrop: 'static',
+        keyboard: false
+        }
+
+        );
+
+    }
+
+    function upload_file_otherSH(){
+
+        var DataSave = new FormData();
+        var file    = $("#contract_file_otherSH").files;
+
+        var fileUploads = $("#contract_file_otherSH").get(0);
+        var files = fileUploads.files;
+
+
+        if (files.length == 0){
+
+            w2alert("Select an file before pelase !");
+            return;
+
+        }
+
+        for (var i = 0; i < files.length; i++) {
+            DataSave.append(files[i].name, files[i]);
+        }
+
+        DataSave.append('SHId', $("#SHId").val());
+
+        render_wait();
+
+        var Simpan =   $.ajax({
+        url: URL_PTR + '/StakeHolder/ProcessUploadFileContract',
+        type: 'POST',
+        data: DataSave,
+        dataType: "json",
+        cache: false,
+        async: false,
+        contentType: false,
+        processData: false,
+        });
+
+
+        clear_wait();
+
+        if (Simpan.responseJSON["Result"] != "Error"){
+
+            alert("Upload new file success !");
+            var ID = $("#SHId").val();
+            refresh_uploadSH(ID);
+            $('#modal_uploadSH').modal("hide");
+
+        }
+        else{
+            alert("Upload file fail try again !");
+        }
+
+
+
+    }
+
+
+
+    function save_stakeholder(FLAG,Roles) {
+
+        debugger
+        if ($("#NamaInstitusi").val() == "") {
+
+            $('a[href="#info_StakeHolder"]').tab('show');
+            $("#NamaInstitusi").focus();
+            $("#NamaInstitusi").attr("placeholder", "Nama Institusi No may not be empty !");
+            return;
+
+        }
+
+        if ($("#Jabatan").val() == "") {
+
+            $('a[href="#info_StakeHolder"]').tab('show');
+            $("#Jabatan").focus();
+            $("#Jabatan").attr("placeholder", "Jabatan No may not be empty !");
+            return;
+
+        } if ($("#NamaIndividualSH").val() == "") {
+
+            $('a[href="#info_StakeHolder"]').tab('show');
+            $("#NamaIndividualSH").focus();
+            $("#NamaIndividualSH").attr("placeholder", "Nama Individual Stake Holder No may not be empty !");
+            return;
+
+        }
+        //if ($("#Alamat").val() == "") {
+
+        //    $('a[href="#info_StakeHolder"]').tab('show');
+        //    $("#Alamat").focus();
+        //    $("#Alamat").attr("placeholder", "Alamat No may not be empty !");
+        //    return;
+
+        //}
+
+
+        if ($("#TanggalLahir").val()==""){
+
+            $('a[href="#info_StakeHolder"]').tab('show');
+            $("#TanggalLahir").focus();
+            alert("TanggalLahir Date is empty!");
+            return;
+
+         }
+        if ($("#Kedudukan").val() == "") {
+
+            $('a[href="#info_StakeHolder"]').tab('show');
+            $("#Kedudukan").focus();
+            alert('Select an Kedudukan !');
+            return;
+
+
+        }
+        if ($("#TipeSH").val() == "") {
+
+            $('a[href="#info_StakeHolder"]').tab('show');
+            $("#TipeSH").focus();
+            alert('Select an Stake Holder name !');
+            return;
+
+
+        }
+
+        var DataSave = new FormData();
+        debugger
+        DataSave.append('Flag_Crud', FLAG);
+        DataSave.append('SHId', $("#SHId").val());
+        DataSave.append('NamaInstitusi', $("#NamaInstitusi").val());
+        DataSave.append('NamaIndividualSH', $("#NamaIndividualSH").val());
+        DataSave.append('Jabatan', $("#Jabatan").val());
+        DataSave.append('Alamat', $("#Alamat").val());
+        DataSave.append('TanggalLahir', $("#TanggalLahir").val());
+        DataSave.append('TipeSH', $("#TipeSH").val());
+        DataSave.append('Kedudukan', $("#Kedudukan").val());
+
+        w2ui['gridEmailSH'].save();
+        var ListDest = w2ui['gridEmailSH'].records;
+        //data_bridging
+        var Daat_ = JSON.stringify(ListDest);
+        var Daat_del = JSON.stringify(TempDelete);
+        DataSave.append('ListAdd', Daat_);
+        DataSave.append('ListDelete', Daat_del);
+
+
+        var fileUpload = $("#contract_fileSH").get(0);
+        var files = fileUpload.files;
+
+        if (FLAG == "ADD") {
+
+            if (Roles == undefined) {
+
+                for (var i = 0; i < files.length; i++) {
+                    DataSave.append(files[i].name, files[i]);
+
+                }
+
+            }
+
+        }
+
+
+        render_wait()
+
+        var Simpan =   $.ajax({
+            url: URL_PTR + '/StakeHolder/SaveStakeHolder',
+            type: 'POST',
+            data: DataSave,
+            dataType: "json",
+            cache: false,
+            async: false,
+            contentType: false,
+            processData: false,
+        });
+
+
+        if (  Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error")!=-1 ){
+
+                clear_wait();
+                alert(Simpan.responseJSON["Result"]);
+
+        }
+        else{
+
+                alert('Save Data Success !');
+                $("#ModStakeHolder").modal("hide");
+                clear_wait();
+            refresh_sh_list();
+        }
+
+     }
+
+
+    //not fucntional core business sytem code ..............***
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+
+    var target = $(e.target).attr("href");
+
+    //    if ((target == '#tab_History_configProc')) {
+    //        w2ui['gridEmailProc'].refresh();
+
+    //}
+    //    if ((target == '#list_historyProc')) {
+    //        w2ui['gridHitoryProc'].refresh();
+    //}
+
+        if ((target == '#tab_alert_configSH')) {
+            debugger
+            w2ui['gridEmailSH'].refresh();
+
+        }
+
+        if ((target == '#tab_upload_listSH')) {
+            w2ui['gridUploadSH'].refresh();
+        }
+
+
+    //    if ((target == '#tab_alert_configProcVendor')) {
+    //        debugger
+    //        w2ui['gridSugestVendorProc'].refresh();
+
+    //    }
+    //    if ((target == '#tab_upload_listProc')) {
+    //        w2ui['gridUploadProc'].refresh();
+    //}
+
+    });
+
+
+
+    $('.date-picker').datepicker({
+        autoclose: true,
+        todayHighlight: true,
+        format: 'yyyy-mm-dd'
+    })
+
+
+   // function format_currencyproc(Field_ID,temp_field){
+
+   //     if($("#"+Field_ID).val() != ""){
+
+   //          var Nominal = $("#"+Field_ID).val();
+   //          Nominal = Nominal.replace(/,/g , "");
+   //          $("#"+temp_field).val(Nominal);
+   //          var fix_num = numberWithCommas(Nominal);
+
+   //          $("#"+Field_ID).val(fix_num);
+
+   //     }
+   //     else{
+
+   //          $("#"+temp_field).val("");
+
+   //     }
+
+   // }
+
+
+   // function format_currencyprocitem(Field_ID, temp_field) {
+
+   //     if ($("#" + Field_ID).val() != "") {
+
+   //         var Nominal = $("#" + Field_ID).val();
+   //         Nominal = Nominal.replace(/,/g, "");
+   //         $("#" + temp_field).val(Nominal);
+   //         var fix_num = numberWithCommas(Nominal);
+
+   //         $("#" + Field_ID).val(fix_num);
+
+   //     }
+   //     else {
+
+   //         $("#" + temp_field).val("");
+
+   //     }
+
+   // }
+   // function get_volume(){
+
+   //  var volume = Number($('#temp_nominal').val()/Number($('#price').val())).toFixed(2);
+   //  $('#Volume').val(volume);
+   //  format_currencyproc("Volume","temp_volume");
+   //  //$('#temp_volume').val(volume);
+
+
+
+   //}
+
+
+</script>
