@@ -1,0 +1,560 @@
+﻿@{
+    Layout = null;
+}
+
+<style>
+
+    #page_detail_broadcast .wording_header {
+        font-size: 16px;
+        padding: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: "...";
+    }
+
+    #page_detail_broadcast .control-label {
+        font-size: 12px;
+        padding-top: 0px !important;
+        text-align: left;
+    }
+
+    #info_broadcast .box-body {
+        padding: 15%;
+        padding-top: 0%;
+        padding-bottom: 0%;
+    }
+
+    .form-control {
+        text-align: left !important;
+    }
+
+    #tab_broadcast_detail {
+        border-bottom: none;
+        border-left: none;
+        border-right: none;
+        padding: 0px !important;
+    }
+
+        #tab_broadcast_detail #info_broadcast {
+            padding: 2% !important;
+        }
+
+
+
+    .disabledbutton {
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
+    .enableupdate {
+        pointer-events: auto;
+        opacity: 1;
+    }
+
+    #gridMail .icon-file {
+        font-size: 20px;
+    }
+
+    #ModalReject .modal-dialog {
+        margin-top: 10%;
+        width: 50%;
+    }
+
+    #ModalReject .control-label {
+        font-size: 12px;
+    }
+
+
+    #ModalUpload .modal-dialog {
+        margin: 0 auto;
+        margin-top: 10%;
+        -webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+        -moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+        box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+    }
+
+    #ModalUpload label {
+        font-size: 12px;
+        vertical-align: top;
+    }
+
+    #ModalTestSendMail .modal-dialog {
+        margin: 0 auto;
+        margin-top: 12%;
+        -webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+        -moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+        box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+    }
+
+    .myCheck {
+        /*height: 30px;*/
+        margin-left: 20px !important;
+        width: 20px;
+        height: 20px;
+    }
+        .myCheck:first-child {
+            margin-left: 0 !important;
+        }
+    @@media screen and (max-width: 1200px) {
+        #info_broadcast .box-body {
+            padding: 0%;
+            padding-top: 0%;
+            padding-bottom: 0%;
+        }
+    }
+</style>
+
+<div class="page_detail" id="page_detail_broadcast">
+
+    <div class="wording_header">
+        <span style="font-size:14px;" id="form_title">
+            Create New Reminder
+        </span>
+    </div>
+
+
+    <div class="tab_broadcast_detail">
+        <ul class="nav nav-tabs" id="myTab">
+
+            <li class="active">
+                <a data-toggle="tab" href="#info_broadcast" aria-expanded="true" style="border-left:none;">
+                    <i class="fa fa-clock-o"></i>
+                    Reminder
+                </a>
+            </li>
+
+            <li class="" id="tab_attachment_list">
+                <a data-toggle="tab" href="#tab_attachment" aria-expanded="true">
+                    <i class="fa fa-envelope"></i> Mail
+                </a>
+            </li>
+
+
+        </ul>
+
+        <div class="tab-content" id="tab_broadcast_detail">
+            <div id="info_broadcast" class="tab-pane fade active in">
+
+                <form class="form-horizontal">
+                    <div class="box-body" id="field">
+
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">Reminder Name <mandatory>*</mandatory></label>
+                            <div class="col-sm-10">
+                                @*<input type="text" id="temp_BroadcastValue" hidden />*@
+                                <input class="form-control wajib" id="ReminderName" placeholder="Reminder Name" type="text" autocomplete="off" caption="Reminder Name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">Reminder Refrence</label>
+                            <div class="col-sm-3">
+                                @*<input type="text" id="temp_BroadcastValue" hidden />*@
+                                <input class="form-control wajib" id="ReminderRef1" placeholder="Reminder Refrence 1" type="text" autocomplete="off" caption="Reminder Refrence 1">
+                            </div>
+                            <div class="col-sm-3">
+                                @*<input type="text" id="temp_BroadcastValue" hidden />*@
+                                <input class="form-control " id="ReminderRef2" placeholder="Reminder Refrence 2" type="text" autocomplete="off" caption="Reminder Refrence 2">
+                            </div>
+                            <div class="col-sm-3">
+                                @*<input type="text" id="temp_BroadcastValue" hidden />*@
+                                <input class="form-control " id="ReminderRef3" placeholder="Reminder Refrence 3" type="text" autocomplete="off" caption="Reminder Refrence 3">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label"> Type <mandatory>*</mandatory></label>
+                            <div class="col-sm-10 select_wajib">
+                                <select class="form-control select2 wajib" id="ReminderType" caption="Type">
+                                    <option value="0" selected>-- Select Type --</option>
+                                    <option value="1">Single</option>
+                                    <option value="2">Range</option>
+                                    <option value="3">Alarm</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">Reminder Date <mandatory>*</mandatory></label>
+                            <div class="col-sm-3">
+                                <input class="form-control date-picker wajib" id="ReminderDateStart" onchange="checkDate()" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="Start Date" autocomplete="off" caption="Start Date">
+                            </div>
+                            <div class="col-sm-3">
+                                <input class="form-control date-picker wajib" id="ReminderDueDate" onchange="checkDate()" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="Due Date" autocomplete="off" caption="Due Date">
+                                @*<input id="EndDate" class="form-control date-picker wajib" type="date" style="height:28px;" placeholder="End Date" autocomplete="off">*@
+                            </div>
+                        </div>
+
+                        <div class="form-group" id="rdays" hidden>
+                            <label for="inputName" class="col-sm-2 control-label">Reminder Days </label>
+                            <div class="col-sm-10">
+                                <input class="myCheck" id="Day1" type="checkbox" autocomplete="off" caption="Monday"> Monday
+                                <input class="myCheck" id="Day2" type="checkbox" autocomplete="off" caption="Monday"> Tuesday
+                                <input class="myCheck" id="Day3" type="checkbox" autocomplete="off" caption="Monday"> Wednesday
+                                <input class="myCheck" id="Day4" type="checkbox" autocomplete="off" caption="Monday"> Thursday
+                                <input class="myCheck" id="Day5" type="checkbox" autocomplete="off" caption="Monday"> Friday
+                                <input class="myCheck" id="Day6" type="checkbox" autocomplete="off" caption="Monday"> Saturday
+                                <input class="myCheck" id="Day7" type="checkbox" autocomplete="off" caption="Monday"> Sunday
+                                <input class="myCheck" style="margin-left:30px !important;" id="IsRepeat" type="checkbox" autocomplete="off" caption="Monday"> Repeat?
+                            </div>
+                        </div>
+
+
+
+
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">Remark</label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control" id="Remark" caption="Remark" placeholder="Remark" type="text" style="color:#333;resize:both;font-size:11px;padding-left:3px;height:150px !important;resize:none;" autocomplete="off"></textarea>
+                            </div>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+
+            <div id="tab_attachment" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+                <div id="gridAttachment" class="data_grid" style=" border:none;border-top:1px solid #ccc;"></div>
+                <div hidden><input type="file" id="input_attachment" accept=".jpg,.jpeg,.pdf,.png,.xls,.doc,.docx" multiple /></div>
+
+            </div>
+
+            <div id="list_log" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+                <div id="gridLog" class="data_grid" style="height:299px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer_form">
+
+    </div>
+
+    <div class="modal fade" id="ModalMail" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border:none;">
+                <div class="modal-header">
+                    <h4 class="modal-title"> <i class="fa fa-envelope" aria-hidden="true"></i> Mail</h4>
+                </div>
+                <div class="modal-body" style="padding:0px;">
+
+                    <form class="form-horizontal">
+                        <div class="box-body" style="padding:2%;">
+
+
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-3 control-label mandatory">Mail Address <mandatory>*</mandatory></label>
+                                <div class="col-sm-8 select_wajib">
+
+                                    <input class="form-control wajib" id="MailAddress" placeholder="Mail Address" type="text" autocomplete="off" caption="Mail Address">
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+
+                                <label for="inputName" class="col-sm-3 control-label draft-control">Mail Name <mandatory>*</mandatory></label>
+                                <div class="col-sm-8 draft-control">
+                                    <input class="form-control wajib" id="MailName" placeholder="Mail Name" type="text" autocomplete="off" caption="Mail Name">
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer" style="text-align:right;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="saveMail()"><i class="fa fa-check" aria-hidden="true"></i> Save</button>
+                    <button type="button" class="btn btn-gray btn-sm" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    var allow_action = [];
+    var Upload_File_Main_Content = [];
+    var Delete_File_Main_Content = [];
+    var screen_width = Number(window.innerWidth) * (3 / 4);
+
+    $('.data_grid').css('height', Number(window.innerHeight) - 282);
+    $(window).resize(function () {
+        $('.data_grid').css('height', Number(window.innerHeight) - 282);
+    });
+
+    $('.date-picker').w2field('date', { format: 'yyyy/mm/dd' });
+    $('#ReminderType').on('change', function () {
+        var selectedValues = $(this).val(); // Nilai yang dipilih
+        if (selectedValues == '3') {
+            $('#rdays').show();
+        } else {
+            $('#rdays').hide();
+        }
+    });
+
+    function render_grid_attachment() {
+        if (w2ui['gridAttachment'] != null) w2ui['gridAttachment'].destroy();
+     
+
+        if (flagCrud == "ADD") {
+            allow_upload = 1;
+        }
+        $('#gridAttachment').w2grid({
+            name: 'gridAttachment',
+            show: {
+                footer: true,
+                toolbar:true,
+                lineNumbers: true,
+                toolbarAdd: false,
+                toolbarDelete: false,
+                toolbarInput: false,
+                toolbarReload: false,
+                toolbarColumns: false,
+                selectColumn: 1,
+            },
+            toolbar: {
+                items: [
+                    { type: 'spacer' },
+                    { type: 'break' },
+                    { type: 'button', id: 'btn_delete', text: '<i class="fa fa-trash" aria-hidden="true" style="color:#f54b42;"></i> Delete', disabled: 'true' },
+                    { type: 'break' },
+                    { type: 'button', id: 'btn_add', text: '<i class="fa fa-plus" aria-hidden="true" style="color:#4295f5;"></i> Add New' }
+
+                ],
+                onClick: function (target, data) {
+
+                    if (target == 'btn_add') {
+
+                      
+
+                        $('#ModalMail').modal(
+                            {
+                                backdrop: 'static',
+                                keyboard: false
+                            }
+                        );
+
+                    }
+                    if (target == 'btn_delete') {
+
+                        var sel = w2ui.gridAttachment.getSelection();
+                        var record = w2ui.gridAttachment.get(sel);
+                        delete_list = [];
+
+                        $.each(record, function (i, item) {
+
+                            var row_upload = { ID: record[i].Id };
+                            delete_list.push(row_upload);
+                        });
+
+
+                        if (delete_list.length > 0) {
+
+                            var DataDelete = new FormData();
+                            DataDelete.append('DeleteList', JSON.stringify(delete_list));
+
+                            $("#Deleting_Load").show("fade", function () {
+                                var Simpan = $.ajax({
+                                    url: URL_PTPR + '/File/DeleteFilePre',
+                                    type: 'POST',
+                                    data: DataDelete,
+                                    dataType: "json",
+                                    cache: false,
+                                    async: false,
+                                    contentType: false,
+                                    processData: false,
+                                    error: function (request, status, error) {
+                                        w2alert("Delete File Gagal !");
+                                        $("#Deleting_Load").hide("fade");
+                                    },
+                                    success: function (data) {
+                                        w2alert("File Deleted");
+                                        $("#Deleting_Load").hide("fade");
+                                        w2ui.gridAttachment.select(sel);
+                                        w2ui.gridAttachment.delete(true);
+                                    }
+                                });
+
+
+                            });
+                        }
+
+
+                    }
+                }
+            },
+            columns: [
+                { field: 'MailAddress', text: 'Mail Address', size: '200px' },
+                { field: 'MailName', text: 'Mail Name', size: '200px' },
+               
+
+            ],
+        });
+
+    }
+    
+    $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
+        var target = $(e.target).attr("href");
+
+        if ((target == '#tab_attachment')) {
+            w2ui['gridAttachment'].refresh();
+        }
+        if ((target == '#list_log')) {
+            w2ui['gridLog'].refresh();
+        }
+    });
+
+    function saveMail() {
+        $("#ModalMail").modal("hide");
+        $("#Saving_Load").show("fade", function () {
+
+            var newData = [
+                { MailName: $('#MailName').val(), MailAddress: $('#MailAddress').val() },
+            ];
+
+            // Menambahkan data ke Grid setelah inisialisasi
+            newData.forEach(function (record, index) {
+                record.recid = w2ui['gridAttachment'].records.length + 1; // Mengatur recid secara manual (misalnya, menggunakan indeks + 1)
+                w2ui['gridAttachment'].add(record);
+            });
+            
+            $("#Saving_Load").hide("fade");
+        });
+    }
+
+    function form_broadcast_detail() {
+
+        if (flagCrud == "ADD") {
+
+            set_sub_child_breadcrumb("New");
+            var button_action = '<button type="button" class="btn btn-primary btn-sm" onclick="saveAll(\'ADD\')"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Save</button> '
+                + ' <button type = "button" class="btn btn-default btn-sm" onclick = "back_main_page()" > Cancel</button > ';
+            $("#page_detail_broadcast .footer_form").html(button_action);
+         
+            render_grid_attachment();
+
+        }
+        else {
+            set_sub_child_breadcrumb("View Detail Reminder");
+            $("#tab_attachment_list").show();
+            render_grid_attachment();
+            refresh_attachment();
+            fill_form_detail();
+            var button_action = '<button type="button" class="btn btn-primary btn-sm" onclick="saveAll(\'UPDATE\')"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Save</button> '
+                + ' <button type = "button" class="btn btn-default btn-sm" onclick = "back_main_page()" > Cancel</button > ';
+            $("#page_detail_broadcast .footer_form").html(button_action);
+           
+            //last_udpate = "";
+            //if (current_data.Updater == null) { last_udpate = current_data.Creator; } else { last_udpate = current_data.Updater; }
+            //$("#form_title").html("Detail of Broadcast : <span class='label label-info label-white middle'>#Id. :" + current_data.Id + " </span> <span class='label label-info label-white middle'>#Progress : " + current_data.ProcTag + "</span> <span class='label label-info label-white middle'>#Send Status : " + current_data.SendStatus + "</span> <span class='label label-info label-white middle'>#Last Update : " + last_udpate + "</span>");
+            //var DataSave1 = new FormData();
+            //DataSave1.append('BroadcastId', current_data.Id);
+            //var allow_action_ = $.ajax({
+            //    url: URL_PTPR + '/Button/Broadcast_AllowAction',
+            //    type: 'POST',
+            //    data: DataSave1,
+            //    dataType: "json",
+            //    cache: false,
+            //    async: false,
+            //    contentType: false,
+            //    processData: false,
+            //    processData: false,
+            //});
+
+            //allow_action = allow_action_.responseJSON[0];
+
+            //if (allow_action.AllowResubmit == 0) {
+
+            //    $(".form-control").attr("readonly", true);
+            //    $(".select2").attr("disabled", true);
+            //}
+
+            //var DataSave = new FormData();
+            //DataSave.append('BroadcastId', current_data.Id);
+            //var allow_button = $.ajax({
+            //    url: URL_PTPR + '/Button/Broadcast_AllowButton',
+            //    type: 'POST',
+            //    data: DataSave,
+            //    dataType: "json",
+            //    cache: false,
+            //    async: false,
+            //    contentType: false,
+            //    processData: false,
+            //});
+
+            //button_cancel = ' <button type="button" class="btn btn-default btn-sm" onclick="back_main_page()">Cancel</button>';
+            //button_test_send = ' <button type="button" class="btn btn-primary btn-sm" onclick="test_send_broadcast()"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Test Send Broadcast</button>';
+            //button_action = allow_button.responseText;
+
+            //set_sub_child_breadcrumb("View Detail Broadcast");
+            //$("#tab_attachment_list").show();
+            //render_grid_attachment();
+            //refresh_attachment();
+            //fill_form_detail();
+            //$("#tab_log").show();
+            //render_gridLog();
+            //$("#Div_File").hide();
+            //$("#page_detail_broadcast .footer_form").html(button_test_send + button_action + button_cancel)
+
+
+
+
+        }
+
+    }
+
+    function refresh_attachment() {
+        var filter = { "reminderid": current_data.Id };
+        w2ui['gridAttachment'].load(URL_PTR + '/Reminder/getReminderList?code=t_reminder_mail&filterjson=' + JSON.stringify(filter));
+    }
+
+
+    function fill_form_detail() {
+
+        $("#ReminderName").val(isStringNull(current_data.ReminderName));
+
+        $("#ReminderRef1").val(isStringNull(current_data.ReminderRef1));
+        $("#ReminderRef2").val(isStringNull(current_data.ReminderRef2));
+        $("#ReminderRef3").val(isStringNull(current_data.ReminderRef3));
+        $("#ReminderType").val(current_data.ReminderType).trigger('change');
+        $("#ReminderDateStart").val(isStringNull(current_data.ReminderDateStart));
+        $("#ReminderDueDate").val(isStringNull(current_data.ReminderDueDate));
+
+        if (current_data.Day1 == '1') {
+            $("#Day1").prop("checked", true);
+        }
+        if (current_data.Day2 == '1') {
+            $("#Day2").prop("checked", true);
+        }
+        if (current_data.Day3 == '1') {
+            $("#Day3").prop("checked", true);
+        }
+        $("#Day1").val(isStringNull(current_data.Day1));
+        $("#Day2").val(isStringNull(current_data.Day2));
+        $("#Day3").val(isStringNull(current_data.Day3));
+        $("#Day4").val(isStringNull(current_data.Day4));
+        $("#Day5").val(isStringNull(current_data.Day5));
+        $("#Day6").val(isStringNull(current_data.Day6));
+        $("#Day7").val(isStringNull(current_data.Day7));
+        $("#IsRepeat").val(isStringNull(current_data.IsRepeat));
+
+        $("#Remark").val(isStringNull(current_data.Remark));
+    
+
+    }
+
+    $(document).ready(function () {
+        form_broadcast_detail();
+       
+    });
+</script>

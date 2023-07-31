@@ -1,0 +1,353 @@
+﻿@using I_Care.Models
+@{
+    var ROLES = new I_Care.Classes.UserRoleProvider();
+    ViewBag.Parent = "Reminder";
+    ViewBag.Parent_Caption = "<a href='" + @Request.Url.GetLeftPart(UriPartial.Authority) + "/Reminder'>Reminder</a>";
+    ViewBag.Icon = "<i class=\"ace-icon fa fa-clock-o\"></i>";
+    ViewBag.TopMenuAce = "Yes";
+}
+
+<script>
+
+	var current_data = [];
+	var is_search = 0;
+	var is_param = "";
+	var filter_global = 0;
+	var global_status = null;
+	var call_back = 0;
+	var callback = 0;
+	var LastGet = new Date();
+	var is_grid = 0;
+
+	var StatusRef = "";
+	var lsting_stat = "";
+	var selected_contract_id = 0;
+	var height = Number(window.innerHeight) - 133;
+	var StatusSearch = 0;
+	var flagCrud = "";
+	var flagRouting = "";
+
+	var GetContractGroup_ = [];
+	var ContractType_ = [];
+	var ContractSigningOfficer_ = [];
+	var FungsiName_ = [];
+	var ContractVendor_ = [];
+	var DocumentType_ = [];
+	var SuscribeType_ = [];
+
+	var field_search = "";
+	var key_search = "";
+
+	var List_Mail_Alert = [];
+	var ListAttachment_For_Routing = [];
+	var current_contract_snooze = 0;
+
+</script>
+
+
+
+<div id="PageContainer"></div>
+
+<script>
+
+	function back_main_page() {
+
+		isMainPage = true ;
+		set_sub_child_breadcrumb("");
+		callback = 0;
+
+		if (is_grid == 1) {
+
+			if (is_search == 1) {
+				load_page("#PageContainer", URL_PTPR + "/Reminder/MainPage", function () { $("#page_panel").hide(); $('.select2').css('width', '100%').select2(); find_broadcast_search(); });
+			}
+			else {
+				load_page("#PageContainer", URL_PTPR + "/Reminder/MainPage", function () { $("#page_panel").hide(); $('.select2').css('width', '100%').select2(); find_broadcast_search_by_status(global_status, ""); });
+			}
+		}
+		else {
+
+			FLAG_VIEW = "";
+            load_page("#PageContainer", URL_PTPR + "/Reminder/MainPage", function () { $('.select2').css('width', '100%').select2() });
+		}
+	}
+
+
+	function fill_data() {
+
+		if (FungsiName_.length == 0) {
+			var FungsiName = $.ajax({
+				url: URL_PTPR + '/Reminder/getFungsi',
+				type: 'GET',
+				dataType: "json",
+				cache: false,
+				async: false,
+				contentType: false,
+				processData: false,
+			});
+
+			FungsiName_ = FungsiName.responseJSON;
+			//console.log(FungsiName_);
+		}
+	}
+
+
+	fill_data();
+
+	$(document).ready(function () {
+
+		isMainPage = true;
+		load_page("#PageContainer", URL_PTPR + "/Reminder/MainPage", function () { $('.select2').css('width', '100%').select2(); });
+
+	});
+
+    function saveAll(action) {
+
+        flagCrud = action;
+        w2ui['gridAttachment'].save();
+        var ListMail = w2ui['gridAttachment'].records;
+
+        if (flagCrud == "ADD" || flagCrud == "RESUBMIT") {
+            var valid = form_validation2("info_broadcast", "wajib", function () { $('a[href="#info_broadcast"]').tab('show'); });
+            if (valid == false) {
+                return;
+            }
+            if (ListMail.length == 0) {
+                w2alert("Anda belum memasukan email apapun !");
+                $('a[href="#tab_attachment"]').tab('show');
+                return;
+            }
+
+
+
+        }
+
+
+        var DataSave = new FormData();
+        var headerData = {
+            ReminderName: $("#ReminderName").val(),
+            ReminderRef1: $("#ReminderRef1").val(),
+            ReminderRef2: $("#ReminderRef2").val(),
+            ReminderRef3: $("#ReminderRef3").val(),
+            ReminderType: $("#ReminderType").val(),
+            ReminderDateStart: $("#ReminderDateStart").val(),
+            ReminderDueDate: $("#ReminderDueDate").val(),
+            Day1: $("#Day1").is(':checked') == true ? '1' : '0',
+            Day2: $("#Day2").is(':checked') == true ? '1' : '0',
+            Day3: $("#Day3").is(':checked') == true ? '1' : '0',
+            Day4: $("#Day4").is(':checked') == true ? '1' : '0',
+            Day5: $("#Day5").is(':checked') == true ? '1' : '0',
+            Day6: $("#Day6").is(':checked') == true ? '1' : '0',
+            Day7: $("#Day7").is(':checked') == true ? '1' : '0',
+            IsRepeat: $("#IsRepeat").is(':checked') == true ? '1' : '0',
+            Remark: $("#Remark").val(),
+        };
+
+        DataSave.append('code', 't_reminder');
+        DataSave.append('mode', action);
+        DataSave.append('headerData', JSON.stringify(headerData));
+        DataSave.append('formkey', 'Id');
+
+        if (flagCrud != "ADD") {
+
+            DataSave.append('formkeyvalue', current_data.Id);
+        }
+        else {
+            DataSave.append('formkeyvalue', "0");
+        }
+
+        if (action == "APPROVE" || action == "RESUBMIT") {
+            flagCrud = "VIEW";
+        }
+
+        DataSave.append('FlagCrud', flagCrud);
+
+        var DetailData = {
+            "t_reminder_mail": ListMail,
+            "t_reminder_mail_parentkey": "ReminderId",
+            "t_reminder_mail_primarykey": "Id"
+        }
+
+        DataSave.append('detMail', JSON.stringify(DetailData));
+
+        $("#Saving_Load").show("fade", function () {
+            var Simpan = $.ajax({
+                url: URL_PTR + '/Reminder/Save',
+                type: 'POST',
+                data: DataSave,
+                dataType: "json",
+                cache: false,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    if (result[0].msg.toLocaleLowerCase().indexOf("error") != -1) {
+                        $('#Saving_Load').hide();
+                        w2alert(result[0].msg);
+                    } else {
+                        $('#Saving_Load').hide();
+                        w2alert("Save data success !");
+                        if (flagCrud == "REJECT") {
+                            $('#ModalReject').modal("hide");
+                        }
+                        back_main_page();
+                    }
+                },
+                error: function (request, status, error) {
+                    w2alert("Error, try again or contact our administrator please !");
+                    $('#Saving_Load').hide();
+                }
+            });
+
+            //if (Simpan.responseJSON["Result"].toLocaleLowerCase().indexOf("error") != -1) {
+            //    $('#Saving_Load').hide();
+            //    w2alert(Simpan.responseJSON["Result"]);
+            //}
+            //else {
+            //    $('#Saving_Load').hide();
+            //    w2alert("Save data success !");
+            //    if (flagCrud == "REJECT") {
+            //        $('#ModalReject').modal("hide");
+            //    }
+            //    back_main_page();
+            //}
+        });
+    }
+
+    function render_grid_broadcast() {
+
+        if (w2ui['gridReminder'] != null) { w2ui['gridReminder'].destroy(); }
+        call_back = 0;
+        $('#gridReminder').w2grid({
+            name: 'gridReminder',
+            textSearch: 'contains',
+            show: {
+                header: false,
+                toolbar: true,
+                footer: true,
+                lineNumbers: false,
+                selectColumn: true,
+                toolbarSearch: false,
+                toolbarAdd: true,
+                toolbarReload: false
+            },
+            toolbar: {
+                items: [
+                    { type: 'spacer' },
+                    { type: 'break' },
+                    { type: 'button', id: 'view_detail', text: '<i class="fa fa-eye" aria-hidden="true"></i> View Detail', disabled: true },
+                    { type: 'break' },
+                    {
+                        type: 'menu-radio', id: 'filter_broadcast_grid',
+                        text: function (item) {
+                            let text = item.selected;
+                            let el = this.get('filter_broadcast_grid:' + item.selected);
+                            if (call_back == 1) {
+                                if (el.id == '1000') {
+                                    global_status = 1000;
+                                } else {
+                                    global_status = el.id;
+                                    is_search = 0;
+                                }
+
+                                refresh_broadcast_list();
+                            }
+                            return 'Filter By Progress : ' + el.text;
+                        },
+                        selected: global_status,
+                        items: [{ id: '1000', text: 'All' },
+                        { id: '1', text: '<i class="fa fa-envelope" aria-hidden="true" style="color:orange;"></i> New' },
+                        { id: '2', text: '<i class="fa fa-check-square-o" aria-hidden="true"  style="color:#50aa16;"></i> Approve' },
+                        { id: '3', text: '<i class="fa fa-paper-plane-o" aria-hidden="true" style="color:#1a8cff;"></i> Done' },
+                        { id: '0', text: '<i class="fa fa-ban" aria-hidden="true" style="color:red;"></i> Rejected' },
+                        ]
+                    },
+                    { type: 'break' },
+                    { type: 'button', id: 'btn_refresh', text: '<i class="fa fa-refresh" aria-hidden="true" style="color:green;"></i> Refresh List' },
+                    { type: 'break' },
+                    { type: 'button', id: 'close_button', text: '<i class="fa fa-times" aria-hidden="true" style="color:red;"></i> Close' },
+                ],
+                onClick: function (target, data) {
+                    call_back = 1;
+
+                    switch (target) {
+                        case 'view_detail':
+                            var sel = w2ui.gridReminder.getSelection();
+                            var record = w2ui.gridReminder.get(sel[0]);
+                            current_data = record;
+                            flagCrud = 'VIEW'
+                            form_broadcast_detail();
+                            break;
+                        case 'close_button':
+                            back_search()
+                            break;
+                            break;
+                        case 'btn_refresh':
+                            refresh_broadcast_list();
+                            break;
+                    }
+                }
+            },
+            columns: [
+                { field: 'Id', text: 'Id.', size: '50px', sortable: true, searchable: 'text', resizable: true, info: true },
+                { field: 'ReminderName', text: 'Name', size: '300px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'ReminderRef1', text: 'Ref 1', size: '100px', sortable: true, searchable: 'text', resizable: true },
+                { field: 'ReminderRef2', text: 'Ref 2', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+                { field: 'ReminderRef3', text: 'Ref 3', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+                //{ field: 'ReminderType', text: 'Type', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+                { field: 'ReminderTypeName', text: 'Type', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+                { field: 'ReminderDateStart', text: 'Start Date', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+                { field: 'ReminderDueDate', text: 'Due Date', size: '100px', sortable: true, searchable: 'text', resizable: true, },
+                { field: 'Remark', text: 'Remark', size: '200px', sortable: true, searchable: 'text', resizable: true, },
+                { field: 'Creator', text: 'Creator', size: '300px', resizable: true, sortable: true, searchable: 'text' },
+                { field: 'Updater', text: 'Updater', size: '100%', resizable: true, sortable: true, searchable: 'text' },
+            ],
+            searches: [
+                { type: 'text', field: 'id', label: 'ID' },
+                { type: 'text', field: 'RemainderName', label: 'Name' },
+
+            ],
+            onDblClick: function (event) {
+
+                var record = this.get(event.recid);
+                if (record != null) {
+
+                    current_data = record;
+                    flagCrud = "detail";
+                    form_broadcast_detail();
+                }
+
+            },
+            onAdd: function (event) {
+                add_broadcast();
+            },
+            onSelect: function (event) {
+                event.onComplete = function () {
+                    disable_button();
+                    var rec_ = w2ui.gridBroadcast.getSelection();
+                    if (rec_.length == 1) {
+                        var record = this.get(event.recid);
+                        w2ui['gridBroadcast'].toolbar.enable('view_detail');
+                    }
+                }
+            },
+            onUnselect: function (event) {
+                event.onComplete = function () {
+                    disable_button();
+                    var rec_ = w2ui.gridBroadcast.getSelection();
+                    if (rec_.length == 1) {
+                        var record = this.get(event.recid);
+                        w2ui['gridBroadcast'].toolbar.enable('view_detail');
+                    }
+                }
+            },
+            onReload: function (event) {
+                refresh_broadcast_list();
+            },
+            onRefresh: function (event) {
+                call_back = 0;
+            },
+        });
+    }
+
+</script>
