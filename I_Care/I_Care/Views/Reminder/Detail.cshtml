@@ -279,6 +279,42 @@
             </div>
         </div>
     </div>
+
+
+    <div class="modal fade" id="ModalTest" role="dialog">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content" style="border:none;">
+                <div class="modal-header">
+                    <h4 class="modal-title"> <i class="fa fa-envelope" aria-hidden="true"></i> Input Mail Address</h4>
+                </div>
+                <div class="modal-body" style="padding:0px;">
+
+                    <form class="form-horizontal">
+                        <div class="box-body" style="padding:2%;">
+
+
+                            <div class="form-group">
+                                <label for="inputName" class="col-sm-3 control-label mandatory">Mail Address <mandatory>*</mandatory></label>
+                                <div class="col-sm-8 select_wajib">
+
+                                    <input class="form-control wajib" id="MailAddress2" placeholder="Mail Address" type="text" autocomplete="off" caption="Mail Address">
+
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </form>
+
+                </div>
+                <div class="modal-footer" style="text-align:right;">
+                    <button type="button" class="btn btn-primary btn-sm" onclick="sendMailTest()"><i class="fa fa-paper-plane" aria-hidden="true"></i> Send</button>
+                    <button type="button" class="btn btn-gray btn-sm" data-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <script>
@@ -438,7 +474,9 @@
 
             set_sub_child_breadcrumb("New");
             var button_action = '<button type="button" class="btn btn-primary btn-sm" onclick="saveAll(\'ADD\')"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Save</button> '
-                + ' <button type = "button" class="btn btn-default btn-sm" onclick = "back_main_page()" > Cancel</button > ';
+                + ' <button type = "button" class="btn btn-default btn-sm" onclick = "back_main_page()" > Cancel</button> '
+               
+                ;
             $("#page_detail_broadcast .footer_form").html(button_action);
          
             render_grid_attachment();
@@ -451,7 +489,9 @@
             refresh_attachment();
             fill_form_detail();
             var button_action = '<button type="button" class="btn btn-primary btn-sm" onclick="saveAll(\'UPDATE\')"><i class="fa fa-paper-plane-o" aria-hidden="true"></i> Save</button> '
-                + ' <button type = "button" class="btn btn-default btn-sm" onclick = "back_main_page()" > Cancel</button > ';
+                + ' <button type = "button" class="btn btn-default btn-sm" onclick = "back_main_page()" > Cancel</button > '
+                + ' <button type = "button" class="btn btn-warning btn-sm" onclick = "showtestModal()" > Test Send</button> '
+                ;
             $("#page_detail_broadcast .footer_form").html(button_action);
            
             //last_udpate = "";
@@ -539,20 +579,36 @@
         if (current_data.Day3 == '1') {
             $("#Day3").prop("checked", true);
         }
-        $("#Day1").val(isStringNull(current_data.Day1));
-        $("#Day2").val(isStringNull(current_data.Day2));
-        $("#Day3").val(isStringNull(current_data.Day3));
-        $("#Day4").val(isStringNull(current_data.Day4));
-        $("#Day5").val(isStringNull(current_data.Day5));
-        $("#Day6").val(isStringNull(current_data.Day6));
-        $("#Day7").val(isStringNull(current_data.Day7));
-        $("#IsRepeat").val(isStringNull(current_data.IsRepeat));
+        if (current_data.Day4 == '1') {
+            $("#Day4").prop("checked", true);
+        }
+        if (current_data.Day5 == '1') {
+            $("#Day5").prop("checked", true);
+        }
+        if (current_data.Day6 == '1') {
+            $("#Day6").prop("checked", true);
+        }
+        if (current_data.Day7 == '1') {
+            $("#Day7").prop("checked", true);
+        }
+        if (current_data.IsRepeat == '1') {
+            $("#IsRepeat").prop("checked", true);
+        }
 
         $("#Remark").val(isStringNull(current_data.Remark));
     
 
     }
 
+    function showtestModal() {
+        $('#ModalTest').modal(
+            {
+                backdrop: 'static',
+                keyboard: false
+            }
+        );
+    }
+    
     $(document).ready(function () {
         form_broadcast_detail();
        

@@ -214,6 +214,68 @@
         });
     }
 
+    function sendMailTest() {
+        $("#ModalTest").modal("hide");
+        var subject = $('#ReminderName').val();
+        var body = '';
+        var recipient = $('#MailAddress2').val();
+        var url = '';
+        body = $('#ReminderName').val();
+
+        if ($('#Remark').val() != "") {
+            body = body + '<br><br>' + "Remark : " + $('#Remark').val();
+        }
+      
+        if ($('#ReminderRef1').val() != "") {
+            body = body + '<br>' + "Refrence : " +  $('#ReminderRef1').val();
+        }
+        if ($('#ReminderRef2').val() != "") {
+            body = body + '<br>' + "Refrence 2 : " + $('#ReminderRef2').val();
+        }
+        if ($('#ReminderRef3').val() != "") {
+            body = body + '<br>' + "Refrence 3 : " + $('#ReminderRef3').val();
+        }
+
+        body = body + '<br><br>Thank you'
+        body = encodeURIComponent(body);
+        var DataX = new FormData();
+
+        DataX.append('subject', subject);
+        DataX.append('body', body);
+        DataX.append('recipient', recipient);
+
+        url = URL_PTR + '/Reminder/SendMail';
+
+        $("#Saving_Load").show("fade", function () {
+            $.ajax({
+                url: url,
+                type: 'post',
+                dataType: "json",
+                data: DataX,
+                cache: false,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    if (result.message.indexOf("error") != -1) {
+                        $('#Saving_Load').hide();
+                        w2alert(result.message);
+                    } else {
+                        $('#Saving_Load').hide();
+                        w2alert(result.message);
+                       
+                    }
+                },
+                error: function (request, status, error) {
+                    w2alert("Error, try again or contact our administrator please !");
+                    $('#Saving_Load').hide();
+                }
+            });
+            $("#Saving_Load").hide("fade");
+        });
+    }
+
+
     function render_grid_broadcast() {
 
         if (w2ui['gridReminder'] != null) { w2ui['gridReminder'].destroy(); }

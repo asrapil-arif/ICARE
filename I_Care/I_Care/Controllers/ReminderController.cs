@@ -11,6 +11,11 @@ using System.Web.Mvc;
 using DocumentFormat.OpenXml.Drawing.Charts;
 using static I_Care.Controllers.BroadcastController;
 using DataTable = System.Data.DataTable;
+using System.Net.Mail;
+using System.Net;
+using DocumentFormat.OpenXml.EMMA;
+using DocumentFormat.OpenXml.Wordprocessing;
+using Spire.Doc;
 
 namespace I_Care.Controllers
 {
@@ -133,5 +138,115 @@ namespace I_Care.Controllers
             }
         }
 
+        public ActionResult SendMail(string recipient, string subject, string body)
+        {
+            try
+            {
+                // Pengaturan informasi akun email pengirim (akun Gmail)
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587; // Port TLS
+                string emailFrom = "andreagustansss@gmail.com";
+                string emailPassword = "jjlpatvhzhhhdktq";
+
+                // Pengaturan email penerima
+                string emailTo = recipient;
+
+                // Membuat objek MailMessage untuk mengatur email
+                MailMessage mail = new MailMessage(emailFrom, emailTo);
+
+                mail.Subject = subject;
+                mail.Body = WebUtility.UrlDecode(body);
+                mail.IsBodyHtml = true;
+
+                // Pengaturan koneksi ke server SMTP (Gmail)
+                SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+                smtpClient.UseDefaultCredentials = false;
+                smtpClient.EnableSsl = true; // Gunakan SSL (TLS)
+                smtpClient.Credentials = new NetworkCredential(emailFrom, emailPassword);
+
+                // Mengirim email
+                smtpClient.Send(mail);
+
+                return Json(new { Result = "Success", message = "\"Email berhasil dikirim!\"" }, JsonRequestBehavior.AllowGet);
+               
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "Error", message = "Terjadi kesalahan saat mengirim email: " + ex.Message }, JsonRequestBehavior.AllowGet);
+               
+            }
+        }
+
+        public ActionResult CheckSchedule()
+        {
+            try
+            {
+                //List<data_input> list = new List<data_input>
+                //{
+                  
+                //};
+
+                //string paramJson = JsonConvert.SerializeObject(list);
+
+                DataTable data = Koneksi.GetDataTable2("dbo.[getlistmail]");
+
+                // Pengaturan informasi akun email pengirim (akun Gmail)
+                string smtpServer = "smtp.gmail.com";
+                int smtpPort = 587; // Port TLS
+                string emailFrom = "andreagustansss@gmail.com";
+                string emailPassword = "jjlpatvhzhhhdktq";
+
+                foreach (DataRow row in data.Rows)
+                {
+                    // Pengaturan email penerima
+                    string emailTo = row["MailAddress"].ToString();
+
+                    // Membuat objek MailMessage untuk mengatur email
+                    MailMessage mail = new MailMessage(emailFrom, emailTo);
+
+                    string subject = row["ReminderName"].ToString();
+                    string body = "";
+
+                    body = row["ReminderName"].ToString();
+
+                    if (row["Remark"].ToString() != "") {
+                        body = body + "<br><br>" + "Remark : " + row["Remark"].ToString();
+                    }
+
+                    if (row["ReminderRef1"].ToString() != "") {
+                        body = body + "<br>" + "Refrence : " + row["ReminderRef1"].ToString();
+                    }
+                    if (row["ReminderRef2"].ToString() != "") {
+                        body = body + "<br>" + "Refrence 2 : " + row["ReminderRef2"].ToString();
+                    }
+                    if (row["ReminderRef3"].ToString() != "") {
+                        body = body + "<br>" + "Refrence 3 : " + row["ReminderRef3"].ToString();
+                    }
+
+                    body = body + "<br><br>Thank you";
+
+                    mail.Subject = subject;
+                    mail.Body = WebUtility.UrlDecode(body);
+                    mail.IsBodyHtml = true;
+
+                    // Pengaturan koneksi ke server SMTP (Gmail)
+                    SmtpClient smtpClient = new SmtpClient(smtpServer, smtpPort);
+                    smtpClient.UseDefaultCredentials = false;
+                    smtpClient.EnableSsl = true; // Gunakan SSL (TLS)
+                    smtpClient.Credentials = new NetworkCredential(emailFrom, emailPassword);
+
+                    // Mengirim email
+                    smtpClient.Send(mail);
+                    
+                }
+
+                return Json(new { Result = "Success", message = "\"Success!\"" }, JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "Error", messege = ex.Message });
+            }
+        }
     }
 }
