@@ -145,8 +145,8 @@ namespace I_Care.Controllers
                 // Pengaturan informasi akun email pengirim (akun Gmail)
                 string smtpServer = "smtp.gmail.com";
                 int smtpPort = 587; // Port TLS
-                string emailFrom = "andreagustansss@gmail.com";
-                string emailPassword = "jjlpatvhzhhhdktq";
+                string emailFrom = "antam29x@gmail.com";
+                string emailPassword = "losxqnuhaeccrkbo";
 
                 // Pengaturan email penerima
                 string emailTo = recipient;
@@ -193,8 +193,8 @@ namespace I_Care.Controllers
                 // Pengaturan informasi akun email pengirim (akun Gmail)
                 string smtpServer = "smtp.gmail.com";
                 int smtpPort = 587; // Port TLS
-                string emailFrom = "andreagustansss@gmail.com";
-                string emailPassword = "jjlpatvhzhhhdktq";
+                string emailFrom = "antam29x@gmail.com";
+                string emailPassword = "losxqnuhaeccrkbo";
 
                 foreach (DataRow row in data.Rows)
                 {
