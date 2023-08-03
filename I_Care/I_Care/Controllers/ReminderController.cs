@@ -13,9 +13,11 @@ using static I_Care.Controllers.BroadcastController;
 using DataTable = System.Data.DataTable;
 using System.Net.Mail;
 using System.Net;
+using System.IO;
 using DocumentFormat.OpenXml.EMMA;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Spire.Doc;
+using DocumentFormat.OpenXml.Bibliography;
 
 namespace I_Care.Controllers
 {
@@ -138,7 +140,7 @@ namespace I_Care.Controllers
             }
         }
 
-        public ActionResult SendMail(string recipient, string subject, string body)
+        public ActionResult SendMail(FormCollection Data)
         {
             try
             {
@@ -149,13 +151,27 @@ namespace I_Care.Controllers
                 string emailPassword = "losxqnuhaeccrkbo";
 
                 // Pengaturan email penerima
-                string emailTo = recipient;
+                string emailTo = Data["recipient"];
+
+                string filePath = "/obj/Release/Package/PackageTmp/Template/reminder/reminder.htm"; // Replace with the path to your HTML file
+
+                string absoluteFilePath = AppDomain.CurrentDomain.BaseDirectory + filePath;
+                
+                string htmlBody = System.IO.File.ReadAllText(absoluteFilePath);
+                
+                htmlBody = htmlBody.Replace("@tanggal", DateTime.Now.ToString("dd/MM/yyyy"));
+
+                htmlBody = htmlBody.Replace("@name", Data["MailName2"]);
+                htmlBody = htmlBody.Replace("@refrence1", Data["ReminderRef1"]);
+                htmlBody = htmlBody.Replace("@refrence2", Data["ReminderRef2"]);
+                htmlBody = htmlBody.Replace("@refrence3", Data["ReminderRef3"]);
+                htmlBody = htmlBody.Replace("@remark", Data["Remark"]);
 
                 // Membuat objek MailMessage untuk mengatur email
                 MailMessage mail = new MailMessage(emailFrom, emailTo);
 
-                mail.Subject = subject;
-                mail.Body = WebUtility.UrlDecode(body);
+                mail.Subject = Data["ReminderName"];
+                mail.Body = htmlBody;
                 mail.IsBodyHtml = true;
 
                 // Pengaturan koneksi ke server SMTP (Gmail)
@@ -181,12 +197,6 @@ namespace I_Care.Controllers
         {
             try
             {
-                //List<data_input> list = new List<data_input>
-                //{
-                  
-                //};
-
-                //string paramJson = JsonConvert.SerializeObject(list);
 
                 DataTable data = Koneksi.GetDataTable2("dbo.[getlistmail]");
 
@@ -198,6 +208,22 @@ namespace I_Care.Controllers
 
                 foreach (DataRow row in data.Rows)
                 {
+                    string filePath = "/obj/Release/Package/PackageTmp/Template/reminder/reminder.htm"; // Replace with the path to your HTML file
+
+                    string absoluteFilePath = AppDomain.CurrentDomain.BaseDirectory + filePath;
+
+                    string htmlBody = System.IO.File.ReadAllText(absoluteFilePath);
+
+                    htmlBody = htmlBody.Replace("@tanggal", DateTime.Now.ToString("dd/MM/yyyy"));
+
+                    htmlBody = htmlBody.Replace("@tanggal", DateTime.Now.ToString("dd/MM/yyyy"));
+
+                    htmlBody = htmlBody.Replace("@name", row["MailName"].ToString());
+                    htmlBody = htmlBody.Replace("@refrence1", row["ReminderRef1"].ToString());
+                    htmlBody = htmlBody.Replace("@refrence2", row["ReminderRef2"].ToString());
+                    htmlBody = htmlBody.Replace("@refrence3", row["ReminderRef3"].ToString());
+                    htmlBody = htmlBody.Replace("@remark", row["Remark"].ToString());
+
                     // Pengaturan email penerima
                     string emailTo = row["MailAddress"].ToString();
 
@@ -205,28 +231,10 @@ namespace I_Care.Controllers
                     MailMessage mail = new MailMessage(emailFrom, emailTo);
 
                     string subject = row["ReminderName"].ToString();
-                    string body = "";
-
-                    body = row["ReminderName"].ToString();
-
-                    if (row["Remark"].ToString() != "") {
-                        body = body + "<br><br>" + "Remark : " + row["Remark"].ToString();
-                    }
-
-                    if (row["ReminderRef1"].ToString() != "") {
-                        body = body + "<br>" + "Refrence : " + row["ReminderRef1"].ToString();
-                    }
-                    if (row["ReminderRef2"].ToString() != "") {
-                        body = body + "<br>" + "Refrence 2 : " + row["ReminderRef2"].ToString();
-                    }
-                    if (row["ReminderRef3"].ToString() != "") {
-                        body = body + "<br>" + "Refrence 3 : " + row["ReminderRef3"].ToString();
-                    }
-
-                    body = body + "<br><br>Thank you";
+                    //string body = "";
 
                     mail.Subject = subject;
-                    mail.Body = WebUtility.UrlDecode(body);
+                    mail.Body = htmlBody;
                     mail.IsBodyHtml = true;
 
                     // Pengaturan koneksi ke server SMTP (Gmail)

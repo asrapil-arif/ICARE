@@ -216,33 +216,39 @@
 
     function sendMailTest() {
         $("#ModalTest").modal("hide");
-        var subject = $('#ReminderName').val();
-        var body = '';
-        var recipient = $('#MailAddress2').val();
-        var url = '';
-        body = $('#ReminderName').val();
+        //var subject = $('#ReminderName').val();
+        //var body = '';
+        //var recipient = $('#MailAddress2').val();
+        //var url = '';
+        //body = $('#ReminderName').val();
 
-        if ($('#Remark').val() != "") {
-            body = body + '<br><br>' + "Remark : " + $('#Remark').val();
-        }
+        //if ($('#Remark').val() != "") {
+        //    body = body + '<br><br>' + "Remark : " + $('#Remark').val();
+        //}
       
-        if ($('#ReminderRef1').val() != "") {
-            body = body + '<br>' + "Refrence : " +  $('#ReminderRef1').val();
-        }
-        if ($('#ReminderRef2').val() != "") {
-            body = body + '<br>' + "Refrence 2 : " + $('#ReminderRef2').val();
-        }
-        if ($('#ReminderRef3').val() != "") {
-            body = body + '<br>' + "Refrence 3 : " + $('#ReminderRef3').val();
-        }
+        //if ($('#ReminderRef1').val() != "") {
+        //    body = body + '<br>' + "Refrence : " +  $('#ReminderRef1').val();
+        //}
+        //if ($('#ReminderRef2').val() != "") {
+        //    body = body + '<br>' + "Refrence 2 : " + $('#ReminderRef2').val();
+        //}
+        //if ($('#ReminderRef3').val() != "") {
+        //    body = body + '<br>' + "Refrence 3 : " + $('#ReminderRef3').val();
+        //}
 
-        body = body + '<br><br>Thank you'
-        body = encodeURIComponent(body);
+        //body = body + '<br><br>Thank you'
+        //body = encodeURIComponent(body);
         var DataX = new FormData();
+      
 
-        DataX.append('subject', subject);
-        DataX.append('body', body);
-        DataX.append('recipient', recipient);
+
+        DataX.append('ReminderName', $('#ReminderName').val());
+        DataX.append('recipient', $('#MailAddress2').val());
+        DataX.append('MailName2', $('#MailName2').val());
+        DataX.append('ReminderRef1', $("#ReminderRef1").val());
+        DataX.append('ReminderRef2', $("#ReminderRef2").val());
+        DataX.append('ReminderRef3', $("#ReminderRef3").val());
+        DataX.append('Remark', $("#Remark").val());
 
         url = URL_PTR + '/Reminder/SendMail';
 
@@ -386,20 +392,20 @@
             onSelect: function (event) {
                 event.onComplete = function () {
                     disable_button();
-                    var rec_ = w2ui.gridBroadcast.getSelection();
+                    var rec_ = w2ui.gridReminder.getSelection();
                     if (rec_.length == 1) {
                         var record = this.get(event.recid);
-                        w2ui['gridBroadcast'].toolbar.enable('view_detail');
+                        w2ui['gridReminder'].toolbar.enable('view_detail');
                     }
                 }
             },
             onUnselect: function (event) {
                 event.onComplete = function () {
                     disable_button();
-                    var rec_ = w2ui.gridBroadcast.getSelection();
+                    var rec_ = w2ui.gridReminder.getSelection();
                     if (rec_.length == 1) {
                         var record = this.get(event.recid);
-                        w2ui['gridBroadcast'].toolbar.enable('view_detail');
+                        w2ui['gridReminder'].toolbar.enable('view_detail');
                     }
                 }
             },
@@ -412,4 +418,9 @@
         });
     }
 
+    function disable_button() {
+        w2ui['gridReminder'].toolbar.disable('view_detail');
+        w2ui['gridReminder'].toolbar.disable('update');
+        w2ui['gridReminder'].toolbar.disable('delete');
+    }
 </script>
