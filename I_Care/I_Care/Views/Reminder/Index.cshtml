@@ -281,6 +281,12 @@
         });
     }
 
+    function refresh_broadcast_list(filter) {
+        var filterjson = '';
+        if (filter) { filterjson = "&filterjson=" + JSON.stringify(filter) }
+        var combojson = '{"ReminderType" : {"combo":"M_reminder_type","keys":"Id","values": "ReminderName"}}';
+        w2ui['gridReminder'].load('/Reminder/getReminderList?code=t_reminder&combojson=' + combojson + filterjson);
+    }
 
     function render_grid_broadcast() {
 

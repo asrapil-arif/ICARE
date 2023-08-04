@@ -616,6 +616,24 @@
             }
         );
     }
+
+    function checkDate() {
+        var selectedStart = document.getElementById('ReminderDateStart').value;
+        var selectedStartDate = new Date(selectedStart);
+        var selectedEnd = document.getElementById('ReminderDueDate').value;
+        var now = new Date();
+        if (selectedStartDate < now) {
+            w2alert("Start Date tidak bisa Back Date!");
+            document.getElementById('ReminderDateStart').value = "";
+        }
+        if (selectedEnd != "") {
+            var selectedEndDate = new Date(selectedEnd);
+            if (selectedEndDate < now || selectedEndDate < selectedStartDate) {
+                w2alert("Start Date tidak bisa Back Date dan lebih awal dari tanggal awal tayang!");
+                document.getElementById('ReminderDueDate').value = "";
+            }
+        }
+    }
     
     $(document).ready(function () {
         form_broadcast_detail();

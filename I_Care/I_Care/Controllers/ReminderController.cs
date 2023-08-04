@@ -18,6 +18,7 @@ using DocumentFormat.OpenXml.EMMA;
 using DocumentFormat.OpenXml.Wordprocessing;
 using Spire.Doc;
 using DocumentFormat.OpenXml.Bibliography;
+using System.Configuration;
 
 namespace I_Care.Controllers
 {
@@ -50,7 +51,7 @@ namespace I_Care.Controllers
 
                 string paramJson = JsonConvert.SerializeObject(list);
 
-                DataTable data = Koneksi.GetDataTable2("dbo.[genGetdata]", paramJson);
+                DataTable data = Koneksi.GetDataTable2("dbo.[procGetReminderList]", paramJson);
 
                 string JSONresult = JsonConvert.SerializeObject(data);
 
@@ -85,7 +86,7 @@ namespace I_Care.Controllers
                 string formkeyvalue = Data["formkeyvalue"];
 
                 SqlCommand command = new SqlCommand();
-                command = new SqlCommand("FMS.dbo.genSaveData", SqlKOn);
+                command = new SqlCommand("FMS.dbo.procSaveReminder", SqlKOn);
 
                 command.Parameters.AddWithValue("@userlogin", User.Identity.Name);
                 command.Parameters.AddWithValue("@code", code);
@@ -144,11 +145,13 @@ namespace I_Care.Controllers
         {
             try
             {
+
                 // Pengaturan informasi akun email pengirim (akun Gmail)
-                string smtpServer = "smtp.gmail.com";
-                int smtpPort = 587; // Port TLS
-                string emailFrom = "antam29x@gmail.com";
-                string emailPassword = "losxqnuhaeccrkbo";
+                string smtpServer = ConfigurationManager.AppSettings["smtpHost"];
+                int smtpPort = int.Parse(ConfigurationManager.AppSettings["smtpPort"]); ; // Port TLS
+                string emailFrom = ConfigurationManager.AppSettings["smtpUserName"];
+                string emailPassword = ConfigurationManager.AppSettings["smtpPassword"];
+                string fromEmailAddress = ConfigurationManager.AppSettings["fromEmailAddress"];
 
                 // Pengaturan email penerima
                 string emailTo = Data["recipient"];
@@ -168,8 +171,11 @@ namespace I_Care.Controllers
                 htmlBody = htmlBody.Replace("@remark", Data["Remark"]);
 
                 // Membuat objek MailMessage untuk mengatur email
-                MailMessage mail = new MailMessage(emailFrom, emailTo);
-
+                //MailMessage mail = new MailMessage(emailFrom, emailTo);
+                //mail.From = new MailAddress(fromEmailAddress);
+                MailMessage mail = new MailMessage();
+                mail.From = new MailAddress(fromEmailAddress);
+                mail.To.Add(emailTo);
                 mail.Subject = Data["ReminderName"];
                 mail.Body = htmlBody;
                 mail.IsBodyHtml = true;
@@ -197,14 +203,14 @@ namespace I_Care.Controllers
         {
             try
             {
-
-                DataTable data = Koneksi.GetDataTable2("dbo.[getlistmail]");
+                DataTable data = Koneksi.GetDataTable2("dbo.[procgetreminderlistmail]");
 
                 // Pengaturan informasi akun email pengirim (akun Gmail)
-                string smtpServer = "smtp.gmail.com";
-                int smtpPort = 587; // Port TLS
-                string emailFrom = "antam29x@gmail.com";
-                string emailPassword = "losxqnuhaeccrkbo";
+                string smtpServer = ConfigurationManager.AppSettings["smtpHost"];
+                int smtpPort = int.Parse(ConfigurationManager.AppSettings["smtpPort"]); ; // Port TLS
+                string emailFrom = ConfigurationManager.AppSettings["smtpUserName"];
+                string emailPassword = ConfigurationManager.AppSettings["smtpPassword"];
+                string fromEmailAddress = ConfigurationManager.AppSettings["fromEmailAddress"];
 
                 foreach (DataRow row in data.Rows)
                 {
