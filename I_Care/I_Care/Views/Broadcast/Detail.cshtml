@@ -86,7 +86,16 @@
 		-moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
 		box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
 	}
+    .myCheck {
+        /*height: 30px;*/
+        margin-left: 15px !important;
+        width: 15px;
+        height: 15px;
+    }
 
+        .myCheck:first-child {
+            margin-left: 0 !important;
+        }
 	
 	@@media screen and (max-width: 1200px) {
 		#info_broadcast .box-body {
@@ -136,53 +145,77 @@
 			<div id="info_broadcast" class="tab-pane fade active in">
 
 				<form class="form-horizontal">
-					<div class="box-body" id="field">
+                    <div class="box-body" id="field">
 
-						<div class="form-group">
-							<label for="inputName" class="col-sm-2 control-label">Title <mandatory>*</mandatory></label>
-							<div class="col-sm-10">
-								@*<input type="text" id="temp_BroadcastValue" hidden />*@
-								<input class="form-control wajib" id="BroadcastTitle" placeholder="Broadcast Title." type="text" autocomplete="off" caption="Broadcast Title">
-							</div>
-						</div>
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">Title <mandatory>*</mandatory></label>
+                            <div class="col-sm-10">
+                                @*<input type="text" id="temp_BroadcastValue" hidden />*@
+                                <input class="form-control wajib" id="BroadcastTitle" placeholder="Broadcast Title." type="text" autocomplete="off" caption="Broadcast Title">
+                            </div>
+                        </div>
 
-						<div class="form-group">
-							<label for="inputName" class="col-sm-2 control-label"> Fungsi <mandatory>*</mandatory></label>
-							<div class="col-sm-10 select_wajib">
-								<select class="form-control select2 wajib" id="FungsiName" caption="Nama Fungsi">
-									<option value="" selected>-- Fungsi --</option>
-								</select>
-							</div>
-						</div>
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label"> Fungsi <mandatory>*</mandatory></label>
+                            <div class="col-sm-10 select_wajib">
+                                <select class="form-control select2 wajib" id="FungsiName" caption="Nama Fungsi">
+                                    <option value="" selected>-- Fungsi --</option>
+                                </select>
+                            </div>
+                        </div>
 
-						<div class="form-group">
-							<label for="inputName" class="col-sm-2 control-label">Periode <mandatory>*</mandatory></label>
-							<div class="col-sm-2">
-								<input class="form-control date-picker wajib" id="StartDate" onchange="checkDate()" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="Start Date" autocomplete="off" caption="Start Date">
-							</div>
-							<div class="col-sm-2">
-								<input class="form-control date-picker wajib" id="EndDate" onchange="checkDate()" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="End Date" autocomplete="off" caption="End Date">
-								@*<input id="EndDate" class="form-control date-picker wajib" type="date" style="height:28px;" placeholder="End Date" autocomplete="off">*@
-							</div>
-						</div>
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label"> Type <mandatory>*</mandatory></label>
+                            <div class="col-sm-10 select_wajib">
+                                <select class="form-control select2 wajib" id="BroadcastType" caption="Type">
+                                    <option value="0" selected>-- Select Type --</option>
+                                    <option value="1">Single</option>
+                                    <option value="2">Range</option>
+                                    <option value="3">Alarm</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">Periode <mandatory>*</mandatory></label>
+                            <div class="col-sm-2">
+                                <input class="form-control date-picker wajib" id="StartDate" onchange="checkDate()" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="Start Date" autocomplete="off" caption="Start Date">
+                            </div>
+                            <div class="col-sm-2">
+                                <input class="form-control date-picker wajib" id="EndDate" onchange="checkDate()" data-date-format="dd-mm-yyyy" type="text" style="height:28px;" placeholder="End Date" autocomplete="off" caption="End Date">
+                                @*<input id="EndDate" class="form-control date-picker wajib" type="date" style="height:28px;" placeholder="End Date" autocomplete="off">*@
+                            </div>
+                        </div>
+                        <div class="form-group" id="rdays" hidden>
+                            <label for="inputName" class="col-sm-2 control-label"> Days </label>
+                            <div class="col-sm-10">
+                                <input class="myCheck" id="Day1" type="checkbox" autocomplete="off" caption="Monday"> Monday
+                                <input class="myCheck" id="Day2" type="checkbox" autocomplete="off" caption="Monday"> Tuesday
+                                <input class="myCheck" id="Day3" type="checkbox" autocomplete="off" caption="Monday"> Wednesday
+                                <input class="myCheck" id="Day4" type="checkbox" autocomplete="off" caption="Monday"> Thursday
+                                <input class="myCheck" id="Day5" type="checkbox" autocomplete="off" caption="Monday"> Friday
+                                <input class="myCheck" id="Day6" type="checkbox" autocomplete="off" caption="Monday"> Saturday
+                                <input class="myCheck" id="Day7" type="checkbox" autocomplete="off" caption="Monday"> Sunday
+                                <input class="myCheck" style="margin-left:30px !important;" id="IsRepeat" type="checkbox" autocomplete="off" caption="Monday"> Repeat?
+                            </div>
+                        </div>
 
 
-						<div class="form-group">
-							<label for="inputName" class="col-sm-2 control-label">Link/URL (Optional)</label>
-							<div class="col-sm-10">
-								@*<input type="text" id="temp_BroadcastValue" hidden />*@
-								<input class="form-control" id="Tautan" placeholder="Anda dapat menambahkan tautan/link pada content seperti https://pertaminaretail.com" type="text" autocomplete="off" caption="Broadcast Title">
-							</div>
-						</div>
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">Link/URL (Optional)</label>
+                            <div class="col-sm-10">
+                                @*<input type="text" id="temp_BroadcastValue" hidden />*@
+                                <input class="form-control" id="Tautan" placeholder="Anda dapat menambahkan tautan/link pada content seperti https://pertaminaretail.com" type="text" autocomplete="off" caption="Broadcast Title">
+                            </div>
+                        </div>
 
-						<div class="form-group">
-							<label for="inputName" class="col-sm-2 control-label">Descriptions <mandatory>*</mandatory></label>
-							<div class="col-sm-10">
-								<textarea class="form-control wajib" id="Descriptions" caption="Descriptions" placeholder="Descriptions" type="text" style="color:#333;resize:both;font-size:11px;padding-left:3px;height:150px !important;resize:none;" autocomplete="off"></textarea>
-							</div>
-						</div>
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">Descriptions <mandatory>*</mandatory></label>
+                            <div class="col-sm-10">
+                                <textarea class="form-control wajib" id="Descriptions" caption="Descriptions" placeholder="Descriptions" type="text" style="color:#333;resize:both;font-size:11px;padding-left:3px;height:150px !important;resize:none;" autocomplete="off"></textarea>
+                            </div>
+                        </div>
 
-					</div>
+                    </div>
 				</form>
 
 			</div>
@@ -348,6 +381,15 @@
 	var Delete_File_Main_Content = [];
 	var screen_width = Number(window.innerWidth) * (3 / 4);
 
+    $('#BroadcastType').on('change', function () {
+        var selectedValues = $(this).val(); // Nilai yang dipilih
+        if (selectedValues == '3') {
+            $('#rdays').show();
+        } else {
+            $('#rdays').hide();
+        }
+    });
+
 	$('.data_grid').css('height', Number(window.innerHeight) - 282);
 	$(window).resize(function () {
 		$('.data_grid').css('height', Number(window.innerHeight) - 282);
@@ -363,7 +405,35 @@
 		$("#StartDate").val(current_data.StartDate);
 		$("#EndDate").val(current_data.EndDate);
 		$("#Descriptions").val(current_data.Descriptions);
-		$("#Tautan").val(current_data.EmbededLink);
+        $("#BroadcastType").val(current_data.BroadcastType);
+		if (current_data.BroadcastType == '3') {
+            $('#rdays').show();
+		}
+        if (current_data.Day1 == '1') {
+            $("#Day1").prop("checked", true);
+        }
+        if (current_data.Day2 == '1') {
+            $("#Day2").prop("checked", true);
+        }
+        if (current_data.Day3 == '1') {
+            $("#Day3").prop("checked", true);
+        }
+        if (current_data.Day4 == '1') {
+            $("#Day4").prop("checked", true);
+        }
+        if (current_data.Day5 == '1') {
+            $("#Day5").prop("checked", true);
+        }
+        if (current_data.Day6 == '1') {
+            $("#Day6").prop("checked", true);
+        }
+        if (current_data.Day7 == '1') {
+            $("#Day7").prop("checked", true);
+        }
+        if (current_data.IsRepeat == '1') {
+            $("#IsRepeat").prop("checked", true);
+        }
+
 
 	}
 
@@ -510,6 +580,16 @@
 		DataSave.append('EndDate', $("#EndDate").val());
 		DataSave.append('Description', $("#Descriptions").val());
 		DataSave.append('Tautan', $("#Tautan").val());
+
+        DataSave.append('BroadcastType', $("#BroadcastType").val());
+		DataSave.append('Day1', $("#Day1").is(':checked') == true ? '1' : '0');
+		DataSave.append('Day2', $("#Day2").is(':checked') == true ? '1' : '0');
+		DataSave.append('Day3', $("#Day3").is(':checked') == true ? '1' : '0');
+		DataSave.append('Day4', $("#Day4").is(':checked') == true ? '1' : '0');
+		DataSave.append('Day5', $("#Day5").is(':checked') == true ? '1' : '0');
+		DataSave.append('Day6', $("#Day6").is(':checked') == true ? '1' : '0');
+		DataSave.append('Day7', $("#Day7").is(':checked') == true ? '1' : '0');
+        DataSave.append('IsRepeat', $("#IsRepeat").is(':checked') == true ? '1' : '0');
 
 		if (flagCrud == "ADD" || flagCrud == "RESUBMIT") {
 			list_upload = [];

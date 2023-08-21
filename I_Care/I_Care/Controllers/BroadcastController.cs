@@ -227,6 +227,16 @@ namespace I_Care.Controllers
                 string FileUploadList = Data["FileUploadList"];
                 string Remark = Data["Remark"];
                 string Tautan = Data["Tautan"];
+                string BroadcastType = Data["BroadcastType"];
+                string Day1 = Data["Day1"];
+                string Day2 = Data["Day2"];
+                string Day3 = Data["Day3"];
+                string Day4 = Data["Day4"];
+                string Day5 = Data["Day5"];
+                string Day6 = Data["Day6"];
+                string Day7 = Data["Day7"];
+                string IsRepeat = Data["IsRepeat"];
+
                 int BroadcastId = int.Parse(Data["BroadcastId"].ToString());
 
                 SqlCommand command = new SqlCommand();
@@ -241,6 +251,15 @@ namespace I_Care.Controllers
                 command.Parameters.Add("@FileUploadList", SqlDbType.VarChar).Value = FileUploadList; //
                 command.Parameters.Add("@Remark", SqlDbType.VarChar).Value = Remark; //
                 command.Parameters.Add("@Tautan", SqlDbType.VarChar).Value = Tautan; //
+                command.Parameters.Add("@BroadcastType", SqlDbType.VarChar).Value = BroadcastType; //
+                command.Parameters.Add("@Day1", SqlDbType.VarChar).Value = Day1; //
+                command.Parameters.Add("@Day2", SqlDbType.VarChar).Value = Day2; //
+                command.Parameters.Add("@Day3", SqlDbType.VarChar).Value = Day3; //
+                command.Parameters.Add("@Day4", SqlDbType.VarChar).Value = Day4; //
+                command.Parameters.Add("@Day5", SqlDbType.VarChar).Value = Day5; //
+                command.Parameters.Add("@Day6", SqlDbType.VarChar).Value = Day6; //
+                command.Parameters.Add("@Day7", SqlDbType.VarChar).Value = Day7; //
+                command.Parameters.Add("@IsRepeat", SqlDbType.VarChar).Value = IsRepeat; //
                 command.Parameters.Add("@Username", SqlDbType.VarChar).Value = User.Identity.Name; //
                 command.Parameters.Add("@outputVal", SqlDbType.VarChar, 800).Direction = ParameterDirection.Output; //
                 command.CommandType = CommandType.StoredProcedure;
