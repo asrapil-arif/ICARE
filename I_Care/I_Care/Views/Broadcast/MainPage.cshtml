@@ -115,43 +115,49 @@
         </div>
     </div>
 
-	<div id="box_info_icon" hidden>
-
-		<div class="icon_short_cut" onclick="add_broadcast()" id="shortcut_add">
-			<i class="fa fa-plus-square-o" aria-hidden="true" style="color:dodgerblue;"></i>
-			<br />
-			<span class="lbl bigger-100">Create New</span> <br /><br />
-		</div>
-
-		<div class="icon_short_cut" onclick="find_broadcast_search_by_status('0',this.className)" id="count_reject_">
-			<i class="fa fa-ban" aria-hidden="true" style="color:red;"></i>
-			<br />
-			<span class="lbl bigger-100">Rejected</span> <br /><br /><br />
-			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_reject"></span>
-		</div>
-
-		<div class="icon_short_cut" onclick="find_broadcast_search_by_status('1',this.className);" id="count_new_">
-			<i class="fa fa-envelope" aria-hidden="true" style="color:orange;"></i>
-			<br />
-			<span class="lbl bigger-100">Wating For Approved</span> <br /><br />
-			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_new"></span>
-		</div>
+    <div id="box_info_icon" hidden>
+        <div class="icon_short_cut" onclick="showConfig()" id="shortcut_add">
+            <i class="fa fa-cog" aria-hidden="true" style="color:gray;"></i>
+            <br />
+            <span class="lbl bigger-100">Config</span> <br /><br />
+        </div>
 
 
-		<div class="icon_short_cut" onclick="find_broadcast_search_by_status('2',this.className);" id="count_approve_">
-			<i class="fa fa-check-square-o" aria-hidden="true" style="color:#50aa16;"></i>
-			<br />
-			<span class="lbl bigger-100">Approve</span><br /><br /><br />
-			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_approve"></span>
-		</div>
+        <div class="icon_short_cut" onclick="add_broadcast()" id="shortcut_add">
+            <i class="fa fa-plus-square-o" aria-hidden="true" style="color:dodgerblue;"></i>
+            <br />
+            <span class="lbl bigger-100">Create New</span> <br /><br />
+        </div>
 
-		<div class="icon_short_cut" onclick="find_broadcast_search_by_status('3',this.className);" id="count_done_">
-			<i class="fa fa-paper-plane-o" aria-hidden="true" style="color:#1a8cff;"></i>
-			<br />
-			<span class="lbl bigger-100">Done</span><br /><br /><br />
-			<span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_done"></span>
-		</div>
-	</div>
+        <div class="icon_short_cut" onclick="find_broadcast_search_by_status('0',this.className)" id="count_reject_">
+            <i class="fa fa-ban" aria-hidden="true" style="color:red;"></i>
+            <br />
+            <span class="lbl bigger-100">Rejected</span> <br /><br /><br />
+            <span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_reject"></span>
+        </div>
+
+        <div class="icon_short_cut" onclick="find_broadcast_search_by_status('1',this.className);" id="count_new_">
+            <i class="fa fa-envelope" aria-hidden="true" style="color:orange;"></i>
+            <br />
+            <span class="lbl bigger-100">Wating For Approved</span> <br /><br />
+            <span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_new"></span>
+        </div>
+
+
+        <div class="icon_short_cut" onclick="find_broadcast_search_by_status('2',this.className);" id="count_approve_">
+            <i class="fa fa-check-square-o" aria-hidden="true" style="color:#50aa16;"></i>
+            <br />
+            <span class="lbl bigger-100">Approve</span><br /><br /><br />
+            <span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_approve"></span>
+        </div>
+
+        <div class="icon_short_cut" onclick="find_broadcast_search_by_status('3',this.className);" id="count_done_">
+            <i class="fa fa-paper-plane-o" aria-hidden="true" style="color:#1a8cff;"></i>
+            <br />
+            <span class="lbl bigger-100">Done</span><br /><br /><br />
+            <span class="badge badge-danger total_confirm" style="margin-top:3px;" id="count_done"></span>
+        </div>
+    </div>
 
 </div>
 
@@ -449,6 +455,9 @@
 
         flagCrud = "ADD";
         form_broadcast_detail();
+    }
+    function showConfig() {
+        load_page("#PageContainer", URL_PTPR + "/Broadcast/DetailConfig", function () { $('.select2').css('width', '100%').select2(); });
     }
   
     /*--------------------------------------------------------*/

@@ -1,0 +1,252 @@
+﻿@{
+    Layout = null;
+}
+
+<style>
+
+    #page_detail_broadcast .wording_header {
+        font-size: 16px;
+        padding: 6px;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: "...";
+    }
+
+    #page_detail_broadcast .control-label {
+        font-size: 12px;
+        padding-top: 0px !important;
+        text-align: left;
+    }
+
+    #info_broadcast .box-body {
+        padding: 15%;
+        padding-top: 0%;
+        padding-bottom: 0%;
+    }
+
+    .form-control {
+        text-align: left !important;
+    }
+
+    #tab_broadcast_detail {
+        border-bottom: none;
+        border-left: none;
+        border-right: none;
+        padding: 0px !important;
+    }
+
+        #tab_broadcast_detail #info_broadcast {
+            padding: 2% !important;
+        }
+
+
+
+    .disabledbutton {
+        pointer-events: none;
+        opacity: 0.7;
+    }
+
+    .enableupdate {
+        pointer-events: auto;
+        opacity: 1;
+    }
+
+    #gridAttachment .icon-file {
+        font-size: 20px;
+    }
+
+    #ModalReject .modal-dialog {
+        margin-top: 10%;
+        width: 50%;
+    }
+
+    #ModalReject .control-label {
+        font-size: 12px;
+    }
+
+
+    #ModalUpload .modal-dialog {
+        margin: 0 auto;
+        margin-top: 10%;
+        -webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+        -moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+        box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+    }
+
+    #ModalUpload label {
+        font-size: 12px;
+        vertical-align: top;
+    }
+
+    #ModalTestSendMail .modal-dialog {
+        margin: 0 auto;
+        margin-top: 12%;
+        -webkit-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+        -moz-box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+        box-shadow: -1px 11px 48px 3px rgba(0,0,0,0.75);
+    }
+
+    .myCheck {
+        /*height: 30px;*/
+        margin-left: 15px !important;
+        width: 15px;
+        height: 15px;
+    }
+
+
+        .myCheck:first-child {
+            margin-left: 0 !important;
+        }
+    .password-container {
+        position: relative;
+        display: block;
+    }
+
+    .toggle-password {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        cursor: pointer;
+    }
+
+        /* Ikon fontawesome */
+        .toggle-password i {
+            font-size: 12px;
+        }
+    @@media screen and (max-width: 1200px) {
+        #info_broadcast .box-body {
+            padding: 0%;
+            padding-top: 0%;
+            padding-bottom: 0%;
+        }
+    }
+</style>
+<script>
+    const togglePassword = document.getElementById('togglePassword');
+
+    togglePassword.addEventListener('click', () => {
+        if (broadcastpwd.type === 'password') {
+            broadcastpwd.type = 'text';
+            togglePassword.innerHTML = '<i class="fa fa-eye-slash"></i>';
+        } else {
+            broadcastpwd.type = 'password';
+            togglePassword.innerHTML = '<i class="fa fa-eye"></i>';
+        }
+    });
+    function saveMailConfig() {
+        var DataSave = new FormData();
+        DataSave.append('broadcastemail', $("#broadcastemail").val());
+
+        DataSave.append('broadcastpwd', $("#broadcastpwd").val());
+
+        $("#Saving_Load").show("fade", function () {
+            var Simpan = $.ajax({
+                url: URL_PTR + '/broadcast/saveMailConfig',
+                type: 'POST',
+                data: DataSave,
+                dataType: "json",
+                cache: false,
+                async: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+                    if (result.msg.toLocaleLowerCase().indexOf("error") != -1) {
+                        $('#Saving_Load').hide();
+                        w2alert(result[0].msg);
+                    } else {
+                        $('#Saving_Load').hide();
+                        w2alert("Save data success !");
+                        back_main_page()
+                    }
+                },
+                error: function (request, status, error) {
+                    w2alert("Error, try again or contact our administrator please !");
+                    $('#Saving_Load').hide();
+                }
+            });
+        });
+    }
+
+    
+</script>
+<div class="page_detail" id="page_detail_broadcast">
+
+    <div class="wording_header">
+        <span style="font-size:14px;" id="form_title">
+            Update Email Setting
+        </span>
+    </div>
+
+
+    <div class="tab_broadcast_detail">
+        <ul class="nav nav-tabs" id="myTab">
+
+            <li class="active">
+                <a data-toggle="tab" href="#info_broadcast" aria-expanded="true" style="border-left:none;">
+                    <i class="fa fa-cog"></i>
+                    Config
+                </a>
+            </li>
+            
+
+
+        </ul>
+
+        <div class="tab-content" id="tab_broadcast_detail">
+            <div id="info_broadcast" class="tab-pane fade active in">
+
+                <form class="form-horizontal">
+                    <div class="box-body" id="field">
+
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">E-Mail <mandatory>*</mandatory></label>
+                            <div class="col-sm-10">
+                                @*<input type="text" id="temp_BroadcastValue" hidden />*@
+                                <input class="form-control wajib" id="broadcastemail" value="@ViewBag.broadcastemail" placeholder="Email." type="text" autocomplete="off" caption="Email">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="inputName" class="col-sm-2 control-label">Password <mandatory>*</mandatory></label>
+                            <div class="col-sm-10">
+                                @*<input type="text" id="temp_BroadcastValue" hidden />*@
+                                <div class="password-container">
+                                    <input class="form-control wajib" placeholder="Password." value="@ViewBag.broadcastpwd" type="password" autocomplete="off" caption="Password" id="broadcastpwd">
+                                    <span id="togglePassword" class="toggle-password">
+                                        <i class="fa fa-eye"></i>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="btn btn-primary btn-sm" onclick="saveMailConfig()"><i class="fa fa-save" aria-hidden="true"></i> Save</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div id="tab_attachment" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+                <div id="gridAttachment" class="data_grid" style="border:none;border-top:1px solid #ccc;"></div>
+                <div hidden><input type="file" id="input_attachment" accept=".jpg,.jpeg,.pdf,.png,.xls,.doc,.docx" multiple /></div>
+
+            </div>
+
+            <div id="list_log" class="tab-pane fade" style="padding:0px;padding-top:1px;">
+
+                <div id="gridLog" class="data_grid" style="height:299px;border:none;border-radius:0px;border-top:1px solid #dedede;border-right:0px solid #dedede;"></div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer_form">
+
+    </div>
+</div>
+
+
+
