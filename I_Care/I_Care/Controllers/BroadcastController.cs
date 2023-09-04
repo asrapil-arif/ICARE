@@ -19,7 +19,8 @@ using SautinSoft.Document;
 using System.Net.Mail;
 using System.Reflection;
 using System.Configuration;
-
+using Newtonsoft.Json.Linq;
+using DocumentFormat.OpenXml.Office2010.Excel;
 
 namespace I_Care.Controllers
 {
@@ -54,6 +55,21 @@ namespace I_Care.Controllers
         public ActionResult Detail()
         {
             return View();
+        }
+        public ActionResult DetailConfig()
+        {
+            string filePath = Server.MapPath("../ModulConfig/Broadcast_Config.json");
+
+            string jsonContent = System.IO.File.ReadAllText(filePath);
+            JArray usersArray = JArray.Parse(jsonContent);
+
+            // Melakukan perubahan pada data (contoh: mengganti email user pertama)
+            JObject userToUpdate = (JObject)usersArray[0];
+
+            ViewBag.broadcastemail = userToUpdate["broadcastemail"];
+            ViewBag.broadcastpwd = userToUpdate["broadcastpwd"];
+            return View();
+
         }
         public ActionResult getFungsi()
         {
@@ -192,7 +208,6 @@ namespace I_Care.Controllers
                 return Json(new { Result = "Error", messege = ex.Message });
             }
         }
-
         public ActionResult getBroadcastLog(string Id)
         {
             DataTable dtTable = new DataTable();
@@ -301,8 +316,6 @@ namespace I_Care.Controllers
 
             }
         }
-
-
         public ActionResult TestSendBroadcast(FormCollection Data)
         {
             try
@@ -402,8 +415,7 @@ namespace I_Care.Controllers
                 writeLog("Error :" + ex.Message);
                 return Json(new { Result = "Error", messege = ex.Message });
             }
-        }
-         
+        } 
 
         public ActionResult ForceSend(FormCollection Data)
         {
@@ -533,6 +545,26 @@ namespace I_Care.Controllers
             }
         }
 
+        public ActionResult saveMailConfig(FormCollection Data)
+        {
+            string filePath = Server.MapPath("../ModulConfig/Broadcast_Config.json");
+
+            // Membaca data dari file JSON
+            string jsonContent = System.IO.File.ReadAllText(filePath);
+            JArray usersArray = JArray.Parse(jsonContent);
+
+            // Melakukan perubahan pada data (contoh: mengganti email user pertama)
+            JObject userToUpdate = (JObject)usersArray[0];
+            userToUpdate["broadcastemail"] = Data["broadcastemail"];
+            userToUpdate["broadcastpwd"] = Data["broadcastpwd"];
+            userToUpdate["updateddate"] = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+
+
+            // Menyimpan data yang sudah diperbarui kembali ke file JSON
+            System.IO.File.WriteAllText(filePath, usersArray.ToString());
+
+            return Json(new { msg = "Data telah diperbarui" });
+        }
 
     }
 }
